@@ -20,8 +20,8 @@ problemes:
     detail: "La recette d'entraînement du tutoriel tient-elle sur notre carte ? Non mesuré."
     piste: P-420
   - id: F-02
-    titre: "Outils pensés pour Linux"
-    detail: "Nous sommes sous Windows 11 : WSL2 obligatoire, défauts de compatibilité probables."
+    titre: "Outils pensés pour de grosses machines"
+    detail: "WSL2 obligatoire sous Windows ; l'installation suppose des bibliothèques et une mémoire que le tutoriel ne dit pas. Constaté le 2026-11-14, voir P-410."
     piste: P-410
   - id: F-03
     titre: "Volumes de plusieurs téraoctets"
@@ -35,22 +35,26 @@ problemes:
     titre: "Étiquettes approximatives"
     detail: "Les étiquettes viennent de prédictions relues à la main : un modèle peut apprendre nos erreurs."
     piste: P-250
+  - id: F-06
+    titre: "Place sur le disque"
+    detail: "Le segment du tutoriel pèse environ 25 Go. Le disque n'avait que 43,5 Go libres ; après ménage le 2026-11-14, 167 Go. Levé pour le tutoriel, à surveiller pour la suite."
+    piste: P-420
 
 livrables:
   - id: L-01
     titre: "Environnement reproductible"
-    detail: "Ubuntu sous WSL2, CUDA, villa installé, commandes consignées."
+    detail: "Ubuntu sous WSL2, CUDA, villa installé, commandes consignées dans scripts/wsl/. Fait le 2026-11-14."
     piste: P-310
     repond_a: [F-02]
     prix: []
-    fenetre: 2026-11-21
+    fenetre: 2026-11-14
     confiance: forte
-    statut: a-venir
+    statut: fait
   - id: L-02
     titre: "Première prédiction d'encre"
     detail: "Le tutoriel reproduit de bout en bout sur le segment de PHerc. Paris. 4."
     piste: P-310
-    repond_a: [F-01, F-03]
+    repond_a: [F-01, F-03, F-06]
     prix: []
     fenetre: 2026-11-30
     confiance: moyenne

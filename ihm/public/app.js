@@ -53,6 +53,8 @@ function rendre() {
   document.title = `${VUES[nom].titre} — Agent C.`;
   const vue = document.getElementById('vue');
   vue.replaceChildren();
+  vue.className = 'page';
+  document.documentElement.style.setProperty('--h-entete', `${document.querySelector('.entete').offsetHeight}px`);
   if (app.etat.erreurs.length) {
     vue.append(h('div', { classe: 'bandeau', role: 'alert' },
       h('strong', {}, `Le carnet contient ${app.etat.erreurs.length} incohérence(s). `), app.etat.erreurs.join(' · ')));

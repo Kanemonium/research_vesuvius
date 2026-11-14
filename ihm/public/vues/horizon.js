@@ -1,9 +1,17 @@
 // Vue « Horizon » : les problèmes à venir, ce que nous comptons produire pour y répondre, et les prix visés.
 // L'épaisseur d'un ruban dit la confiance. Rien ici n'est un résultat : ce sont des projections.
 import { embleme } from '../emblemes.js';
-import { LIBELLES, adresse, avecBulle, aujourdhui, dateCourte, dateLongue, h, joursAvant, s, versDate } from '../outils.js';
+import { LIBELLES, adresse, avecBulle, aujourdhui, dateCourte, dateLongue, glyphe, h, joursAvant, s, versDate } from '../outils.js';
 
 const EPAISSEUR = { faible: 4, moyenne: 9, forte: 15 };
+
+/** Un livrable est « en cours » dès qu'une tâche de sa piste l'est ; « faite » quand il est marqué fait. */
+function etatLivrable(app, l) {
+  if (l.statut === 'fait') return 'faite';
+  if (l.statut === 'en-cours' || app.etat.taches.some((t) => t.piste === l.piste && t.statut === 'en-cours')) return 'en-cours';
+  return null;
+}
+const marque = (etat) => (etat ? h('span', { classe: 'pilule', 'data-statut': etat, style: 'margin:4px 0 2px' }, glyphe(etat, 13), etat === 'faite' ? 'Fait' : 'En cours') : null);
 
 function confiance(niveau) {
   const n = { faible: 1, moyenne: 2, forte: 3 }[niveau];
@@ -35,7 +43,7 @@ function flux(app, visee) {
     h('div', { classe: 'flux-col' }, h('p', { classe: 'meta avec-embleme' }, embleme('livrable', 30), 'Ce que nous comptons produire'),
       livrables.map((l) => item(l.id,
         h('span', { style: 'display:flex;justify-content:space-between;align-items:center;gap:8px' }, h('span', { classe: 'meta avec-embleme serre' }, embleme(domaineDe(l.piste), 20), `${l.id} · ${dateCourte(l.fenetre)}`), confiance(l.confiance)),
-        h('b', {}, l.titre), h('small', {}, l.detail),
+        h('b', {}, l.titre), marque(etatLivrable(app, l)), h('small', {}, l.detail),
         l.hypothese ? h('small', { style: 'margin-top:4px' }, h('em', {}, 'Si : '), l.hypothese) : null))),
     h('div', { classe: 'flux-col' }, h('p', { classe: 'meta avec-embleme' }, embleme('prix', 30), 'Prix visés'),
       prix.map((p) => {
@@ -43,6 +51,12 @@ function flux(app, visee) {
         cartes.set(`prix-${p.id}`, el);
         return el;
       })));
+
+  for (const l of livrables) {
+    const etat = etatLivrable(app, l);
+    cartes.get(l.id).classList.toggle('tourne', etat === 'en-cours');
+    cartes.get(l.id).classList.toggle('fait', etat === 'faite');
+  }
 
   const tracer = () => {
     const cadre = boite.getBoundingClientRect();
@@ -116,7 +130,7 @@ function frise(app) {
   // Livrables : un point au-dessus de l'axe, sur des hauteurs alternées pour ne pas se chevaucher.
   [...livrables].sort((a, b) => String(a.fenetre).localeCompare(String(b.fenetre))).forEach((l, i) => {
     const xl = x(l.fenetre); const haut = y0 - 34 - (i % 3) * 30;
-    const point = s('circle', { classe: 'f-point', cx: xl, cy: haut, r: 6, tabindex: 0, role: 'link', 'aria-label': `${l.id}, ${l.titre}, ${dateLongue(l.fenetre)}` });
+    const point = s('circle', { classe: `f-point ${etatLivrable(app, l) ?? ''}`, cx: xl, cy: haut, r: 6, tabindex: 0, role: 'link', 'aria-label': `${l.id}, ${l.titre}, ${dateLongue(l.fenetre)}` });
     point.addEventListener('click', () => { location.hash = adresse(l.id); });
     svg.append(s('line', { classe: 'f-tige', x1: xl, y1: haut + 6, x2: xl, y2: y0 }),
       avecBulle(point, () => [h('div', { classe: 'meta' }, `${l.id} · ${dateLongue(l.fenetre)} · confiance ${LIBELLES[l.confiance]}`), h('strong', {}, l.titre), l.detail]),

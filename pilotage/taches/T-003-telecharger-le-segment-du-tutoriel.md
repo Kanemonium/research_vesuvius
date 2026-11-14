@@ -1,7 +1,7 @@
 ---
 id: T-003
 titre: "Télécharger le segment du tutoriel"
-statut: a-faire
+statut: en-cours
 piste: P-310
 priorite: 1
 responsable: "Agent C."

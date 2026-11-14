@@ -72,7 +72,7 @@ code { font-family: var(--f-mono); font-size: 0.88em; background: var(--papier-c
 }
 a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: var(--papier-creux); }
 .pilule[data-statut="en-cours"] { border-color: var(--cristal); }
-.pilule[data-statut="validee"], .pilule[data-statut="faite"] { background: var(--encre); color: var(--sur-encre); border-color: var(--encre); }
+.pilule[data-statut="validee"], .pilule[data-statut="faite"] { border-color: var(--valide); }
 .pilule[data-statut="impasse"], .pilule[data-statut="bloquee"] { border-color: var(--alerte); }
 .pilule[data-statut="a-explorer"], .pilule[data-statut="a-faire"] { border-style: dashed; color: var(--encre-60); }
 .etiquette { display: inline-block; background: var(--encre); color: var(--sur-encre); padding: 3px 9px; font: 600 0.9rem/1.2 var(--f-cond); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -101,7 +101,9 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .prose > * + * { margin-top: 0.6em; }
 .prose ul { padding-left: 1.1em; margin: 0; }
 .prose li + li { margin-top: 0.5em; }
-.lien-id { font-family: var(--f-mono); font-size: 0.86em; white-space: nowrap; text-decoration-color: var(--cristal); }
+.lien-id { display: inline-flex; align-items: center; gap: 4px; vertical-align: baseline; font-family: var(--f-mono); font-size: 0.86em; white-space: nowrap; text-decoration-color: var(--cristal); }
+.lien-id .embleme { transform: translateY(1px); }
+.pilule .embleme { margin-left: -3px; }
 
 .bulle {
   position: fixed; z-index: 50; max-width: 320px; padding: var(--e-3) var(--e-4); background: var(--encre); color: var(--sur-encre);
@@ -230,6 +232,50 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .f-auj-texte { font: 600 11px var(--f-mono); letter-spacing: 0.08em; fill: var(--cristal-fonce); }
 .f-recur { fill: var(--encre-40); }
 
+/* ---------- Carte en plein écran ---------- */
+.page.plein { max-width: none; padding: 0; height: calc(100vh - var(--h-entete, 84px)); overflow: hidden; }
+.carte-plein { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.c-toile { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; user-select: none; }
+.c-toile.glisse { cursor: grabbing; }
+.carte-titre { position: absolute; top: var(--e-5); left: var(--e-6); pointer-events: none; }
+.carte-titre .grand { font-size: clamp(1.5rem, 2.3vw, 2.2rem); }
+.carte-droite { position: absolute; top: var(--e-5); right: var(--e-5); bottom: var(--e-5); width: 400px; display: flex; flex-direction: column; gap: var(--e-3); pointer-events: none; }
+.carte-droite > * { pointer-events: auto; }
+.carte-modes { display: flex; gap: 8px; justify-content: flex-end; }
+.carte-droite .tiroir { position: static; max-height: none; min-height: 0; flex: 0 1 auto; overflow: auto; scrollbar-width: none; }
+.carte-droite .tiroir::-webkit-scrollbar, .c-liste::-webkit-scrollbar { display: none; }
+.carte-pied { position: absolute; left: var(--e-6); bottom: var(--e-4); display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+.carte-pied .legende { margin: 0; }
+.c-liste { position: absolute; top: 128px; left: var(--e-6); right: calc(400px + 2 * var(--e-5)); bottom: 84px; overflow: auto; scrollbar-width: none; }
+
+/* Nœuds : vert coché = validée, losange bleu = décision, onde orange = en cours */
+.c-noeud .corps { transition: transform var(--trans); transform-box: fill-box; transform-origin: center; }
+.c-noeud:hover .forme, .c-noeud:focus-visible .forme, .c-noeud[aria-pressed="true"] .forme { transform: none; }
+.c-noeud:hover .corps, .c-noeud:focus-visible .corps, .c-noeud[aria-pressed="true"] .corps { transform: scale(1.35); }
+.c-noeud[data-statut="validee"] .forme { fill: var(--valide); stroke: var(--valide); }
+.c-noeud[data-type="decision"] .forme { stroke: var(--decision); }
+.c-noeud[data-type="decision"][data-statut="validee"] .forme { fill: var(--decision); stroke: var(--decision); }
+.c-noeud .coche { fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.c-noeud .onde { fill: none; stroke: var(--cristal); stroke-width: 1.6; transform-box: fill-box; transform-origin: center; animation: onde 2.4s ease-out infinite; pointer-events: none; }
+.c-noeud .onde.tard { animation-delay: 1.2s; }
+@keyframes onde { from { transform: scale(0.7); opacity: 0.9; } to { transform: scale(3.1); opacity: 0; } }
+/* Branche en cours : un éclat clair la parcourt du parent vers le nœud */
+.c-lueur { fill: none; stroke: #FFF1DF; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 8 92; animation: lueur 2s linear infinite; pointer-events: none; }
+@keyframes lueur { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+
+/* Horizon : la bordure orange tourne autour de ce qui est en cours */
+@property --tour { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+.flux-item.tourne {
+  border: 2px solid transparent; padding: calc(var(--e-3) - 1px) calc(var(--e-4) - 1px);
+  background: linear-gradient(var(--surface), var(--surface)) padding-box,
+    conic-gradient(from var(--tour), var(--filet) 0 58%, var(--cristal) 80%, var(--cristal-clair) 93%, var(--filet) 100%) border-box;
+  animation: tour 3.2s linear infinite;
+}
+@keyframes tour { to { --tour: 360deg; } }
+.flux-item.fait { border-color: var(--valide); }
+.f-point.en-cours { fill: var(--cristal); stroke: var(--cristal-fonce); }
+.f-point.faite { fill: var(--valide); stroke: var(--valide); }
+
 /* ---------- Vue Doc ---------- */
 .bascule { display: inline-flex; border: 1px solid var(--encre); border-radius: var(--pilule); overflow: hidden; }
 .bascule button { border: 0; background: transparent; padding: 7px 16px; font: 600 0.95rem/1 var(--f-cond); letter-spacing: 0.07em; text-transform: uppercase; }
@@ -268,6 +314,11 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 /* ---------- Petits écrans ---------- */
 @media (max-width: 1080px) {
   .carte-vue, .doc-vue { grid-template-columns: 1fr; }
+  .page.plein { height: auto; overflow: visible; }
+  .carte-plein { display: flex; flex-direction: column; height: auto; overflow: visible; }
+  .c-toile { position: relative; height: 72vh; order: 2; }
+  .carte-titre, .carte-droite, .carte-pied, .c-liste { position: static; width: auto; padding: var(--e-4); pointer-events: auto; }
+  .carte-titre { order: 1; } .carte-pied { order: 3; } .carte-droite { order: 4; } .c-liste { order: 2; }
   .doc-liste { position: static; max-height: none; }
   .tiroir { position: static; max-height: none; }
   .tableau, .col-3, .col-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -293,4 +344,8 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
   .flux > svg { display: none; }
   .vue-tete { flex-direction: column; align-items: flex-start; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .c-noeud .onde, .c-lueur, .flux-item.tourne { animation: none; }
+  .c-lueur { display: none; }
+}

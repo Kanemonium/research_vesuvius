@@ -1,4 +1,6 @@
 // Aides partagées par les vues : création de nœuds, dates, libellés, pictos, bulle.
+import { embleme } from './emblemes.js';
+
 const SVG = 'http://www.w3.org/2000/svg';
 
 function poser(el, attrs, enfants) {
@@ -57,27 +59,42 @@ export function lier(racine) {
   for (const noeud of textes) {
     const morceaux = noeud.nodeValue.split(/\b([PDTLFK]-\d{2,3})\b/);
     if (morceaux.length < 2) continue;
-    noeud.replaceWith(...morceaux.map((m, i) => (i % 2 ? h('a', { classe: 'lien-id', href: adresse(m) }, m) : m)));
+    noeud.replaceWith(...morceaux.map((m, i) => (i % 2 ? lienId(m) : m)));
   }
   return racine;
 }
 
-export const pilule = (statut) => h('span', { classe: 'pilule', 'data-statut': statut }, glyphe(statut, 10), LIBELLES[statut] ?? statut);
+export const pilule = (statut, forme = 'rond') => h('span', { classe: 'pilule', 'data-statut': statut }, glyphe(statut, 13, forme), LIBELLES[statut] ?? statut);
 
-/** Le petit signe qui accompagne toujours un statut : la couleur ne porte jamais seule l'information. */
+/** Le petit signe qui accompagne toujours un statut : la couleur ne porte jamais seule l'information.
+ *  Rond pointillé = à faire, orange = en cours, vert coché = validé, croix = impasse ; losange bleu = décision. */
 export function glyphe(statut, taille = 14, forme = 'rond') {
-  const r = 4.6;
   const svg = s('svg', { classe: 'glyphe', width: taille, height: taille, viewBox: '-8 -8 16 16', 'aria-hidden': 'true' });
-  const plein = { 'en-cours': 'var(--cristal)', validee: 'currentColor', faite: 'currentColor' }[statut] ?? 'none';
-  const trait = { 'en-cours': 'var(--cristal-fonce)', impasse: 'var(--alerte)', bloquee: 'var(--alerte)' }[statut] ?? 'currentColor';
-  const pointille = statut === 'a-explorer' || statut === 'a-faire' ? '2 2.4' : null;
-  const communs = { fill: plein, stroke: trait, 'stroke-width': 1.5, 'stroke-dasharray': pointille };
-  svg.append(forme === 'losange'
-    ? s('rect', { x: -r, y: -r, width: 2 * r, height: 2 * r, transform: 'rotate(45)', ...communs })
-    : s('circle', { r, ...communs }));
-  if (statut === 'impasse' || statut === 'bloquee') svg.append(s('path', { d: 'M-2.4-2.4 2.4 2.4M2.4-2.4-2.4 2.4', stroke: 'var(--alerte)', 'stroke-width': 1.4 }));
+  const fait = statut === 'validee' || statut === 'faite';
+  const bloque = statut === 'impasse' || statut === 'bloquee';
+  const decision = forme === 'losange';
+  const couleur = decision ? 'var(--decision)' : fait ? 'var(--valide)' : statut === 'en-cours' ? 'var(--cristal)' : null;
+  const communs = {
+    fill: fait || statut === 'en-cours' ? couleur : 'none',
+    stroke: couleur ?? (bloque ? 'var(--alerte)' : 'currentColor'),
+    'stroke-width': 1.5,
+    'stroke-dasharray': statut === 'a-explorer' || statut === 'a-faire' ? '2 2.4' : null,
+  };
+  svg.append(decision ? s('path', { d: 'M0-7 7 0 0 7-7 0Z', ...communs }) : s('circle', { r: 6, ...communs }));
+  if (fait) svg.append(s('path', { d: 'M-3 .3l2.1 2.1 3.9-4.6', fill: 'none', stroke: '#fff', 'stroke-width': 1.7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+  if (bloque) svg.append(s('path', { d: 'M-2.4-2.4 2.4 2.4M2.4-2.4-2.4 2.4', stroke: 'var(--alerte)', 'stroke-width': 1.4 }));
   return svg;
 }
+
+/** Onglet qui montre un identifiant : sert à choisir l'emblème posé devant les liens internes. */
+export function ongletDe(id) {
+  if (/^[PD]-/.test(id)) return 'carte';
+  if (/^T-/.test(id)) return 'taches';
+  if (/^K-/.test(id)) return 'doc';
+  return 'horizon';
+}
+/** Lien interne vers un identifiant, précédé de l'emblème de son onglet. */
+export const lienId = (id) => h('a', { classe: 'lien-id', href: adresse(id) }, embleme(ongletDe(id), 15), id);
 
 // Bulle d'information, commune à toutes les vues.
 const bulle = () => document.getElementById('bulle');

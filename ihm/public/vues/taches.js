@@ -30,7 +30,7 @@ export function vueTaches(vue, app, params) {
       h('div', { classe: 'meta' }, t.responsable, t.echeance ? ` · pour le ${dateCourte(t.echeance)}` : ''),
       t.note ? h('details', {}, h('summary', {}, 'Ce qui définit « fait »'), lier(h('div', { classe: 'prose', html: t.noteHtml }))) : null,
       h('div', { classe: 'tache-pied' },
-        h('a', { classe: 'pilule', href: adresse(t.piste), title: titrePiste(t.piste) }, `↗ ${t.piste}`),
+        h('a', { classe: 'pilule', href: adresse(t.piste), title: titrePiste(t.piste) }, embleme('carte', 15), t.piste),
         t.issue ? h('span', { classe: 'pilule' }, `issue #${t.issue}`) : null,
         h('span', { style: 'margin-left:auto;display:flex;gap:6px' },
           i > 0 ? h('button', { classe: 'bouton mini discret', type: 'button', 'aria-label': `Remettre ${t.id} dans « ${LIBELLES[COLONNES[i - 1]]} »`, onclick: () => deplacer(t, COLONNES[i - 1]) }, '←') : null,

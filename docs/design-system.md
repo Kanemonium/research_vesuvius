@@ -26,6 +26,8 @@ Il synthétise dix références fournies par Kanemonium, et reprend le substrat 
    rubans, il ne sert qu'à ça.
 2. **Pointillé = structure, trait plein = actif.** Une piste à explorer est un contour en
    pointillé ; une piste en cours ou validée est pleine. La règle vient d'Épure.
+   Trois états ont leur couleur et leur signe : **orange qui pulse** = en cours,
+   **vert coché** = validé ou fait, **losange bleu** = décision.
 3. **Les emblèmes disent de quoi il s'agit, jamais dans quel état.** L'éventail de couleurs
    franches est réservé à l'identité : une vue, un domaine, un type d'objet.
 4. **La couleur ne porte jamais seule une information.** Un statut a toujours un signe
@@ -49,6 +51,8 @@ Il synthétise dix références fournies par Kanemonium, et reprend le substrat 
 | `--cristal` | `#D9843F` | `#E8975A` | **en cours** (aplats) |
 | `--cristal-fonce` | `#A95E1E` | `#F3B27E` | en cours (texte, contours) |
 | `--alerte` | `#C9553A` | `#E8795F` | impasse, bloqué — toujours avec une croix |
+| `--valide` | `#2C9A57` | `#3DB26B` | validé, fait — toujours avec une coche blanche |
+| `--decision` | `#2F7FD6` | `#4B9BEF` | décision — toujours un losange |
 
 Le thème Carbone n'est pas une inversion automatique : chaque valeur est choisie.
 
@@ -91,6 +95,7 @@ une échelle 4 · 8 · 12 · 16 · 24 · 32 · 48 · 72 ; une seule ombre, très
 | `.liste` | lignes séparées par un filet |
 | `.bulle` | aperçu au survol et au focus clavier |
 | `.embleme` | pastille colorée d'identité (voir ci-dessous) |
+| `.lien-id` | lien interne vers un identifiant, précédé de l'emblème de son onglet |
 
 ## Emblèmes
 
@@ -117,9 +122,12 @@ Le fond papier est fixe : en thème Carbone, la planche apparaît comme une page
 
 - **Carte radiale** (`vues/carte.js`). Le défi au centre ; un secteur par domaine, nommé sur une
   bande d'encre ; un créneau angulaire par piste ; le libellé sur le pourtour. Rond = piste,
-  losange = décision. Une vue « Liste » donne le même contenu sous forme d'arbre.
+  losange = décision. Elle occupe tout l'écran sous la barre, sans barre de défilement : molette
+  pour zoomer, glisser pour déplacer, double-clic pour recentrer. Une piste en cours émet une
+  onde et sa branche scintille. Une vue « Liste » donne le même contenu sous forme d'arbre.
 - **Rubans** (`vues/horizon.js`). Problèmes → livrables → prix. L'épaisseur dit la confiance
-  (faible, moyenne, forte). Survoler un élément éclaire toute sa chaîne.
+  (faible, moyenne, forte). Survoler un élément éclaire toute sa chaîne. Un livrable dont une
+  tâche est en cours porte une bordure orange qui tourne ; un livrable fait, une bordure verte.
 - **Frise** (`vues/horizon.js`). D'aujourd'hui au 25 juin 2027 : drapeaux noirs pour les
   échéances fixes, losanges pour les fins de mois, ronds pour les livrables projetés.
 

@@ -1,6 +1,6 @@
 // Vue « GitHub » : l'état du dépôt local et le mouvement du dépôt distant.
 import { embleme } from '../emblemes.js';
-import { h, ilYA } from '../outils.js';
+import { h, ilYA, lienId } from '../outils.js';
 
 const ETATS_CI = { success: 'réussie', failure: 'en échec', cancelled: 'annulée', skipped: 'ignorée' };
 
@@ -37,7 +37,7 @@ export function vueGithub(vue, app) {
     if (!depot) {
       corps.replaceChildren(blocLocal, bloc('GitHub', 'aucun dépôt distant', compte,
         h('div', { classe: 'vide', style: 'margin-top:12px' },
-          'Rien n’est encore publié. Quand le dépôt sera créé et relié (tâche ', h('a', { href: '#/taches?id=T-006', classe: 'lien-id' }, 'T-006'),
+          'Rien n’est encore publié. Quand le dépôt sera créé et relié (tâche ', lienId('T-006'),
           '), ses commits, ses demandes de fusion, ses issues et ses contrôles automatiques apparaîtront ici.')));
       return;
     }

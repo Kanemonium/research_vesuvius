@@ -1,7 +1,7 @@
 ---
 id: T-001
 titre: "Installer Ubuntu sous WSL2 et vérifier CUDA"
-statut: a-faire
+statut: faite
 piste: P-310
 priorite: 1
 responsable: "Kanemonium + Agent C."
@@ -11,3 +11,5 @@ creee: 2026-11-14
 ---
 
 WSL 2 est présent, mais la seule distribution installée est celle de Docker Desktop. Fait quand `nvidia-smi` répond depuis Ubuntu.
+
+**2026-11-14** : fait. Ubuntu 24.04.5 installé, `nvidia-smi` répond depuis Ubuntu (RTX 3080 Laptop, 8 Go). Utilisateur `kanemonium`, `uv` 0.13.8. Les commandes sont dans `scripts/wsl/`.

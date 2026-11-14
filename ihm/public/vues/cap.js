@@ -1,6 +1,6 @@
 // Vue « Cap » : où nous en sommes, ce qui vient, et la boîte d'Agent C.
 import { embleme } from '../emblemes.js';
-import { adresse, dateCourte, envoyer, h, ilYA, joursAvant, lier, pilule } from '../outils.js';
+import { adresse, dateCourte, envoyer, h, ilYA, joursAvant, lienId, lier, pilule } from '../outils.js';
 
 export function vueCap(vue, app) {
   const { pistes, taches, horizon, boite } = app.etat;
@@ -40,7 +40,7 @@ export function vueCap(vue, app) {
     h('ol', { classe: 'liste' }, aVenir.map((t, i) => h('li', {},
       embleme(domaineDe(t.piste), 26),
       h('div', {}, h('a', { href: adresse(t.id), style: 'text-decoration:none;font-weight:600' }, t.titre),
-        h('div', { classe: 'meta', style: 'margin-top:4px' }, `${t.id} · ${t.responsable}`)),
+        h('div', { classe: 'meta', style: 'margin-top:4px' }, lienId(t.id), ` · ${t.responsable}`)),
       h('span', { classe: 'fin' }, pilule(t.statut))))));
 
   // Boîte : un mot laissé ici attend Agent C. dans pilotage/boite.md.

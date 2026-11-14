@@ -57,7 +57,7 @@ export function vueDoc(vue, app, params) {
     h('figure', {}, h('img', { src: `/concepts/${fiche.image}`, alt: x.alt, width: 640, height: 360 })),
     x.sections.map((sec) => [h('h3', {}, sec.titre), lier(h('div', { classe: 'prose', html: sec.html }))]),
     h('h3', {}, t.pistes),
-    h('p', { classe: 'fiche-pistes' }, liees.map((p) => h('a', { classe: 'pilule', href: adresse(p.id), 'data-statut': p.statut }, `${p.id} · ${p.titre}`))),
+    h('p', { classe: 'fiche-pistes' }, liees.map((p) => h('a', { classe: 'pilule', href: adresse(p.id) }, embleme('carte', 15), `${p.id} · ${p.titre}`))),
     h('p', { classe: 'meta', style: 'margin-top:20px;text-transform:none;letter-spacing:0' },
       fiche.source ? [h('a', { href: fiche.source, target: '_blank', rel: 'noreferrer' }, `${t.source} ↗`), ' · '] : null, x.fichier),
     h('div', { classe: 'fiche-pied' },

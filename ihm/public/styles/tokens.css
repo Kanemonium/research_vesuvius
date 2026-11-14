@@ -19,6 +19,8 @@
 
   /* États réservés */
   --alerte: #C9553A;
+  --valide: #2C9A57;      /* validé, fait : toujours avec une coche */
+  --decision: #2F7FD6;    /* décision : toujours un losange */
   --sur-encre: #F9F7F3;
 
   /* Éventail : couleurs franches des emblèmes (identité, jamais statut) */
@@ -68,6 +70,8 @@
   --cristal-fonce: #F3B27E;
   --lueur: rgba(217, 132, 63, 0.22);
   --alerte: #E8795F;
+  --valide: #3DB26B;
+  --decision: #4B9BEF;
   --sur-encre: #1A1816;
   --ev-nuit: #4A5A8C;
   --ombre: 0 1px 0 rgba(0, 0, 0, 0.3), 0 14px 36px -18px rgba(0, 0, 0, 0.8);
