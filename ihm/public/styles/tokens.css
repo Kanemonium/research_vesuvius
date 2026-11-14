@@ -21,12 +21,15 @@
   --alerte: #C9553A;
   --sur-encre: #F9F7F3;
 
-  /* Pastels catégoriels (pictos seulement) */
-  --cat-bleu: #72A2B9;
-  --cat-rose: #D4A5CA;
-  --cat-or: #CCAE65;
-  --cat-anis: #60C711;
-  --cat-olive: #8B8468;
+  /* Éventail : couleurs franches des emblèmes (identité, jamais statut) */
+  --ev-nuit: #2B3654;
+  --ev-braise: #F0593A;
+  --ev-soleil: #F7C93B;
+  --ev-ciel: #4BA6F5;
+  --ev-violet: #9B3DF0;
+  --ev-pre: #3FB56F;
+  --ev-rose: #F27BB3;
+  --ev-turquoise: #22B8B0;
 
   /* Typographie */
   --f-titre: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -66,6 +69,6 @@
   --lueur: rgba(217, 132, 63, 0.22);
   --alerte: #E8795F;
   --sur-encre: #1A1816;
-  --cat-anis: #7FD93B;
+  --ev-nuit: #4A5A8C;
   --ombre: 0 1px 0 rgba(0, 0, 0, 0.3), 0 14px 36px -18px rgba(0, 0, 0, 0.8);
 }

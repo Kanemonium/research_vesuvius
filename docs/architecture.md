@@ -26,6 +26,7 @@ research_vesuvius/
 ├── tests/                     tests Node (carnet) et Python (recherche)
 ├── scripts/                   vérification du carnet
 ├── docs/                      défi, architecture, design système
+│   └── concepts/              fiches illustrées K-…, en français et en anglais → l'onglet Doc
 ├── .github/                   CI et modèle de demande de fusion
 │
 ├── data/                      (ignoré) données téléchargées
@@ -72,5 +73,7 @@ publication d'une version en lecture seule de la carte sur GitHub Pages.
 - **Sans compilation.** Modules JavaScript natifs, deux dépendances côté serveur (`yaml`, `marked`).
 - **Locale.** Le serveur n'écoute que sur `127.0.0.1` et refuse les écritures venues d'une autre origine.
 - **Le jeton GitHub ne quitte pas le serveur** : la page reçoit des données déjà filtrées.
-- **Navigation par adresse** : `#/carte?id=P-310`, `#/taches?id=T-004`, `#/horizon?id=L-02`.
+- **À jour toute seule** : la page interroge le serveur toutes les trois secondes et se redessine
+  dès qu'un fichier du carnet change.
+- **Navigation par adresse** : `#/carte?id=P-310`, `#/taches?id=T-004`, `#/horizon?id=L-02`, `#/doc?id=K-08`.
   Tout identifiant cité dans un texte du carnet devient un lien vers la bonne vue.

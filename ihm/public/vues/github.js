@@ -1,10 +1,12 @@
 // Vue « GitHub » : l'état du dépôt local et le mouvement du dépôt distant.
+import { embleme } from '../emblemes.js';
 import { h, ilYA } from '../outils.js';
 
 const ETATS_CI = { success: 'réussie', failure: 'en échec', cancelled: 'annulée', skipped: 'ignorée' };
 
+const EMBLEMES = { 'Sur cette machine': 'mouvement', GitHub: 'github', 'Contrôles automatiques': 'taches', 'Demandes de fusion et issues': 'boite' };
 function bloc(titre, meta, ...contenu) {
-  return h('section', { classe: 'carte' }, h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond' }, titre), h('span', { classe: 'meta' }, meta)), contenu);
+  return h('section', { classe: 'carte' }, h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond avec-embleme' }, embleme(EMBLEMES[titre], 30), titre), h('span', { classe: 'meta' }, meta)), contenu);
 }
 const lignes = (elements, rendre, vide) => (elements?.length ? h('ul', { classe: 'liste' }, elements.map((e) => h('li', {}, rendre(e)))) : h('p', { classe: 'doux' }, vide));
 
@@ -12,7 +14,7 @@ export function vueGithub(vue, app) {
   const corps = h('div', { classe: 'grille col-2' }, h('p', { classe: 'doux' }, 'Lecture du dépôt…'));
   vue.append(
     h('div', { classe: 'vue-tete' },
-      h('div', {}, h('p', { classe: 'meta' }, '04/05 · Mouvement'), h('h1', { classe: 'grand' }, 'Le dépôt')),
+      h('div', {}, h('p', { classe: 'meta' }, '04/06 · Mouvement'), h('h1', { classe: 'grand' }, 'Le dépôt')),
       h('p', { classe: 'doux' }, "Le jeton reste dans le serveur local : il n'atteint jamais cette page.")),
     corps);
 

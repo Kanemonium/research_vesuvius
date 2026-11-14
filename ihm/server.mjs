@@ -4,11 +4,12 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { etatGithub } from './lib/github.mjs';
-import { changerStatutTache, chargerEtat, deposerMessage, lireBoite } from './lib/pilotage.mjs';
+import { changerStatutTache, chargerEtat, deposerMessage, empreinte, lireBoite } from './lib/pilotage.mjs';
 
 const ICI = path.dirname(fileURLToPath(import.meta.url));
 const RACINE = path.resolve(ICI, '..');
 const PUBLIC = path.join(ICI, 'public');
+const CONCEPTS = path.join(RACINE, 'docs', 'concepts');
 const PORT = Number(process.env.IHM_PORT || process.env.PORT) || 4173;
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
@@ -42,6 +43,9 @@ async function api(req, res, url) {
     const etat = await chargerEtat(RACINE);
     return json(res, 200, { ...etat, boite: await lireBoite(RACINE) });
   }
+  if (req.method === 'GET' && url.pathname === '/api/version') {
+    return json(res, 200, { version: await empreinte(RACINE) });
+  }
   if (req.method === 'GET' && url.pathname === '/api/github') {
     return json(res, 200, await etatGithub(RACINE));
   }
@@ -60,9 +64,12 @@ async function api(req, res, url) {
 }
 
 async function statique(res, url) {
-  const relatif = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname).replace(/^\/+/, '');
-  const fichier = path.resolve(PUBLIC, relatif);
-  if (fichier !== PUBLIC && !fichier.startsWith(PUBLIC + path.sep)) {
+  // Les planches des fiches vivent avec les fiches, dans docs/concepts/img/.
+  const planche = /^\/concepts\/img\/([\w.-]+\.svg)$/.exec(url.pathname);
+  const base = planche ? path.join(CONCEPTS, 'img') : PUBLIC;
+  const relatif = planche ? planche[1] : url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname).replace(/^\/+/, '');
+  const fichier = path.resolve(base, relatif);
+  if (fichier !== base && !fichier.startsWith(base + path.sep)) {
     res.writeHead(403).end();
     return;
   }

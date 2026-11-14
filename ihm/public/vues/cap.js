@@ -1,4 +1,5 @@
 // Vue « Cap » : où nous en sommes, ce qui vient, et la boîte d'Agent C.
+import { embleme } from '../emblemes.js';
 import { adresse, dateCourte, envoyer, h, ilYA, joursAvant, lier, pilule } from '../outils.js';
 
 export function vueCap(vue, app) {
@@ -8,6 +9,7 @@ export function vueCap(vue, app) {
   const pistesActives = pistes.filter((p) => p.statut === 'en-cours' && p.type !== 'racine' && p.type !== 'domaine');
   const prochaine = horizon.echeances.filter((e) => joursAvant(e.date) >= 0).sort((a, b) => String(a.date).localeCompare(String(b.date)))[0];
   const jours = joursAvant(app.grandPrix);
+  const domaineDe = (id) => pistes.find((p) => p.id === id)?.domaine ?? 'defi';
   const aVenir = [...ouvertes].sort((a, b) => (a.statut === 'en-cours' ? -1 : 0) - (b.statut === 'en-cours' ? -1 : 0) || a.priorite - b.priorite || a.id.localeCompare(b.id)).slice(0, 5);
 
   const briefing = h('p', { classe: 'briefing' },
@@ -16,11 +18,11 @@ export function vueCap(vue, app) {
     pistesActives.length ? `Nous travaillons sur ${pistesActives.map((p) => p.id).join(' et ')}. ` : 'Aucune piste active. ',
     prochaine ? `Prochaine échéance : ${prochaine.titre.toLowerCase()}, le ${dateCourte(prochaine.date)} (dans ${joursAvant(prochaine.date)} jours).` : '');
 
-  const tuile = (nombre, libelle, href) => h('a', { classe: 'tuile', href },
+  const tuile = (nombre, libelle, href, nom) => h('a', { classe: 'tuile', href }, embleme(nom, 40),
     h('div', { classe: 'tuile-nombre' }, nombre), h('div', { classe: 'meta' }, libelle));
 
   vue.append(h('section', { classe: 'hero' },
-    h('div', { classe: 'hero-coins' }, h('span', { classe: 'meta' }, 'Vesuvius Challenge · carnet de bord'), h('span', { classe: 'meta' }, '01/05 →')),
+    h('div', { classe: 'hero-coins' }, h('span', { classe: 'meta' }, 'Vesuvius Challenge · carnet de bord'), h('span', { classe: 'meta' }, '01/06 →')),
     h('h1', { classe: 'geant hero-titre' },
       h('span', {}, 'Lire'),
       h('span', { classe: 'hero-carre', title: `${jours} jours avant l'échéance du Grand Prix` }, h('span', {}, 'J-', h('b', {}, jours))),
@@ -28,15 +30,15 @@ export function vueCap(vue, app) {
     h('div', { classe: 'hero-bas' },
       lier(briefing),
       h('div', { classe: 'tuiles' },
-        tuile(pistes.filter((p) => p.type === 'piste').length, 'pistes sur la carte', '#/carte'),
-        tuile(ouvertes.length, 'tâches ouvertes', '#/taches'),
-        tuile(horizon.livrables.length, 'livrables projetés', '#/horizon'),
-        tuile(jours, 'jours avant le 25 juin 2027', '#/horizon')))));
+        tuile(pistes.filter((p) => p.type === 'piste').length, 'pistes sur la carte', '#/carte', 'carte'),
+        tuile(ouvertes.length, 'tâches ouvertes', '#/taches', 'taches'),
+        tuile(horizon.livrables.length, 'livrables projetés', '#/horizon', 'livrable'),
+        tuile(jours, 'jours avant le 25 juin 2027', '#/horizon', 'prix')))));
 
   const carteTaches = h('section', { classe: 'carte' },
-    h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond' }, 'À faire maintenant'), h('a', { classe: 'meta', href: '#/taches' }, 'Tout voir →')),
+    h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond avec-embleme' }, embleme('taches', 30), 'À faire maintenant'), h('a', { classe: 'meta', href: '#/taches' }, 'Tout voir →')),
     h('ol', { classe: 'liste' }, aVenir.map((t, i) => h('li', {},
-      h('span', { classe: 'numero' }, i + 1),
+      embleme(domaineDe(t.piste), 26),
       h('div', {}, h('a', { href: adresse(t.id), style: 'text-decoration:none;font-weight:600' }, t.titre),
         h('div', { classe: 'meta', style: 'margin-top:4px' }, `${t.id} · ${t.responsable}`)),
       h('span', { classe: 'fin' }, pilule(t.statut))))));
@@ -45,7 +47,7 @@ export function vueCap(vue, app) {
   const champ = h('textarea', { classe: 'champ', rows: 3, placeholder: 'Une idée, une question, une piste à creuser…', 'aria-label': 'Message pour Agent C.' });
   const retour = h('span', { classe: 'meta', role: 'status' });
   const carteBoite = h('section', { classe: 'carte' },
-    h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond' }, "Boîte d'Agent C."), h('span', { classe: 'meta' }, `${boite.length} en attente`)),
+    h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond avec-embleme' }, embleme('boite', 30), "Boîte d'Agent C."), h('span', { classe: 'meta' }, `${boite.length} en attente`)),
     h('p', { classe: 'doux', style: 'margin-bottom:12px' }, 'Écrivez ici entre deux séances. Je lis la boîte en ouvrant la suivante.'),
     h('form', { onsubmit: async (e) => {
       e.preventDefault();
@@ -61,7 +63,7 @@ export function vueCap(vue, app) {
 
   const corpsGit = h('div', { classe: 'doux' }, 'Lecture du dépôt…');
   const carteGit = h('section', { classe: 'carte' },
-    h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond' }, 'Dernier mouvement'), h('a', { classe: 'meta', href: '#/github' }, 'GitHub →')), corpsGit);
+    h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond avec-embleme' }, embleme('mouvement', 30), 'Dernier mouvement'), h('a', { classe: 'meta', href: '#/github' }, 'GitHub →')), corpsGit);
   app.github().then((g) => {
     const commits = g.depot?.commits?.length ? g.depot.commits : g.local.commits ?? [];
     if (!commits.length) {

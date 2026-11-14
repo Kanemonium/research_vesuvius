@@ -1,5 +1,6 @@
 // Vue « Carte » : la cartographie radiale des chemins empruntés.
 // Le secteur (bande noire) dit le domaine ; le signe du nœud dit le statut. L'orange désigne ce qui est en cours.
+import { embleme, emblemeDans } from '../emblemes.js';
 import { LIBELLES, adresse, avecBulle, dateLongue, envoyer, glyphe, h, lier, pilule, resume, s } from '../outils.js';
 
 const BANDE = 138;
@@ -98,7 +99,7 @@ function dessiner(app, choisie) {
     const groupe = bouton(s('g', { classe: 'c-noeud c-domaine', 'data-statut': g.domaine.statut }), g.domaine);
     groupe.append(s('path', { classe: 'c-bande', d }),
       s('text', { classe: 'c-bande-texte', dy: 8 }, s('textPath', { href: `#${id}`, startOffset: '50%', 'text-anchor': 'middle' }, g.domaine.titre)));
-    noeuds.append(groupe);
+    noeuds.append(groupe, emblemeDans(g.domaine.domaine, ...polaire(97, g.milieu), 30));
 
     for (const n of g.noeuds) {
       const p = n.piste;
@@ -135,11 +136,10 @@ function dessiner(app, choisie) {
 
   // Centre : le défi.
   const centre = bouton(s('g', { classe: 'c-centre' }), racine);
-  centre.append(s('circle', { r: 104 }),
-    s('text', { classe: 'c-centre-meta', y: -44, 'text-anchor': 'middle' }, 'Vesuvius Challenge'),
-    s('text', { classe: 'c-centre-titre', y: -8, 'text-anchor': 'middle' }, 'Lire les'),
-    s('text', { classe: 'c-centre-titre', y: 22, 'text-anchor': 'middle' }, 'rouleaux'),
-    s('text', { classe: 'c-centre-meta', y: 52, 'text-anchor': 'middle' }, `${pistes.length - 1} nœuds`));
+  centre.append(s('circle', { r: 76 }), emblemeDans('defi', 0, -42, 30),
+    s('text', { classe: 'c-centre-titre', y: -2, 'text-anchor': 'middle' }, 'Lire les'),
+    s('text', { classe: 'c-centre-titre', y: 21, 'text-anchor': 'middle' }, 'rouleaux'),
+    s('text', { classe: 'c-centre-meta', y: 44, 'text-anchor': 'middle' }, `${pistes.length - 1} nœuds`));
   noeuds.append(centre);
   return svg;
 }
@@ -149,7 +149,8 @@ function arbre(app, choisie) {
   const enfants = (id) => pistes.filter((p) => p.parent === id).sort((a, b) => a.id.localeCompare(b.id));
   const branche = (p) => h('li', {},
     h('a', { href: adresse(p.id), 'aria-current': p.id === choisie ? 'true' : null },
-      glyphe(p.statut, 14, p.type === 'decision' ? 'losange' : 'rond'), h('span', { classe: 'mono doux' }, p.id),
+      glyphe(p.statut, 14, p.type === 'decision' ? 'losange' : 'rond'),
+      p.type === 'domaine' || p.type === 'racine' ? embleme(p.domaine, 24) : null, h('span', { classe: 'mono doux' }, p.id),
       h('span', { classe: 't', style: p.type === 'domaine' || p.type === 'racine' ? 'font-weight:600' : '' }, p.titre),
       h('span', { classe: 'meta', style: 'margin-left:auto' }, LIBELLES[p.statut])),
     enfants(p.id).length ? h('ul', {}, enfants(p.id).map(branche)) : null);
@@ -165,12 +166,13 @@ function tiroir(app, p) {
   const { taches, horizon } = app.etat;
   const liees = taches.filter((t) => t.piste === p.id);
   const livrables = horizon.livrables.filter((l) => l.piste === p.id);
+  const fiches = app.etat.fiches.filter((f) => f.pistes.includes(p.id));
   const prix = p.prix.map((id) => horizon.prix.find((x) => x.id === id)).filter(Boolean);
   const note = h('textarea', { classe: 'champ', rows: 2, placeholder: `Une réflexion sur ${p.id}…`, 'aria-label': `Note pour Agent C. sur ${p.id}` });
   const retour = h('span', { classe: 'meta', role: 'status' });
 
   return h('aside', { classe: 'carte tiroir', 'aria-live': 'polite' },
-    h('div', { classe: 'tiroir-tete' }, h('span', { classe: 'etiquette' }, p.id), pilule(p.statut), h('span', { classe: 'meta' }, LIBELLES[p.type])),
+    h('div', { classe: 'tiroir-tete' }, embleme(p.domaine, 38), h('span', { classe: 'etiquette' }, p.id), pilule(p.statut), h('span', { classe: 'meta' }, LIBELLES[p.type])),
     h('h2', { classe: 'titre' }, p.titre),
     h('p', { classe: 'meta' }, `${p.domaine} · ${dateLongue(p.date)}`, p.source ? [' · ', h('a', { href: p.source, target: '_blank', rel: 'noreferrer' }, 'source ↗')] : null),
     prix.length ? h('p', { style: 'margin-top:8px' }, prix.map((x) => h('a', { classe: 'pilule', href: '#/horizon', style: 'margin-right:6px' }, x.titre))) : null,
@@ -180,6 +182,8 @@ function tiroir(app, p) {
       h('a', { href: adresse(t.id) }, h('span', { classe: 'mono' }, t.id), ' ', t.titre)))) : h('p', { classe: 'doux' }, 'Aucune.'),
     livrables.length ? [h('h3', {}, 'Livrables projetés'), h('ul', { classe: 'liste' }, livrables.map((l) => h('li', {},
       h('a', { href: adresse(l.id) }, h('span', { classe: 'mono' }, l.id), ' ', l.titre))))] : null,
+    fiches.length ? [h('h3', {}, 'Pour comprendre'), h('ul', { classe: 'liste' }, fiches.map((f) => h('li', {}, embleme('doc', 22),
+      h('a', { href: adresse(f.id) }, h('span', { classe: 'mono' }, f.id), ' ', f.fr.titre))))] : null,
     h('h3', {}, 'Annoter'),
     h('form', { onsubmit: async (e) => {
       e.preventDefault();
@@ -202,7 +206,7 @@ export function vueCarte(vue, app, params) {
 
   vue.append(
     h('div', { classe: 'vue-tete' },
-      h('div', {}, h('p', { classe: 'meta' }, '02/05 · Cartographie'), h('h1', { classe: 'grand' }, 'Les chemins')),
+      h('div', {}, h('p', { classe: 'meta' }, '02/06 · Cartographie'), h('h1', { classe: 'grand' }, 'Les chemins')),
       h('div', { style: 'display:flex;gap:8px' },
         h('a', { classe: `bouton mini ${mode === 'carte' ? '' : 'discret'}`, href: lien('carte') }, 'Carte'),
         h('a', { classe: `bouton mini ${mode === 'liste' ? '' : 'discret'}`, href: lien('liste') }, 'Liste'))),

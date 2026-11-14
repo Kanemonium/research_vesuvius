@@ -1,4 +1,5 @@
 // Vue « Tâches » : un tableau à quatre colonnes. Déplacer une tâche réécrit son fichier dans pilotage/taches/.
+import { embleme } from '../emblemes.js';
 import { LIBELLES, adresse, dateCourte, envoyer, glyphe, h, lier } from '../outils.js';
 
 const COLONNES = ['a-faire', 'en-cours', 'bloquee', 'faite'];
@@ -8,6 +9,7 @@ export function vueTaches(vue, app, params) {
   const visee = params.get('id');
   const filtre = params.get('piste');
   const visibles = filtre ? taches.filter((t) => t.piste === filtre) : taches;
+  const domaineDe = (id) => pistes.find((p) => p.id === id)?.domaine ?? 'defi';
   const titrePiste = (id) => pistes.find((p) => p.id === id)?.titre ?? id;
 
   const deplacer = async (t, statut) => {
@@ -21,7 +23,7 @@ export function vueTaches(vue, app, params) {
     const i = COLONNES.indexOf(t.statut);
     return h('article', { classe: `tache ${t.id === visee ? 'visee' : ''}`, 'data-statut': t.statut, id: t.id },
       h('div', { style: 'display:flex;justify-content:space-between;align-items:center' },
-        h('span', { classe: 'meta' }, t.id),
+        h('span', { classe: 'meta avec-embleme serre' }, embleme(domaineDe(t.piste), 24), t.id),
         h('span', { classe: 'priorite', title: `Priorité ${t.priorite}`, 'aria-label': `Priorité ${t.priorite} sur 3` },
           [1, 2, 3].map((n) => h('i', { classe: n <= 4 - t.priorite ? 'on' : '' })))),
       h('h3', { classe: 'tache-titre' }, t.titre),
@@ -37,7 +39,7 @@ export function vueTaches(vue, app, params) {
 
   vue.append(
     h('div', { classe: 'vue-tete' },
-      h('div', {}, h('p', { classe: 'meta' }, '03/05 · Gestion de projet'), h('h1', { classe: 'grand' }, 'Les tâches')),
+      h('div', {}, h('p', { classe: 'meta' }, '03/06 · Gestion de projet'), h('h1', { classe: 'grand' }, 'Les tâches')),
       filtre
         ? h('p', {}, `Filtre : ${filtre} — ${titrePiste(filtre)}. `, h('a', { href: '#/taches' }, 'Tout afficher'))
         : h('p', { classe: 'doux' }, 'Chaque tâche sert une piste de la carte. Les flèches la déplacent et réécrivent son fichier.')),

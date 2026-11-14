@@ -3,12 +3,13 @@
 Carnet de recherche ouvert et outillage pour le [Vesuvius Challenge](https://scrollprize.org) :
 lire les rouleaux carbonisés d'Herculanum sans les ouvrir.
 
-Ce dépôt est travaillé à découvert dès le premier jour. Il contient trois choses :
+Ce dépôt est travaillé à découvert dès le premier jour. Il contient quatre choses :
 
 | Dossier | Contenu |
 |---|---|
 | [`pilotage/`](pilotage/) | La trace de la recherche : chaque piste explorée, pourquoi, ce qui l'a bloquée, ce qui a été décidé. Du Markdown et du YAML, versionnés avec le code. |
 | [`src/vesuvius_lab/`](src/vesuvius_lab/), [`experiments/`](experiments/) | Le code de recherche et un dossier par expérience (configuration, commande, résultat). |
+| [`docs/concepts/`](docs/concepts/) | Des fiches illustrées sur chaque notion rencontrée (papyrologie, scan, détection d'encre), en français et en anglais. |
 | [`ihm/`](ihm/) | Un poste de pilotage local (« Agent C. ») qui lit `pilotage/` et l'activité GitHub, et les montre sous forme de carte, de tableau de tâches et d'horizon. |
 
 ## État

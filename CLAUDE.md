@@ -26,7 +26,11 @@ première occurrence). Le README et les messages destinés à la communauté du 
      ou une décision `D-…` si un choix est arrêté ;
    - une piste abandonnée passe à `impasse` avec sa cause racine, elle n'est jamais supprimée ;
    - un travail à faire → une tâche `T-…` liée à sa piste ;
-   - une projection qui change → `pilotage/horizon.yaml`.
+   - une projection qui change → `pilotage/horizon.yaml` ;
+   - une notion nouvelle pour Kanemonium (papyrologie, physique du scan, apprentissage) → une
+     fiche `K-…` dans `docs/concepts/` : un fichier `.fr.md`, un fichier `.en.md` et une planche
+     SVG sans texte (repères numérotés), sur le modèle des fiches existantes. Ne rien y affirmer
+     qui ne vienne d'une source citée.
 4. Avant de conclure : `npm run verifier` et `npm test`.
 
 Le format des fichiers est dans `pilotage/README.md`. Ne jamais écrire dans le carnet un

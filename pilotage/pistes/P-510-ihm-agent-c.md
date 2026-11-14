@@ -17,6 +17,9 @@ Une interface locale qui réunit le mouvement GitHub, les tâches, la carte des 
 - **Kanemonium** (2026-11-14) : « un environnement central », pour qu'il ne reste que la réflexion. Agent C. doit être un Jarvis, mais à l'écrit.
 - **Agent C.** (2026-11-14) : la source de vérité reste le dossier pilotage/. L'IHM le lit, je l'écris pendant nos échanges.
 
+- **Kanemonium** (2026-11-14) : « tu es bien branché sur l'alimentation de l'IHM pour tracer notre épopée ? »
+- **Agent C.** (2026-11-14) : oui. J'écris le carnet pendant nos échanges, et l'IHM se met à jour seule quand un fichier change. Les ajustements visuels demandés sont consignés dans D-004.
+
 ## Suite
 
 Base posée le 2026-11-14. À valider par Kanemonium (tâche T-008).

@@ -5,12 +5,13 @@ reading the carbonized Herculaneum scrolls without opening them.
 
 *Version française : [README.fr.md](README.fr.md).*
 
-This repository is worked on in the open, from day one. It holds three things:
+This repository is worked on in the open, from day one. It holds four things:
 
 | Folder | What it is |
 |---|---|
 | [`pilotage/`](pilotage/) | The research record: every path explored, why, what blocked it, what was decided. Plain Markdown and YAML, versioned with the code. |
 | [`src/vesuvius_lab/`](src/vesuvius_lab/), [`experiments/`](experiments/) | The research code and one folder per experiment (config, command, result). |
+| [`docs/concepts/`](docs/concepts/) | Short illustrated notes on each idea we run into (papyrology, scanning, ink detection), in English and French. |
 | [`ihm/`](ihm/) | A local cockpit ("Agent C.") that reads `pilotage/` and the GitHub activity and shows them as a map, a task board and a forecast. |
 
 ## Status

@@ -41,10 +41,11 @@ export function ilYA(d) {
 }
 export { versDate };
 
-/** Adresse de la vue qui montre un identifiant (P-, D-, T-, L-, F-). */
+/** Adresse de la vue qui montre un identifiant (P-, D-, T-, K-, L-, F-). */
 export function adresse(id) {
   if (/^[PD]-/.test(id)) return `#/carte?id=${id}`;
   if (/^T-/.test(id)) return `#/taches?id=${id}`;
+  if (/^K-/.test(id)) return `#/doc?id=${id}`;
   return `#/horizon?id=${id}`;
 }
 
@@ -54,7 +55,7 @@ export function lier(racine) {
   const textes = [];
   while (marcheur.nextNode()) if (!marcheur.currentNode.parentElement.closest('a, code')) textes.push(marcheur.currentNode);
   for (const noeud of textes) {
-    const morceaux = noeud.nodeValue.split(/\b([PDTLF]-\d{2,3})\b/);
+    const morceaux = noeud.nodeValue.split(/\b([PDTLFK]-\d{2,3})\b/);
     if (morceaux.length < 2) continue;
     noeud.replaceWith(...morceaux.map((m, i) => (i % 2 ? h('a', { classe: 'lien-id', href: adresse(m) }, m) : m)));
   }
@@ -77,20 +78,6 @@ export function glyphe(statut, taille = 14, forme = 'rond') {
   if (statut === 'impasse' || statut === 'bloquee') svg.append(s('path', { d: 'M-2.4-2.4 2.4 2.4M2.4-2.4-2.4 2.4', stroke: 'var(--alerte)', 'stroke-width': 1.4 }));
   return svg;
 }
-
-// Pictos de navigation — palier « picto » du système Épure : 24×24, trait 1,3, au moins une forme fermée (.s).
-const picto = (label, corps) => `<svg class="ep-picto" width="20" height="20" viewBox="0 0 24 24" role="img" aria-label="${label}">${corps}</svg>`;
-const f = (c, d) => `<path class="s" style="--c:${c}" stroke="${c}" fill="none" d="${d}"/>`;
-const l = (c, d) => `<path class="l" style="--c:${c}" stroke="${c}" fill="none" d="${d}"/>`;
-const rond = (c, cx, cy, r) => `<circle class="s" style="--c:${c}" stroke="${c}" fill="none" cx="${cx}" cy="${cy}" r="${r}"/>`;
-export const PICTOS = {
-  cap: picto('Cap', rond('#928982', 12, 12, 8.6) + f('#E17350', 'M14.9 9.1 13.3 13.3 9.1 14.9 10.7 10.7Z')),
-  carte: picto('Carte', rond('#72A2B9', 12, 12, 2.6) + rond('#CCAE65', 5, 6, 1.9) + rond('#60C711', 19.2, 8, 1.9) + rond('#D4A5CA', 16.5, 19, 1.9)
-    + l('#928982', 'M10 10.3 6.4 7.3M14.4 10.9 17.5 8.8M13.2 14.3 15.6 17.3')),
-  taches: picto('Tâches', f('#8B8468', 'M4 5.5h5v5H4Z') + f('#E17350', 'M4 13.5h5v5H4Z') + l('#928982', 'M12.5 8h7.5M12.5 16h7.5') + l('#8B8468', 'M5.3 8l1 1 1.6-2')),
-  github: picto('GitHub', rond('#72A2B9', 7, 5.6, 2.2) + rond('#72A2B9', 7, 18.4, 2.2) + rond('#D4A5CA', 17, 9.2, 2.2) + l('#928982', 'M7 7.8v8.4M17 11.4c0 3.4-4.2 3.2-8.2 5.2')),
-  horizon: picto('Horizon', f('#CCAE65', 'M6.5 15.5a5.5 5.5 0 0 1 11 0Z') + l('#928982', 'M3 15.5h18M12 6.6V4.4M5.9 9.2 4.4 7.7M18.1 9.2l1.5-1.5M7 19h10')),
-};
 
 // Bulle d'information, commune à toutes les vues.
 const bulle = () => document.getElementById('bulle');

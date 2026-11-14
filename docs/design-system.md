@@ -22,11 +22,13 @@ Il synthétise dix références fournies par Kanemonium, et reprend le substrat 
 
 ## Trois règles
 
-1. **L'orange désigne ce qui est en cours.** Nulle part ailleurs. Si de l'orange apparaît,
-   c'est qu'il se passe quelque chose à cet endroit.
+1. **L'orange « cristal » désigne ce qui est en cours.** Dans les statuts, les liens et les
+   rubans, il ne sert qu'à ça.
 2. **Pointillé = structure, trait plein = actif.** Une piste à explorer est un contour en
    pointillé ; une piste en cours ou validée est pleine. La règle vient d'Épure.
-3. **La couleur ne porte jamais seule une information.** Un statut a toujours un signe
+3. **Les emblèmes disent de quoi il s'agit, jamais dans quel état.** L'éventail de couleurs
+   franches est réservé à l'identité : une vue, un domaine, un type d'objet.
+4. **La couleur ne porte jamais seule une information.** Un statut a toujours un signe
    (rond vide, rond plein, croix, losange) et un libellé. Le domaine d'une piste se lit à sa
    position et au nom écrit sur la bande, pas à une teinte.
 
@@ -49,7 +51,17 @@ Il synthétise dix références fournies par Kanemonium, et reprend le substrat 
 | `--alerte` | `#C9553A` | `#E8795F` | impasse, bloqué — toujours avec une croix |
 
 Le thème Carbone n'est pas une inversion automatique : chaque valeur est choisie.
-Les cinq pastels d'Épure (`--cat-*`) ne servent qu'aux pictos de navigation.
+
+### L'éventail (emblèmes)
+
+| Jeton | Valeur | | Jeton | Valeur |
+|---|---|---|---|---|
+| `--ev-nuit` | `#2B3654` | | `--ev-violet` | `#9B3DF0` |
+| `--ev-braise` | `#F0593A` | | `--ev-pre` | `#3FB56F` |
+| `--ev-soleil` | `#F7C93B` | | `--ev-rose` | `#F27BB3` |
+| `--ev-ciel` | `#4BA6F5` | | `--ev-turquoise` | `#22B8B0` |
+
+En thème Carbone, seul `--ev-nuit` s'éclaircit (`#4A5A8C`) pour rester visible sur fond sombre.
 
 ### Typographie
 
@@ -78,7 +90,28 @@ une échelle 4 · 8 · 12 · 16 · 24 · 32 · 48 · 72 ; une seule ombre, très
 | `.champ` | saisie |
 | `.liste` | lignes séparées par un filet |
 | `.bulle` | aperçu au survol et au focus clavier |
-| `.ep-picto` | pictos Épure de la navigation (24 × 24, trait 1,3) |
+| `.embleme` | pastille colorée d'identité (voir ci-dessous) |
+
+## Emblèmes
+
+Définis dans [`ihm/public/emblemes.js`](../ihm/public/emblemes.js). Une pastille ronde sur une
+grille 32 × 32, trois à cinq aplats, aucun contour fin : lisible dès 20 px.
+
+| Famille | Emblèmes |
+|---|---|
+| Vues | `cap` (boussole), `carte` (nœuds), `taches` (case cochée), `github` (branche), `horizon` (soleil levant), `doc` (livre ouvert) |
+| Domaines | `defi` (volcan), `scan` (faisceau), `depliage` (spirale et feuille à plat), `encre` (goutte), `outils` (écrou), `pilotage` (cible) |
+| Objets | `boite`, `mouvement`, `probleme`, `livrable`, `prix` |
+
+Un emblème accompagne toujours un texte : il aide à repérer, il ne remplace pas le libellé.
+Le nombre de jours de la page Cap est le seul texte en relief ; il se recalcule à chaque jour.
+
+## Planches des fiches
+
+Chaque fiche de `docs/concepts/` a une planche SVG de 640 × 360 : fond papier, aplats de
+l'éventail, **aucun texte**, des repères numérotés (rond noir, chiffre blanc) repris dans la
+liste « Comment ça marche ». Une planche sert ainsi aux deux langues et reste lisible sur GitHub.
+Le fond papier est fixe : en thème Carbone, la planche apparaît comme une page imprimée.
 
 ## Visualisations
 

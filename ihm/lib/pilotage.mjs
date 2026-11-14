@@ -1,6 +1,6 @@
 // Lecture, validation et écriture du carnet de recherche (dossier pilotage/).
 // Le format est décrit dans pilotage/README.md.
-import { appendFile, readFile, readdir, writeFile } from 'node:fs/promises';
+import { appendFile, readFile, readdir, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { marked } from 'marked';
 import YAML from 'yaml';
@@ -56,10 +56,11 @@ export async function chargerEtat(racine) {
   }));
   const horizon = YAML.parse(await readFile(path.join(base, 'horizon.yaml'), 'utf8')) ?? {};
   for (const cle of ['prix', 'echeances', 'problemes', 'livrables']) horizon[cle] ??= [];
+  const fiches = await chargerFiches(racine, erreurs);
 
   // Identifiants uniques.
   const vus = new Map();
-  const tous = [...pistes, ...taches, ...horizon.livrables, ...horizon.problemes];
+  const tous = [...pistes, ...taches, ...horizon.livrables, ...horizon.problemes, ...fiches];
   for (const e of tous) {
     if (!e.id) erreurs.push(`${e.fichier ?? 'horizon.yaml'} : identifiant manquant`);
     else if (vus.has(e.id)) erreurs.push(`${e.id} : identifiant en double`);
@@ -111,7 +112,50 @@ export async function chargerEtat(racine) {
     if (!idsPrix.has(e.prix)) erreurs.push(`${e.id} : prix « ${e.prix} » inconnu`);
   }
 
-  return { pistes, taches, horizon, erreurs };
+  for (const f of fiches) {
+    for (const id of f.pistes) if (!idsPistes.has(id)) erreurs.push(`${f.id} : piste « ${id} » introuvable`);
+  }
+
+  return { pistes, taches, horizon, fiches, erreurs };
+}
+
+const LANGUES = ['fr', 'en'];
+
+/** Fiches de docs/concepts/ : un fichier par langue, regroupés par identifiant. */
+async function chargerFiches(racine, erreurs) {
+  const dossier = path.join(racine, 'docs', 'concepts');
+  let noms = [];
+  try { noms = (await readdir(dossier)).filter((n) => /\.(fr|en)\.md$/.test(n)).sort(); } catch { return []; }
+  const parId = new Map();
+  for (const nom of noms) {
+    const { meta, corps } = lireEntete(await readFile(path.join(dossier, nom), 'utf8'));
+    const lg = meta.langue;
+    if (!LANGUES.includes(lg)) { erreurs.push(`${nom} : langue « ${lg} » inconnue`); continue; }
+    const alt = /!\[([^\]]*)\]/.exec(corps)?.[1] ?? '';
+    const fiche = parId.get(meta.id) ?? { id: meta.id, domaine: meta.domaine, ordre: meta.ordre ?? 99, pistes: meta.pistes ?? [], image: meta.image, source: meta.source };
+    fiche[lg] = { titre: meta.titre, resume: meta.resume, alt, sections: lireSections(corps), fichier: `docs/concepts/${nom}` };
+    parId.set(meta.id, fiche);
+  }
+  const fiches = [...parId.values()].sort((a, b) => a.ordre - b.ordre);
+  for (const f of fiches) {
+    for (const lg of LANGUES) if (!f[lg]) erreurs.push(`${f.id} : version « ${lg} » manquante`);
+    if (!/^K-\d{2,3}$/.test(f.id ?? '')) erreurs.push(`fiche « ${f.id} » : identifiant invalide`);
+    try { await stat(path.join(dossier, f.image ?? '')); if (!f.image) throw new Error(); } catch { erreurs.push(`${f.id} : planche « ${f.image} » introuvable`); }
+  }
+  return fiches.filter((f) => f.fr && f.en);
+}
+
+/** Empreinte du carnet : change dès qu'un fichier est ajouté, retiré ou modifié. */
+export async function empreinte(racine) {
+  const base = path.join(racine, 'pilotage');
+  const fichiers = [path.join(base, 'horizon.yaml'), path.join(base, 'boite.md')];
+  for (const d of ['pistes', 'taches']) for (const n of await readdir(path.join(base, d))) fichiers.push(path.join(base, d, n));
+  try {
+    const concepts = path.join(racine, 'docs', 'concepts');
+    for (const n of await readdir(concepts)) if (n.endsWith('.md')) fichiers.push(path.join(concepts, n));
+  } catch { /* pas encore de fiches */ }
+  const dates = await Promise.all(fichiers.map(async (f) => (await stat(f)).mtimeMs));
+  return `${fichiers.length}-${Math.round(Math.max(...dates))}`;
 }
 
 /** Change le statut d'une tâche en ne touchant qu'à la ligne « statut: » de son en-tête. */

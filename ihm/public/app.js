@@ -1,7 +1,9 @@
 // Point d'entrée : état, navigation par ancre (#/vue?id=…), thème.
-import { PICTOS, cacherBulle, dateLongue, h, joursAvant } from './outils.js';
+import { embleme } from './emblemes.js';
+import { cacherBulle, dateLongue, h, joursAvant } from './outils.js';
 import { vueCap } from './vues/cap.js';
 import { vueCarte } from './vues/carte.js';
+import { vueDoc } from './vues/doc.js';
 import { vueGithub } from './vues/github.js';
 import { vueHorizon } from './vues/horizon.js';
 import { vueTaches } from './vues/taches.js';
@@ -12,6 +14,7 @@ const VUES = {
   taches: { titre: 'Tâches', rendre: vueTaches },
   github: { titre: 'GitHub', rendre: vueGithub },
   horizon: { titre: 'Horizon', rendre: vueHorizon },
+  doc: { titre: 'Doc', rendre: vueDoc },
 };
 const GRAND_PRIX = '2027-06-25';
 
@@ -24,6 +27,15 @@ const app = {
   },
   github: () => fetch('/api/github').then((r) => r.json()),
   grandPrix: GRAND_PRIX,
+  /** Langue des fiches de documentation : 'fr' ou 'en'. */
+  langue() {
+    try { return localStorage.getItem('langue') === 'en' ? 'en' : 'fr'; } catch { return app.langueCourante ?? 'fr'; }
+  },
+  choisirLangue(code) {
+    app.langueCourante = code;
+    try { localStorage.setItem('langue', code); } catch { /* stockage indisponible : le choix vaut pour la page */ }
+    rendre();
+  },
 };
 
 function route() {
@@ -36,7 +48,7 @@ function rendre() {
   const { nom, params } = route();
   cacherBulle();
   document.getElementById('nav').replaceChildren(...Object.entries(VUES).map(([cle, v], i) =>
-    h('a', { href: `#/${cle}`, 'aria-current': cle === nom ? 'page' : null, html: PICTOS[cle] }, h('span', {}, v.titre),
+    h('a', { href: `#/${cle}`, 'aria-current': cle === nom ? 'page' : null }, embleme(cle, 34), h('span', {}, v.titre),
       h('span', { classe: 'mono', style: 'opacity:.55;font-size:.7em' }, `0${i + 1}`))));
   document.title = `${VUES[nom].titre} — Agent C.`;
   const vue = document.getElementById('vue');
@@ -66,6 +78,29 @@ bouton.addEventListener('click', () => {
 });
 
 addEventListener('hashchange', rendre);
+
+// Le compte à rebours suit le calendrier : on redessine au changement de jour.
+let jourAffiche = new Date().toDateString();
+setInterval(() => {
+  const jour = new Date().toDateString();
+  if (jour === jourAffiche) return;
+  jourAffiche = jour;
+  horloge();
+  if (app.etat) rendre();
+}, 60_000);
+
+// Le carnet est écrit pendant les séances : dès qu'un fichier change, l'IHM se met à jour.
+let version = null;
+const enSaisie = () => ['TEXTAREA', 'INPUT'].includes(document.activeElement?.tagName) && document.activeElement.value;
+setInterval(async () => {
+  if (document.hidden) return;
+  try {
+    const { version: v } = await (await fetch('/api/version')).json();
+    if (enSaisie()) return;
+    if (version !== null && v !== version) await app.recharger();
+    version = v;
+  } catch { /* serveur arrêté : on réessaiera */ }
+}, 3000);
 libelleTheme();
 horloge();
 app.recharger().catch((e) => {

@@ -71,6 +71,17 @@ test('un message déposé se retrouve dans la boîte, sous « À lire »', async
   await assert.rejects(deposerMessage(copie, '   '), /vide/);
 });
 
+test('chaque fiche existe en français et en anglais, avec sa planche', async () => {
+  const { fiches, erreurs } = await chargerEtat(depot);
+  assert.deepEqual(erreurs, []);
+  assert.ok(fiches.length >= 10);
+  for (const f of fiches) {
+    assert.equal(f.fr.sections.length >= 3 && f.en.sections.length >= 3, true, f.id);
+    assert.equal(f.fr.sections.filter((s) => s.titre !== 'Le vocabulaire anglais').length, f.en.sections.length, f.id);
+    assert.match(f.image, /^img\/K-\d+.*\.svg$/);
+  }
+});
+
 test("le nom du dépôt se déduit de l'adresse distante", () => {
   assert.equal(nomDepot({}, 'https://github.com/qui/quoi.git'), 'qui/quoi');
   assert.equal(nomDepot({}, 'git@github.com:qui/quoi.git'), 'qui/quoi');

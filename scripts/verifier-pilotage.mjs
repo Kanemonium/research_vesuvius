@@ -4,9 +4,9 @@ import { fileURLToPath } from 'node:url';
 import { chargerEtat } from '../ihm/lib/pilotage.mjs';
 
 const racine = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const { pistes, taches, horizon, erreurs } = await chargerEtat(racine);
+const { pistes, taches, horizon, fiches, erreurs } = await chargerEtat(racine);
 
-console.log(`${pistes.length} pistes, ${taches.length} tâches, ${horizon.livrables.length} livrables projetés.`);
+console.log(`${pistes.length} pistes, ${taches.length} tâches, ${horizon.livrables.length} livrables projetés, ${fiches.length} fiches.`);
 if (erreurs.length) {
   console.error(`\n${erreurs.length} incohérence(s) :`);
   for (const e of erreurs) console.error(`  - ${e}`);

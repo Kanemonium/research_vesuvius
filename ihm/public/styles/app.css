@@ -27,25 +27,26 @@ code { font-family: var(--f-mono); font-size: 0.88em; background: var(--papier-c
 /* ---------- Structure ---------- */
 .entete {
   position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: var(--e-5);
-  padding: var(--e-3) var(--e-6); background: color-mix(in srgb, var(--papier) 88%, transparent);
+  padding: var(--e-4) var(--e-6); min-height: 84px; background: color-mix(in srgb, var(--papier) 88%, transparent);
   backdrop-filter: blur(10px); border-bottom: 1px solid var(--filet);
 }
 .marque { display: flex; align-items: center; gap: var(--e-3); text-decoration: none; }
 .marque-carre {
-  width: 34px; height: 34px; display: grid; place-items: center; background: var(--encre); color: var(--sur-encre);
-  font: 900 1rem/1 var(--f-titre); letter-spacing: -0.04em; border-radius: 4px;
+  width: 46px; height: 46px; display: grid; place-items: center; background: var(--encre); color: var(--sur-encre);
+  font: 900 1.4rem/1 var(--f-titre); letter-spacing: -0.04em; border-radius: 6px;
 }
-.marque-nom { font: 800 0.95rem/1 var(--f-titre); letter-spacing: -0.01em; text-transform: uppercase; white-space: nowrap; }
+.marque-nom { font: 800 1.2rem/1 var(--f-titre); letter-spacing: -0.01em; text-transform: uppercase; white-space: nowrap; }
 .entete-fin .meta { white-space: nowrap; }
 .nav { display: flex; gap: var(--e-2); margin-inline: auto; flex-wrap: wrap; }
 .nav a {
-  display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px 6px 10px; border: 1px solid transparent;
-  border-radius: var(--pilule); text-decoration: none; font: 600 0.95rem/1 var(--f-cond); letter-spacing: 0.07em;
+  display: inline-flex; align-items: center; gap: 10px; padding: 7px 18px 7px 7px; border: 1px solid transparent;
+  border-radius: var(--pilule); text-decoration: none; font: 600 1.15rem/1 var(--f-cond); letter-spacing: 0.07em;
   text-transform: uppercase; color: var(--encre-60); transition: color var(--trans), border-color var(--trans), background var(--trans);
 }
 .nav a:hover { color: var(--encre); border-color: var(--structure); }
 .nav a[aria-current="page"] { color: var(--sur-encre); background: var(--encre); }
-.nav a[aria-current="page"] .ep-picto .s, .nav a[aria-current="page"] .ep-picto .l { stroke: var(--sur-encre); }
+.nav a .embleme { transition: transform var(--trans); }
+.nav a:hover .embleme { transform: rotate(-8deg) scale(1.08); }
 .entete-fin { display: flex; align-items: center; gap: var(--e-4); }
 .page { max-width: 1360px; margin: 0 auto; padding: var(--e-6) var(--e-6) var(--e-8); }
 .vue-tete { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--e-5); margin-bottom: var(--e-6); }
@@ -56,10 +57,10 @@ code { font-family: var(--f-mono); font-size: 0.88em; background: var(--papier-c
 .col-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .regle { border: 0; border-top: 1px solid var(--filet); margin: var(--e-5) 0; }
 
-/* ---------- Pictos (palier « picto » du système Épure) ---------- */
-.ep-picto { overflow: visible; flex: none; }
-.ep-picto .s, .ep-picto .l { fill: none; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; transition: fill var(--trans); }
-a:hover > .ep-picto .s, a:focus-visible > .ep-picto .s, .ep-picto:hover .s { fill: var(--c); }
+/* ---------- Emblèmes ---------- */
+.embleme { flex: none; display: block; }
+.avec-embleme { display: flex; align-items: center; gap: 10px; }
+.avec-embleme.serre { gap: 7px; }
 
 /* ---------- Composants ---------- */
 .carte { background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon); padding: var(--e-5); box-shadow: var(--ombre); }
@@ -115,8 +116,16 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .hero-coins { display: flex; justify-content: space-between; margin-bottom: var(--e-6); }
 .hero-titre { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.22em; }
 .hero-carre {
-  display: inline-grid; place-items: center; align-self: center; min-width: 0.9em; height: 0.8em; padding: 0 0.1em;
+  display: inline-grid; place-items: center; align-self: center; min-width: 0.95em; height: 0.8em; padding: 0 0.12em;
   background: var(--cristal); color: #fff; text-transform: none;
+}
+/* Seul le texte est en relief : un empilement d'ombres nettes lui donne une épaisseur. */
+.hero-carre > span {
+  --flanc: #A4571A; --dessous: #74390D; display: inline-block; transform: rotate(-4deg) translate(-0.08em, -0.1em);
+  text-shadow:
+    0.03em 0.03em 0 var(--flanc), 0.06em 0.06em 0 var(--flanc), 0.09em 0.09em 0 var(--flanc), 0.12em 0.12em 0 var(--flanc),
+    0.15em 0.15em 0 var(--dessous), 0.18em 0.18em 0 var(--dessous), 0.21em 0.21em 0 var(--dessous), 0.24em 0.24em 0 var(--dessous),
+    0.34em 0.38em 0.22em rgba(60, 30, 5, 0.45);
 }
 .hero-carre > span { font: 700 0.2em/1 var(--f-titre); letter-spacing: 0; white-space: nowrap; }
 .hero-carre b { font-size: 2.3em; font-weight: 900; letter-spacing: -0.05em; }
@@ -127,6 +136,7 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .tuile { padding: var(--e-4) var(--e-4) var(--e-4) 0; border-right: 1px solid var(--filet); text-decoration: none; display: block; }
 .tuile + .tuile { padding-left: var(--e-4); }
 .tuile:last-child { border-right: 0; }
+.tuile .embleme { margin-bottom: var(--e-3); }
 .tuile-nombre { font: 900 clamp(2.4rem, 4.6vw, 4.2rem)/0.95 var(--f-titre); letter-spacing: -0.05em; }
 .tuile:hover .tuile-nombre { color: var(--cristal-fonce); }
 
@@ -159,14 +169,14 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .c-noeud:focus-visible { outline: none; }
 .c-noeud:focus-visible .cible { stroke: var(--cristal); stroke-width: 2; }
 .c-noeud .cible { fill: transparent; stroke: none; }
-.c-centre-titre { font: 900 30px/1 var(--f-titre); letter-spacing: -0.05em; fill: var(--encre); text-transform: uppercase; }
+.c-centre-titre { font: 900 23px/1 var(--f-titre); letter-spacing: -0.05em; fill: var(--encre); text-transform: uppercase; }
 .c-centre-meta { font: 500 11px var(--f-mono); letter-spacing: 0.1em; fill: var(--encre-60); text-transform: uppercase; }
 .c-centre { cursor: pointer; }
 .c-centre circle { fill: var(--surface); stroke: var(--filet); }
 .c-centre:hover circle, .c-centre[aria-pressed="true"] circle { stroke: var(--cristal); }
 .legende { display: flex; flex-wrap: wrap; gap: var(--e-4) var(--e-5); margin-top: var(--e-3); }
 .legende span { display: inline-flex; align-items: center; gap: 7px; }
-.tiroir { position: sticky; top: 84px; max-height: calc(100vh - 110px); overflow: auto; }
+.tiroir { position: sticky; top: 108px; max-height: calc(100vh - 132px); overflow: auto; }
 .tiroir h2 { margin: var(--e-3) 0 var(--e-4); }
 .tiroir h3 { font: 600 0.9rem/1 var(--f-cond); letter-spacing: 0.1em; text-transform: uppercase; color: var(--encre-60); margin: var(--e-5) 0 var(--e-2); }
 .tiroir-tete { display: flex; align-items: center; gap: var(--e-2); flex-wrap: wrap; }
@@ -193,9 +203,9 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 
 /* ---------- Vue Horizon ---------- */
 .flux { position: relative; display: grid; grid-template-columns: 1fr 1.15fr 0.85fr; column-gap: clamp(60px, 9vw, 150px); align-items: center; }
-.flux svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.flux > svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .flux-col { display: flex; flex-direction: column; gap: var(--e-3); position: relative; z-index: 1; }
-.flux-col > .meta { margin-bottom: var(--e-2); }
+.flux-col > .meta { margin-bottom: var(--e-2); color: var(--encre); font-size: 0.75rem; }
 .flux-item { background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon-petit); padding: var(--e-3) var(--e-4); text-decoration: none; display: block; transition: border-color var(--trans); }
 .flux-item:hover, .flux-item.actif { border-color: var(--cristal); }
 .flux-item.eteint { opacity: 0.38; }
@@ -220,12 +230,53 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .f-auj-texte { font: 600 11px var(--f-mono); letter-spacing: 0.08em; fill: var(--cristal-fonce); }
 .f-recur { fill: var(--encre-40); }
 
+/* ---------- Vue Doc ---------- */
+.bascule { display: inline-flex; border: 1px solid var(--encre); border-radius: var(--pilule); overflow: hidden; }
+.bascule button { border: 0; background: transparent; padding: 7px 16px; font: 600 0.95rem/1 var(--f-cond); letter-spacing: 0.07em; text-transform: uppercase; }
+.bascule button[aria-pressed="true"] { background: var(--encre); color: var(--sur-encre); }
+.doc-vue { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: var(--e-7); align-items: start; }
+.doc-liste { position: sticky; top: 108px; max-height: calc(100vh - 132px); overflow: auto; padding: var(--e-4); }
+.doc-liste h2 { margin: var(--e-4) 0 var(--e-2); font-size: 0.95rem; }
+.doc-liste h2:first-child { margin-top: 0; }
+.doc-liste ul { list-style: none; margin: 0; padding: 0; }
+.doc-liste a { display: flex; gap: 10px; align-items: baseline; padding: 7px 10px; border-radius: var(--rayon-petit); text-decoration: none; line-height: 1.3; }
+.doc-liste a:hover { background: var(--papier-creux); }
+.doc-liste a[aria-current="page"] { background: var(--encre); color: var(--sur-encre); }
+.doc-liste .mono { opacity: 0.6; flex: none; }
+.fiche { max-width: 860px; }
+.fiche-titre { font: 800 clamp(2.1rem, 4.4vw, 3.7rem)/0.98 var(--f-titre); letter-spacing: -0.04em; margin: var(--e-4) 0 var(--e-3); }
+.fiche-resume { font-size: 1.25rem; line-height: 1.45; color: var(--encre-60); margin-bottom: var(--e-5); max-width: 60ch; }
+.fiche figure { margin: 0 0 var(--e-5); }
+.fiche figure img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--filet); box-shadow: var(--ombre); }
+.fiche h3 { font: 600 1.05rem/1 var(--f-cond); letter-spacing: 0.1em; text-transform: uppercase; color: var(--encre-60); margin: var(--e-6) 0 var(--e-3); }
+.fiche .prose { font-size: 1.05rem; line-height: 1.65; max-width: 68ch; }
+.fiche .prose ol { list-style: none; padding: 0; margin: 0; counter-reset: etape; }
+.fiche .prose ol li { counter-increment: etape; position: relative; padding-left: 42px; min-height: 28px; }
+.fiche .prose ol li + li { margin-top: 0.7em; }
+.fiche .prose ol li::before {
+  content: counter(etape); position: absolute; left: 0; top: 0; width: 28px; height: 28px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--encre); color: var(--sur-encre); font: 600 0.8rem/1 var(--f-mono);
+}
+.fiche .prose em:only-child { color: var(--encre-60); font-size: 0.9em; }
+.fiche table { border-collapse: collapse; width: 100%; font-size: 0.98rem; }
+.fiche th { text-align: left; font: 500 var(--t-meta)/1.3 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--encre-60); padding: 6px 12px 6px 0; }
+.fiche td { padding: 8px 12px 8px 0; border-top: 1px solid var(--filet); }
+.fiche-pistes { display: flex; flex-wrap: wrap; gap: 8px; }
+.fiche-pistes .pilule { white-space: normal; text-transform: none; letter-spacing: 0.02em; }
+.fiche-pied { display: flex; justify-content: space-between; margin-top: var(--e-7); padding-top: var(--e-5); border-top: 1px solid var(--filet); }
+
 /* ---------- Petits écrans ---------- */
 @media (max-width: 1080px) {
-  .carte-vue { grid-template-columns: 1fr; }
+  .carte-vue, .doc-vue { grid-template-columns: 1fr; }
+  .doc-liste { position: static; max-height: none; }
   .tiroir { position: static; max-height: none; }
   .tableau, .col-3, .col-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-bas { grid-template-columns: 1fr; gap: var(--e-5); }
+}
+@media (max-width: 1560px) {
+  .nav { gap: 2px; }
+  .nav a { padding-right: 14px; gap: 8px; }
+  .nav a .mono { display: none; }
 }
 @media (max-width: 900px) {
   .entete { flex-wrap: wrap; row-gap: var(--e-2); }
@@ -239,7 +290,7 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
   .tableau, .col-2, .col-3, .col-4, .tuiles { grid-template-columns: 1fr; }
   .tuile { border-right: 0; border-bottom: 1px solid var(--filet); padding-left: 0 !important; }
   .flux { grid-template-columns: 1fr; row-gap: var(--e-5); }
-  .flux svg { display: none; }
+  .flux > svg { display: none; }
   .vue-tete { flex-direction: column; align-items: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

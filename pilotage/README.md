@@ -63,6 +63,6 @@ Note libre : ce qui définit « fait ».
 
 ## Liens
 
-Dans n'importe quel texte, un identifiant (`P-310`, `D-001`, `T-004`, `L-02`) devient
+Dans n'importe quel texte, un identifiant (`P-310`, `D-001`, `T-004`, `L-02`, `K-08`) devient
 un lien dans l'IHM. Le script `npm run verifier` refuse un identifiant de parent, de
 piste ou de livrable qui n'existe pas ; la CI le lance à chaque envoi.

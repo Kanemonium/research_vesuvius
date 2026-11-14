@@ -1,5 +1,6 @@
 // Vue « Horizon » : les problèmes à venir, ce que nous comptons produire pour y répondre, et les prix visés.
 // L'épaisseur d'un ruban dit la confiance. Rien ici n'est un résultat : ce sont des projections.
+import { embleme } from '../emblemes.js';
 import { LIBELLES, adresse, avecBulle, aujourdhui, dateCourte, dateLongue, h, joursAvant, s, versDate } from '../outils.js';
 
 const EPAISSEUR = { faible: 4, moyenne: 9, forte: 15 };
@@ -12,6 +13,7 @@ function confiance(niveau) {
 
 function flux(app, visee) {
   const { problemes, livrables, prix } = app.etat.horizon;
+  const domaineDe = (id) => app.etat.pistes.find((p) => p.id === id)?.domaine ?? 'defi';
   const boite = h('div', { classe: 'flux' });
   const toile = s('svg', { 'aria-hidden': 'true' });
   const cartes = new Map();
@@ -28,14 +30,14 @@ function flux(app, visee) {
   }
 
   boite.append(toile,
-    h('div', { classe: 'flux-col' }, h('p', { classe: 'meta' }, 'Problèmes qui nous attendent'),
-      problemes.map((f) => item(f.id, h('span', { classe: 'meta' }, f.id), h('b', {}, f.titre), h('small', {}, f.detail)))),
-    h('div', { classe: 'flux-col' }, h('p', { classe: 'meta' }, 'Ce que nous comptons produire'),
+    h('div', { classe: 'flux-col' }, h('p', { classe: 'meta avec-embleme' }, embleme('probleme', 30), 'Problèmes qui nous attendent'),
+      problemes.map((f) => item(f.id, h('span', { classe: 'meta avec-embleme serre' }, embleme(domaineDe(f.piste), 20), f.id), h('b', {}, f.titre), h('small', {}, f.detail)))),
+    h('div', { classe: 'flux-col' }, h('p', { classe: 'meta avec-embleme' }, embleme('livrable', 30), 'Ce que nous comptons produire'),
       livrables.map((l) => item(l.id,
-        h('span', { style: 'display:flex;justify-content:space-between;align-items:center;gap:8px' }, h('span', { classe: 'meta' }, `${l.id} · ${dateCourte(l.fenetre)}`), confiance(l.confiance)),
+        h('span', { style: 'display:flex;justify-content:space-between;align-items:center;gap:8px' }, h('span', { classe: 'meta avec-embleme serre' }, embleme(domaineDe(l.piste), 20), `${l.id} · ${dateCourte(l.fenetre)}`), confiance(l.confiance)),
         h('b', {}, l.titre), h('small', {}, l.detail),
         l.hypothese ? h('small', { style: 'margin-top:4px' }, h('em', {}, 'Si : '), l.hypothese) : null))),
-    h('div', { classe: 'flux-col' }, h('p', { classe: 'meta' }, 'Prix visés'),
+    h('div', { classe: 'flux-col' }, h('p', { classe: 'meta avec-embleme' }, embleme('prix', 30), 'Prix visés'),
       prix.map((p) => {
         const el = h('div', { classe: 'flux-item', id: `prix-${p.id}` }, h('b', {}, p.titre), h('small', {}, p.montant));
         cartes.set(`prix-${p.id}`, el);
@@ -137,7 +139,7 @@ export function vueHorizon(vue, app, params) {
   const jours = joursAvant(app.grandPrix);
   vue.append(
     h('div', { classe: 'vue-tete' },
-      h('div', {}, h('p', { classe: 'meta' }, '05/05 · Projection'), h('h1', { classe: 'grand' }, "L'horizon")),
+      h('div', {}, h('p', { classe: 'meta' }, '05/06 · Projection'), h('h1', { classe: 'grand' }, "L'horizon")),
       h('p', { classe: 'doux' }, "Des projections, pas des résultats. Les dates et les confiances sont des estimations d'Agent C., révisées à chaque étape. L'épaisseur d'un ruban dit la confiance.")),
     flux(app, params.get('id')),
     h('hr', { classe: 'regle', style: 'margin-top:40px' }),
