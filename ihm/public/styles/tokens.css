@@ -1,0 +1,71 @@
+/* Design système « Cendre » — jetons. Documenté dans docs/design-system.md.
+   Substrat et accents repris du système Épure (papier crème, encre, cristal orange). */
+:root {
+  /* Substrat */
+  --papier: #F9F7F3;
+  --papier-creux: #F1EEE7;
+  --surface: #FFFDFA;
+  --encre: #2E2B28;
+  --encre-60: #6B645E;
+  --encre-40: #928982;      /* trait actif */
+  --structure: #BBB5B0;     /* trait de structure, pointillé 2 3 */
+  --filet: #E2DDD5;
+
+  /* Accent unique : ce qui est en cours */
+  --cristal: #D9843F;
+  --cristal-clair: #F6C294;
+  --cristal-fonce: #A95E1E;
+  --lueur: rgba(246, 194, 148, 0.55);
+
+  /* États réservés */
+  --alerte: #C9553A;
+  --sur-encre: #F9F7F3;
+
+  /* Pastels catégoriels (pictos seulement) */
+  --cat-bleu: #72A2B9;
+  --cat-rose: #D4A5CA;
+  --cat-or: #CCAE65;
+  --cat-anis: #60C711;
+  --cat-olive: #8B8468;
+
+  /* Typographie */
+  --f-titre: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --f-texte: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-cond: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --t-geant: clamp(3.4rem, 9.2vw, 9.5rem);
+  --t-grand: clamp(2rem, 4.2vw, 3.6rem);
+  --t-titre: 1.5rem;
+  --t-texte: 0.95rem;
+  --t-petit: 0.8125rem;
+  --t-meta: 0.6875rem;
+
+  /* Espace et forme */
+  --e-1: 4px; --e-2: 8px; --e-3: 12px; --e-4: 16px; --e-5: 24px; --e-6: 32px; --e-7: 48px; --e-8: 72px;
+  --rayon: 14px;
+  --rayon-petit: 8px;
+  --pilule: 999px;
+  --ombre: 0 1px 0 rgba(46, 43, 40, 0.04), 0 12px 32px -18px rgba(46, 43, 40, 0.28);
+  --trans: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Thème « Carbone » : choisi, pas inversé. Mêmes rôles, valeurs propres. */
+:root[data-theme="carbone"] {
+  --papier: #1A1816;
+  --papier-creux: #141211;
+  --surface: #24211E;
+  --encre: #F2EEE7;
+  --encre-60: #B1AAA2;
+  --encre-40: #8C847C;
+  --structure: #5E5852;
+  --filet: #35312D;
+  --cristal: #E8975A;
+  --cristal-clair: #7A4A22;
+  --cristal-fonce: #F3B27E;
+  --lueur: rgba(217, 132, 63, 0.22);
+  --alerte: #E8795F;
+  --sur-encre: #1A1816;
+  --cat-anis: #7FD93B;
+  --ombre: 0 1px 0 rgba(0, 0, 0, 0.3), 0 14px 36px -18px rgba(0, 0, 0, 0.8);
+}

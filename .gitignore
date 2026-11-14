@@ -1,0 +1,30 @@
+# Secrets : jamais dans l'historique
+.env
+.env.*
+!.env.example
+
+# Données et modèles : téléchargés, jamais versionnés (voir docs/architecture.md)
+/data/
+/models/
+*.zarr/
+*.ckpt
+*.pth
+*.safetensors
+wandb/
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+
+# Outils locaux
+.claude/settings.local.json
+.DS_Store
+Thumbs.db

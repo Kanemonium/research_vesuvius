@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent C. — Vesuvius</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Inter+Tight:wght@600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/app.css">
+  <script>
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+  </script>
+</head>
+<body>
+  <header class="entete">
+    <a class="marque" href="#/cap" aria-label="Agent C., retour au cap">
+      <span class="marque-carre">C.</span>
+      <span class="marque-nom">Agent C.</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Vues"></nav>
+    <div class="entete-fin">
+      <span class="meta" id="horloge"></span>
+      <button class="pilule" id="theme" type="button" aria-label="Changer de thème">Carbone</button>
+    </div>
+  </header>
+  <main class="page" id="vue" tabindex="-1"></main>
+  <div class="bulle" id="bulle" role="tooltip" hidden></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

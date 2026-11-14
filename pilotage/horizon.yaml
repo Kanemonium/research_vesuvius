@@ -1,0 +1,97 @@
+# Horizon : ce que nous comptons produire, et les problèmes que cela devra résoudre.
+# Les fenêtres et les confiances sont des ESTIMATIONS d'Agent C. au 2026-11-14, à réviser à chaque étape.
+
+prix:
+  - { id: progres, titre: "Prix de progrès", montant: "250 $ à 20 000 $, chaque mois" }
+  - { id: first-letters, titre: "Premières lettres", montant: "50 000 $ par rouleau" }
+  - { id: titre-paris4, titre: "Titre de PHerc. Paris. 4", montant: "50 000 $" }
+  - { id: grand-prix, titre: "Grand Prix 2027", montant: "1 000 000 $" }
+
+echeances:
+  - { id: E-01, titre: "Prix de progrès de novembre", date: 2026-11-30, prix: progres }
+  - { id: E-02, titre: "Grand Prix, Premières lettres, Titre", date: 2027-06-25, prix: grand-prix }
+
+# Prix de progrès : une échéance à la fin de chaque mois.
+recurrence_mensuelle: progres
+
+problemes:
+  - id: F-01
+    titre: "8 Go de mémoire vidéo"
+    detail: "La recette d'entraînement du tutoriel tient-elle sur notre carte ? Non mesuré."
+    piste: P-420
+  - id: F-02
+    titre: "Outils pensés pour Linux"
+    detail: "Nous sommes sous Windows 11 : WSL2 obligatoire, défauts de compatibilité probables."
+    piste: P-410
+  - id: F-03
+    titre: "Volumes de plusieurs téraoctets"
+    detail: "Impossible de télécharger un rouleau entier : il faut lire les données par morceaux (OME-Zarr)."
+    piste: P-310
+  - id: F-04
+    titre: "Un modèle par rouleau ne suffit pas"
+    detail: "Les modèles d'encre se transfèrent mal d'un rouleau à l'autre, pour des raisons mal connues."
+    piste: P-320
+  - id: F-05
+    titre: "Étiquettes approximatives"
+    detail: "Les étiquettes viennent de prédictions relues à la main : un modèle peut apprendre nos erreurs."
+    piste: P-250
+
+livrables:
+  - id: L-01
+    titre: "Environnement reproductible"
+    detail: "Ubuntu sous WSL2, CUDA, villa installé, commandes consignées."
+    piste: P-310
+    repond_a: [F-02]
+    prix: []
+    fenetre: 2026-11-21
+    confiance: forte
+    statut: a-venir
+  - id: L-02
+    titre: "Première prédiction d'encre"
+    detail: "Le tutoriel reproduit de bout en bout sur le segment de PHerc. Paris. 4."
+    piste: P-310
+    repond_a: [F-01, F-03]
+    prix: []
+    fenetre: 2026-11-30
+    confiance: moyenne
+    hypothese: "La recette tient dans 8 Go, quitte à réduire la taille des lots."
+    statut: a-venir
+  - id: L-03
+    titre: "Mesures : l'encre avec 8 Go"
+    detail: "Note chiffrée et réglages pour entraîner sur une petite carte graphique."
+    piste: P-420
+    repond_a: [F-01]
+    prix: [progres]
+    fenetre: 2026-12-31
+    confiance: moyenne
+    hypothese: "Les réglages par défaut ne tiennent pas, et ceux que nous trouvons servent à d'autres."
+    statut: a-venir
+  - id: L-04
+    titre: "Premier correctif proposé à villa"
+    detail: "Un défaut réellement rencontré, corrigé, avec preuve avant/après."
+    piste: P-410
+    repond_a: [F-02]
+    prix: [progres]
+    fenetre: 2026-12-31
+    confiance: moyenne
+    hypothese: "Nous rencontrons un vrai défaut en suivant le tutoriel."
+    statut: a-venir
+  - id: L-05
+    titre: "Banc d'essai entre rouleaux"
+    detail: "Mesurer un même modèle d'encre sur plusieurs rouleaux, sans les télécharger en entier."
+    piste: P-320
+    repond_a: [F-03, F-04]
+    prix: [progres]
+    fenetre: 2027-01-31
+    confiance: faible
+    statut: a-venir
+  - id: L-06
+    titre: "Tentative « Premières lettres »"
+    detail: "10 lettres dans 4 cm² d'un rouleau jamais lu."
+    piste: P-320
+    repond_a: [F-04, F-05]
+    prix: [first-letters]
+    fenetre: 2027-03-31
+    confiance: faible
+    hypothese: "La ligne de base tourne et le banc d'essai montre où le signal existe."
+    statut: a-venir
