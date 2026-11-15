@@ -32,7 +32,7 @@ Un rayon X est une onde. En traversant une matière, elle n'est pas seulement at
 
 ## Pourquoi ça compte ici
 
-C'est ce qui rend visibles les limites entre les couches de papyrus, que l'absorption seule sépare mal. Mais trop de distance brouille l'image au lieu de la préciser : c'est un réglage du scan, et une des causes possibles des zones floues (P-110).
+Les franges soulignent les limites entre matières : dans un objet qui offre très peu de contraste d'absorption, comme nos rouleaux, cela peut être particulièrement utile. Mais trop de distance peut brouiller l'image au lieu de la préciser : c'est un réglage du scan, et une des causes possibles des zones floues (P-110).
 
 ## Le vocabulaire anglais
 

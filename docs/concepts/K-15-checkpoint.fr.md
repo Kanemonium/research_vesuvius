@@ -23,8 +23,8 @@ Entraîner un modèle, c'est ajuster des millions de nombres. Le point de sauveg
 
 ## Comment ça marche
 
-1. **Les poids** : tous les réglages internes du réseau. C'est presque tout le fichier.
-2. **L'état de l'optimiseur et du planificateur** : de quoi reprendre l'entraînement exactement là où il s'est arrêté.
+1. **Les poids** : tous les réglages internes du réseau. Dans notre fichier, c'est environ la moitié de la place ; l'autre moitié est l'état de l'optimiseur.
+2. **L'état de l'optimiseur et du planificateur** : de quoi reprendre l'entraînement au pas où ce point a été écrit.
 3. **La configuration et le numéro du pas** : avec quels réglages ce modèle a été entraîné, et jusqu'où.
 4. **Deux usages** : reprendre l'entraînement, ou faire tourner le modèle sur un segment pour obtenir une image d'encre (l'inférence).
 
@@ -32,7 +32,7 @@ Entraîner un modèle, c'est ajuster des millions de nombres. Le point de sauveg
 
 ## Pourquoi ça compte ici
 
-X-002 a écrit 20 points de sauvegarde de 816 Mo, un toutes les 1 000 itérations. Le dernier, `ckpt_020000.pth`, contient 202 467 329 nombres en 500 tableaux. Les règles du défi interdisent de mettre des poids dans le dépôt : ils restent sur la machine, et c'est la commande qui les produit que nous publions. Le tutoriel indique qu'on peut lancer une prédiction sur un point intermédiaire pour voir le modèle progresser.
+X-002 a écrit 20 points de sauvegarde de 816 Mo, un toutes les 1 000 itérations. Le dernier, `ckpt_020000.pth`, liste pour le réseau 202 467 329 nombres en 500 tableaux, dont 101 938 593 distincts en 256 tableaux (les autres sont les mêmes sous un second nom), et autant de nombres pour l'optimiseur. Nous ne mettons aucun poids dans le dépôt (règle de ce projet, non du défi) : ils restent sur la machine, et c'est la commande qui les produit que nous publions. Le tutoriel indique, à propos de son entraînement 3D natif de dix heures, qu'on peut lancer une prédiction sur un point intermédiaire pour voir les prédictions s'améliorer.
 
 ## Le vocabulaire anglais
 

@@ -19,7 +19,7 @@ date: 2026-11-15
 
 ## L'idée
 
-Le défi publie ses outils en open source dans un dépôt GitHub unique, [ScrollPrize/villa](https://github.com/ScrollPrize/villa). On y trouve de quoi faire chaque étape du travail : déplier un rouleau, détecter l'encre, regarder le résultat. Le tout est sous licence MIT, la même que la nôtre.
+Le défi publie la plupart de son code en open source sur GitHub, surtout dans un grand dépôt, [ScrollPrize/villa](https://github.com/ScrollPrize/villa). On y trouve de quoi faire chaque étape du travail : déplier un rouleau, détecter l'encre, regarder le résultat. La racine du dépôt porte une licence MIT, la même que la nôtre ; certains dossiers ont la leur (`volume-cartographer` est sous GPL version 3) : à vérifier avant de reprendre du code.
 
 ## Comment ça marche
 
@@ -32,7 +32,7 @@ Le défi publie ses outils en open source dans un dépôt GitHub unique, [Scroll
 
 ## Pourquoi ça compte ici
 
-Quand une exécution cite « villa », c'est ce code-là qui tourne : nos fichiers ne contiennent que des réglages et des commandes. X-002 montre ainsi ce que villa décide par défaut quand notre réglage ne dit rien (la perte, l'optimiseur). Les obstacles rencontrés en l'installant sont dans P-410 ; ce sont des contributions possibles, à vérifier d'abord.
+Quand une exécution cite « villa », c'est ce code-là qui tourne : nos fichiers ne contiennent que des réglages, des commandes et quelques scripts de lancement, de découpage et de mesure. X-002 montre ainsi ce que villa décide par défaut quand notre réglage ne dit rien (la perte, l'optimiseur). Les obstacles rencontrés en l'installant sont dans P-410 ; ce sont des contributions possibles, à vérifier d'abord.
 
 ## Le vocabulaire anglais
 

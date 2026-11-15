@@ -25,7 +25,7 @@ Pour entraîner un modèle il faut des exemples corrigés. Dans un rouleau ferm�
 
 1. **Entraîner** un premier modèle, par exemple sur des fragments ouverts.
 2. **Prédire** sur un segment du rouleau fermé.
-3. **Étiqueter** à la main, uniquement là où des traits de lettres sont nets et se répètent.
+3. **Étiqueter** à la main, uniquement là où des traits se voient nettement et de façon répétable.
 4. **Vérifier** sur une zone tenue à l'écart, jamais montrée pendant l'entraînement, puis recommencer.
 
 *Les numéros renvoient à la planche.*

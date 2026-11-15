@@ -32,4 +32,4 @@ An ancient book has no pages: it is a strip of papyrus, several metres long, rol
 
 ## Why it matters here
 
-The scanner does not see "a sheet": it sees matter. Knowing that the recto faces the centre and that fibres run in two directions helps to find the sheet inside the volume (K-06). Scroll names read like this: "PHerc. 1667" is Herculaneum papyrus number 1667.
+The scanner does not see "a sheet": it sees matter. Knowing that the recto faces the centre and that fibres run in two directions helps to find the sheet inside the volume (K-06). The pages refer to scrolls by names such as "PHerc. 1667" or "PHerc. Paris. 4".

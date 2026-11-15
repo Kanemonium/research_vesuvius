@@ -19,7 +19,7 @@ date: 2026-11-15
 
 ## The idea
 
-The challenge publishes its tools as open source in a single GitHub repository, [ScrollPrize/villa](https://github.com/ScrollPrize/villa). It holds what each step of the work needs: unwrapping a scroll, detecting ink, looking at the result. All of it is under the MIT licence, the same as ours.
+The challenge publishes most of its code as open source on GitHub, mainly in one large repository, [ScrollPrize/villa](https://github.com/ScrollPrize/villa). It holds what each step of the work needs: unwrapping a scroll, detecting ink, looking at the result. The root of the repository carries the MIT licence, the same as ours; some folders have their own (`volume-cartographer` is under GPL version 3): to be checked before reusing any code.
 
 ## How it works
 
@@ -32,4 +32,4 @@ The challenge publishes its tools as open source in a single GitHub repository, 
 
 ## Why it matters here
 
-When a run mentions "villa", that is the code actually running: our own files only hold settings and commands. X-002 thus shows what villa decides by default when our settings say nothing (the loss, the optimiser). The obstacles met while installing it are in P-410; they are possible contributions, to be checked first.
+When a run mentions "villa", that is the code actually running: our own files only hold settings, commands and a few launch, banding and measurement scripts. X-002 thus shows what villa decides by default when our settings say nothing (the loss, the optimiser). The obstacles met while installing it are in P-410; they are possible contributions, to be checked first.

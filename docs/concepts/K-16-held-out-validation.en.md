@@ -19,14 +19,14 @@ date: 2026-11-15
 
 ## The idea
 
-A model can do very well on the examples it has seen and fail everywhere else. The only way to know is to set an area aside, never show it during training, and test the model there afterwards.
+A model can do very well on the examples it has seen and fail everywhere else. To know, the model has to be tested on data it has never seen: an area set aside and never shown during training, or another segment.
 
 ## How it works
 
 1. **The training area**: where labels are used to correct the model.
 2. **The validation area**: labelled the same way, but excluded from training. It is only used to measure.
 3. **The training error** nearly always goes down: the model fits what it sees.
-4. **The split**: if the validation error stops going down while the other keeps going, the model is memorising. This is overfitting.
+4. **The split**: if the validation measure stops improving while the training error keeps going down, the model is starting to memorise. This is overfitting.
 
 *Numbers refer to the plate.*
 

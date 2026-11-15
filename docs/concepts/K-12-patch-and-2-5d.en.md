@@ -19,7 +19,7 @@ date: 2026-11-15
 
 ## The idea
 
-The ink sits on the sheet, but its trace spreads over a few layers of the scan. So the model looks at a thick slab, then squashes the thickness to return a flat image only. Three dimensions in, two out: hence "2.5D".
+The ink sits on the surface of the sheet, and the surface volume stacks layers of the scan sampled around that surface. So the model looks at a thick slab, then squashes the thickness to return a flat image only. Three dimensions in, two out: hence "2.5D".
 
 ## How it works
 
@@ -32,4 +32,4 @@ The ink sits on the sheet, but its trace spreads over a few layers of the scan. 
 
 ## Why it matters here
 
-Patch size is the setting that decides whether training fits on our card. Measured in X-001: from 256 to 128 pixels a side, video memory drops from 7,996 to 4,895 MB and speed is multiplied by 66. A smaller patch sees less context; the effect on quality has not been measured. The tutorial notes that a patch is smaller than a letter, which keeps the model from "drawing" a plausible one.
+Patch size is the setting we changed so that training fits on our card; the tutorial also suggests reducing the batch to 1, which we have not tried. Measured in X-001: from 256 to 128 pixels a side, video memory drops from 7,996 to 4,895 MB and speed is multiplied by 66. A smaller patch sees less context; the effect on quality has not been measured. The tutorial notes that a patch is smaller than a letter, which keeps the model from "drawing" a plausible one.

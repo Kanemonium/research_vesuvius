@@ -19,14 +19,14 @@ date: 2026-11-15
 
 ## L'idée
 
-Un modèle peut très bien réussir sur les exemples qu'il a vus et échouer partout ailleurs. La seule façon de le savoir est de garder une zone de côté, de ne jamais la lui montrer pendant l'entraînement, et de l'y interroger ensuite.
+Un modèle peut très bien réussir sur les exemples qu'il a vus et échouer partout ailleurs. Pour le savoir, il faut l'interroger sur des données qu'il n'a jamais vues : une zone gardée de côté, jamais montrée pendant l'entraînement, ou un autre segment.
 
 ## Comment ça marche
 
 1. **La zone d'entraînement** : là où les étiquettes servent à corriger le modèle.
 2. **La zone de validation** : étiquetée de la même façon, mais exclue de l'entraînement. Elle ne sert qu'à mesurer.
 3. **L'erreur d'entraînement** baisse presque toujours : le modèle s'ajuste à ce qu'il voit.
-4. **Le décrochage** : si l'erreur de validation cesse de baisser pendant que l'autre continue, le modèle apprend par cœur. C'est le surapprentissage.
+4. **Le décrochage** : si la mesure de validation cesse de s'améliorer pendant que l'erreur d'entraînement continue de baisser, le modèle commence à apprendre par cœur. C'est le surapprentissage.
 
 *Les numéros renvoient à la planche.*
 

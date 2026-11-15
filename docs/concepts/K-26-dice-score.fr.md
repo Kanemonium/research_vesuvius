@@ -32,7 +32,7 @@ Le score Dice compare deux zones : celle que le modèle a marquée comme encre, 
 
 ## Pourquoi ça compte ici
 
-Le mot apparaît à trois endroits, et il faut les distinguer. Dans notre propre entraînement, le Dice est un des deux termes de la perte, avec l'entropie croisée (K-13) : le code de villa les additionne. Dans les tutoriels de segmentation, un « pseudo Dice » est calculé sur un lot de validation tiré au hasard ; la page prévient elle-même de ne pas le prendre pour parole d'évangile. Enfin la page des problèmes ouverts cite un Dice de validation « presque doublé » par un essaim d'agents, en précisant qu'il est calculé sur des pseudo-étiquettes (K-09). C'est cohérent avec la définition, mais la limite est réelle : une note mesurée contre des étiquettes issues d'un modèle dit que deux modèles s'accordent, pas que l'encre est bien là. Aucune valeur absolue n'est donnée.
+Le mot apparaît à trois endroits, et il faut les distinguer. Dans notre propre entraînement, le Dice est un des deux termes de la perte, avec l'entropie croisée (K-13) : le code de villa les combine, le Dice étant compté en négatif (plus le recouvrement est bon, plus la perte baisse). Dans les tutoriels de segmentation, un « pseudo Dice » est calculé sur un lot de validation tiré au hasard ; la page prévient elle-même de ne pas le prendre pour parole d'évangile. Enfin la page des problèmes ouverts cite un Dice de validation « presque doublé » par un essaim d'agents, en précisant qu'il est calculé sur des pseudo-étiquettes (K-09). C'est cohérent avec la définition, mais la limite est réelle : une note mesurée contre des étiquettes issues d'un modèle dit que deux modèles s'accordent, pas que l'encre est bien là. Aucune valeur absolue n'est donnée.
 
 ## Le vocabulaire anglais
 

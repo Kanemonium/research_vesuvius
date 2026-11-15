@@ -26,7 +26,7 @@ A network handles billions of numbers. Written on 16 bits instead of 32, they ta
 1. **32 bits**: the ordinary precision of a number.
 2. **16 bits**: half the room, but a much narrower range of values.
 3. **Overflow**: a value too large for 16 bits becomes infinite, and the computed correction no longer means anything.
-4. **The safeguard**: when that happens, the step is skipped and the scale of the computation is lowered. Training goes on.
+4. **The safeguard**: when that happens, the step is skipped and the scale of the computation is lowered. Training goes on, unless overflows exceed the tolerated number during the first checked steps (four over 200 steps in our settings): villa then stops it.
 
 *Numbers refer to the plate.*
 

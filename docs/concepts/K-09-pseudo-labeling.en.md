@@ -25,7 +25,7 @@ Training a model takes corrected examples. Inside a closed scroll nobody has eve
 
 1. **Train** a first model, for instance on opened fragments.
 2. **Predict** on a segment of the closed scroll.
-3. **Label** by hand, only where letter strokes are sharp and repeat.
+3. **Label** by hand, only where strokes are clearly and repeatably visible.
 4. **Check** on a held-out area never shown during training, then start again.
 
 *Numbers refer to the plate.*

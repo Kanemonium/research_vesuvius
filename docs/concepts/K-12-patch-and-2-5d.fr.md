@@ -19,7 +19,7 @@ date: 2026-11-15
 
 ## L'idée
 
-L'encre est posée sur la feuille, mais sa trace s'étale sur quelques couches du scan. Le modèle regarde donc un pavé épais, puis écrase l'épaisseur pour ne rendre qu'une image plate. Trois dimensions en entrée, deux en sortie : d'où « 2,5D ».
+L'encre est posée à la surface de la feuille, et le volume de surface empile des couches du scan prises autour de cette surface. Le modèle regarde donc un pavé épais, puis écrase l'épaisseur pour ne rendre qu'une image plate. Trois dimensions en entrée, deux en sortie : d'où « 2,5D ».
 
 ## Comment ça marche
 
@@ -32,7 +32,7 @@ L'encre est posée sur la feuille, mais sa trace s'étale sur quelques couches d
 
 ## Pourquoi ça compte ici
 
-La taille du bloc est le réglage qui décide si l'entraînement tient sur notre carte. Mesuré dans X-001 : de 256 à 128 pixels de côté, la mémoire vidéo passe de 7 996 à 4 895 Mo et la vitesse est multipliée par 66. Un bloc plus petit voit moins de contexte ; l'effet sur la qualité n'est pas mesuré. Le tutoriel précise qu'un bloc est plus petit qu'une lettre, ce qui empêche le modèle d'en « dessiner » une plausible.
+La taille du bloc est le réglage que nous avons changé pour que l'entraînement tienne sur notre carte ; le tutoriel propose aussi de réduire le lot à 1, ce que nous n'avons pas essayé. Mesuré dans X-001 : de 256 à 128 pixels de côté, la mémoire vidéo passe de 7 996 à 4 895 Mo et la vitesse est multipliée par 66. Un bloc plus petit voit moins de contexte ; l'effet sur la qualité n'est pas mesuré. Le tutoriel précise qu'un bloc est plus petit qu'une lettre, ce qui empêche le modèle d'en « dessiner » une plausible.
 
 ## Le vocabulaire anglais
 

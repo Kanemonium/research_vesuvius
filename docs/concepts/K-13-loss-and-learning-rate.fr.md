@@ -24,7 +24,7 @@ Un modèle neuf répond au hasard. À chaque itération il regarde quelques bloc
 ## Comment ça marche
 
 1. **Comparer** : la prédiction du modèle (en haut) face à l'étiquette (en bas), là où le masque de supervision dit que l'étiquette est fiable.
-2. **La perte** : l'écart résumé en un seul nombre. Dans villa, c'est la somme d'une note pixel par pixel (BCE) et d'un quart d'une note de recouvrement (Dice).
+2. **La perte** : l'écart résumé en un seul nombre. Dans villa, par défaut, c'est une note pixel par pixel (BCE) dont on retranche un quart d'une note de recouvrement (Dice) : elle peut donc passer sous zéro.
 3. **La correction** : chaque réglage du réseau est poussé un peu dans le sens qui fait baisser la perte. C'est la rétropropagation.
 4. **Le taux d'apprentissage** : la taille de ce « un peu ». Il monte pendant les 1 000 premières itérations, puis redescend lentement jusqu'à zéro.
 

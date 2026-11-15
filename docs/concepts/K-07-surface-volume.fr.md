@@ -19,7 +19,7 @@ date: 2026-11-14
 
 ## L'idée
 
-L'encre n'est pas exactement « sur » la ligne tracée : elle est juste au-dessus, ou un peu dedans. On prélève donc une petite épaisseur de scan de part et d'autre de la feuille, et on l'aplatit avec elle.
+Le signal de l'encre se trouve sur la surface retrouvée, ou près d'elle. On prélève donc une petite épaisseur de scan de part et d'autre de la feuille, et on l'aplatit avec elle.
 
 ## Comment ça marche
 
@@ -32,7 +32,7 @@ L'encre n'est pas exactement « sur » la ligne tracée : elle est juste au-dess
 
 ## Pourquoi ça compte ici
 
-Dans le tutoriel, c'est le fichier `.zarr` du segment : l'entrée du modèle. Si la feuille est mal placée de quelques voxels, l'encre peut se retrouver hors de l'épaisseur prélevée : une des causes possibles d'échec citées par l'équipe (P-320).
+Dans le tutoriel, c'est le fichier `.zarr` du segment : l'entrée du modèle. Une surface légèrement mal placée est une des causes possibles d'échec citées par l'équipe (P-320).
 
 ## Le vocabulaire anglais
 

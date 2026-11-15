@@ -32,4 +32,4 @@ An X-ray is a wave. Passing through matter it is not only attenuated: it is also
 
 ## Why it matters here
 
-This is what makes the boundaries between papyrus layers visible, where absorption alone separates them poorly. But too much distance blurs the image instead of sharpening it: it is a scan setting, and one possible cause of the hazy regions (P-110).
+The fringes outline the boundaries between materials: in an object with very little absorption contrast, like our scrolls, this can be especially useful. But too much distance can blur the image instead of sharpening it: it is a scan setting, and one possible cause of the hazy regions (P-110).

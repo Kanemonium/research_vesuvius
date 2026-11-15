@@ -2,7 +2,7 @@
 id: K-02
 langue: en
 titre: "Carbon ink"
-resume: "The ink and the burnt papyrus are made of the same element: under X-rays the writing almost vanishes."
+resume: "The ink and the burnt papyrus are both rich in the same element, carbon: under X-rays the writing almost vanishes."
 domaine: defi
 ordre: 2
 pistes: [P-300, P-320]
@@ -13,7 +13,7 @@ date: 2026-11-14
 
 # Carbon ink
 
-*The ink and the burnt papyrus are made of the same element: under X-rays the writing almost vanishes.*
+*The ink and the burnt papyrus are both rich in the same element, carbon: under X-rays the writing almost vanishes.*
 
 ![The same fragment under three kinds of light: visible, infrared, X-ray](img/K-02-carbon-ink.svg)
 

@@ -57,7 +57,7 @@ avancees:
     statut: acquis
     resume: "Le modèle du tutoriel entraîné jusqu'au bout sur notre machine : 20 000 itérations."
     fonctionnel: "Nous avons un modèle à nous, avec son point de sauvegarde, pour prédire. Ce qu'il vaut reste à regarder sur une image."
-    technique: "U-Net 3D de villa, 202 millions de valeurs, blocs de 128. Détail et courbe de perte dans X-002."
+    technique: "U-Net 3D de villa, 102 millions de valeurs réglables, blocs de 128. Détail et courbe de perte dans X-002."
     pistes: [P-420]
     executions: [X-002]
     fiches: [K-11, K-13, K-15]

@@ -32,7 +32,7 @@ Un livre antique n'a pas de pages : c'est une bande de papyrus, longue de plusie
 
 ## Pourquoi ça compte ici
 
-Le scanner ne voit pas « une feuille » : il voit de la matière. Savoir que le recto regarde vers le centre et que les fibres dessinent deux directions aide à retrouver la feuille dans le volume (K-06). Les noms des rouleaux se lisent ainsi : « PHerc. 1667 » est le papyrus d'Herculanum numéro 1667.
+Le scanner ne voit pas « une feuille » : il voit de la matière. Savoir que le recto regarde vers le centre et que les fibres dessinent deux directions aide à retrouver la feuille dans le volume (K-06). Les pages désignent les rouleaux par des noms comme « PHerc. 1667 » ou « PHerc. Paris. 4 ».
 
 ## Le vocabulaire anglais
 

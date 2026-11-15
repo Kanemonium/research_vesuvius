@@ -25,13 +25,13 @@ Le scan est une grille de petits cubes, les voxels, qui portent chacun une valeu
 
 1. **Un voxel** : un cube de matière, résumé par un seul nombre.
 2. **Diviser sa taille par deux** donne huit cubes à la place d'un : deux fois plus dans chacune des trois directions.
-3. **En données** : passer de 8 µm à 2 µm, c'est 64 fois plus de voxels pour le même rouleau.
+3. **En données** : passer de 8 µm à 2 µm, c'est environ 64 fois plus de données pour le même rouleau.
 
 *Les numéros renvoient à la planche.*
 
 ## Pourquoi ça compte ici
 
-Un rouleau scanné à haute résolution pèse plusieurs téraoctets. C'est ce qui nous oblige à lire les données par morceaux (K-10) et à compter notre mémoire vidéo (P-420). Un micromètre (µm) vaut un millième de millimètre.
+Les données de scan des grands rouleaux peuvent atteindre des dizaines de téraoctets. C'est ce qui nous oblige à lire les données par morceaux (K-10) et à compter notre mémoire vidéo (P-420). Un micromètre (µm) vaut un millième de millimètre.
 
 ## Le vocabulaire anglais
 

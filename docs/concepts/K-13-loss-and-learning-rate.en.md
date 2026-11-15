@@ -24,7 +24,7 @@ A fresh model answers at random. At each iteration it looks at a few patches, co
 ## How it works
 
 1. **Compare**: the model prediction (top) against the label (bottom), where the supervision mask says the label can be trusted.
-2. **The loss**: the gap summed up as a single number. In villa it is the sum of a per-pixel score (BCE) and a quarter of an overlap score (Dice).
+2. **The loss**: the gap summed up as a single number. In villa, by default, it is a per-pixel score (BCE) minus a quarter of an overlap score (Dice): it can therefore drop below zero.
 3. **The correction**: each setting of the network is nudged in the direction that lowers the loss. This is backpropagation.
 4. **The learning rate**: the size of that nudge. It rises during the first 1,000 iterations, then slowly comes down to zero.
 

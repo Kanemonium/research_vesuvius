@@ -167,7 +167,8 @@ executions:
         valeur: "Un fichier de poids, pas encore une image"
         detail: >-
           L'entraînement produit des points de sauvegarde : des fichiers `.pth` de 816 Mo. Le
-          dernier, `ckpt_020000.pth`, contient 202 467 329 nombres répartis en 500 tableaux :
+          dernier, `ckpt_020000.pth`, liste pour le réseau 202 467 329 nombres en 500 tableaux, dont 101 938 593
+          distincts (les autres sont les mêmes sous un second nom) :
           les réglages internes du réseau, tels que deux heures de calcul les ont ajustés.
           Ce n'est ni une image d'encre ni une lecture. C'est l'outil qui servira à produire
           l'image, à l'étape suivante (T-005).
@@ -205,7 +206,7 @@ executions:
             texte: >-
               `vesuvius_unet` est un réseau de neurones en forme de U : il résume le bloc étage
               par étage, puis redessine une carte d'encre à la taille d'origine. Ici il a six
-              étages, de 32 à 320 filtres, soit 202 millions de nombres réglables (relevé dans le
+              étages, de 32 à 320 filtres, soit 102 millions de nombres réglables distincts (relevé dans le
               journal et dans le fichier de poids). `mode: flat` et `z_projection_mode: max` : il
               reçoit un pavé de 64 couches et n'en garde, en sortie, que la réponse la plus forte
               sur l'épaisseur. D'où une image plate.
@@ -312,7 +313,9 @@ executions:
             texte: >-
               La perte est le nombre que l'entraînement cherche à faire baisser. Ici elle
               additionne deux notes : une note pixel par pixel (BCE) et une note de recouvrement
-              entre la zone prédite et la zone étiquetée (Dice).
+              entre la zone prédite et la zone étiquetée (Dice). Dans le code, cette seconde note est
+              comptée en négatif : plus le recouvrement est bon, plus la perte baisse, et elle peut
+              passer sous zéro.
             fiches: [K-13]
           - lignes: [1028, 1029]
             genre: parametrage

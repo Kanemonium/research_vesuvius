@@ -25,10 +25,10 @@ A scan is a grid of small cubes, the voxels, each carrying one grey value. The s
 
 1. **A voxel**: a cube of matter, summed up by a single number.
 2. **Halving its size** gives eight cubes instead of one: twice as many along each of the three directions.
-3. **In data**: going from 8 µm to 2 µm means 64 times more voxels for the same scroll.
+3. **In data**: going from 8 µm to 2 µm means roughly 64 times more data for the same scroll.
 
 *Numbers refer to the plate.*
 
 ## Why it matters here
 
-A scroll scanned at high resolution weighs several terabytes. This is what forces us to read data in chunks (K-10) and to watch our video memory (P-420). One micrometre (µm) is a thousandth of a millimetre.
+The CT data for the large scrolls can reach dozens of terabytes. This is what forces us to read data in chunks (K-10) and to watch our video memory (P-420). One micrometre (µm) is a thousandth of a millimetre.

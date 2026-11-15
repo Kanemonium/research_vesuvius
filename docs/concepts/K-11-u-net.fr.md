@@ -24,7 +24,7 @@ Pour dire où est l'encre, il faut à la fois voir large (le contexte) et répon
 ## Comment ça marche
 
 1. **L'entrée** : un bloc de scan (K-12).
-2. **La descente** : à chaque étage, le bloc est réduit et décrit par davantage de filtres. Le réseau voit de plus en plus large, de moins en moins fin.
+2. **La descente** : d'étage en étage, le bloc est réduit et décrit par davantage de filtres, jusqu'à un plafond. Le réseau voit de plus en plus large, de moins en moins fin.
 3. **Les passerelles** : chaque étage de la descente recopie ses détails vers l'étage d'en face, pour que la remontée ne les ait pas perdus.
 4. **La remontée et la sortie** : le résumé est redéployé étage par étage jusqu'à une carte de la taille d'origine, une valeur d'encre par pixel.
 
@@ -32,7 +32,7 @@ Pour dire où est l'encre, il faut à la fois voir large (le contexte) et répon
 
 ## Pourquoi ça compte ici
 
-Le modèle du tutoriel, `vesuvius_unet`, est un U à six étages, de 32 à 320 filtres, qui travaille en 3D. Dans X-002, le journal l'annonce au démarrage et le fichier de poids compte 202 467 329 nombres réglables. Nous n'avons rien changé à cette architecture : villa la configure seule à partir de la taille du bloc.
+Le modèle du tutoriel, `vesuvius_unet`, travaille en 3D. Avec nos blocs de 128, c'est un U à six étages, de 32 à 320 filtres ; avec les blocs de 256 de la recette, villa en construit sept (relevé dans le journal de l'essai à 256 de X-001). Dans X-002, le journal l'annonce au démarrage et le point de sauvegarde liste 202 467 329 nombres pour le réseau, mais beaucoup y figurent sous deux noms : le réseau compte 101 938 593 nombres réglables distincts. Nous n'avons touché à aucun réglage d'architecture, mais villa la configure seule à partir de la taille du bloc : en passant de 256 à 128, nous avons un étage de moins que la recette du tutoriel.
 
 ## Le vocabulaire anglais
 

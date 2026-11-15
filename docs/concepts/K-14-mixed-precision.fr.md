@@ -26,7 +26,7 @@ Un réseau manipule des milliards de nombres. Écrits sur 16 bits au lieu de 32,
 1. **32 bits** : la précision ordinaire d'un nombre.
 2. **16 bits** : moitié moins de place, mais une plage de valeurs bien plus étroite.
 3. **Le débordement** : une valeur trop grande pour 16 bits devient infinie, et la correction calculée ne veut plus rien dire.
-4. **Le garde-fou** : quand cela arrive, le pas est sauté et l'échelle des calculs est réduite. L'entraînement continue.
+4. **Le garde-fou** : quand cela arrive, le pas est sauté et l'échelle des calculs est réduite. L'entraînement continue, sauf si les débordements dépassent le nombre toléré pendant les premiers pas contrôlés (chez nous, quatre sur 200 pas) : villa l'arrête alors.
 
 *Les numéros renvoient à la planche.*
 

@@ -19,7 +19,7 @@ date: 2026-11-14
 
 ## The idea
 
-The ink is not exactly "on" the traced line: it sits just above it, or slightly inside. So a small thickness of scan is taken on both sides of the sheet and flattened with it.
+The ink signal lies on, or near, the recovered writing surface. So a small thickness of scan is taken on both sides of the sheet and flattened with it.
 
 ## How it works
 
@@ -32,4 +32,4 @@ The ink is not exactly "on" the traced line: it sits just above it, or slightly 
 
 ## Why it matters here
 
-In the tutorial this is the segment's `.zarr` file: the input of the model. If the sheet is misplaced by a few voxels, the ink may fall outside the sampled thickness: one of the possible causes of failure listed by the team (P-320).
+In the tutorial this is the segment's `.zarr` file: the input of the model. A slightly misplaced surface is one of the possible causes of failure listed by the team (P-320).

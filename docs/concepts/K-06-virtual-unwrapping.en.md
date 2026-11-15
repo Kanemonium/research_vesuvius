@@ -23,7 +23,7 @@ The scan gives a block of matter, not a sheet. Virtual unwrapping means finding 
 
 ## How it works
 
-1. **Locate**: in each slice, a model predicts where the written surface of each wrap lies.
+1. **Locate**: a model predicts, for every voxel of the volume, the probability of lying on the written surface (the recto).
 2. **Follow**: a mesh is built, a grid of points that hugs the sheet in 3D. The resulting piece is called a segment.
 3. **Flatten**: each point is given a 2D position, with as little distortion as possible.
 
@@ -31,4 +31,4 @@ The scan gives a block of matter, not a sheet. Virtual unwrapping means finding 
 
 ## Why it matters here
 
-This is the subject of the Grand Prize. Three errors keep coming back: holes, two neighbouring sheets merged, and a jump from one sheet to the next. A single one is enough to mix two passages of the text. We leave this area aside to begin with (D-001).
+The 2027 Grand Prize goes to whoever fully unrolls a scroll and makes it readable. Three errors keep coming back: holes, two neighbouring sheets merged, and a jump from one sheet to the next. A small local error can send the traced mesh onto the wrong wrap, with no easy way to recover. We leave this area aside to begin with (D-001).

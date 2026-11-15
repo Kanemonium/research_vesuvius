@@ -23,7 +23,7 @@ Le scan donne un bloc de matière, pas une feuille. Le dépliage virtuel consist
 
 ## Comment ça marche
 
-1. **Repérer** : dans chaque coupe, un modèle prédit où se trouve la surface écrite de chaque spire.
+1. **Repérer** : un modèle prédit, pour chaque voxel du volume, la probabilité d'être sur la surface écrite (le recto).
 2. **Suivre** : on construit un maillage, une grille de points qui épouse la feuille en 3D. Le morceau obtenu s'appelle un segment.
 3. **Aplatir** : on donne à chaque point une position en 2D, en déformant le moins possible.
 
@@ -31,7 +31,7 @@ Le scan donne un bloc de matière, pas une feuille. Le dépliage virtuel consist
 
 ## Pourquoi ça compte ici
 
-C'est le sujet du Grand Prix. Trois erreurs reviennent : les trous, la fusion de deux feuilles voisines, et le saut d'une feuille à l'autre. Une seule suffit à mélanger deux passages du texte. Nous laissons ce domaine de côté pour commencer (D-001).
+Le Grand Prix 2027 récompense qui déroulera entièrement un rouleau et le rendra lisible. Trois erreurs reviennent : les trous, la fusion de deux feuilles voisines, et le saut d'une feuille à l'autre. Une petite erreur locale peut envoyer le maillage sur la mauvaise spire, sans moyen simple de revenir. Nous laissons ce domaine de côté pour commencer (D-001).
 
 ## Le vocabulaire anglais
 

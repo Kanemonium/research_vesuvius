@@ -2,7 +2,7 @@
 id: K-02
 langue: fr
 titre: "L'encre au carbone"
-resume: "L'encre et le papyrus brûlé sont faits du même élément : aux rayons X, l'écriture disparaît presque."
+resume: "L'encre et le papyrus brûlé sont tous deux riches du même élément, le carbone : aux rayons X, l'écriture disparaît presque."
 domaine: defi
 ordre: 2
 pistes: [P-300, P-320]
@@ -13,7 +13,7 @@ date: 2026-11-14
 
 # L'encre au carbone
 
-*L'encre et le papyrus brûlé sont faits du même élément : aux rayons X, l'écriture disparaît presque.*
+*L'encre et le papyrus brûlé sont tous deux riches du même élément, le carbone : aux rayons X, l'écriture disparaît presque.*
 
 ![Le même fragment sous trois éclairages : lumière visible, infrarouge, rayons X](img/K-02-carbon-ink.svg)
 

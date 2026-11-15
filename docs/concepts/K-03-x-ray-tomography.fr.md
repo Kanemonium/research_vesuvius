@@ -25,7 +25,7 @@ C'est le principe du scanner médical, poussé beaucoup plus loin. Il faut voir 
 
 1. **Le synchrotron** : un accélérateur de particules. Des électrons y tournent très vite et émettent des rayons X.
 2. **Le faisceau** traverse le rouleau. Chaque matière l'atténue plus ou moins.
-3. **Le rouleau tourne** : on enregistre des milliers de vues sous des angles différents.
+3. **Le rouleau tourne** : on enregistre des centaines à des milliers de vues sous des angles différents.
 4. **Le détecteur** mesure ce qui ressort.
 5. **Le volume** : un calcul combine toutes les vues en un bloc 3D (K-04).
 

@@ -25,7 +25,7 @@ It is the principle of a medical CT scanner, pushed much further. Details of a f
 
 1. **The synchrotron**: a particle accelerator. Electrons circle in it at very high speed and emit X-rays.
 2. **The beam** passes through the scroll. Each material attenuates it more or less.
-3. **The scroll rotates**: thousands of views are recorded at different angles.
+3. **The scroll rotates**: hundreds to thousands of views are recorded at different angles.
 4. **The detector** measures what comes out.
 5. **The volume**: a computation combines all views into one 3D block (K-04).
 
