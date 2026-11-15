@@ -623,3 +623,32 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .dsc-regles li + li { margin-top: 4px; }
 .dsc-regles code { font: 500 0.92em var(--f-mono); }
 .dsc-onglets button { padding-inline: 9px; }
+
+/* ---------- Tâches : « Bloquée » à part, à droite de « Faite », derrière un filet ---------- */
+.colonne[data-colonne="bloquee"] { position: relative; }
+.colonne[data-colonne="bloquee"]::before { content: ""; position: absolute; top: var(--e-2); bottom: var(--e-2); left: calc(var(--e-4) / -2); width: 1px; background: var(--structure); }
+.tache-bloquer { display: inline-grid; place-items: center; color: var(--encre-40); }
+.tache-bloquer:hover { color: var(--alerte); }
+
+/* ---------- GitHub : quatre panneaux à la hauteur de l'écran, chacun avec son défilement ---------- */
+.page.gh-vue { display: flex; flex-direction: column; height: calc(100vh - var(--h-entete, 84px)); padding-bottom: var(--e-5); }
+.gh-vue .vue-tete { flex: none; margin-bottom: var(--e-5); }
+.gh-grille { position: relative; flex: 1; min-height: 0; grid-auto-rows: minmax(0, 1fr); }
+.gh-panneau { display: flex; flex-direction: column; min-height: 0; overflow: hidden; transition: opacity var(--trans), transform var(--trans); }
+.gh-panneau .carte-tete { flex: none; align-items: center; }
+.gh-panneau .carte-tete .meta { margin-left: auto; }
+.gh-corps { flex: 1; min-height: 0; overflow-y: auto; margin-right: calc(var(--e-3) * -1); padding-right: var(--e-3); scrollbar-width: thin; scrollbar-color: var(--structure) transparent; }
+.gh-agrandir { display: inline-grid; place-items: center; width: 30px; height: 30px; flex: none; border: 1px solid var(--filet); border-radius: 50%; background: transparent; color: var(--encre-60); transition: color var(--trans), border-color var(--trans), transform var(--trans); }
+.gh-agrandir:hover { color: var(--encre); border-color: var(--encre); transform: scale(1.08); }
+.gh-agrandir .gh-reduire, .gh-panneau[data-agrandi="oui"] .gh-agrandir .gh-ouvrir { display: none; }
+.gh-panneau[data-agrandi="oui"] .gh-agrandir .gh-reduire { display: inline; }
+.gh-panneau[data-agrandi="oui"] { position: absolute; inset: 0; z-index: 3; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.5); }
+.gh-panneau[data-agrandi="oui"] .gh-agrandir { background: var(--encre); border-color: var(--encre); color: var(--sur-encre); }
+/* Les autres panneaux glissent sous celui qui s'agrandit. */
+.gh-grille[data-agrandi="oui"] .gh-panneau:not([data-agrandi]) { opacity: 0; transform: scale(0.96); pointer-events: none; }
+.gh-place { min-height: 0; }
+@media (max-width: 900px) {
+  .page.gh-vue { height: auto; }
+  .gh-grille { grid-auto-rows: auto; }
+  .gh-panneau { max-height: 70vh; }
+}

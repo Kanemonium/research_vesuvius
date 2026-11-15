@@ -5,7 +5,11 @@
 import { embleme } from '../emblemes.js';
 import { LIBELLES, adresse, dateCourte, dateLongue, envoyer, glyphe, h, lienId, lier, pilule } from '../outils.js';
 
-const COLONNES = ['a-faire', 'en-cours', 'bloquee', 'faite'];
+// « Bloquée » est à part, à droite de « Faite », derrière un filet : ce n'est pas une étape du parcours.
+const COLONNES = ['a-faire', 'en-cours', 'faite', 'bloquee'];
+// Où mènent les flèches d'une carte : [vers la gauche, vers la droite]. Une tâche bloquée repart en cours.
+const VOISINS = { 'a-faire': [null, 'en-cours'], 'en-cours': ['a-faire', 'faite'], faite: ['en-cours', null], bloquee: ['en-cours', null] };
+const SENS_INTERDIT = '<svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5.2 14.8 14.8 5.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 // Dernier volet montré et dernière tâche ouverte : servent à animer le passage de l'un à l'autre.
 let voletPrecedent = null;
 let derniereOuverte = null;
@@ -30,10 +34,12 @@ export function vueTaches(vue, app, params) {
     } catch (e) { alert(e.message); }
   };
   const fleches = (t) => {
-    const i = COLONNES.indexOf(t.statut);
+    const [avant, apres] = VOISINS[t.statut] ?? [null, null];
+    const bloquable = t.statut === 'a-faire' || t.statut === 'en-cours';
     return h('span', { classe: 'tache-fleches' },
-      i > 0 ? h('button', { classe: 'bouton mini discret', type: 'button', 'aria-label': `Remettre ${t.id} dans « ${LIBELLES[COLONNES[i - 1]]} »`, onclick: () => deplacer(t, COLONNES[i - 1]) }, '←') : null,
-      i < COLONNES.length - 1 ? h('button', { classe: 'bouton mini discret', type: 'button', 'aria-label': `Passer ${t.id} dans « ${LIBELLES[COLONNES[i + 1]]} »`, onclick: () => deplacer(t, COLONNES[i + 1]) }, '→') : null);
+      bloquable ? h('button', { classe: 'bouton mini discret tache-bloquer', type: 'button', title: 'Bloquer', 'aria-label': `Passer ${t.id} dans « ${LIBELLES.bloquee} »`, html: SENS_INTERDIT, onclick: () => deplacer(t, 'bloquee') }) : null,
+      avant ? h('button', { classe: 'bouton mini discret', type: 'button', 'aria-label': `Remettre ${t.id} dans « ${LIBELLES[avant]} »`, onclick: () => deplacer(t, avant) }, '←') : null,
+      apres ? h('button', { classe: 'bouton mini discret', type: 'button', 'aria-label': `Passer ${t.id} dans « ${LIBELLES[apres]} »`, onclick: () => deplacer(t, apres) }, '→') : null);
   };
   const priorite = (t) => h('span', { classe: 'priorite', title: `Priorité ${t.priorite}`, 'aria-label': `Priorité ${t.priorite} sur 3` },
     [1, 2, 3].map((n) => h('i', { classe: n <= 4 - t.priorite ? 'on' : '' })));
@@ -67,7 +73,7 @@ export function vueTaches(vue, app, params) {
         : h('p', { classe: 'doux' }, 'Chaque tâche sert une piste de la carte. Cliquer une carte ouvre son détail : ses étapes et ses bugs.')),
     h('div', { classe: 'tableau' }, COLONNES.map((statut) => {
       const liste = visibles.filter((t) => t.statut === statut).sort((a, b) => a.priorite - b.priorite || a.id.localeCompare(b.id));
-      return h('section', { classe: 'colonne', 'aria-label': LIBELLES[statut] },
+      return h('section', { classe: 'colonne', 'data-colonne': statut, 'aria-label': LIBELLES[statut] },
         h('div', { classe: 'colonne-tete' }, h('h2', { classe: 'cond', style: 'display:flex;align-items:center;gap:8px' }, glyphe(statut), LIBELLES[statut]), h('span', { classe: 'numero' }, liste.length)),
         liste.length ? liste.map(carte) : h('p', { classe: 'meta', style: 'padding:8px' }, 'Rien ici.'));
     })));

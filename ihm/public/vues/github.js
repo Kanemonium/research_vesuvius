@@ -5,13 +5,51 @@ import { h, ilYA, lienId } from '../outils.js';
 const ETATS_CI = { success: 'réussie', failure: 'en échec', cancelled: 'annulée', skipped: 'ignorée' };
 
 const EMBLEMES = { 'Sur cette machine': 'mouvement', GitHub: 'github', 'Contrôles automatiques': 'taches', 'Demandes de fusion et issues': 'boite' };
+const AGRANDIR = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="gh-ouvrir" d="M12 3.5h4.5V8M8 16.5H3.5V12M16.5 3.5l-5 5M3.5 16.5l5-5"/><path class="gh-reduire" d="M16.5 8H12V3.5M3.5 12H8v4.5M12 8l4.5-4.5M8 12l-4.5 4.5"/></svg>';
+const calme = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** Agrandit un panneau jusqu'à couvrir la grille, ou le remet à sa place. Les autres glissent dessous. */
+function basculerPanneau(section) {
+  const grille = section.closest('.gh-grille');
+  const cadre = grille.getBoundingClientRect();
+  const bouton = section.querySelector('.gh-agrandir');
+  const duree = calme() ? 0 : 420;
+  const options = { duration: duree, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' };
+  const marges = (r) => `inset(${r.top - cadre.top}px ${cadre.right - r.right}px ${cadre.bottom - r.bottom}px ${r.left - cadre.left}px round 14px)`;
+  if (section.dataset.agrandi !== 'oui') {
+    const avant = section.getBoundingClientRect();
+    // Une place vide garde la case du panneau dans la grille pendant qu'il la quitte.
+    const place = h('div', { classe: 'gh-place', 'aria-hidden': 'true' });
+    section.before(place);
+    section.dataset.agrandi = 'oui';
+    grille.dataset.agrandi = 'oui';
+    bouton.setAttribute('aria-label', 'Réduire le panneau');
+    bouton.setAttribute('aria-expanded', 'true');
+    section.animate([{ clipPath: marges(avant) }, { clipPath: 'inset(0 round 14px)' }], options);
+    return;
+  }
+  const place = grille.querySelector('.gh-place');
+  const cible = place.getBoundingClientRect();
+  delete grille.dataset.agrandi;
+  bouton.setAttribute('aria-label', 'Agrandir le panneau');
+  bouton.setAttribute('aria-expanded', 'false');
+  const fin = () => { delete section.dataset.agrandi; place.remove(); };
+  if (!duree) { fin(); return; }
+  section.animate([{ clipPath: 'inset(0 round 14px)' }, { clipPath: marges(cible) }], options).finished.then(fin, fin);
+}
+
 function bloc(titre, meta, ...contenu) {
-  return h('section', { classe: 'carte' }, h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond avec-embleme' }, embleme(EMBLEMES[titre], 30), titre), h('span', { classe: 'meta' }, meta)), contenu);
+  const section = h('section', { classe: 'carte gh-panneau' },
+    h('div', { classe: 'carte-tete' }, h('h2', { classe: 'cond avec-embleme' }, embleme(EMBLEMES[titre], 30), titre), h('span', { classe: 'meta' }, meta),
+      h('button', { classe: 'gh-agrandir', type: 'button', 'aria-label': 'Agrandir le panneau', 'aria-expanded': 'false', html: AGRANDIR, onclick: () => basculerPanneau(section) })),
+    h('div', { classe: 'gh-corps' }, contenu));
+  return section;
 }
 const lignes = (elements, rendre, vide) => (elements?.length ? h('ul', { classe: 'liste' }, elements.map((e) => h('li', {}, rendre(e)))) : h('p', { classe: 'doux' }, vide));
 
 export function vueGithub(vue, app) {
-  const corps = h('div', { classe: 'grille col-2' }, h('p', { classe: 'doux' }, 'Lecture du dépôt…'));
+  vue.classList.add('gh-vue'); // la vue tient dans la hauteur de l'écran : chaque panneau défile pour lui-même
+  const corps = h('div', { classe: 'grille col-2 gh-grille' }, h('p', { classe: 'doux' }, 'Lecture du dépôt…'));
   vue.append(
     h('div', { classe: 'vue-tete' },
       h('div', {}, h('p', { classe: 'meta' }, '04/06 · Mouvement'), h('h1', { classe: 'grand' }, 'Le dépôt')),
