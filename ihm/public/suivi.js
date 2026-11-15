@@ -1,9 +1,23 @@
 // Suivi d'une exécution dans la page : la barre de progression, le bouton du journal et sa fenêtre.
 // Les chiffres viennent du serveur (ihm/lib/suivi.mjs), qui les lit dans le journal de l'exécution.
 import { embleme } from './emblemes.js';
-import { LIBELLES, glyphe, h } from './outils.js';
+import { LIBELLES, envoyer, glyphe, h } from './outils.js';
 
 const nb = (v) => v.toLocaleString('fr-FR');
+
+// Les boutons ne portent aucun texte : une icône, et un fond qui dit l'état. Le nom est dans « aria-label » et l'infobulle.
+const ICONES = {
+  // Une feuille de journal : trois lignes de texte.
+  journal: '<path d="M5 3.5h7.2L15 6.3V16a.5.5 0 0 1-.5.5h-9A.5.5 0 0 1 5 16Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.4 8.6h5.2M7.4 11h5.2M7.4 13.4h3.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  pause: '<rect x="5.6" y="4.6" width="3.2" height="10.8" rx="1" fill="currentColor"/><rect x="11.2" y="4.6" width="3.2" height="10.8" rx="1" fill="currentColor"/>',
+  reprendre: '<path d="M7 4.4v11.2a.6.6 0 0 0 .92.5l8.6-5.6a.6.6 0 0 0 0-1L7.92 3.9A.6.6 0 0 0 7 4.4Z" fill="currentColor"/>',
+};
+function icone(nom) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  for (const [k, v] of Object.entries({ viewBox: '0 0 20 20', width: 18, height: 18, 'aria-hidden': 'true' })) svg.setAttribute(k, v);
+  svg.innerHTML = ICONES[nom];
+  return svg;
+}
 
 /** L'état à montrer : ce que le lanceur a écrit l'emporte sur ce que dit la page de l'exécution. */
 export const etatDe = (x) => x.suivi?.etat ?? x.statut;
@@ -27,11 +41,20 @@ function lecture(suivi) {
   if (suivi.etat === 'echouee') {
     return { part: part ?? 100, texte: [`Arrêtée (code ${suivi.code})`, p ? `à ${nb(p.fait)} / ${nb(p.total)}` : null].filter(Boolean).join(' · ') };
   }
-  if (!p) return { part: null, texte: suivi.journal ? 'En cours · pas encore de progression dans le journal' : 'En cours · en attente du journal' };
-  const muet = suivi.silence > 120 ? `rien de nouveau depuis ${Math.round(suivi.silence / 60)} min` : null;
+  // En plusieurs étapes : la barre dit l'avancement de l'ensemble, le texte dit aussi où en est l'étape.
+  const e = suivi.etape;
+  const ensemble = e ? ((e.numero - 1) + (part ?? 0) / 100) / e.total * 100 : part;
+  const etape = e ? `${e.libelle} ${e.numero}/${e.total}` : null;
+  const pause = suivi.etat === 'en-pause' ? `En pause depuis ${new Date(suivi.pause).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}` : null;
+  if (!p) {
+    const attente = suivi.journal ? 'pas encore de progression dans le journal' : 'en attente du journal';
+    // Un programme sans barre de progression (la prédiction de villa) n'avance que d'étape en étape.
+    return { part: e ? ensemble : null, texte: [pause ?? 'En cours', etape, e ? null : attente].filter(Boolean).join(' · ') };
+  }
+  const muet = !pause && suivi.silence > 120 ? `rien de nouveau depuis ${Math.round(suivi.silence / 60)} min` : null;
   return {
-    part,
-    texte: [`${Math.floor(part)} %`, `${nb(p.fait)} / ${nb(p.total)}`, p.restant ? `reste ${p.restant}` : null, p.vitesse, muet].filter(Boolean).join(' · '),
+    part: ensemble,
+    texte: [pause, `${Math.floor(ensemble)} %`, etape, `${nb(p.fait)} / ${nb(p.total)}`, !pause && p.restant ? `reste ${p.restant}${e ? ' pour cette étape' : ''}` : null, pause ? null : p.vitesse, muet].filter(Boolean).join(' · '),
   };
 }
 
@@ -55,8 +78,7 @@ function peindreAvancement(el, suivi) {
 
 /** Bouton qui ouvre le journal : une onde tant que l'exécution tourne, vert une fois terminée. */
 export function boutonJournal(x) {
-  const el = h('button', { classe: 'journal-bouton', type: 'button', 'data-suivi-bouton': x.id, onclick: (e) => { e.stopPropagation(); ouvrirJournal(x); } },
-    h('span', { classe: 'journal-temoin', 'aria-hidden': 'true' }), h('span', { classe: 'journal-libelle' }));
+  const el = h('button', { classe: 'bouton-rond journal-bouton', type: 'button', 'data-suivi-bouton': x.id, onclick: (e) => { e.stopPropagation(); ouvrirJournal(x); } }, icone('journal'));
   peindreBouton(el, x.suivi);
   return el;
 }
@@ -64,13 +86,39 @@ function peindreBouton(el, suivi) {
   const etat = suivi?.etat ?? 'aucun';
   el.dataset.etat = suivi?.journal ? etat : 'aucun';
   el.disabled = !suivi?.journal;
-  el.querySelector('.journal-libelle').textContent = !suivi?.journal ? 'Pas de journal' : etat === 'en-cours' ? 'Journal en direct' : 'Journal';
+  el.setAttribute('aria-label', !suivi?.journal ? 'Pas encore de journal' : etat === 'en-cours' ? 'Ouvrir le journal en direct' : 'Ouvrir le journal');
   el.title = !suivi?.journal ? 'Le journal apparaît dès que l’exécution est lancée.'
     : etat === 'en-cours' ? 'L’exécution tourne : ouvrir son journal en direct' : etat === 'terminee' ? 'Exécution terminée : ouvrir son journal' : 'Ouvrir le journal';
 }
 
+/** Bouton « Pause » ou « Reprendre » : gèle le programme tel quel, ou le relance. Caché hors exécution. */
+export function boutonPause(x) {
+  const el = h('button', { classe: 'bouton-rond pause-bouton', type: 'button', 'data-suivi-pause': x.id });
+  el.addEventListener('click', async (evt) => {
+    evt.stopPropagation();
+    const action = el.dataset.etat === 'en-pause' ? 'reprendre' : 'pause';
+    el.disabled = true;
+    try {
+      const r = await envoyer('POST', `/api/executions/${x.id}/action`, { action });
+      majSuivi({ [x.id]: r.suivi });
+    } catch (e) { alert(`${action === 'pause' ? 'Pause' : 'Reprise'} impossible : ${e.message}`); }
+    el.disabled = false;
+  });
+  peindrePause(el, x.suivi);
+  return el;
+}
+function peindrePause(el, suivi) {
+  const etat = suivi?.etat;
+  el.hidden = etat !== 'en-cours' && etat !== 'en-pause';
+  el.dataset.etat = etat ?? '';
+  el.replaceChildren(icone(etat === 'en-pause' ? 'reprendre' : 'pause'));
+  el.setAttribute('aria-label', etat === 'en-pause' ? 'Reprendre l’exécution' : 'Mettre l’exécution en pause');
+  el.title = etat === 'en-pause' ? 'Relancer le programme là où il s’était arrêté' : 'Geler le programme : rien n’est perdu, la reprise est immédiate';
+}
+
 /** Applique à la page les suivis reçus du serveur : { 'X-003': suivi, … }. */
 export function majSuivi(suivis) {
+  for (const el of document.querySelectorAll('[data-suivi-pause]')) if (suivis[el.dataset.suiviPause]) peindrePause(el, suivis[el.dataset.suiviPause]);
   for (const el of document.querySelectorAll('[data-suivi]')) if (suivis[el.dataset.suivi]) peindreAvancement(el, suivis[el.dataset.suivi]);
   for (const el of document.querySelectorAll('[data-suivi-bouton]')) if (suivis[el.dataset.suiviBouton]) peindreBouton(el, suivis[el.dataset.suiviBouton]);
 }

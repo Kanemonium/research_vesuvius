@@ -3,8 +3,10 @@
 //   X-….etat.json   début, fin, code de sortie, pic de mémoire vidéo
 //   X-….brut.log    tout ce que le programme affiche, pendant qu'il tourne (jamais versionné)
 //   X-….log         le même journal condensé, écrit à la fin : c'est lui qui est historisé
+import { execFile } from 'node:child_process';
 import { open, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const ID = /^X-\d{3}$/;
 // Une ligne de barre « tqdm » : 42%|████▏     | 8400/20000 [47:40<1:05:50,  2.94it/s, loss=0.4783, lr=…]
@@ -51,10 +53,16 @@ export async function suiviExecution(racine, x, maintenant = Date.now()) {
   try { marque = JSON.parse(await readFile(path.join(dossierJournaux(racine, x), `${x.id}.etat.json`), 'utf8')); } catch { /* pas encore lancée */ }
   const journal = await fichierJournal(racine, x);
   const suivi = {
-    etat: !marque ? null : marque.fin ? (marque.code === 0 ? 'terminee' : 'echouee') : 'en-cours',
+    etat: !marque ? null : marque.fin ? (marque.code === 0 ? 'terminee' : 'echouee') : marque.pause ? 'en-pause' : 'en-cours',
     debut: marque?.debut ?? null, fin: marque?.fin ?? null, code: marque?.code ?? null, picVram: marque?.pic_vram_mo ?? null,
+    pause: marque?.pause ?? null, reprises: marque?.reprises ?? 0, etape: null,
     journal: Boolean(journal), taille: journal?.infos.size ?? 0, progression: null, silence: null,
   };
+  // Une commande en plusieurs étapes écrit « k n libellé » dans X-….etape (voir lancer-execution.sh).
+  try {
+    const [k, n, ...libelle] = (await readFile(path.join(dossierJournaux(racine, x), `${x.id}.etape`), 'utf8')).trim().split(/\s+/);
+    if (Number(k) >= 1 && Number(n) >= Number(k)) suivi.etape = { numero: Number(k), total: Number(n), libelle: libelle.join(' ') || 'étape' };
+  } catch { /* exécution d'un seul tenant */ }
   if (journal) {
     const depuis = Math.max(0, journal.infos.size - QUEUE);
     suivi.progression = lireProgression((await lireTranche(journal.chemin, depuis, QUEUE)).toString('utf8'));
@@ -81,4 +89,25 @@ export async function lireJournal(racine, x, depuis = 0) {
     if (tampon.length - k < attendu) tampon = tampon.subarray(0, k);
   }
   return { texte: tampon.toString('utf8'), suite: debut + tampon.length, tronque, brut: journal.brut };
+}
+
+const ACTIONS = ['pause', 'reprendre'];
+const SCRIPT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'scripts', 'wsl', 'signaler-execution.sh');
+/** Chemin d'un fichier Windows vu depuis Ubuntu : C:\\a\\b devient /mnt/c/a/b. */
+export const cheminWsl = (p) => p.replace(/^([A-Za-z]):[\\/]/, (_, lettre) => `/mnt/${lettre.toLowerCase()}/`).replace(/\\/g, '/');
+
+/** Gèle ou relance le programme d'une exécution. Sous Windows, l'ordre passe par Ubuntu, là où il tourne. */
+export function signalerExecution(racine, x, action, env = process.env) {
+  if (!ID.test(x.id ?? '')) return Promise.reject(new Error('identifiant invalide'));
+  if (!ACTIONS.includes(action)) return Promise.reject(new Error('action inconnue'));
+  const dossier = path.join(racine, x.dossier);
+  const [commande, args] = process.platform === 'win32'
+    ? ['wsl.exe', ['-d', env.IHM_WSL_DISTRO || 'Ubuntu-24.04', '--', 'bash', cheminWsl(SCRIPT), x.id, cheminWsl(dossier), action]]
+    : ['bash', [SCRIPT, x.id, dossier, action]];
+  return new Promise((resolve, reject) => {
+    execFile(commande, args, { timeout: 20_000, env: { ...env, WSL_UTF8: '1' } }, (erreur, sortie, plainte) => {
+      if (erreur) reject(new Error((plainte || sortie || erreur.message).replace(/\0/g, '').trim() || 'ordre refusé'));
+      else resolve(sortie.replace(/\0/g, '').trim());
+    });
+  });
 }

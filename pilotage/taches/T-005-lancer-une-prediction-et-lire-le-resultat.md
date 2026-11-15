@@ -21,7 +21,7 @@ etapes:
   - genre: etape
     statut: a-faire
     titre: Lancer la prédiction sur le segment
-    detail: Commande du tutoriel, taille de lot à adapter à 8 Go. Durée non mesurée.
+    detail: "Par bandes, pour pouvoir s'arrêter et reprendre (T-011). Lot de 4 : la mémoire vidéo tient (X-004). Durée non mesurée."
   - genre: etape
     statut: a-faire
     titre: Regarder l'image ensemble

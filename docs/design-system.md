@@ -100,7 +100,8 @@ une échelle 4 · 8 · 12 · 16 · 24 · 32 · 48 · 72 ; une seule ombre, très
 | `.glisse` | deux volets côte à côte ; le premier sort par la gauche quand on ouvre le second |
 | `.credit` + `.portrait` | lien vers GitHub précédé de la photo de profil de l'auteur (rond de 18 px) ; posé seul sur tout lien GitHub du carnet. Sert à citer le travail des autres |
 | `.avancement` | barre de progression d'une exécution : orange en cours, verte terminée, rouge arrêtée ; l'état est aussi écrit dessous |
-| `.journal-bouton` | ouvre le journal : un témoin qui émet une onde tant que l'exécution tourne, vert une fois terminée |
+| `.bouton-rond.journal-bouton` | ouvre le journal. Aucun texte : une icône de feuille, et le fond dit l'état — vide et pointillé sans journal, orange avec une onde pendant l'exécution, orange hachuré en pause, vert terminée, rouge arrêtée sur une erreur |
+| `.bouton-rond.pause-bouton` | icône « pause » sur fond d'encre pendant l'exécution, icône « lecture » sur fond orange quand elle est gelée. Le nom de chaque bouton est dans son infobulle et son `aria-label` |
 | `.journal-fenetre` | fenêtre du journal, mise à jour toutes les secondes et demie pendant l'exécution |
 | `.code-bloc` + `.notes` | extrait de code numéroté et, à sa droite, les notes qui l'expliquent ; survoler une note éclaire ses lignes |
 

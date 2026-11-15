@@ -5,7 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { etatGithub } from './lib/github.mjs';
 import { changerStatutTache, chargerEtat, deposerMessage, empreinte, lireBoite } from './lib/pilotage.mjs';
-import { lireJournal, suiviExecution } from './lib/suivi.mjs';
+import { lireJournal, signalerExecution, suiviExecution } from './lib/suivi.mjs';
 
 const ICI = path.dirname(fileURLToPath(import.meta.url));
 const RACINE = path.resolve(ICI, '..');
@@ -51,6 +51,13 @@ async function api(req, res, url) {
     const suivis = {};
     for (const x of executions) suivis[x.id] = await suiviExecution(RACINE, x);
     return json(res, 200, suivis);
+  }
+  const action = /^\/api\/executions\/(X-\d{3})\/action$/.exec(url.pathname);
+  if (req.method === 'POST' && action) {
+    const x = (await chargerEtat(RACINE)).executions.find((e) => e.id === action[1]);
+    if (!x) return json(res, 404, { erreur: 'exécution inconnue' });
+    await signalerExecution(RACINE, x, (await corpsJson(req)).action);
+    return json(res, 200, { ok: true, suivi: await suiviExecution(RACINE, x) });
   }
   const journal = /^\/api\/executions\/(X-\d{3})\/journal$/.exec(url.pathname);
   if (req.method === 'GET' && journal) {

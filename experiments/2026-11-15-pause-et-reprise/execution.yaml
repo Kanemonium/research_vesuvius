@@ -1,0 +1,202 @@
+# Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Page écrite avant le lancement, complétée après (2026-11-15).
+executions:
+  - id: X-004
+    titre: "Essai : mettre en pause et reprendre, sur une petite zone"
+    date: 2026-11-15
+    statut: terminee
+    piste: P-420
+    taches: [T-011]
+    resume: >-
+      Avant de lancer une prédiction de plusieurs heures, vérifier sur un rectangle de 512 × 2 048
+      pixels que tout ce qui doit permettre de s'arrêter et de repartir fonctionne vraiment : la
+      pause, la prédiction découpée en bandes, la reprise d'un entraînement.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Quatre réponses : trois oui, un presque"
+        detail: >-
+          La pause gèle le programme sans rien perdre : oui. Un essai arrêté reprend où il en
+          était : oui. Un entraînement repart de son dernier point de sauvegarde : oui. Une image
+          prédite en deux bandes est identique à la même image d'un seul tenant : presque. 0,9 %
+          des pixels diffèrent, jamais de plus d'un niveau sur 255, et sans se concentrer sur la
+          couture entre les bandes.
+      - question: "La représentativité"
+        valeur: "0,06 % du segment, quelques minutes"
+        detail: >-
+          Un rectangle d'un million de pixels sur 1,66 milliard, et des étapes d'une minute. Cela
+          vérifie les mécanismes. Cela ne dit pas comment la prédiction se comporte sur des heures,
+          ni ce que vaut le modèle.
+      - question: "Ce que cela décide pour X-003"
+        valeur: "Des bandes de 2 048 lignes, soit 16 bandes"
+        detail: >-
+          Chaque bande coûte 29 à 35 secondes de démarrage avant son premier bloc : négligeable
+          pour des bandes de plusieurs dizaines de minutes. Un arrêt fera perdre au plus une bande,
+          un seizième du travail. La mémoire vidéo tient avec un lot de 4 : 4 869 Mo. En revanche
+          la vitesse n'a pas pu être mesurée proprement sur une si petite zone.
+        fiches: [K-12]
+
+    code:
+      - titre: "Les quatre étapes de l'essai"
+        fichier: experiments/2026-11-15-pause-et-reprise/etapes.sh
+        langage: bash
+        extrait: [8, 30]
+        notes:
+          - lignes: [11, 12]
+            genre: parametrage
+            titre: "Un petit rectangle, les options de la vraie prédiction"
+            texte: >-
+              `ZONE` : lignes 16 000 à 16 512, colonnes 25 600 à 27 648, vers le milieu du
+              segment. Les options sont celles prévues pour X-003, avec un seul processus de
+              chargement pour ménager les 6,8 Go de mémoire vive.
+          - lignes: [16, 17]
+            genre: mesure
+            titre: "Étape 1 : la référence"
+            texte: >-
+              Le rectangle entier en une seule bande de 512 lignes. C'est l'image à laquelle on
+              comparera l'autre, et c'est là qu'on lit la vitesse et la mémoire vidéo.
+          - lignes: [19, 20]
+            genre: optimisation
+            titre: "Étape 2 : le même rectangle en deux bandes"
+            texte: >-
+              Deux bandes de 256 lignes, prédites l'une après l'autre puis assemblées. La
+              différence de durée avec l'étape 1 dit ce que coûte un démarrage de plus.
+          - lignes: [22, 24]
+            genre: mesure
+            titre: "Étape 3 : identiques, pixel pour pixel ?"
+            texte: >-
+              Le découpage n'est acceptable que si les deux images sont exactement les mêmes.
+              villa annonce garder le contexte autour d'un rectangle ; on le vérifie.
+          - lignes: [26, 29]
+            genre: mesure
+            titre: "Étape 4 : reprendre un entraînement"
+            texte: >-
+              On repart du point de sauvegarde de X-002 (itération 20 000) pour 20 itérations de
+              plus, dans un dossier à part pour ne rien écraser. Si le journal annonce une reprise
+              au bon numéro de pas et que les 20 itérations passent, la reprise fonctionne.
+            fiches: [K-15]
+
+      - titre: "Le cœur du découpage en bandes"
+        fichier: scripts/wsl/predire-par-bandes.sh
+        langage: bash
+        extrait: [26, 40]
+        notes:
+          - lignes: [31, 34]
+            genre: optimisation
+            titre: "Une bande déjà faite est sautée"
+            texte: >-
+              C'est toute la reprise : relancer la même commande ne refait que ce qui manque.
+              Un arrêt ne fait perdre que la bande en cours.
+          - lignes: 37
+            genre: parametrage
+            titre: "Le rectangle confié à villa"
+            texte: >-
+              `--roi` demande au programme de villa de ne rendre que ce rectangle. D'après son
+              aide, il garde les blocs d'origine et le contexte autour : la bande devrait donc
+              être calculée comme si on prédisait tout le segment.
+            fiches: [K-12]
+          - lignes: 38
+            genre: mesure
+            titre: "Le témoin « fait »"
+            texte: >-
+              Il n'est écrit que si la prédiction de la bande s'est terminée sans erreur. Une
+              bande interrompue n'a pas de témoin : elle sera refaite en entier.
+
+    sorties:
+      - genre: mesures
+        titre: "Les quatre questions"
+        large: true
+        lignes:
+          - ["Pause depuis l'IHM, sur le programme de villa", "gelé 28 s, puis reparti", "le journal n'a pas bougé d'un octet pendant la pause"]
+          - ["Arrêt en pleine deuxième bande", "propre", "code 130, carte graphique libérée, première bande gardée"]
+          - ["Reprise après l'arrêt", "à la bande interrompue", "tout le reste sauté ; même journal, reprise nº 1"]
+          - ["Deux bandes contre un seul tenant", "9 451 pixels différents sur 1 048 576", "0,9 % ; écart maximal de 1 niveau sur 255"]
+          - ["Où sont ces écarts", "partout, également", "1 100 à 1 300 par huitième de l'image : aucune couture visible"]
+          - ["Reprise d'un entraînement", "au pas 20 000", "20 itérations de plus en 13 s"]
+      - genre: mesures
+        titre: "Ce que coûte une bande"
+        lignes:
+          - ["Démarrage avant le premier bloc", "29 à 35 s", "chargement du modèle, repérage des zones vides"]
+          - ["Blocs pour la zone entière", "297", ""]
+          - ["Blocs pour chaque demi-zone", "165", "soit 330 en tout : les bandes refont les blocs à cheval sur leur frontière"]
+          - ["Pic de mémoire vidéo, prédiction, lot de 4", "4 869 Mo", "sur 8 192"]
+          - ["Pic de mémoire vidéo, 20 itérations d'entraînement", "6 769 Mo", "plus haut que dans X-002 (4 959 Mo) ; non expliqué"]
+      - genre: mesures
+        titre: "Ce que le journal apprend sur X-003"
+        lignes:
+          - ["Part du segment qui n'est pas vide", "82,2 %", "villa repère et saute le reste"]
+          - ["Barre de progression de la prédiction", "aucune", "l'avancement se lira bande par bande"]
+          - ["Vitesse de prédiction", "non mesurée", "165 blocs en 50 à 53 s, préparation du modèle comprise"]
+      - genre: journal
+        titre: "L'arrêt, puis la reprise"
+        large: true
+        texte: |
+          [12:47:31] bande 1/2 : terminée
+          [12:47:31] bande 2/2 (lignes 16256 à 16512) : début
+          [2026-11-15 12:48:09,408] INFO Selected 165 patches for inference
+          ===== arrêt demandé le 2026-11-15T12:48:35+01:00 =====
+          ===== reprise nº 1 le 2026-11-15T12:48:46+01:00 =====
+          [12:48:46] ===== étape 1/4 : la zone d'un seul tenant =====
+          [12:48:47] bande 1/1 (lignes 16000 à 16512) : déjà faite, sautée
+          [12:48:47] ===== étape 2/4 : la même zone en deux bandes =====
+          [12:48:47] bande 1/2 (lignes 16000 à 16256) : déjà faite, sautée
+          [12:48:47] bande 2/2 (lignes 16256 à 16512) : début
+          [12:50:06] bande 2/2 : terminée
+      - genre: journal
+        titre: "La comparaison, puis la reprise d'entraînement"
+        large: true
+        texte: |
+          A : assemblee.tif (512, 2048) uint8 ; B : assemblee.tif (512, 2048) uint8
+          pixels différents : 9451 sur 1048576 ; écart maximal : 1 sur 255
+          pixels différents par tranche horizontale (de haut en bas) : [1300, 1175, 1133, 1110, 1100, 1175, 1193, 1265]
+          DIFFÉRENTES
+          Loaded checkpoint '…/runs/ligne_de_base_128/ckpt_020000.pth' and resuming from step 20000
+          100%|██████████| 20020/20020 [00:13<00:00,  1.51it/s, loss=0.3353, lr=0.00e+00]
+        note: >-
+          Des écarts d'un seul niveau, répartis partout : cela ressemble à des arrondis de calcul,
+          pas à un défaut du découpage. Explication probable, non vérifiée : les blocs ne sont pas
+          regroupés dans les mêmes lots d'une fois sur l'autre, et les calculs en 16 bits ne
+          donnent pas exactement le même dernier chiffre (K-14).
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius/villa/vesuvius, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "predictions/essai-pause-reprise/un-seul-tenant/assemblee.tif"
+            taille: "512 × 2 048"
+            role: "La zone prédite en une fois. Tous ses pixels sont non nuls, valeur moyenne 166 sur 255 : nous ne l'avons pas encore regardée."
+          - nom: "predictions/essai-pause-reprise/deux-bandes/"
+            taille: "2 bandes"
+            role: "Les deux bandes, leur témoin « fait », et l'image assemblée."
+          - nom: "runs/essai_reprise/"
+            taille: ""
+            role: "Le dossier de la reprise d'entraînement, à part pour ne rien écraser de X-002."
+
+    limites: |
+      - Un petit rectangle ne dit pas comment la prédiction se comporte sur des heures : la mémoire vive, en particulier, peut grossir avec le temps.
+      - Les deux images ne sont pas strictement identiques. L'écart est d'un niveau sur 255 au plus ; nous le jugeons sans conséquence pour regarder de l'encre, mais ce n'est pas démontré.
+      - La reprise d'entraînement a été essayée depuis un entraînement terminé, pas depuis un entraînement interrompu en plein milieu.
+      - La vitesse de prédiction reste à mesurer sur une zone plus grande : c'est elle qui dira combien de temps prendra X-003.
+      - Une pause ne survit pas à un redémarrage de la machine ; dans ce cas il faut relancer, et la bande en cours est refaite.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Les programmes de prédiction et d'entraînement qui tournent ici : le paquet `vesuvius`
+          de villa, au commit `2d3fb38`. L'option `--roi` et la reprise depuis un point de
+          sauvegarde sont les leurs ; nous n'avons écrit que le découpage, l'assemblage et le lanceur.
+        personnes:            # lignes par personne au commit 2d3fb38 (scripts/wsl/auteurs-villa.sh)
+          - { github: erdpx, nom: "elian rafael", part: "1 355 lignes de infer.py, 1 122 de train.py" }
+          - { github: teddywasserman, nom: "Teddy", part: "269 lignes de infer.py" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: RhudeJJJJ, nom: "RhudeJJJJ", part: "92 lignes de infer.py" }
+          - { github: bnleft, nom: "Bryant Le", part: "22 lignes de infer.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: >-
+          Le segment étiqueté `w00_20231016151002` et la commande de prédiction, publiés par
+          l'équipe du défi : https://scrollprize.org/tutorial5

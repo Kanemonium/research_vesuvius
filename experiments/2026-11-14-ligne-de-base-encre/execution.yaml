@@ -499,12 +499,13 @@ executions:
   - id: X-003
     titre: "Première prédiction d'encre sur le segment du tutoriel"
     date: 2026-11-15
-    statut: prevue
+    statut: en-cours
     piste: P-310
     taches: [T-005]
     resume: >-
       Faire tourner le modèle entraîné dans X-002 sur tout le segment w00_20231016151002 pour
-      obtenir une image d'encre. Pas encore lancée : elle attend l'accord de Kanemonium.
+      obtenir une image d'encre, en 16 bandes pour pouvoir s'arrêter et reprendre. Lancée le
+      15 novembre 2026 avec l'accord de Kanemonium ; les résultats seront ajoutés à la fin.
 
     bilan:
       - question: "Le type de résultat attendu"
@@ -524,11 +525,12 @@ executions:
           des lettres peuvent y apparaître. Cela ne dira rien d'un autre rouleau.
         fiches: [K-16]
       - question: "Ce qu'on ne sait pas encore"
-        valeur: "La durée et la mémoire vidéo"
+        valeur: "La durée"
         detail: >-
-          Le tutoriel parle d'environ une heure sur une seule carte graphique pour un segment
-          entier, sans préciser laquelle. Sur notre carte de 8 Go, avec un lot de 4 blocs, ni la
-          durée ni la mémoire vidéo ne sont mesurées : ce sera le premier relevé de cette exécution.
+          La mémoire vidéo est mesurée depuis X-004 : 4 869 Mo avec un lot de 4. La durée ne l'est
+          pas. Le segment compte environ 333 000 blocs à traiter (estimation : 82 % de sa surface
+          n'est pas vide), découpés en 16 bandes. Le tutoriel parle d'une heure environ, avec des
+          blocs quatre fois plus grands et sans dire sur quelle carte.
         fiches: [K-12]
 
     code:
@@ -537,8 +539,8 @@ executions:
         langage: bash
         extrait: [7, 19]
         intro: >-
-          C'est la commande d'inférence du tutoriel, passée par notre lanceur pour qu'elle soit
-          suivie en direct dans cette page.
+          C'est la prédiction du tutoriel, découpée en bandes pour pouvoir être arrêtée et reprise
+          (X-004), et passée par notre lanceur pour être suivie dans cette page.
         notes:
           - lignes: 9
             genre: optimisation
@@ -554,7 +556,16 @@ executions:
               `lancer-execution.sh` note l'heure de début, écrit tout ce que le programme affiche
               dans un journal, relève le pic de mémoire vidéo toutes les deux secondes, puis note
               la fin et le code de sortie. La barre de progression et le journal de cette page
-              viennent de là. À la fin, le journal est condensé pour être gardé dans le dépôt.
+              viennent de là. `HAUTEUR_BANDE=2048` : 16 bandes de 2 048 lignes ; un arrêt ne fait
+              perdre que la bande en cours, et relancer la commande reprend à la première manquante.
+          - lignes: 14
+            genre: optimisation
+            titre: "Le découpage en bandes"
+            texte: >-
+              Le programme de villa ne sait pas reprendre une prédiction arrêtée. `predire-par-bandes.sh`
+              lui confie une bande à la fois, garde celles qui sont finies, et assemble le tout.
+              Vérifié dans X-004 : l'image assemblée ne s'écarte de l'image d'un seul tenant que
+              d'un niveau sur 255 au plus, sur 0,9 % des pixels.
           - lignes: 15
             genre: donnees
             titre: "L'entrée : le volume de surface"
@@ -572,9 +583,10 @@ executions:
             fiches: [K-15]
           - lignes: 17
             genre: donnees
-            titre: "La sortie : une image TIFF"
+            titre: "La sortie : un dossier de bandes, puis une image"
             texte: >-
-              Écrite dans le dossier de villa, dans Ubuntu, hors du dépôt.
+              Une image TIFF par bande, puis l'image assemblée, dans le dossier de villa, dans
+              Ubuntu, hors du dépôt.
           - lignes: 18
             genre: parametrage
             titre: "Des fenêtres qui se chevauchent"
@@ -588,8 +600,9 @@ executions:
             genre: optimisation
             titre: "Quatre blocs à la fois"
             texte: >-
-              La valeur du tutoriel. Non mesurée sur 8 Go : si la mémoire vidéo sature comme dans
-              X-001, il faudra descendre à 2 ou à 1.
+              La valeur du tutoriel. Mesurée dans X-004 : 4 869 Mo de mémoire vidéo, la carte
+              tient. Un seul processus de chargement, pour ménager la mémoire vive ; son effet sur
+              la vitesse n'est pas mesuré.
 
     limites: |
       - Une image où des traits apparaissent n'est pas une lecture : seuls des papyrologues peuvent valider un texte.

@@ -26,7 +26,7 @@ export const LIBELLES = {
   'a-faire': 'À faire', bloquee: 'Bloquée', faite: 'Faite',
   racine: 'Défi', domaine: 'Domaine', piste: 'Piste', decision: 'Décision',
   faible: 'faible', moyenne: 'moyenne', forte: 'forte',
-  prevue: 'Prévue',
+  prevue: 'Prévue', 'en-pause': 'En pause',
   ouvert: 'Ouvert', contourne: 'Contourné', corrige: 'Corrigé', terminee: 'Terminée', echouee: 'Échouée',
 };
 
@@ -101,9 +101,9 @@ export function glyphe(statut, taille = 14, forme = 'rond') {
   const fait = ['validee', 'faite', 'corrige', 'terminee'].includes(statut);
   const bloque = ['impasse', 'bloquee', 'ouvert', 'echouee'].includes(statut);
   const decision = forme === 'losange';
-  const couleur = decision ? 'var(--decision)' : fait ? 'var(--valide)' : statut === 'en-cours' ? 'var(--cristal)' : null;
+  const couleur = decision ? 'var(--decision)' : fait ? 'var(--valide)' : statut === 'en-cours' || statut === 'en-pause' ? 'var(--cristal)' : null;
   const communs = {
-    fill: fait || statut === 'en-cours' ? couleur : 'none',
+    fill: fait || statut === 'en-cours' ? couleur : 'none',   // en pause : le rond orange reste vide
     stroke: couleur ?? (bloque ? 'var(--alerte)' : 'currentColor'),
     'stroke-width': 1.5,
     'stroke-dasharray': ['a-explorer', 'a-faire', 'prevue'].includes(statut) ? '2 2.4' : null,

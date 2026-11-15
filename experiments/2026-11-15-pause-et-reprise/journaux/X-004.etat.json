@@ -1,0 +1,11 @@
+{
+  "id": "X-004",
+  "debut": "2026-11-15T12:42:40+01:00",
+  "fin": "2026-11-15T12:51:01+01:00",
+  "code": 0,
+  "pid": null,
+  "pause": null,
+  "reprises": 2,
+  "pic_vram_mo": 6769,
+  "commande": "bash <windows>/Documents/Développement/research_vesuvius/experiments/2026-11-15-pause-et-reprise/etapes.sh"
+}

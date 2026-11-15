@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { after, before, test } from 'node:test';
-import { lireJournal, lireProgression, suiviExecution } from '../ihm/lib/suivi.mjs';
+import { cheminWsl, lireJournal, lireProgression, signalerExecution, suiviExecution } from '../ihm/lib/suivi.mjs';
 
 const x = { id: 'X-900', dossier: 'experiments/essai' };
 let racine; let journaux;
@@ -23,7 +23,10 @@ test('la dernière barre de progression du journal est lue', () => {
 });
 
 test("une exécution jamais lancée n'a pas d'état", async () => {
-  assert.deepEqual(await suiviExecution(racine, x), { etat: null, debut: null, fin: null, code: null, picVram: null, journal: false, taille: 0, progression: null, silence: null });
+  assert.deepEqual(await suiviExecution(racine, x), {
+    etat: null, debut: null, fin: null, code: null, picVram: null, pause: null, reprises: 0, etape: null,
+    journal: false, taille: 0, progression: null, silence: null,
+  });
   assert.equal((await suiviExecution(racine, { id: '../x', dossier: '.' })).etat, null);
 });
 
@@ -51,6 +54,27 @@ test('un journal condensé accentué se relit à partir d’un décalage', async
   const r = await lireJournal(racine, { ...x, id: 'X-901' }, 2);
   assert.equal(r.texte, 'é'.repeat(9));
   assert.equal(r.brut, false);
+});
+
+test('en pause, et en plusieurs étapes', async () => {
+  const etat = { id: 'X-900', debut: '2026-11-15T10:00:00+01:00', fin: null, code: null, pid: 42, pause: '2026-11-15T10:00:30+01:00', reprises: 1, pic_vram_mo: null };
+  await writeFile(path.join(journaux, 'X-900.etat.json'), JSON.stringify(etat));
+  await writeFile(path.join(journaux, 'X-900.etape'), '3 16 bande\n');
+  const s = await suiviExecution(racine, x);
+  assert.equal(s.etat, 'en-pause');
+  assert.equal(s.pause, etat.pause);
+  assert.equal(s.reprises, 1);
+  assert.deepEqual(s.etape, { numero: 3, total: 16, libelle: 'bande' });
+  await writeFile(path.join(journaux, 'X-900.etape'), 'nimporte quoi');
+  assert.equal((await suiviExecution(racine, x)).etape, null);
+  await rm(path.join(journaux, 'X-900.etape'));
+});
+
+test("un ordre de pause n'accepte qu'un identifiant et une action connus", async () => {
+  await assert.rejects(signalerExecution(racine, { id: 'X-900; rm -rf /', dossier: x.dossier }, 'pause'), /identifiant invalide/);
+  await assert.rejects(signalerExecution(racine, x, 'supprimer'), /action inconnue/);
+  assert.equal(cheminWsl('C:\\Users\\quelquun\\depot\\scripts'), '/mnt/c/Users/quelquun/depot/scripts');
+  assert.equal(cheminWsl('/home/quelquun/depot'), '/home/quelquun/depot');
 });
 
 test('à la fin : terminée si le code de sortie est nul, échouée sinon', async () => {

@@ -276,7 +276,6 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .exe-carte[aria-current="page"] .pilule[data-statut="en-cours"] { border-color: var(--cristal); }
 .exe-carte[aria-current="page"] .pilule[data-statut="terminee"] { border-color: var(--valide); }
 .exe-carte[aria-current="page"] .avancement-piste { background: color-mix(in srgb, var(--sur-encre) 22%, transparent); }
-.exe-carte[aria-current="page"] .journal-bouton { color: var(--sur-encre); border-color: color-mix(in srgb, var(--sur-encre) 45%, transparent); }
 
 /* Avancement : la piste est le fond, le remplissage dit l'état (orange en cours, vert terminée, rouge arrêtée). */
 .avancement { display: flex; flex-direction: column; gap: 6px; }
@@ -294,17 +293,33 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .avant-lancement { margin-top: var(--e-4); padding: var(--e-3) var(--e-4); border: 1px dashed var(--structure); border-left: 4px solid var(--cristal); border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0; color: var(--encre-60); max-width: 78ch; }
 
 /* Bouton du journal : un témoin qui émet une onde tant que l'exécution tourne, vert une fois terminée. */
-.journal-bouton { display: inline-flex; align-items: center; gap: 8px; padding: 4px 11px 4px 9px; border: 1px solid var(--encre-40); border-radius: var(--pilule); background: transparent; font: 600 0.8rem/1.3 var(--f-cond); letter-spacing: 0.08em; text-transform: uppercase; transition: border-color var(--trans), background var(--trans); }
-.journal-bouton:hover:not(:disabled) { border-color: var(--encre); background: color-mix(in srgb, var(--encre) 8%, transparent); }
-.journal-bouton:disabled { cursor: default; border-style: dashed; color: var(--encre-60); }
-.journal-temoin { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--structure); flex: none; }
-.journal-bouton[data-etat="en-cours"] { border-color: var(--cristal); }
-.journal-bouton[data-etat="en-cours"] .journal-temoin { background: var(--cristal); }
-.journal-bouton[data-etat="en-cours"] .journal-temoin::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--cristal); animation: onde 1.8s ease-out infinite; }
-.journal-bouton[data-etat="terminee"] { border-color: var(--valide); }
-.journal-bouton[data-etat="terminee"] .journal-temoin { background: var(--valide); }
-.journal-bouton[data-etat="echouee"] { border-color: var(--alerte); }
-.journal-bouton[data-etat="echouee"] .journal-temoin { background: var(--alerte); }
+
+/* Boutons ronds du suivi : aucune écriture, une icône, et un fond qui dit l'état.
+   Journal : vide et pointillé tant qu'il n'y a rien à lire ; orange avec une onde pendant l'exécution ;
+   orange hachuré en pause ; vert une fois terminée ; rouge si elle s'est arrêtée sur une erreur.
+   Pause : encre pendant l'exécution (on peut la geler), orange quand elle est gelée (on peut la relancer). */
+.bouton-rond { position: relative; display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; flex: none; border: 1px solid transparent; border-radius: 50%; background: var(--encre); color: var(--sur-encre); transition: transform var(--trans), filter var(--trans); }
+.bouton-rond[hidden] { display: none; }
+.bouton-rond svg { display: block; }
+.bouton-rond:hover:not(:disabled) { transform: scale(1.1); filter: brightness(1.08); }
+.bouton-rond:disabled { cursor: default; }
+.journal-bouton[data-etat="aucun"] { background: transparent; border: 1px dashed var(--structure); color: var(--encre-40); }
+.journal-bouton[data-etat="en-cours"] { background: var(--cristal); color: #fff; }
+.journal-bouton[data-etat="en-cours"]::after { content: ""; position: absolute; inset: -1px; border-radius: 50%; border: 2px solid var(--cristal); animation: onde-bouton 1.8s ease-out infinite; pointer-events: none; }
+@keyframes onde-bouton { from { transform: scale(1); opacity: 0.9; } to { transform: scale(1.75); opacity: 0; } }
+.journal-bouton[data-etat="en-pause"] { background: repeating-linear-gradient(-45deg, var(--cristal) 0 5px, var(--cristal-fonce) 5px 10px); color: #fff; }
+.journal-bouton[data-etat="terminee"] { background: var(--valide); color: #fff; }
+.journal-bouton[data-etat="echouee"] { background: var(--alerte); color: #fff; }
+.pause-bouton[data-etat="en-pause"] { background: var(--cristal); color: #fff; }
+.pause-bouton:disabled { opacity: 0.5; cursor: progress; }
+.exe-carte[aria-current="page"] .bouton-rond:not([data-etat="en-cours"]):not([data-etat="en-pause"]):not([data-etat="terminee"]):not([data-etat="echouee"]) { border-color: color-mix(in srgb, var(--sur-encre) 45%, transparent); }
+.exe-carte[aria-current="page"] .pause-bouton[data-etat="en-cours"] { background: var(--sur-encre); color: var(--encre); }
+
+/* Pause et reprise */
+.exe-boutons { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+[data-statut="en-pause"] { --lisere: var(--cristal); }
+.pilule[data-statut="en-pause"] { border-color: var(--cristal); border-style: dashed; }
+.avancement[data-etat="en-pause"] .avancement-piste i { background: repeating-linear-gradient(-45deg, var(--cristal) 0 6px, var(--cristal-clair) 6px 12px); }
 
 /* Fenêtre du journal */
 .journal-fenetre { width: min(1100px, calc(100vw - 32px)); height: min(820px, calc(100vh - 32px)); padding: 0; border: 1px solid var(--filet); border-radius: var(--rayon); background: var(--surface); color: var(--encre); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55); }

@@ -136,6 +136,19 @@ l'IHM précédé de la photo de profil du compte. C'est la façon de citer quelq
    pour-cent). Compléter la page : `statut: terminee` ou `echouee`, le `bilan` réécrit avec ce qui a
    été mesuré, les `sorties`. Le journal condensé et le fichier d'état sont versionnés ; le brut ne l'est pas.
 
+### Pause, arrêt et reprise
+
+- **Pause** : les boutons « Pause » et « Reprendre » de la carte gèlent puis relancent le programme
+  (`scripts/wsl/signaler-execution.sh`). Rien n'est perdu, mais la pause ne survit pas à un
+  redémarrage de la machine ou d'Ubuntu.
+- **Reprise après un arrêt** : relancer la même commande. Le lanceur reconnaît une exécution
+  commencée et non terminée : il garde l'heure du premier début, compte la reprise et continue le
+  même journal. C'est la commande qui saute ce qui est déjà fait :
+  `predire-par-bandes.sh` pour une prédiction (une bande finie est gardée),
+  `reprendre-entrainement.sh` pour un entraînement (dernier point de sauvegarde).
+- **Étapes** : une commande en plusieurs étapes écrit « k n libellé » dans le fichier
+  `$EXECUTION_ETAPE` ; l'IHM affiche « libellé k/n » et l'avancement de l'ensemble.
+
 L'état montré dans l'IHM est celui du lanceur quand il existe, sinon le `statut` de la page.
 La barre de progression se lit dans les barres « tqdm » du journal ; un programme qui n'en
 affiche pas est suivi sans pourcentage.

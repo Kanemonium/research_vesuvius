@@ -3,7 +3,7 @@
 // Les rendus sont des fichiers experiments/<dossier>/execution.yaml ; le format est dans pilotage/README.md.
 import { embleme } from '../emblemes.js';
 import { adresse, avecBulle, compteGithub, credit, dateLongue, h, lienId, lier, pilule, s } from '../outils.js';
-import { avancement, boutonJournal, etatDe, majSuivi } from '../suivi.js';
+import { avancement, boutonJournal, boutonPause, etatDe, majSuivi } from '../suivi.js';
 
 const GENRES = {
   parametrage: { nom: 'Paramétrage', couleur: 'var(--ev-ciel)' },
@@ -117,7 +117,7 @@ let releveSuivi = null;
 function suivreEnDirect(executions) {
   clearInterval(releveSuivi);
   releveSuivi = null;
-  if (!executions.some((e) => etatDe(e) === 'en-cours')) return;
+  if (!executions.some((e) => ['en-cours', 'en-pause'].includes(etatDe(e)))) return;
   releveSuivi = setInterval(async () => {
     if (!document.querySelector('.exe-vue')) { clearInterval(releveSuivi); releveSuivi = null; return; }
     if (document.hidden) return;
@@ -145,7 +145,7 @@ export function vueExecutions(vue, app, params) {
       h('span', { classe: 'meta avec-embleme serre' }, embleme('executions', 22), e.id, ' · ', e.date ? dateLongue(e.date) : ''),
       h('a', { classe: 'exe-titre', href: adresse(e.id) }, e.titre),
       avancement(e),
-      h('div', { classe: 'exe-pied' }, pilule(etatDe(e)), boutonJournal(e)))));
+      h('div', { classe: 'exe-pied' }, pilule(etatDe(e)), h('span', { classe: 'exe-boutons' }, boutonPause(e), boutonJournal(e))))));
 
   const etat = etatDe(x);
   const finie = etat === 'terminee' || etat === 'echouee';
@@ -154,7 +154,7 @@ export function vueExecutions(vue, app, params) {
   const section = (titre) => h('h3', { classe: 'section-titre' }, h('span', { classe: 'numero' }, ++n), titre);
   const article = h('article', { classe: 'execution' },
     h('div', { classe: 'tiroir-tete' }, embleme('executions', 44), h('span', { classe: 'etiquette' }, x.id),
-      h('span', { classe: 'meta' }, x.date ? dateLongue(x.date) : ''), pilule(etat), boutonJournal(x)),
+      h('span', { classe: 'meta' }, x.date ? dateLongue(x.date) : ''), pilule(etat), boutonPause(x), boutonJournal(x)),
     h('h2', { classe: 'fiche-titre' }, x.titre),
     lier(h('p', { classe: 'fiche-resume' }, x.resume)),
     avancement(x),
@@ -163,7 +163,7 @@ export function vueExecutions(vue, app, params) {
       x.taches.map((id) => h('a', { classe: 'pilule', href: adresse(id) }, embleme('taches', 15), `${id} · ${taches.find((t) => t.id === id)?.titre ?? ''}`)),
       h('span', { classe: 'pilule', style: 'text-transform:none' }, x.dossier)),
     finie ? null : h('p', { classe: 'avant-lancement' },
-      etat === 'en-cours'
+      etat === 'en-cours' || etat === 'en-pause'
         ? 'Cette exécution tourne. La page a été écrite avant le lancement ; les résultats y seront ajoutés à la fin.'
         : 'Cette exécution n’a pas encore été lancée. La page dit ce qu’on sait déjà ; les résultats y seront ajoutés à la fin.'),
 

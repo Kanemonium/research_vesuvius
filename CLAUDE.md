@@ -35,6 +35,8 @@ première occurrence). Le README et les messages destinés à la communauté du 
      dira pas) ; **lancer** toujours par `scripts/wsl/lancer-execution.sh`, qui alimente la barre de
      progression et le journal en direct de l'IHM ; **à la fin**, compléter la page avec les résultats
      mesurés et versionner le journal condensé. Chaque notion du code y renvoie à sa fiche `K-…` ;
+     une exécution de plus de quelques minutes doit pouvoir être arrêtée et reprise sans tout refaire
+     (`predire-par-bandes.sh`, `reprendre-entrainement.sh`) : le prévoir avant de lancer ;
    - une projection qui change → `pilotage/horizon.yaml` ;
    - une notion nouvelle pour Kanemonium (papyrologie, physique du scan, apprentissage) → une
      fiche `K-…` dans `docs/concepts/` : un fichier `.fr.md`, un fichier `.en.md` et une planche

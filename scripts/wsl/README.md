@@ -33,3 +33,16 @@ bash scripts/wsl/auteurs-villa.sh vesuvius/src/vesuvius/ink_detection/config.py 
 
 Lit l'historique complet de villa, gardé à part (`~/vesuvius/villa-historique.git`, une dizaine de Mo),
 et dit quels commits et quelles personnes ont écrit ces lignes. N'affiche aucune adresse électronique.
+
+## Mettre en pause, arrêter, reprendre
+
+```bash
+bash scripts/wsl/signaler-execution.sh X-003 experiments/<dossier> pause      # ou : reprendre
+```
+
+Gèle le programme tel quel, puis le relance : ce sont les boutons de l'IHM. Pour reprendre après un
+arrêt ou un redémarrage, relancer la commande d'origine :
+
+- `predire-par-bandes.sh <volume.zarr> <point de sauvegarde> <dossier de sortie> [options]` découpe
+  la prédiction en bandes ; une bande finie est gardée, et `bandes.py` assemble le tout à la fin.
+- `reprendre-entrainement.sh <réglage.json> [point de sauvegarde]` repart du dernier point de sauvegarde.
