@@ -76,7 +76,9 @@ resume: >-
   détectable, peut-être une autre encre, et les rangées du haut manquent physiquement.
 
   - On ne sait pas encore si les modèles existants marcheront sur les rouleaux non lus ; un modèle propre au
-  rouleau peut être nécessaire. Une enquête communautaire sur 21 rouleaux n'a trouvé aucune lettre.
+  rouleau peut être nécessaire. Une enquête d'un participant sur les 21 rouleaux de la liste sans segments au
+  catalogue n'a trouvé aucune lettre ; son auteur précise que sa méthode échoue aussi sur un rouleau de
+  contrôle, et qu'un résultat nul dit donc peu de chose.
 
   - Garde-fou, risque d'hallucination de lettres : plus la fenêtre du modèle est grande, plus il lui est
   facile d'inventer des formes de lettres plausibles. Règle actuelle (prix 2027) : les grandes fenêtres sont
@@ -524,14 +526,16 @@ avancees:
     resume: "Le pseudo-étiquetage a permis de lire PHerc. 1667, mais rien ne garantit qu'il marche ailleurs : dans
       certains rouleaux les prédictions plafonnent, dans d'autres on ne voit presque rien."
     fonctionnel: "On ne sait pas distinguer de façon fiable « pas d'encre » de « encre pas encore récupérée ». Le
-      titre de PHerc. Paris. 4 n'a pas été trouvé. Une enquête communautaire sur 21 rouleaux de la liste First
-      Letters n'a trouvé aucune lettre. Pistes citées : entraînement multi-rouleaux, meilleures étiquettes,
-      diagnostics plus solides, segmentation 3D directe."
+      titre de PHerc. Paris. 4 n'a pas été trouvé. Une enquête d'un participant sur les 21 rouleaux de la
+      liste sans segments au catalogue n'a trouvé aucune lettre ; son auteur précise que sa méthode échoue
+      aussi sur un rouleau de contrôle, et qu'un résultat nul dit donc peu de chose. Pistes citées :
+      entraînement multi-rouleaux, meilleures étiquettes, diagnostics plus solides, segmentation 3D directe."
     technique: "Causes possibles listées : le scan ne capte pas assez le signal ; la surface est légèrement mal
       placée ; les étiquettes ne correspondent pas à la vraie position du signal ; le modèle n'exploite pas
       les bonnes caractéristiques ; la morphologie ou la chimie de l'encre diffère selon les rouleaux.
       Ambiguïté de profondeur : les photos de fragments donnent des étiquettes 2D, pas la position 3D de
       l'encre. Les données 3D densément étiquetées sont désignées comme le goulot."
+    relu: true
     note_date: Date de dernière mise à jour de la page « Open Problems ».
     qui:
       - Vesuvius Challenge

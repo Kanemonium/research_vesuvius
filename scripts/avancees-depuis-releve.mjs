@@ -83,6 +83,14 @@ const CORRECTIONS = {
     },
   },
 };
+// 2026-11-15 : le relevé rapportait « aucune lettre » en coupant la phrase avant la réserve de son auteur.
+CORRECTIONS.encre[13] = {
+  fonctionnel: "On ne sait pas distinguer de façon fiable « pas d'encre » de « encre pas encore récupérée ». Le titre de PHerc. Paris. 4 n'a pas été trouvé. Une enquête d'un participant sur les 21 rouleaux de la liste sans segments au catalogue n'a trouvé aucune lettre ; son auteur précise que sa méthode échoue aussi sur un rouleau de contrôle, et qu'un résultat nul dit donc peu de chose. Pistes citées : entraînement multi-rouleaux, meilleures étiquettes, diagnostics plus solides, segmentation 3D directe.",
+};
+// La même phrase revenait dans l'état des lieux de la vue d'ensemble : on la remplace là aussi.
+const RETOUCHES_ETAT = [
+  ["Une enquête communautaire sur 21 rouleaux n'a trouvé aucune lettre.", "Une enquête d'un participant sur les 21 rouleaux de la liste sans segments au catalogue n'a trouvé aucune lettre ; son auteur précise que sa méthode échoue aussi sur un rouleau de contrôle, et qu'un résultat nul dit donc peu de chose."],
+];
 // Nœuds ajoutés à la relecture, placés après la position indiquée du relevé. Leur citation est vérifiée comme les autres.
 const AJOUTS = {
   encre: [
@@ -144,7 +152,8 @@ for (const domaine of Object.keys(BASES)) {
   }
   // Pour l'encre, la vue d'ensemble reprend l'état des lieux du relevé : ce qui est acquis, ce qui résiste.
   const etat = domaine === 'encre' ? releve.etat_de_l_art : null;
-  const puces = (l) => l.map((e) => `- ${e.texte}`).join('\n');
+  const retouche = (texte) => RETOUCHES_ETAT.reduce((s, [avant, apres]) => s.replace(avant, apres), texte);
+  const puces = (l) => l.map((e) => `- ${retouche(e.texte)}`).join('\n');
   const resume = etat
     ? [RESUMES[domaine], '**Ce qui est acquis**', puces(etat.reussites), '**Ce qui résiste**', puces(etat.blocages)].join('\n\n')
     : RESUMES[domaine];
