@@ -2,7 +2,7 @@
 id: K-19
 langue: en
 titre: "Fragments and ground truth"
-resume: "A detached piece where the ink can be seen: the only place where both the scan and the answer key exist."
+resume: "A detached piece where the ink can be seen: the place where both the scan and a photo serving as the answer key exist."
 domaine: encre
 ordre: 19
 pistes: [P-250, P-320]
@@ -13,7 +13,7 @@ date: 2026-11-15
 
 # Fragments and ground truth
 
-*A detached piece where the ink can be seen: the only place where both the scan and the answer key exist.*
+*A detached piece where the ink can be seen: the place where both the scan and a photo serving as the answer key exist.*
 
 ![A detached fragment, its infrared photo, its scan, then the aligned pair used for training](img/K-19-fragment-ground-truth.svg)
 

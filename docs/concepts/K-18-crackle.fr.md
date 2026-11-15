@@ -24,7 +24,7 @@ L'encre d'Herculanum est presque invisible aux rayons X. En août 2023, Casey Ha
 ## Comment ça marche
 
 1. **Regarder** longuement la surface aplatie brute, telle qu'elle sort du dépliage.
-2. **Repérer** le craquelé : une texture de boue craquelée, rare, posée sur le papyrus.
+2. **Repérer** le craquelé : une texture de boue craquelée, qui semblait assez rare, posée sur le papyrus.
 3. **Entraîner** un modèle sur ces zones : chaque craquelé trouvé améliore le modèle, qui en révèle d'autres, parfois invisibles à l'œil.
 4. **Lire** : des lettres apparaissent. C'est ainsi que Luke Farritor obtient le premier mot.
 
@@ -32,7 +32,7 @@ L'encre d'Herculanum est presque invisible aux rayons X. En août 2023, Casey Ha
 
 ## Pourquoi ça compte ici
 
-Le craquelé a ouvert la voie, mais c'est une exception. En 2025 l'équipe constate que, dans les deux rouleaux lisibles, le signal amplifié par les modèles correspond soit à de grosses craquelures, soit à des points plus riches en métal ; les modèles entraînés là-dessus ne donnaient alors pas de bons résultats sur les autres rouleaux. Une étude sur fragments ouverts montre que le relief seul suffit parfois à prédire l'encre, pas toujours.
+Le craquelé a ouvert la voie, mais c'est une exception. En 2025 l'équipe écrit avoir des indices que, dans les deux rouleaux lisibles, le signal amplifié par les modèles correspond soit à de grosses craquelures, soit à des points plus brillants aux rayons X, ce qui indique une plus forte concentration en métaux ; les modèles entraînés là-dessus ne donnaient alors pas de bons résultats sur les autres rouleaux. Des études sur fragments ouverts montrent que la forme de la surface porte à elle seule une information utilisable pour distinguer les zones encrées des autres ; mais l'encre n'apparaît pas toujours comme un simple relief, le signal est plus subtil et hétérogène.
 
 ## Le vocabulaire anglais
 

@@ -25,11 +25,11 @@ Reliable labels are scarce and scans are huge. Self-supervised learning turns th
 
 1. **Raw scan blocks**, with no labels at all.
 2. **A self-supervised model** (the DINO family, here in 3D) learns to give similar internal representations to similar structures. That representation is called an embedding.
-3. **A few expert examples** are then enough: if ink voxels form a recognisable group, many candidate labels follow.
+3. **A few expert examples** may then help: if ink-like voxels form a recognisable group, they may help generate many candidate labels.
 4. **Distillation**: a student network learns to reproduce the output of an already trained, frozen teacher instead of a hand-made label.
 
 *Numbers refer to the plate.*
 
 ## Why it matters here
 
-The 3D ink model released for PHerc. Paris. 4 is guided by embeddings of this kind and by distillation from another ink model. Another trainer from the team learns four classes (background, vertical fibre, horizontal fibre, ink) with no ground-truth labels, from two frozen teachers. This is direction P-340 on our map.
+The 3D ink model released for PHerc. Paris. 4 is guided by embeddings of this kind and by distillation from another ink model. Another training script from the team learns, on PHerc. Paris. 4, four classes (background, vertical fibre, horizontal fibre, ink) with no ground-truth labels, from two frozen teachers. This is direction P-340 on our map.

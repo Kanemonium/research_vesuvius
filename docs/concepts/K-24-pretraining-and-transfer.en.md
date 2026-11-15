@@ -32,4 +32,4 @@ A model need not start from random values. It can reuse those found by another t
 
 ## Why it matters here
 
-The six models that made PHerc. 1667 readable share such a backbone (ResNet3D-50, weights learned on the Kinetics-700 video set), followed by a 2D U-shaped decoder (K-11). In 2023 Youssef Nader adapted the fragment-winning models to scrolls: unsupervised pretraining on scroll data, then fine-tuning on fragment labels.
+The six successive models released for PHerc. 1667, a record of the pseudo-labelling loop that helped recover readable text there, share such a backbone (ResNet3D-50, weights learned on the Kinetics-700 video set), followed by a 2D U-shaped decoder (K-11). In 2023 Youssef Nader adapted the fragment-winning models to scrolls: unsupervised pretraining on scroll data, then fine-tuning on fragment labels.

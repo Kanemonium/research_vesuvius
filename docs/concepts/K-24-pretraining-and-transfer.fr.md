@@ -32,7 +32,7 @@ Un modèle ne part pas forcément de valeurs tirées au hasard. On peut reprendr
 
 ## Pourquoi ça compte ici
 
-Les six modèles qui ont permis de lire PHerc. 1667 partagent un squelette de ce type (ResNet3D-50, valeurs apprises sur le jeu vidéo Kinetics-700), suivi d'un décodeur en U à plat (K-11). En 2023, Youssef Nader avait adapté aux rouleaux les modèles gagnants sur fragments : pré-entraînement non supervisé sur les données de rouleau, puis affinage sur les étiquettes des fragments.
+Les six modèles successifs publiés pour PHerc. 1667, trace de la boucle de pseudo-étiquetage qui a aidé à y retrouver un texte lisible, partagent un squelette de ce type (ResNet3D-50, valeurs apprises sur le jeu de données vidéo Kinetics-700), suivi d'un décodeur en U à plat (K-11). En 2023, Youssef Nader avait adapté aux rouleaux les modèles gagnants sur fragments : pré-entraînement non supervisé sur les données de rouleau, puis affinage sur les étiquettes des fragments.
 
 ## Le vocabulaire anglais
 

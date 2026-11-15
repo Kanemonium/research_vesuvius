@@ -24,7 +24,7 @@ Herculaneum ink is almost invisible to X-rays. In August 2023 Casey Handmer neve
 ## How it works
 
 1. **Look** at the raw flattened surface for a long time.
-2. **Spot** the crackle: a rare cracked-mud texture sitting on the papyrus.
+2. **Spot** the crackle: a cracked-mud texture, which seemed quite rare, sitting on the papyrus.
 3. **Train** a model on those areas: each crackle found improves the model, which reveals more, sometimes invisible to the eye.
 4. **Read**: letters appear. This is how Luke Farritor obtained the first word.
 
@@ -32,4 +32,4 @@ Herculaneum ink is almost invisible to X-rays. In August 2023 Casey Handmer neve
 
 ## Why it matters here
 
-Crackle opened the way but it is an exception. In 2025 the team noted that in the two readable scrolls the signal amplified by models was either large cracks or brighter, metal-rich spots, and that models trained on these were not performing well on the other scrolls at the time. A study on opened fragments shows that surface relief alone can sometimes predict ink, not always.
+Crackle opened the way but it is an exception. In 2025 the team wrote that it had evidence that in the two readable scrolls the signal amplified by models corresponded either to large cracks or to brighter spots under X-ray, indicating a higher concentration of metals, and that models trained on these were not performing well on the other scrolls at the time. Studies on opened fragments show that surface shape alone carries usable information for telling inked regions from uninked ones; but ink does not always show up as simple raised relief: the signal is more subtle and heterogeneous.

@@ -32,7 +32,7 @@ Un modèle d'apprentissage peut fabriquer des formes qui ressemblent à ce qu'il
 
 ## Pourquoi ça compte ici
 
-Les règles ont changé. En 2023 et 2024, une fenêtre de plus de 0,5 mm de côté était fortement déconseillée (64 pixels de côté pour un scan à 8 µm) et pouvait faire refuser une soumission. Pour les prix de 2027, les grandes fenêtres sont admises à condition de démontrer que le texte n'est pas inventé. Dans tous les cas, les zones d'entraînement et de prédiction ne doivent pas se recouvrir. Le modèle n'est pas un lecteur : il ne reçoit ni mots ni dictionnaire, la lecture reste humaine.
+Les règles ont changé. En 2023 et 2024, une fenêtre de plus de 0,5 mm de côté était fortement déconseillée (64 pixels de côté pour un scan à 8 µm) et l'équipe pouvait alors refuser la soumission en demandant de la modifier et de la soumettre à nouveau. Pour les prix de 2027, les grandes fenêtres sont admises à condition de démontrer que le texte n'est pas inventé. Pour ces mêmes prix, les zones d'entraînement et de prédiction ne doivent pas se recouvrir. Le modèle n'est pas un lecteur : il ne reçoit ni mots ni dictionnaire, la lecture reste humaine.
 
 ## Le vocabulaire anglais
 

@@ -2,7 +2,7 @@
 id: K-19
 langue: fr
 titre: "Le fragment et la vérité terrain"
-resume: "Un morceau détaché où l'on voit l'encre : le seul endroit où l'on possède à la fois le scan et le corrigé."
+resume: "Un morceau détaché où l'on voit l'encre : l'endroit où l'on possède à la fois le scan et une photo qui sert de corrigé."
 domaine: encre
 ordre: 19
 pistes: [P-250, P-320]
@@ -13,7 +13,7 @@ date: 2026-11-15
 
 # Le fragment et la vérité terrain
 
-*Un morceau détaché où l'on voit l'encre : le seul endroit où l'on possède à la fois le scan et le corrigé.*
+*Un morceau détaché où l'on voit l'encre : l'endroit où l'on possède à la fois le scan et une photo qui sert de corrigé.*
 
 ![Un fragment détaché, sa photo infrarouge, son scan, puis la paire alignée qui sert à l'entraînement](img/K-19-fragment-ground-truth.svg)
 
