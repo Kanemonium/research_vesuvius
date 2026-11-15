@@ -43,7 +43,7 @@ const RENVOIS = {
     pistes: { 6: ['P-220'], 8: ['P-210'], 11: ['P-240'], 13: ['P-230'], 14: ['P-250'] },
   },
   encre: {
-    fiches: { 0: ['K-02', 'K-19'], 1: ['K-19'], 2: ['K-18', 'K-07'], 3: ['K-18', 'K-09', 'K-24'], 4: ['K-21', 'K-25', 'K-16'], 5: ['K-22'], 7: ['K-20', 'K-18'], 8: ['K-09', 'K-24', 'K-16'], 9: ['K-22', 'K-23'], 10: ['K-18', 'K-04'], 11: ['K-20', 'K-12', 'K-26'], 13: ['K-20', 'K-22'] },
+    fiches: { 0: ['K-02', 'K-19'], 1: ['K-19'], 2: ['K-18', 'K-07'], 3: ['K-18', 'K-09', 'K-24'], 4: ['K-21', 'K-25', 'K-16'], 5: ['K-22'], 7: ['K-20', 'K-18'], 8: ['K-09', 'K-24', 'K-16'], 9: ['K-22', 'K-23'], 10: ['K-18', 'K-04'], 11: ['K-20', 'K-12'], 13: ['K-20', 'K-22'] },
     pistes: { 5: ['P-330'], 7: ['P-320'], 9: ['P-330', 'P-340'], 11: ['P-320', 'P-310'], 13: ['P-320', 'P-250'] },
   },
 };
@@ -75,8 +75,32 @@ const CORRECTIONS = {
   encre: {
     // 2026-11-15 : la source dit « do not appear to generalize » ; le relevé avait effacé cette prudence.
     7: { resume: "Les percées de 2023 et 2024 ne semblent pas se généraliser à toute la collection ; dans les nouvelles données de l'équipe, l'encre reste insaisissable à cette date." },
+    // 2026-11-15 : le relevé mêlait à ce nœud l'expérience des agents, qui vient d'une autre page. Elle a son propre nœud (AJOUTS).
+    11: {
+      titre: 'Modèles pré-entraînés multi-rouleaux à 9 µm',
+      fonctionnel: "On peut partir de la seule géométrie d'un segment, le rendre, appliquer les modèles partagés et regarder. Le modèle courant à 2,4 µm est ink_canonical_2um.",
+      technique: "Modèles scrollprize/ink_9um : petite tête 3D suivie d'un U-Net 2D (hybride 3D vers 2D), sur un patch de 17 tranches ; étiquettes alignées de PHerc. 0139, PHerc. 1667, PHerc. Paris. 4 et PHerc. 0814 à environ 9 µm isotrope ; deux graines (42 et 43), sept points de contrôle chacun. Recette : 24 segments annotés sur rendus 2,4 µm regroupés et 5 sur rendus natifs 9,362 µm, quotas par rouleau fixes par lot (29/22/11/2 sur 64), lissage d'étiquettes 0,5. Entraînement complet : 78 125 itérations, environ cinq heures sur un H100.",
+    },
   },
 };
+// Nœuds ajoutés à la relecture, placés après la position indiquée du relevé. Leur citation est vérifiée comme les autres.
+const AJOUTS = {
+  encre: [
+    {
+      apres: 11,
+      noeud: {
+        id: 'A-315', branche: 'generalisation', date: '2026', titre: "Des agents trouvent un réglage qui passe mieux d'un rouleau à l'autre", statut: 'en-cours', relu: true,
+        resume: "Des agents tournant en continu ont trouvé une configuration qui a presque doublé le Dice de validation sur PHerc. 1667, en ne s'entraînant que sur PHerc. 139. Ce score est calculé sur des pseudo-étiquettes ; l'équipe y voit une amélioration réelle de la généralisation entre rouleaux.",
+        fonctionnel: "C'est le premier progrès rapporté sur le passage d'un rouleau à un autre. Deux réserves : la mesure s'appuie sur des étiquettes issues d'un modèle, pas sur une vérité terrain, et aucune valeur absolue n'est donnée.",
+        technique: "Système d'agents adapté en interne d'un projet public paru en mars 2026, appliqué aux architectures de modèles d'encre. Entraînement sur les seules données de PHerc. 139, validation sur PHerc. 1667.",
+        note_date: "La page ne date pas l'expérience : elle est postérieure à mars 2026, et la page est du 14 octobre 2026.",
+        qui: ['Vesuvius Challenge'], fiches: ['K-20', 'K-26', 'K-09'], pistes: ['P-320'],
+      },
+      preuves: [{ fichier: '37_2026_open_problems.md', citation: 'the system found a configuration that nearly doubled the validation Dice score (computed on pseudo-labels) on PHerc. 1667 while training only on PHerc. 139 data' }],
+    },
+  ],
+};
+await verifier(Object.values(AJOUTS).flat().map((a) => a.preuves));
 const BASES = { scan: 100, depliage: 200, encre: 300 };
 // Les branches de chaque parcours (ses sous-sujets), et la branche de chaque avancée, par position dans le relevé.
 // Ce rangement est le nôtre : les pages du défi ne découpent pas ainsi.
@@ -114,6 +138,10 @@ for (const domaine of Object.keys(BASES)) {
     a.sources = fichiers.map((f) => ({ titre: titrePage(f), lien: `https://github.com/ScrollPrize/villa/blob/${COMMIT}/scrollprize.org/docs/${f}` }));
     return a;
   });
+  for (const { apres, noeud, preuves } of [...(AJOUTS[domaine] ?? [])].sort((a, b) => b.apres - a.apres)) {
+    const sources = [...new Set(preuves.map((s) => s.fichier))].map((f) => ({ titre: titrePage(f), lien: `https://github.com/ScrollPrize/villa/blob/${COMMIT}/scrollprize.org/docs/${f}` }));
+    avancees.splice(apres + 1, 0, { ...noeud, sources });
+  }
   // Pour l'encre, la vue d'ensemble reprend l'état des lieux du relevé : ce qui est acquis, ce qui résiste.
   const etat = domaine === 'encre' ? releve.etat_de_l_art : null;
   const puces = (l) => l.map((e) => `- ${e.texte}`).join('\n');

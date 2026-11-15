@@ -436,20 +436,19 @@ avancees:
   - id: A-312
     branche: generalisation
     date: 2026-09-06
-    titre: Modèles pré-entraînés multi-rouleaux à 9 µm et premiers progrès de généralisation
+    titre: Modèles pré-entraînés multi-rouleaux à 9 µm
     statut: en-cours
     resume: L'équipe partage des détecteurs d'encre entraînés sur quatre rouleaux à la fois, pour chercher de
       l'encre dans des rouleaux jamais lus.
     fonctionnel: On peut partir de la seule géométrie d'un segment, le rendre, appliquer les modèles partagés et
-      regarder. Un essaim d'agents autonomes a trouvé une configuration qui a presque doublé le score de
-      validation sur PHerc. 1667 en n'entraînant que sur PHerc. 139. Le modèle courant à 2,4 µm est
-      ink_canonical_2um.
+      regarder. Le modèle courant à 2,4 µm est ink_canonical_2um.
     technique: "Modèles scrollprize/ink_9um : petite tête 3D suivie d'un U-Net 2D (hybride 3D vers 2D), sur un
       patch de 17 tranches ; étiquettes alignées de PHerc. 0139, PHerc. 1667, PHerc. Paris. 4 et PHerc. 0814 à
       environ 9 µm isotrope ; deux graines (42 et 43), sept points de contrôle chacun. Recette : 24 segments
       annotés sur rendus 2,4 µm regroupés et 5 sur rendus natifs 9,362 µm, quotas par rouleau fixes par lot
       (29/22/11/2 sur 64), lissage d'étiquettes 0,5. Entraînement complet : 78 125 itérations, environ cinq
-      heures sur un H100. Le score Dice de l'essaim d'agents est calculé sur des pseudo-étiquettes."
+      heures sur un H100."
+    relu: true
     note_date: Date de dernière mise à jour du tutoriel de détection d'encre, qui présente les modèles « 9 µm » ;
       le jeu « ink-labels » est daté 2026-07 ; l'essaim d'agents est postérieur à mars 2026 (date non
       précisée).
@@ -458,7 +457,6 @@ avancees:
     fiches:
       - K-20
       - K-12
-      - K-26
     pistes:
       - P-320
       - P-310
@@ -469,6 +467,32 @@ avancees:
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
       - titre: scrollprize.org · data datasets
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/02_data_datasets.md
+  - id: A-315
+    branche: generalisation
+    date: "2026"
+    titre: Des agents trouvent un réglage qui passe mieux d'un rouleau à l'autre
+    statut: en-cours
+    relu: true
+    resume: Des agents tournant en continu ont trouvé une configuration qui a presque doublé le Dice de validation
+      sur PHerc. 1667, en ne s'entraînant que sur PHerc. 139. Ce score est calculé sur des pseudo-étiquettes ;
+      l'équipe y voit une amélioration réelle de la généralisation entre rouleaux.
+    fonctionnel: "C'est le premier progrès rapporté sur le passage d'un rouleau à un autre. Deux réserves : la
+      mesure s'appuie sur des étiquettes issues d'un modèle, pas sur une vérité terrain, et aucune valeur
+      absolue n'est donnée."
+    technique: Système d'agents adapté en interne d'un projet public paru en mars 2026, appliqué aux architectures
+      de modèles d'encre. Entraînement sur les seules données de PHerc. 139, validation sur PHerc. 1667.
+    note_date: "La page ne date pas l'expérience : elle est postérieure à mars 2026, et la page est du 14 octobre 2026."
+    qui:
+      - Vesuvius Challenge
+    fiches:
+      - K-20
+      - K-26
+      - K-09
+    pistes:
+      - P-320
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-313
     branche: lectures
     date: 2026-10
