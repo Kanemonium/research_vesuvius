@@ -36,9 +36,9 @@ etapes:
     detail: "Fait avec `scripts/wsl/comparer_aux_etiquettes.py`. Des formes de lettres apparaissent aussi hors de la zone étiquetée (5,8 % de l'image) : le modèle ne fait pas que réciter. Mais il sépare mal l'encre du fond : médiane 201 sur l'encre étiquetée, 129 sur le fond étiqueté."
   - date: 2026-11-15
     genre: etape
-    statut: a-faire
+    statut: faite
     titre: Comprendre pourquoi le fond reste gris
-    detail: "Le tutoriel l'annonce en partie, pour ses modèles partagés : cibles adoucies à 0,25 et 0,75, donc un fond qui ne tombe pas à zéro. À vérifier : la valeur d'adoucissement de notre propre entraînement. L'encre à 201 sur 255 colle (0,79). Le fond à 129 (0,51 au lieu de 0,25) ne colle pas. Premier geste, prévu par le tutoriel : réétaler l'image pour l'affichage et regarder à nouveau."
+    detail: "L'explication du tutoriel (cibles adoucies) ne vaut pas pour nous : notre point de sauvegarde n'a aucun adoucissement réglé, et la valeur par défaut du code est zéro. Le fond gris vient du modèle lui-même. Aucun nouvel entraînement n'est nécessaire pour finir le tutoriel, qui annonce un résultat encore loin d'une bonne lecture ; obtenir un fond sombre en demanderait un."
 ---
 
 Fait quand une image de prédiction d'encre est produite et regardée ensemble.

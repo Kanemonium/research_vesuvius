@@ -701,9 +701,9 @@ executions:
           - ["Pixels très clairs (192 et plus)", "11,1 %", ""]
         note: >-
           L'image est grise presque partout : la moitié des pixels dépasse 128. Le modèle ne répond
-          donc pas « encre » ou « pas d'encre » de façon tranchée. Une cause possible, non vérifiée :
-          l'entraînement adoucit ses cibles (K-13), ce qui resserre les réponses vers le milieu.
-          Le tutoriel le dit lui-même et propose de réétaler l'image pour l'afficher.
+          donc pas « encre » ou « pas d'encre » de façon tranchée. Une cause envisagée était
+          l'adoucissement des cibles (K-13) ; vérification faite, notre entraînement n'en utilise pas : elle
+          est écartée.
       - genre: fichiers
         titre: "Ce qui a été écrit"
         lieu: "~/vesuvius/villa/vesuvius/predictions/w00_20231016151002, dans Ubuntu, hors du dépôt"
@@ -722,7 +722,7 @@ executions:
       - Une image où des formes de lettres apparaissent n'est pas une lecture : seuls des papyrologues peuvent valider un texte. Nous n'avons identifié aucune lettre.
       - Les formes visibles hors de la zone étiquetée sont dans la même feuille que l'entraînement, souvent sur les mêmes rangées : le modèle n'a pas vu leur corrigé, mais ce n'est pas une zone de validation choisie à l'avance.
       - Les chiffres zone par zone sont mesurés sur le segment d'entraînement : aucun n'est une note de qualité.
-      - Le modèle sépare mal l'encre du fond. Le tutoriel l'annonce en partie, à propos de ses modèles partagés : avec des cibles adoucies (0,25 pour le fond, 0,75 pour l'encre), le fond ne tombe pas à zéro. Nous n'avons pas vérifié que notre entraînement utilise le même réglage. Cela explique l'encre à 201 sur 255, proche de 0,75. Cela n'explique pas le fond à 129, soit 0,51 au lieu de 0,25 : cet écart reste sans cause établie.
+      - Le modèle sépare mal l'encre du fond, et l'explication du tutoriel ne vaut pas pour nous. Le tutoriel dit que ses modèles partagés ont un fond qui ne tombe pas à zéro parce que leurs cibles sont adoucies. Vérifié dans notre point de sauvegarde : notre entraînement n'a aucun adoucissement réglé, et la valeur par défaut du code de villa est zéro. Le fond à 129 sur 255 vient donc du modèle lui-même. Le tutoriel prévient que ce point de sauvegarde donne un résultat encore loin d'une bonne lecture.
       - Les images montrées sont réduites seize fois. Elles restent sur la machine, hors du dépôt.
 
     credits:
