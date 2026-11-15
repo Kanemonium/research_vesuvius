@@ -652,3 +652,42 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
   .gh-grille { grid-auto-rows: auto; }
   .gh-panneau { max-height: 70vh; }
 }
+
+/* ---------- Carnet d'exécution : une copie à lire, découpée comme un notebook ---------- */
+.fiche-titre-ligne { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--e-5); }
+.fiche-titre-ligne .fiche-titre { flex: 1; min-width: 0; }
+.carnet-bouton { width: 44px; height: 44px; margin-top: var(--e-4); background: var(--decision); color: #fff; }
+.carnet-bouton svg { width: 22px; height: 22px; }
+.carnet-fenetre { width: min(1500px, calc(100vw - 32px)); height: calc(100vh - 32px); max-width: none; max-height: none; }
+.cn-entete { display: flex; align-items: center; gap: var(--e-3); padding: var(--e-3) var(--e-4) var(--e-3) var(--e-5); border-bottom: 1px solid var(--filet); }
+.cn-titre { flex: 1; min-width: 0; font: 700 1.05rem/1.2 var(--f-titre); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cn-page { flex: 1; min-height: 0; overflow-y: auto; padding: var(--e-5) var(--e-6) var(--e-7); background: var(--papier); }
+.cn-note { max-width: 86ch; margin-bottom: var(--e-5); padding-left: var(--e-4); border-left: 4px solid var(--decision); color: var(--encre-60); font-size: var(--t-petit); line-height: 1.55; }
+.cn-partie { display: flex; align-items: center; gap: var(--e-3); margin: var(--e-6) 0 var(--e-4); font: 600 1.05rem/1 var(--f-cond); letter-spacing: 0.08em; text-transform: uppercase; color: var(--encre-60); }
+.cn-partie::after { content: ""; flex: 1; border-top: 1px dashed var(--structure); }
+.cn-cellule { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: var(--e-3); margin-bottom: var(--e-4); }
+.cn-compteur { display: block; padding-top: var(--e-3); text-align: right; font: 500 var(--t-meta)/1.4 var(--f-mono); color: var(--decision); white-space: nowrap; }
+.cn-cellule:not([data-genre="code"]):not([data-genre="commande"]) .cn-compteur { color: var(--cristal-fonce); }
+.cn-corps { min-width: 0; padding: var(--e-4); border: 1px solid var(--filet); border-left: 4px solid var(--structure); border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0; background: var(--surface); }
+.cn-cellule[data-genre="code"] .cn-corps, .cn-cellule[data-genre="commande"] .cn-corps { border-left-color: var(--decision); }
+.cn-cellule[data-etat="faite"] .cn-corps { border-left-color: var(--valide); }
+.cn-cellule[data-etat="en-cours"] .cn-corps { border-left-color: var(--cristal); animation: cn-vive 1.8s ease-in-out infinite; }
+.cn-cellule[data-etat="interrompue"] .cn-corps { border-left-color: var(--alerte); }
+.cn-cellule[data-etat="sautee"] .cn-corps { border-left-style: dashed; }
+@keyframes cn-vive { 50% { box-shadow: 0 0 0 3px var(--lueur); } }
+.cn-tete { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--e-2) var(--e-3); margin-bottom: var(--e-3); }
+.cn-tete:last-child { margin-bottom: 0; }
+.cn-temps { margin-left: auto; white-space: nowrap; }
+.cn-sortie { max-height: 300px; border-radius: var(--rayon-petit); white-space: pre; }
+.cn-commande { white-space: pre-wrap; overflow-wrap: anywhere; max-height: none; }
+.cn-muet { text-transform: none; letter-spacing: 0; }
+.cn-evenement { display: flex; align-items: center; gap: var(--e-3); margin: 0 0 var(--e-4) calc(78px + var(--e-3)); }
+.cn-evenement::after { content: ""; flex: 1; border-top: 1px dashed var(--structure); }
+.cn-corps .code-annote .titre { font-size: 1.05rem; }
+@media (max-width: 900px) {
+  .cn-cellule { grid-template-columns: 1fr; gap: 2px; }
+  .cn-compteur { text-align: left; padding-top: 0; }
+  .cn-evenement { margin-left: 0; }
+  .cn-page { padding: var(--e-4); }
+}
+@media (prefers-reduced-motion: reduce) { .cn-cellule[data-etat="en-cours"] .cn-corps { animation: none; } }

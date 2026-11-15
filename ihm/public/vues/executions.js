@@ -1,6 +1,7 @@
 // Vue « Exécutions » : ce que nous avons fait tourner, rendu lisible.
 // Pour chaque exécution : ce qu'elle a produit, le code utile avec sa lecture annotée, puis les sorties.
 // Les rendus sont des fichiers experiments/<dossier>/execution.yaml ; le format est dans pilotage/README.md.
+import { boutonCarnet } from '../carnet.js';
 import { embleme } from '../emblemes.js';
 import { adresse, avecBulle, compteGithub, credit, dateLongue, h, lienId, lier, pilule, s } from '../outils.js';
 import { avancement, boutonJournal, boutonPause, etatDe, majSuivi } from '../suivi.js';
@@ -155,7 +156,8 @@ export function vueExecutions(vue, app, params) {
   const article = h('article', { classe: 'execution' },
     h('div', { classe: 'tiroir-tete' }, embleme('executions', 44), h('span', { classe: 'etiquette' }, x.id),
       h('span', { classe: 'meta' }, x.date ? dateLongue(x.date) : ''), pilule(etat), boutonPause(x), boutonJournal(x)),
-    h('h2', { classe: 'fiche-titre' }, x.titre),
+    // À droite du titre : le carnet de l'exécution, sa copie à lire façon notebook.
+    h('div', { classe: 'fiche-titre-ligne' }, h('h2', { classe: 'fiche-titre' }, x.titre), boutonCarnet(x, codeAnnote)),
     lier(h('p', { classe: 'fiche-resume' }, x.resume)),
     avancement(x),
     h('p', { classe: 'fiche-pistes' },

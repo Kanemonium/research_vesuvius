@@ -3,6 +3,7 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { carnetExecution } from './lib/carnet.mjs';
 import { lireDiscord } from './lib/discord.mjs';
 import { etatGithub } from './lib/github.mjs';
 import { changerStatutTache, chargerEtat, deposerMessage, empreinte, lireBoite } from './lib/pilotage.mjs';
@@ -66,6 +67,14 @@ async function api(req, res, url) {
     if (!x) return json(res, 404, { erreur: 'exécution inconnue' });
     const morceau = await lireJournal(RACINE, x, Number(url.searchParams.get('depuis') ?? 0));
     return json(res, 200, { ...morceau, suivi: await suiviExecution(RACINE, x) });
+  }
+  // Le carnet d'une exécution : son journal découpé en cellules (ihm/lib/carnet.mjs).
+  const carnet = /^\/api\/executions\/(X-\d{3})\/carnet$/.exec(url.pathname);
+  if (req.method === 'GET' && carnet) {
+    const x = (await chargerEtat(RACINE)).executions.find((e) => e.id === carnet[1]);
+    if (!x) return json(res, 404, { erreur: 'exécution inconnue' });
+    const suivi = await suiviExecution(RACINE, x);
+    return json(res, 200, { ...(await carnetExecution(RACINE, x, suivi.etat)), suivi });
   }
   if (req.method === 'GET' && url.pathname === '/api/version') {
     return json(res, 200, { version: await empreinte(RACINE) });
