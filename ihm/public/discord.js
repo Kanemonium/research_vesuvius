@@ -10,7 +10,7 @@ const SOURCES = { discord: { nom: 'Discord', logo: () => LOGO }, github: { nom: 
 /** D'où vient le message : une petite pastille posée en haut du liseré. */
 const provenance = (source) => {
   const s = SOURCES[source] ?? SOURCES.discord;
-  return h('span', { classe: 'tiroir-source', 'data-source': SOURCES[source] ? source : 'discord', title: `Vu sur ${s.nom}`, role: 'img', 'aria-label': `Vu sur ${s.nom}` }, svg(s.logo(), 12));
+  return h('span', { classe: 'dsc-source', 'data-source': SOURCES[source] ? source : 'discord', title: `Vu sur ${s.nom}`, role: 'img', 'aria-label': `Vu sur ${s.nom}` }, svg(s.logo(), 12));
 };
 const ONGLETS = { synthese: 'Synthèse', 'pour-moi': 'Pour moi', actu: 'Actu', regles: 'Règles' };
 
@@ -37,7 +37,7 @@ function age(d) {
   if (d.age_heures < 1) return `Lu il y a ${Math.max(1, Math.round(d.age_heures * 60))} min`;
   return `Lu il y a ${Math.round(d.age_heures)} h`;
 }
-const liens = (l) => (l?.length ? h('p', { classe: 'tiroir-liens' }, ...l.map((u) => h('a', { href: u, target: '_blank', rel: 'noreferrer' }, u.replace(/^https:\/\/(www\.)?/, '')))) : null);
+const liens = (l) => (l?.length ? h('p', { classe: 'dsc-liens' }, ...l.map((u) => h('a', { href: u, target: '_blank', rel: 'noreferrer' }, u.replace(/^https:\/\/(www\.)?/, '')))) : null);
 
 // Une couleur par personne, tirée de son nom : la même personne garde la même d'une lecture à l'autre.
 function teinte(nom) {
@@ -52,7 +52,7 @@ function initiales(nom) {
 }
 /** La photo de profil si la lecture l'a relevée ; sinon une pastille aux initiales, de la couleur de la personne. */
 function avatar(nom, image) {
-  const pastille = h('span', { classe: 'tiroir-avatar', style: `--teinte:${teinte(nom)}`, 'aria-hidden': 'true' }, initiales(nom));
+  const pastille = h('span', { classe: 'dsc-avatar', style: `--teinte:${teinte(nom)}`, 'aria-hidden': 'true' }, initiales(nom));
   if (!image) return pastille;
   const img = h('img', { src: image, alt: '', loading: 'lazy', referrerpolicy: 'no-referrer' });
   img.addEventListener('error', () => img.remove());
@@ -61,13 +61,13 @@ function avatar(nom, image) {
 }
 const CALENDRIER = 'M7 2.5a1 1 0 0 1 1 1V5h8V3.5a1 1 0 1 1 2 0V5h1a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1V3.5a1 1 0 0 1 1-1ZM5 10v9h14v-9Z';
 const PERSONNES = 'M9 4a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Zm7.5 1.5a2.75 2.75 0 1 1 0 5.5 2.75 2.75 0 0 1 0-5.5ZM2.5 18.2c0-3 2.9-5.2 6.5-5.2s6.5 2.200 6.500 5.200V19a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1Zm15 1.800v-1.800c0-1.500-.5-2.800-1.400-3.900.2 0 .3 0 .4 0 2.800 0 5 1.700 5 4V19a1 1 0 0 1-1 1Z';
-const reperes = (m) => h('p', { classe: 'tiroir-reperes' },
-  m.salon ? h('span', { classe: 'tiroir-salon', 'data-source': m.source ?? 'discord' }, h('b', { 'aria-hidden': 'true' }, '#'), m.salon) : null,
-  h('span', { classe: 'tiroir-date' }, svg(CALENDRIER, 13), quand(m.date)));
+const reperes = (m) => h('p', { classe: 'dsc-reperes' },
+  m.salon ? h('span', { classe: 'dsc-salon', 'data-source': m.source ?? 'discord' }, h('b', { 'aria-hidden': 'true' }, '#'), m.salon) : null,
+  h('span', { classe: 'dsc-date' }, svg(CALENDRIER, 13), quand(m.date)));
 
 function message(m) {
   const nom = m.nous ? 'Nous' : m.auteur ?? '—';
-  return h('article', { classe: 'tiroir-message', 'data-nous': m.nous ? 'oui' : null, style: `--teinte:${teinte(nom)}` },
+  return h('article', { classe: 'dsc-message', 'data-nous': m.nous ? 'oui' : null, style: `--teinte:${teinte(nom)}` },
     provenance(m.source),
     h('header', {},
       avatar(nom, m.avatar),
@@ -75,7 +75,7 @@ function message(m) {
       m.nous ? h('span', { classe: 'pilule', 'data-statut': m.statut === 'envoyee' ? 'faite' : 'a-faire' }, m.statut === 'envoyee' ? 'envoyée' : 'brouillon') : null,
       m.etat ? h('span', { classe: 'pilule', 'data-statut': { fusionnée: 'faite', ouverte: 'en-cours', fermée: 'impasse' }[m.etat] ?? 'a-faire' }, m.etat) : null,
       reperes(m)),
-    m.fil ? h('p', { classe: 'tiroir-fil' }, m.fil) : null,
+    m.fil ? h('p', { classe: 'dsc-fil' }, m.fil) : null,
     h('p', {}, m.nous ? m.texte_fr ?? m.texte : m.texte),
     // Nos réponses partent en anglais : le texte exact reste lisible sous sa traduction.
     m.nous && m.texte_en ? h('details', {}, h('summary', {}, 'Texte anglais'), h('p', { lang: 'en' }, m.texte_en)) : null,
@@ -84,21 +84,21 @@ function message(m) {
 
 function corps(d) {
   if (etat.onglet === 'regles') {
-    const texte = h('div', { classe: 'tiroir-regles prose' });
+    const texte = h('div', { classe: 'dsc-regles prose' });
     texte.innerHTML = d.regles_html || '<p>Règles introuvables : docs/contribuer-a-villa.md manque.</p>';
     for (const a of texte.querySelectorAll('a[href^="http"]')) { a.target = '_blank'; a.rel = 'noreferrer'; }
     return [texte];
   }
   const p = d.problemes[etat.probleme] ?? Object.values(d.problemes)[0];
   if (etat.onglet === 'pour-moi') {
-    return d.pour_moi.length ? d.pour_moi.map(message) : [h('p', { classe: 'tiroir-vide' }, d.pour_moi_note || 'Aucun message ne vous mentionne.')];
+    return d.pour_moi.length ? d.pour_moi.map(message) : [h('p', { classe: 'dsc-vide' }, d.pour_moi_note || 'Aucun message ne vous mentionne.')];
   }
-  if (etat.onglet === 'actu') return p.actu.length ? p.actu.map(message) : [h('p', { classe: 'tiroir-vide' }, 'Rien de lu sur ce problème.')];
-  return p.synthese.length ? p.synthese.map((s) => h('article', { classe: 'tiroir-point', 'data-poids': s.pour_nous ?? null },
+  if (etat.onglet === 'actu') return p.actu.length ? p.actu.map(message) : [h('p', { classe: 'dsc-vide' }, 'Rien de lu sur ce problème.')];
+  return p.synthese.length ? p.synthese.map((s) => h('article', { classe: 'dsc-point', 'data-poids': s.pour_nous ?? null },
     provenance(s.source), h('h3', {}, s.titre), h('p', {}, s.texte),
-    s.auteurs?.length ? h('p', { classe: 'tiroir-auteurs' }, svg(PERSONNES, 14), h('span', { classe: 'meta' }, 'D’après'),
-      ...s.auteurs.map((a) => h('span', { classe: 'tiroir-auteur' }, avatar(a), a))) : null, liens(s.liens)))
-    : [h('p', { classe: 'tiroir-vide' }, 'Pas encore de synthèse sur ce problème.')];
+    s.auteurs?.length ? h('p', { classe: 'dsc-auteurs' }, svg(PERSONNES, 14), h('span', { classe: 'meta' }, 'D’après'),
+      ...s.auteurs.map((a) => h('span', { classe: 'dsc-auteur' }, avatar(a), a))) : null, liens(s.liens)))
+    : [h('p', { classe: 'dsc-vide' }, 'Pas encore de synthèse sur ce problème.')];
 }
 
 async function demander() {
@@ -125,20 +125,20 @@ function dessiner() {
   const avecChoix = etat.onglet === 'synthese' || etat.onglet === 'actu';
   // replaceChildren écrirait « null » en toutes lettres : on retire les éléments absents.
   tiroir.replaceChildren(...[
-    h('header', { classe: 'tiroir-tete' },
-      h('span', { classe: 'tiroir-logo' }, svg(LOGO, 22)),
+    h('header', { classe: 'dsc-tete' },
+      h('span', { classe: 'dsc-logo' }, svg(LOGO, 22)),
       h('div', {}, h('h2', {}, 'Discord du défi'), h('p', { classe: 'meta', 'data-alerte': d.a_relire ? 'oui' : null }, d.erreur ?? age(d))),
       h('button', { classe: 'pilule', type: 'button', disabled: etat.demande === 'envoi' || etat.demande === 'faite' ? '' : null, onclick: demander },
         etat.demande === 'faite' ? 'Demande déposée' : etat.demande === 'echec' ? 'Échec, réessayer' : 'Demander une lecture'),
-      h('button', { classe: 'tiroir-fermer', type: 'button', 'aria-label': 'Fermer le tiroir', onclick: () => basculer(false) }, '×')),
-    h('nav', { classe: 'tiroir-onglets', role: 'tablist' }, ...Object.entries(ONGLETS).map(([cle, nom]) =>
+      h('button', { classe: 'dsc-fermer', type: 'button', 'aria-label': 'Fermer le tiroir', onclick: () => basculer(false) }, '×')),
+    h('nav', { classe: 'dsc-onglets', role: 'tablist' }, ...Object.entries(ONGLETS).map(([cle, nom]) =>
       h('button', { type: 'button', role: 'tab', 'aria-selected': String(cle === etat.onglet), onclick: () => { etat.onglet = cle; retenir('discord-onglet', cle); dessiner(); } },
-        nom, cle === 'pour-moi' && d.pour_moi.length ? h('span', { classe: 'tiroir-compte' }, String(d.pour_moi.length)) : null))),
-    avecChoix ? h('div', { classe: 'tiroir-choix', role: 'group', 'aria-label': 'Problème' }, ...Object.entries(d.problemes).map(([cle, p]) =>
+        nom, cle === 'pour-moi' && d.pour_moi.length ? h('span', { classe: 'dsc-compte' }, String(d.pour_moi.length)) : null))),
+    avecChoix ? h('div', { classe: 'dsc-choix', role: 'group', 'aria-label': 'Problème' }, ...Object.entries(d.problemes).map(([cle, p]) =>
       h('button', { type: 'button', 'aria-pressed': String(cle === etat.probleme), onclick: () => { etat.probleme = cle; retenir('discord-probleme', cle); dessiner(); } }, p.nom))) : null,
-    h('div', { classe: 'tiroir-corps' }, ...corps(d),
-      d.non_lu && avecChoix ? h('p', { classe: 'tiroir-note' }, h('strong', {}, 'Non lu cette fois : '), d.non_lu) : null,
-      etat.onglet === 'regles' ? null : h('p', { classe: 'tiroir-note' }, 'Lecture faite à votre demande, traduite et résumée par Agent C. Ces messages restent sur cette machine : rien n’en est copié dans le dépôt public.')),
+    h('div', { classe: 'dsc-corps' }, ...corps(d),
+      d.non_lu && avecChoix ? h('p', { classe: 'dsc-note' }, h('strong', {}, 'Non lu cette fois : '), d.non_lu) : null,
+      etat.onglet === 'regles' ? null : h('p', { classe: 'dsc-note' }, 'Lecture faite à votre demande, traduite et résumée par Agent C. Ces messages restent sur cette machine : rien n’en est copié dans le dépôt public.')),
   ].filter(Boolean));
 }
 
@@ -158,7 +158,7 @@ export function installerDiscord() {
   const cloche = h('button', { classe: 'entete-discord', type: 'button', 'data-discord': 'cloche', 'aria-label': 'Discord : ouvrir le tiroir', 'aria-controls': 'tiroir', onclick: () => basculer() },
     svg(LOGO, 20), h('span', { classe: 'entete-discord-cloche', 'aria-hidden': 'true' }, svg(CLOCHE, 13)));
   document.querySelector('.entete-fin').prepend(cloche);
-  document.body.append(h('aside', { classe: 'tiroir', id: 'tiroir', 'aria-label': 'Discord du défi' }), tirette);
+  document.body.append(h('aside', { classe: 'dsc', id: 'tiroir', 'aria-label': 'Discord du défi' }), tirette);
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && etat.ouvert) basculer(false); });
   charger();
   // L'alerte « plus de huit heures » doit apparaître d'elle-même : on relit l'âge de la lecture chaque minute.

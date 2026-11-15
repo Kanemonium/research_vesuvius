@@ -41,6 +41,8 @@ première occurrence). Le README et les messages destinés à la communauté du 
      une exécution de plus de quelques minutes doit pouvoir être arrêtée et reprise sans tout refaire
      (`predire-par-bandes.sh`, `reprendre-entrainement.sh`) : le prévoir avant de lancer ;
    - une projection qui change → `pilotage/horizon.yaml` ;
+   - une évolution majeure de l'IHM → un nœud `P-51x` « V1.x : … » sous P-510 (« IHM Hephaist'OS V1 »),
+     avec les commits qui la livrent (demande de Kanemonium, 2026-11-15) ;
    - une notion nouvelle pour Kanemonium (papyrologie, physique du scan, apprentissage) → une
      fiche `K-…` dans `docs/concepts/` : un fichier `.fr.md`, un fichier `.en.md` et une planche
      SVG sans texte (repères numérotés), sur le modèle des fiches existantes. Ne rien y affirmer
