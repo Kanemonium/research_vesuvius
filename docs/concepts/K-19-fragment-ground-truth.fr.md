@@ -32,7 +32,7 @@ Un fragment est un morceau de rouleau dont la face écrite est à l'air libre. O
 
 ## Pourquoi ça compte ici
 
-C'est sur des fragments que Stephen Parsons a montré que l'apprentissage peut retrouver l'encre, et c'est sur eux qu'a porté la compétition Kaggle de 2023. Deux limites : ces modèles ne marchent pas tels quels sur un rouleau fermé, et la photo ne donne qu'une étiquette à plat, sans dire à quelle profondeur se trouve l'encre (K-22). Dans un rouleau fermé, cette vérité n'existe pas : d'où le pseudo-étiquetage (K-09).
+C'est sur des fragments que Stephen Parsons a montré que l'apprentissage peut retrouver l'encre, et c'est sur eux qu'a porté la compétition Kaggle de 2023. Deux limites : ces modèles ne semblaient pas marcher sur les segments aplatis d'un rouleau fermé, et la photo ne donne qu'une étiquette à plat, sans dire à quelle profondeur se trouve l'encre (K-22). Dans un rouleau fermé, cette vérité n'existe pas : d'où le pseudo-étiquetage (K-09).
 
 ## Le vocabulaire anglais
 

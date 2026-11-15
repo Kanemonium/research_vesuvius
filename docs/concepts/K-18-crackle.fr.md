@@ -19,7 +19,7 @@ date: 2026-11-15
 
 ## L'idée
 
-L'encre d'Herculanum est presque invisible aux rayons X. En août 2023, Casey Handmer remarque pourtant, dans les surfaces aplaties du premier rouleau, une texture craquelée, légèrement en relief, qui dessine des lettres. Ce n'est pas la couleur de l'encre que l'on voit, c'est sa forme.
+L'encre d'Herculanum est presque invisible aux rayons X. En août 2023, Casey Handmer remarque pourtant, dans les surfaces aplaties du premier rouleau, une texture craquelée, légèrement en relief, qui semble former des lettres. Ce n'est pas la couleur de l'encre que l'on voit, c'est sa forme.
 
 ## Comment ça marche
 
@@ -32,7 +32,7 @@ L'encre d'Herculanum est presque invisible aux rayons X. En août 2023, Casey Ha
 
 ## Pourquoi ça compte ici
 
-Le craquelé a ouvert la voie, mais c'est une exception. En 2025 l'équipe constate que, dans les deux rouleaux lisibles, le signal amplifié par les modèles correspond soit à de grosses craquelures, soit à des points plus riches en métal ; les modèles entraînés là-dessus échouent sur les autres rouleaux. Une étude sur fragments ouverts montre que le relief seul suffit parfois à prédire l'encre, pas toujours.
+Le craquelé a ouvert la voie, mais c'est une exception. En 2025 l'équipe constate que, dans les deux rouleaux lisibles, le signal amplifié par les modèles correspond soit à de grosses craquelures, soit à des points plus riches en métal ; les modèles entraînés là-dessus ne donnaient alors pas de bons résultats sur les autres rouleaux. Une étude sur fragments ouverts montre que le relief seul suffit parfois à prédire l'encre, pas toujours.
 
 ## Le vocabulaire anglais
 

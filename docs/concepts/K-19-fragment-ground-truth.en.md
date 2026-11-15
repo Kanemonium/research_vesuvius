@@ -32,4 +32,4 @@ A fragment is a piece of scroll whose written face is exposed. It can be photogr
 
 ## Why it matters here
 
-Stephen Parsons showed on fragments that machine learning can recover ink, and the 2023 Kaggle competition used them. Two limits: these models do not work as is on a closed scroll, and a photo only gives a flat label, not the depth at which ink sits (K-22). In a closed scroll no such truth exists, hence pseudo-labelling (K-09).
+Stephen Parsons showed on fragments that machine learning can recover ink, and the 2023 Kaggle competition used them. Two limits: these models did not seem to work on the flattened segments of a closed scroll, and a photo only gives a flat label, not the depth at which ink sits (K-22). In a closed scroll no such truth exists, hence pseudo-labelling (K-09).

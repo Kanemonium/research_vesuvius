@@ -19,7 +19,7 @@ date: 2026-11-15
 
 ## The idea
 
-Herculaneum ink is almost invisible to X-rays. In August 2023 Casey Handmer nevertheless noticed, in the flattened surfaces of the first scroll, a slightly raised cracked texture that formed letters. What shows is not the colour of the ink but its shape.
+Herculaneum ink is almost invisible to X-rays. In August 2023 Casey Handmer nevertheless noticed, in the flattened surfaces of the first scroll, a slightly raised cracked texture that appeared to form letters. What shows is not the colour of the ink but its shape.
 
 ## How it works
 
@@ -32,4 +32,4 @@ Herculaneum ink is almost invisible to X-rays. In August 2023 Casey Handmer neve
 
 ## Why it matters here
 
-Crackle opened the way but it is an exception. In 2025 the team noted that in the two readable scrolls the signal amplified by models was either large cracks or brighter, metal-rich spots, and that models trained on these fail on the other scrolls. A study on opened fragments shows that surface relief alone can sometimes predict ink, not always.
+Crackle opened the way but it is an exception. In 2025 the team noted that in the two readable scrolls the signal amplified by models was either large cracks or brighter, metal-rich spots, and that models trained on these were not performing well on the other scrolls at the time. A study on opened fragments shows that surface relief alone can sometimes predict ink, not always.
