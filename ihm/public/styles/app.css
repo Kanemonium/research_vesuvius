@@ -815,3 +815,5 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 @media (max-width: 720px) { .px-liste li { grid-template-columns: 1fr; gap: 4px; } .pc-bascule { min-width: 0; width: 100%; margin: 0; } }
 .pc-relu { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--valide); font: 500 var(--t-meta)/1.4 var(--f-mono); letter-spacing: 0.05em; text-transform: uppercase; }
 .pc-relu::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--valide); }
+/* Un problème ouvert sélectionné garde le fond sombre de la sélection : sinon son texte clair disparaît. */
+.pb-noeud[data-statut="ouvert"] .pb-carte[aria-current="true"] { background: var(--encre); border-top-style: dashed; }

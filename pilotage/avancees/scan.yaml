@@ -35,7 +35,6 @@ avancees:
     qui:
       - Brent Seales
       - EduceLab
-      - Stephen Parsons
     fiches:
       - K-03
     sources:
@@ -49,8 +48,8 @@ avancees:
     resume: Stephen Parsons fabrique un faux rouleau, l'écrit avec deux encres, le carbonise dans un feu de camp
       et le scanne.
     fonctionnel: "Ce rouleau d'essai sert de terrain d'apprentissage : on y voit ce qu'un scan donne dans le
-      meilleur des cas, et la différence entre une encre visible aux rayons X (ferro-gallique) et une encre au
-      carbone, presque invisible."
+      meilleur des cas, et la différence entre une encre à fort contraste aux rayons X (ferro-gallique) et une
+      encre au carbone, à faible contraste."
     technique: Le rouleau a été écrit à l'encre de carbone (faible contraste en tomographie) et à l'encre
       ferro-gallique (fort contraste), puis carbonisé dans une boîte à biscuits et scanné sur un scanner de
       table (benchtop CT) Bruker SkyScan 1173. Les photos X brutes sont prises par pas de 0,15 degré sur 360
@@ -104,8 +103,9 @@ avancees:
     titre: Quatre rouleaux scannés début 2024, prix 2024 portant sur les rouleaux 1 à 5 ; recherche des meilleurs
       réglages
     statut: acquis
-    resume: Début 2024, le défi parle de quatre rouleaux scannés ; les prix 2024 portent sur les rouleaux 1 à 5 et
-      demandent à la communauté d'analyser les scans pour trouver les meilleurs réglages.
+    resume: Début 2024, le défi parle de quatre rouleaux scannés ; le Grand Prix 2024 porte sur les rouleaux 1 à
+      5, et la liste de souhaits des prix de progrès cite, parmi d'autres idées, l'analyse des scans pour
+      trouver les meilleurs réglages.
     fonctionnel: La liste de souhaits 2024 propose d'analyser les scans multi-énergies et multi-résolutions pour
       trouver les réglages de scan optimaux (la source ne précise pas le critère). La communauté est invitée à
       comparer les scans multi-énergies et multi-résolutions et à les recaler entre eux.
@@ -128,9 +128,11 @@ avancees:
     statut: acquis
     resume: L'équipe met au point des acquisitions hélicoïdales sur la ligne BM18 de l'ESRF et scanne plus de
       trente rouleaux.
-    fonctionnel: Le temps de scan est plus que divisé par deux, tout en améliorant la résolution effective. À
-      cette date, l'encre reste difficile à faire apparaître dans toutes ces nouvelles données ; la source
-      ajoute toutefois qu'un titre a été extrait de l'un des rouleaux fermés dits « lisibles ».
+    fonctionnel: Le temps de scan est plus que divisé par deux, tout en améliorant la résolution effective. Ce
+      travail sur le protocole de scan a pour but de scanner et de lire les 300 rouleaux conservés, pour la
+      plupart à Naples. À cette date, l'encre reste difficile à faire apparaître dans toutes ces nouvelles
+      données ; la source ajoute toutefois qu'un titre a été extrait de l'un des rouleaux fermés dits «
+      lisibles ».
     technique: Acquisitions tétra-, hexa- et octo-hélicoïdales sur la ligne de lumière (beamline) BM18 de l'ESRF ;
       un grand rouleau est scanné à 9,2 µm de taille de pixel en moins de deux heures. Plus de trente rouleaux
       scannés sous différents réglages, en variant résolution et mécanismes de contraste.
@@ -173,13 +175,14 @@ avancees:
     statut: acquis
     resume: Pour les scans récents de rouleaux entiers à l'ESRF, le réglage pratique retenu est de 2,4 µm avec une
       courte distance de propagation.
-    fonctionnel: "C'est sur ces scans qu'ont été obtenus la lecture complète de PHerc. 1667 et l'encre directement
-      visible dans PHerc. Paris. 4. La source précise que ce n'est pas une recette universelle : des rouleaux
-      très grands ou très petits peuvent demander des ajustements."
+    fonctionnel: "La lecture complète de PHerc. 1667 repose sur des scans haute résolution à contraste de phase
+      faits sur BM18 (l'annonce n'en donne pas les réglages) ; l'encre directement visible dans PHerc. Paris.
+      4 est montrée sur un scan à 2,4 µm. La source précise que ce n'est pas une recette universelle : des
+      rouleaux très grands ou très petits peuvent demander des ajustements."
     technique: "Micro-tomographie X à contraste de phase (phase-contrast) sur BM18 : environ 2,4 µm de voxels
       isotropes, 22 cm de distance de propagation, environ 78 keV d'énergie incidente moyenne. Trois
-      paramètres sont couplés : taille de voxel, énergie, distance échantillon-détecteur. Trop de propagation
-      floute le volume au lieu de l'éclaircir."
+      paramètres sont couplés : taille de voxel, énergie, distance échantillon-détecteur. Poussée trop loin,
+      la distance de propagation peut flouter le volume au lieu de le rendre plus net."
     relu: true
     note_date: « 2026 » vient de la mention « updated scans (2026) » dans 02_data.md ; la page des problèmes
       ouverts (14 octobre 2026) parle de « recent full-scroll scans ».
@@ -276,9 +279,10 @@ avancees:
     technique: "Dépôt ouvert s3://vesuvius-challenge-open-data/, hébergé via le programme AWS Open Data, au format
       OME-Zarr (découpé en blocs, multi-résolution). Licence CC-BY-NC 4.0 sauf mention contraire. Jeux
       organisés : volumes, segments, représentations/prédictions, métadonnées ; points de contrôle de modèles
-      et jeux d'étiquettes sur Hugging Face."
+      et jeux de données préparés (encre et spirale) sur Hugging Face."
+    note_date: Date de l'annonce de la publication sous licence Creative Commons. La diffusion en OME-Zarr n'est
+      pas datée par les sources.
     relu: true
-    note_date: Date de l'annonce de la lecture de PHerc. 1667, qui précise la mise à disposition ouverte des données.
     qui:
       - Vesuvius Challenge
       - ESRF
@@ -295,8 +299,8 @@ avancees:
     date: 2026-10-14
     titre: "Problème ouvert : zones dégradées dès le scan et résolution sub-micronique impraticable"
     statut: ouvert
-    resume: Certaines zones sortent du scanner déjà dégradées, et on ne sait pas scanner un rouleau entier en
-      dessous du micron.
+    resume: Certaines zones sortent du scanner déjà dégradées, et on ne peut pas encore scanner un rouleau entier
+      partout en dessous du micron dans des conditions de production praticables.
     fonctionnel: "Quand l'encre n'apparaît pas, on ne sait pas toujours si c'est le scan, la surface, les
       étiquettes ou le modèle qui limite : il faut l'évaluer rouleau par rouleau. La source demande des
       métriques de qualité de scan et des recettes d'acquisition propres à chaque rouleau."

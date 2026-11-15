@@ -24,11 +24,11 @@ avancees:
     resume: L'équipe du Dr Seales déroule virtuellement le rouleau d'En-Gedi, première réussite du déroulement
       virtuel.
     fonctionnel: "Cela prouve que la méthode (scanner, tracer la surface, aplatir, lire) fonctionne. Les rouleaux
-      d'Herculanum sont plus difficiles : très longs, serrés, abîmés, et leur encre est presque invisible aux
-      rayons X."
-    technique: "Mêmes étapes que pour Herculanum, avec une différence clé : l'encre d'Herculanum est
-      radiotransparente (radiolucent). En 2023, la source indique que personne n'avait encore réussi une
-      segmentation à grande échelle de ces rouleaux."
+      d'Herculanum se sont révélés plus difficiles : particulièrement longs, serrés, abîmés et déformés, et
+      leur encre est difficile à voir dans les scans."
+    technique: "Beaucoup des étapes sont les mêmes pour Herculanum, avec une différence clé : l'encre y est bien
+      moins facilement visible (encre radiotransparente, radiolucent). En 2023, la source indique que personne
+      n'avait encore réussi une segmentation à grande échelle de ces rouleaux."
     relu: true
     qui:
       - Dr. Seales's team
@@ -46,9 +46,10 @@ avancees:
     statut: acquis
     resume: Volume Cartographer est la première boîte à outils de déroulement virtuel, créée par Seth Parker et
       d'autres dans le laboratoire de Brent Seales.
-    fonctionnel: C'est l'outil avec lequel l'équipe de segmentation a tracé les feuilles de papyrus en 2023. Les
-      participants l'ont amélioré, et une branche (fork) de Philip Allgaier a rassemblé les contributions de
-      la communauté.
+    fonctionnel: C'est l'outil principalement utilisé par l'équipe de segmentation pour repérer les feuilles de
+      papyrus (page de février 2024). Les participants l'ont amélioré, et une branche (fork) active de Philip
+      Allgaier contient de nombreuses contributions de la communauté ; c'est elle qu'utilise l'équipe de
+      segmentation.
     technique: Interface graphique pour annoter des segments dans le volume ; combinaison d'algorithmes
       automatiques et d'ajustements manuels. La sortie est un maillage triangulaire (.obj) puis un « surface
       volume » aplati.
@@ -74,8 +75,8 @@ avancees:
     statut: acquis
     resume: Deux séries de prix récompensent les outils qui aident l'équipe de segmentation à tracer des zones
       plus grandes et plus difficiles.
-    fonctionnel: Grâce à ces outils, l'équipe de segmentation a pu cartographier beaucoup plus de papyrus, ce qui
-      a rendu possible la découverte du « crackle » puis des premières lettres.
+    fonctionnel: Grâce à ces outils, l'équipe de segmentation a pu cartographier beaucoup de papyrus, ce qui a
+      rendu possible la découverte du « crackle » puis des premières lettres.
     technique: "Prix cités dans la page des lauréats : « Optical Flow Segmentation » par Julian (10 000 $, juin
       2023), Khartes par Chuck (10 000 $), « VA Sheet Tracer » par Trevor, Tom, Babak et Boaz (10 000 $,
       octobre 2023). Khartes permet de créer des maillages à la main en voyant un aperçu du segment rendu."
@@ -152,8 +153,9 @@ avancees:
     resume: "Deux méthodes sont soumises au premier prix de segmentation automatique : l'ajustement de spirale de
       Paul Henderson et le traceur de surface de Hendrik Schilling et Sean Johnson."
     fonctionnel: "Ces deux approches deviennent l'état de l'art du déroulement : l'une globale (du haut vers le
-      bas), l'autre locale (du bas vers le haut). Aucune n'a atteint le critère de qualité du prix ; l'erreur
-      la plus fréquente reste le saut de feuille."
+      bas), l'autre locale (du bas vers le haut). Aucune n'a atteint le critère de qualité du prix, mais la
+      source juge le traceur « très proche de la cible » et la spirale « la solution la plus élégante » ;
+      l'erreur la plus fréquente reste le saut de feuille."
     technique: "Le prix demandait de re-segmenter la zone du Grand Prix 2023 avec au plus 4 heures d'intervention
       humaine et 48 heures de calcul. Les deux méthodes partent d'une représentation intermédiaire : une
       prédiction de surface par nnUNet, à laquelle la spirale ajoute les fibres verticales et horizontales. La
@@ -186,13 +188,14 @@ avancees:
       recopie le tracé sur les tours voisins.
     fonctionnel: "Le traçage est fortement accéléré, mais reste semi-automatique : il faut inspecter et corriger.
       La copie vers les tours voisins est un accélérateur, pas un remplacement de la vérification, car une
-      erreur locale se propage."
+      erreur locale du maillage source peut se propager."
     technique: "GrowPatch optimise à la fois : suivre la surface prédite, garder une géométrie lisse, un
       espacement raisonnable, l'orientation locale (grilles de normales), et ne pas sauter sur une feuille
       voisine ; il utilise le solveur Ceres. Le traceur relie des milliers de patchs se recouvrant : une trace
-      peut couvrir 10 cm² comme 2800 cm² ; un exemple de 53 cm² sur PHerc0172 a pris environ une minute. Une
-      version neuronale de Copy Out/In existe (copy_displacement_latest, entraînée sur des données 2,4 µm
-      réduites à 4,8 µm)."
+      peut couvrir 10 cm² comme 2800 cm², cela dépend entièrement de la qualité de la prédiction de surface et
+      des patchs ; un exemple de 53 cm² sur PHerc0172 a pris environ une minute (page archivée). Une version
+      neuronale de Copy Out/In existe (copy_displacement_latest, entraînée sur des données 2,4 µm réduites à
+      4,8 µm)."
     relu: true
     note_date: Date de la dernière mise à jour du tutoriel de segmentation VC3D (archivé) ; la description de
       GrowPatch et de Copy Out/In vient de la page du 14 octobre 2026.
@@ -264,9 +267,9 @@ avancees:
     statut: acquis
     resume: Lasagna est une alternative à GrowPatch qui ajuste une ou plusieurs feuilles voisines ensemble pour
       qu'elles restent cohérentes.
-    fonctionnel: Il épouse mieux les zones complexes et courbées, au prix d'un calcul plus lourd. Il sert aussi à
-      corriger localement une surface brouillon et à suivre des fibres à partir de quelques points placés à la
-      main.
+    fonctionnel: Il peut mieux épouser les zones complexes et courbées, au prix d'un calcul un peu plus lourd. Il
+      sert aussi à corriger localement une surface brouillon et à suivre des fibres à partir de quelques
+      points placés à la main.
     technique: "Optimisation globale en PyTorch de piles de maillages à faces quadrangulaires qui ne se croisent
       pas. Entrées plus riches qu'une simple prédiction de surface : un volume dense de normales prédit par
       U-Net, et un volume de « magnitude de gradient » dérivé d'un champ de position fractionnaire
@@ -360,8 +363,9 @@ avancees:
     date: "2026"
     titre: Contraintes d'enroulement, fibres et mailleurs automatiques de la communauté
     statut: en-cours
-    resume: L'équipe demande désormais des méthodes rapides pour produire des « contraintes d'enroulement » qui
-      alimentent la spirale ; la communauté livre des extracteurs de fibres et un mailleur automatique.
+    resume: L'équipe estime désormais que la voie la plus rapide est de développer des méthodes précises et assez
+      rapides pour produire des « contraintes d'enroulement » qui alimentent la spirale ; la communauté livre
+      des extracteurs de fibres et un mailleur automatique.
     fonctionnel: "Le but change : au lieu de produire de grandes segmentations, on cherche des indices locaux
       précis et on laisse la compréhension globale à la spirale. La quantité d'indices nécessaire est inconnue
       d'avance mais bien inférieure à une segmentation complète."
@@ -370,9 +374,9 @@ avancees:
       (Samir Lerognon, 20 000 $, septembre 2026) : modèles de fibres affinés sur plus de rouleaux, splines
       ajustées aux fibres prédites, intégration à VC3D et à la spirale. Un modèle nnUNet de fibres
       (fiber_hz_vt) vient d'annotations tracées à la main sur les anciens scans à 7,91 µm."
+    note_date: Prix de progrès de juillet et septembre 2026 ; la page sur les contraintes d’enroulement est datée
+      du 12 juillet 2026 (dernière mise à jour).
     relu: true
-    note_date: Prix de progrès de juillet à octobre 2026 ; la page sur les contraintes d'enroulement n'a pas de
-      date lue.
     qui:
       - Ben Kyles
       - Samir Lerognon

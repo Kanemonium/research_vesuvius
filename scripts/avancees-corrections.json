@@ -1,5 +1,5 @@
 {
- "note": "Corrections de fidélité décidées le 2026-11-15, après relecture de chaque nœud contre sa page d'origine (accord de Kanemonium). Chaque entrée remplace « avant » par « apres » dans le champ indiqué du relevé. Appliquées par scripts/avancees-depuis-releve.mjs.",
+ "note": "Corrections de fidélité décidées le 2026-11-15, après relecture de chaque nœud contre sa page d'origine (accord de Kanemonium) : les écarts graves et moyens, puis les faibles. Chaque entrée remplace « avant » par « apres » dans le champ indiqué du relevé. Appliquées par scripts/avancees-depuis-releve.mjs.",
  "corrections": [
   {
    "domaine": "scan",
@@ -54,7 +54,8 @@
    "gravite": "moyenne",
    "source": "27_master_plan.md",
    "avant": "Cela ouvre la voie au scan des 300 rouleaux conservés, mais l'encre reste introuvable dans toutes ces nouvelles données à cette date.",
-   "apres": "À cette date, l'encre reste difficile à faire apparaître dans toutes ces nouvelles données ; la source ajoute toutefois qu'un titre a été extrait de l'un des rouleaux fermés dits « lisibles »."
+   "apres": "Ce travail sur le protocole de scan a pour but de scanner et de lire les 300 rouleaux conservés, pour la plupart à Naples. À cette date, l'encre reste difficile à faire apparaître dans toutes ces nouvelles données ; la source ajoute toutefois qu'un titre a été extrait de l'un des rouleaux fermés dits « lisibles ».",
+   "fondue": true
   },
   {
    "domaine": "scan",
@@ -252,7 +253,250 @@
    "gravite": "moyenne",
    "source": "07_tutorial5.md",
    "avant": "Fragilité des modèles 9 µm : sensibles au décalage en profondeur de la surface ; un modèle entraîné sur un seul segment reste loin d'une bonne lecture sur un segment jamais vu.",
-   "apres": "Deux limites distinctes. Modèles 9 µm : sensibles au décalage en profondeur de la surface. Modèle 3D natif du tutoriel, entraîné sur un seul segment : sur un segment jamais vu, des lettres commencent à apparaître mais on reste loin d'une bonne lecture."
+   "apres": "Deux limites distinctes. Modèles 9 µm : ils tolèrent de petits décalages en profondeur de la surface, mais des décalages plus grands peuvent encore les dérouter. Modèle 3D natif du tutoriel, entraîné sur un seul segment : sur un segment jamais vu, des lettres commencent à apparaître mais on reste loin d'une bonne lecture.",
+   "fondue": true
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 1,
+   "champ": "fonctionnel",
+   "type": "ajout",
+   "gravite": "faible",
+   "source": "04_tutorial1.md",
+   "avant": "Ce rouleau d'essai sert de terrain d'apprentissage : on y voit ce qu'un scan donne dans le meilleur des cas, et la différence entre une encre visible aux rayons X (ferro-gallique) et une encre au carbone, presque invisible.",
+   "apres": "Ce rouleau d'essai sert de terrain d'apprentissage : on y voit ce qu'un scan donne dans le meilleur des cas, et la différence entre une encre à fort contraste aux rayons X (ferro-gallique) et une encre au carbone, à faible contraste."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 3,
+   "champ": "resume",
+   "type": "jugement",
+   "gravite": "faible",
+   "source": "28_2024_prizes.md",
+   "avant": "Début 2024, le défi parle de quatre rouleaux scannés ; les prix 2024 portent sur les rouleaux 1 à 5 et demandent à la communauté d'analyser les scans pour trouver les meilleurs réglages.",
+   "apres": "Début 2024, le défi parle de quatre rouleaux scannés ; le Grand Prix 2024 porte sur les rouleaux 1 à 5, et la liste de souhaits des prix de progrès cite, parmi d'autres idées, l'analyse des scans pour trouver les meilleurs réglages."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 6,
+   "champ": "fonctionnel",
+   "type": "ajout",
+   "gravite": "faible",
+   "source": "36_firstscroll.md",
+   "avant": "C'est sur ces scans qu'ont été obtenus la lecture complète de PHerc. 1667 et l'encre directement visible dans PHerc. Paris. 4.",
+   "apres": "La lecture complète de PHerc. 1667 repose sur des scans haute résolution à contraste de phase faits sur BM18 (l'annonce n'en donne pas les réglages) ; l'encre directement visible dans PHerc. Paris. 4 est montrée sur un scan à 2,4 µm."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 6,
+   "champ": "technique",
+   "type": "prudence effacée",
+   "gravite": "faible",
+   "source": "37_2026_open_problems.md",
+   "avant": "Trop de propagation floute le volume au lieu de l'éclaircir.",
+   "apres": "Poussée trop loin, la distance de propagation peut flouter le volume au lieu de le rendre plus net."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 10,
+   "champ": "technique",
+   "type": "fait inexact",
+   "gravite": "faible",
+   "source": "37_2026_open_problems.md",
+   "avant": "Jeux organisés : volumes, segments, représentations/prédictions, métadonnées ; points de contrôle de modèles et jeux d'étiquettes sur Hugging Face.",
+   "apres": "Jeux organisés : volumes, segments, représentations/prédictions, métadonnées ; points de contrôle de modèles et jeux de données préparés (encre et spirale) sur Hugging Face."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 11,
+   "champ": "resume",
+   "type": "prudence effacée",
+   "gravite": "faible",
+   "source": "37_2026_open_problems.md",
+   "avant": "Certaines zones sortent du scanner déjà dégradées, et on ne sait pas scanner un rouleau entier en dessous du micron.",
+   "apres": "Certaines zones sortent du scanner déjà dégradées, et on ne peut pas encore scanner un rouleau entier partout en dessous du micron dans des conditions de production praticables."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 0,
+   "champ": "technique",
+   "type": "généralisation",
+   "gravite": "faible",
+   "source": "03_tutorial.md",
+   "avant": "Mêmes étapes que pour Herculanum, avec une différence clé : l'encre d'Herculanum est radiotransparente (radiolucent).",
+   "apres": "Beaucoup des étapes sont les mêmes pour Herculanum, avec une différence clé : l'encre y est bien moins facilement visible (encre radiotransparente, radiolucent)."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 0,
+   "champ": "fonctionnel",
+   "type": "prudence effacée",
+   "gravite": "faible",
+   "source": "12_grand_prize.md",
+   "avant": "Les rouleaux d'Herculanum sont plus difficiles : très longs, serrés, abîmés, et leur encre est presque invisible aux rayons X.",
+   "apres": "Les rouleaux d'Herculanum se sont révélés plus difficiles : particulièrement longs, serrés, abîmés et déformés, et leur encre est difficile à voir dans les scans."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 1,
+   "champ": "fonctionnel",
+   "type": "généralisation",
+   "gravite": "faible",
+   "source": "26_grandprize.md",
+   "avant": "C'est l'outil avec lequel l'équipe de segmentation a tracé les feuilles de papyrus en 2023.",
+   "apres": "C'est l'outil principalement utilisé par l'équipe de segmentation pour repérer les feuilles de papyrus (page de février 2024)."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 1,
+   "champ": "fonctionnel",
+   "type": "généralisation",
+   "gravite": "faible",
+   "source": "20_community_projects.md",
+   "avant": "Les participants l'ont amélioré, et une branche (fork) de Philip Allgaier a rassemblé les contributions de la communauté.",
+   "apres": "Les participants l'ont amélioré, et une branche (fork) active de Philip Allgaier contient de nombreuses contributions de la communauté ; c'est elle qu'utilise l'équipe de segmentation."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 2,
+   "champ": "fonctionnel",
+   "type": "ajout",
+   "gravite": "faible",
+   "source": "22_firstletters.md",
+   "avant": "Grâce à ces outils, l'équipe de segmentation a pu cartographier beaucoup plus de papyrus, ce qui a rendu possible la découverte du « crackle » puis des premières lettres.",
+   "apres": "Grâce à ces outils, l'équipe de segmentation a pu cartographier beaucoup de papyrus, ce qui a rendu possible la découverte du « crackle » puis des premières lettres."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 5,
+   "champ": "fonctionnel",
+   "type": "jugement",
+   "gravite": "faible",
+   "source": "32_unwrapping.mdx",
+   "avant": "Aucune n'a atteint le critère de qualité du prix ; l'erreur la plus fréquente reste le saut de feuille.",
+   "apres": "Aucune n'a atteint le critère de qualité du prix, mais la source juge le traceur « très proche de la cible » et la spirale « la solution la plus élégante » ; l'erreur la plus fréquente reste le saut de feuille."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 6,
+   "champ": "fonctionnel",
+   "type": "prudence effacée",
+   "gravite": "faible",
+   "source": "37_2026_open_problems.md",
+   "avant": "La copie vers les tours voisins est un accélérateur, pas un remplacement de la vérification, car une erreur locale se propage.",
+   "apres": "La copie vers les tours voisins est un accélérateur, pas un remplacement de la vérification, car une erreur locale du maillage source peut se propager."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 6,
+   "champ": "technique",
+   "type": "réserve coupée",
+   "gravite": "faible",
+   "source": "35_segmentation.md",
+   "avant": "Le traceur relie des milliers de patchs se recouvrant : une trace peut couvrir 10 cm² comme 2800 cm² ; un exemple de 53 cm² sur PHerc0172 a pris environ une minute.",
+   "apres": "Le traceur relie des milliers de patchs se recouvrant : une trace peut couvrir 10 cm² comme 2800 cm², cela dépend entièrement de la qualité de la prédiction de surface et des patchs ; un exemple de 53 cm² sur PHerc0172 a pris environ une minute (page archivée)."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 9,
+   "champ": "fonctionnel",
+   "type": "prudence effacée",
+   "gravite": "faible",
+   "source": "37_2026_open_problems.md",
+   "avant": "Il épouse mieux les zones complexes et courbées, au prix d'un calcul plus lourd.",
+   "apres": "Il peut mieux épouser les zones complexes et courbées, au prix d'un calcul un peu plus lourd."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 13,
+   "champ": "resume",
+   "type": "jugement",
+   "gravite": "faible",
+   "source": "39_winding_annotations.md",
+   "avant": "L'équipe demande désormais des méthodes rapides pour produire des « contraintes d'enroulement » qui alimentent la spirale ; la communauté livre des extracteurs de fibres et un mailleur automatique.",
+   "apres": "L'équipe estime désormais que la voie la plus rapide est de développer des méthodes précises et assez rapides pour produire des « contraintes d'enroulement » qui alimentent la spirale ; la communauté livre des extracteurs de fibres et un mailleur automatique."
+  },
+  {
+   "domaine": "encre",
+   "liste": "noeuds",
+   "position": 3,
+   "champ": "fonctionnel",
+   "type": "réserve coupée",
+   "gravite": "faible",
+   "source": "22_firstletters.md",
+   "avant": "Le modèle de Youssef produit peu après quatre colonnes et demie de texte : le Grand Prix devient atteignable.",
+   "apres": "Le modèle de Youssef produit peu après une image où l'on voit quatre colonnes et demie de texte, dont toutes les lettres ne sont pas lisibles d'emblée : le Grand Prix paraît à portée."
+  },
+  {
+   "domaine": "encre",
+   "liste": "noeuds",
+   "position": 10,
+   "champ": "resume",
+   "type": "prudence effacée",
+   "gravite": "faible",
+   "source": "37_2026_open_problems.md",
+   "avant": "Sur des fragments ouverts, la forme de la surface mesurée par profilométrie optique suffit à distinguer les zones encrées.",
+   "apres": "Sur des fragments ouverts, la forme de la surface mesurée par profilométrie optique porte à elle seule une information exploitable pour distinguer les zones encrées des zones sans encre."
+  },
+  {
+   "domaine": "encre",
+   "liste": "reussites",
+   "position": 3,
+   "champ": "texte",
+   "type": "généralisation",
+   "gravite": "faible",
+   "source": "26_grandprize.md",
+   "avant": "Les textes obtenus ne sont pas inventés par le modèle : reproduction technique indépendante, plusieurs soumissions concordantes sur la même zone, petites fenêtres d'entrée/sortie.",
+   "apres": "Pour les images du Grand Prix 2023, le texte n'est pas inventé par le modèle : reproduction technique indépendante, plusieurs soumissions concordantes sur la même zone, petites fenêtres d'entrée/sortie."
+  },
+  {
+   "domaine": "encre",
+   "liste": "reussites",
+   "position": 7,
+   "champ": "texte",
+   "type": "fait inexact",
+   "gravite": "faible",
+   "source": "15_winners.md",
+   "avant": "En octobre 2026, de l'écriture a été trouvée dans deux rouleaux jamais lus (PHerc. 306B et PHerc. 343).",
+   "apres": "Deux prix First Letters datés d'octobre 2026 récompensent de l'écriture trouvée dans deux rouleaux où rien n'avait encore été lu (PHerc. 306B et PHerc. 343)."
+  },
+  {
+   "domaine": "encre",
+   "liste": "blocages",
+   "position": 2,
+   "champ": "texte",
+   "type": "généralisation",
+   "gravite": "faible",
+   "source": "37_2026_open_problems.md",
+   "avant": "On ne sait pas dire de façon fiable si l'encre est absente ou seulement pas encore récupérée, ni quelle étape de la chaîne limite le résultat.",
+   "apres": "On ne sait pas dire de façon fiable si l'encre est absente ou seulement pas encore récupérée, et on ne sait pas toujours quelle étape de la chaîne limite le résultat : cela s'évalue rouleau par rouleau."
+  },
+  {
+   "domaine": "encre",
+   "liste": "blocages",
+   "position": 6,
+   "champ": "texte",
+   "type": "prudence effacée",
+   "gravite": "faible",
+   "source": "37_2026_open_problems.md",
+   "avant": "La résolution aide (1,1 µm est plus propre que 2,4 µm) mais scanner un rouleau entier à cette finesse est impraticable ; la résolution minimale nécessaire pour détecter l'encre reste inconnue.",
+   "apres": "La résolution aide (l'équipe a des éléments montrant que les données à 1,1 µm donnent des résultats plus propres qu'à 2,4 µm) mais scanner à haute résolution est impraticable ; la résolution minimale nécessaire pour détecter l'encre reste inconnue."
   }
  ]
 }

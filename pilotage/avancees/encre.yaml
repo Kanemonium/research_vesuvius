@@ -23,8 +23,8 @@ resume: >-
   - Le Grand Prix 2023 a été atteint : 4 passages de 140 caractères, plus 11 autres colonnes, soit plus de
   2000 caractères dans PHerc. Paris. 4, avec un code publié en open source.
 
-  - Les textes obtenus ne sont pas inventés par le modèle : reproduction technique indépendante, plusieurs
-  soumissions concordantes sur la même zone, petites fenêtres d'entrée/sortie.
+  - Pour les images du Grand Prix 2023, le texte n'est pas inventé par le modèle : reproduction technique
+  indépendante, plusieurs soumissions concordantes sur la même zone, petites fenêtres d'entrée/sortie.
 
   - Deux titres de rouleaux fermés ont été retrouvés : PHerc. 172 (Philodème, Sur les vices, livre 1) et
   PHerc. 139 (Philodème, Sur les dieux, livre 8).
@@ -35,7 +35,8 @@ resume: >-
   - Des modèles et jeux de données sont publics : modèle courant à 2,4 µm (ink_canonical_2um), modèles
   multi-rouleaux à 9 µm (ink_9um), six points de contrôle PHerc. 1667, jeu « ink-labels ».
 
-  - En octobre 2026, de l'écriture a été trouvée dans deux rouleaux jamais lus (PHerc. 306B et PHerc. 343).
+  - Deux prix First Letters datés d'octobre 2026 récompensent de l'écriture trouvée dans deux rouleaux où rien
+  n'avait encore été lu (PHerc. 306B et PHerc. 343).
 
   - Un premier progrès de généralisation entre rouleaux : une configuration trouvée par un essaim d'agents a
   presque doublé le Dice de validation (calculé sur des pseudo-étiquettes) sur PHerc. 1667 en n'entraînant que
@@ -54,8 +55,8 @@ resume: >-
   - Le pseudo-étiquetage n'est pas garanti : dans certains rouleaux les prédictions plafonnent, dans d'autres
   les modèles ne montrent presque rien de convaincant.
 
-  - On ne sait pas dire de façon fiable si l'encre est absente ou seulement pas encore récupérée, ni quelle
-  étape de la chaîne limite le résultat.
+  - On ne sait pas dire de façon fiable si l'encre est absente ou seulement pas encore récupérée, et on ne
+  sait pas toujours quelle étape de la chaîne limite le résultat : cela s'évalue rouleau par rouleau.
 
   - Nature du signal : dans les deux rouleaux lisibles en 2025, le signal amplifié correspondait à de grosses
   craquelures ou à des points plus brillants aux rayons X, signe de plus de métaux ; en juillet 2025, les
@@ -67,8 +68,9 @@ resume: >-
   - Les données 3D densément étiquetées manquent : les étiquettes de confiance au niveau du voxel sont rares.
   Dans les rouleaux, aucune vérité terrain infrarouge n'existe.
 
-  - La résolution aide (1,1 µm est plus propre que 2,4 µm) mais scanner un rouleau entier à cette finesse est
-  impraticable ; la résolution minimale nécessaire pour détecter l'encre reste inconnue.
+  - La résolution aide (l'équipe a des éléments montrant que les données à 1,1 µm donnent des résultats plus
+  propres qu'à 2,4 µm) mais scanner à haute résolution est impraticable ; la résolution minimale nécessaire
+  pour détecter l'encre reste inconnue.
 
   - La segmentation 3D directe ne vaut que dans des conditions favorables : tous les rouleaux ne se
   comporteront pas comme PHerc. Paris. 4, et le modèle publié est propre à ce rouleau.
@@ -101,9 +103,10 @@ resume: >-
   de mesure sur données tenues à l'écart ; un contributeur note que les améliorations ne se distinguent alors
   pas du bruit.
 
-  - Deux limites distinctes. Modèles 9 µm : sensibles au décalage en profondeur de la surface. Modèle 3D natif
-  du tutoriel, entraîné sur un seul segment : sur un segment jamais vu, des lettres commencent à apparaître
-  mais on reste loin d'une bonne lecture.
+  - Deux limites distinctes. Modèles 9 µm : ils tolèrent de petits décalages en profondeur de la surface, mais
+  des décalages plus grands peuvent encore les dérouter. Modèle 3D natif du tutoriel, entraîné sur un seul
+  segment : sur un segment jamais vu, des lettres commencent à apparaître mais on reste loin d'une bonne
+  lecture.
 
   - Le modèle n'est pas un lecteur : il ne reçoit ni mots grecs, ni transcriptions, ni dictionnaire ; il fait
   de la récupération de signal, la lecture restant humaine.
@@ -215,8 +218,8 @@ avancees:
     resume: Luke Farritor puis Youssef Nader, indépendamment, font apparaître le même mot (« pourpre ») dans le
       rouleau 1.
     fonctionnel: "Pour la première fois, un mot entier est lu à l'intérieur d'un rouleau non ouvert, et validé par
-      des papyrologues. Le modèle de Youssef produit peu après quatre colonnes et demie de texte : le Grand
-      Prix devient atteignable."
+      des papyrologues. Le modèle de Youssef produit peu après une image où l'on voit quatre colonnes et demie
+      de texte, dont toutes les lettres ne sont pas lisibles d'emblée : le Grand Prix paraît à portée."
     technique: "Luke entraîne un modèle sur le crackle : chaque nouveau crackle trouvé améliore le modèle, qui en
       révèle d'autres. Youssef part des modèles gagnants de Kaggle, les adapte aux rouleaux (pré-entraînement
       non supervisé sur les rouleaux, puis affinage sur les étiquettes des fragments), puis itère des
@@ -486,8 +489,8 @@ avancees:
     date: "2026"
     titre: Le relief de surface seul permet de prédire l'encre
     statut: acquis
-    resume: Sur des fragments ouverts, la forme de la surface mesurée par profilométrie optique suffit à
-      distinguer les zones encrées.
+    resume: Sur des fragments ouverts, la forme de la surface mesurée par profilométrie optique porte à elle seule
+      une information exploitable pour distinguer les zones encrées des zones sans encre.
     fonctionnel: Cela relie directement la résolution spatiale à la quantité de signal d'encre qui survit, et
       plaide pour des voxels plus petits. Mais l'encre n'apparaît pas toujours comme un simple relief.
     technique: "Modèles (nnU-Net) entraînés sur des cartes de hauteur (heightmaps) de fragments ouverts
@@ -516,12 +519,12 @@ avancees:
       l'encre dans des rouleaux jamais lus.
     fonctionnel: On peut partir de la seule géométrie d'un segment, le rendre, appliquer les modèles partagés et
       regarder. Le modèle courant à 2,4 µm est ink_canonical_2um.
-    technique: "Modèles scrollprize/ink_9um : petite tête 3D suivie d'un U-Net 2D (hybride 3D vers 2D), sur un
-      patch de 17 tranches ; étiquettes alignées de PHerc. 0139, PHerc. 1667, PHerc. Paris. 4 et PHerc. 0814 à
-      environ 9 µm isotrope ; deux graines (42 et 43), sept points de contrôle chacun. Recette : 24 segments
-      annotés sur rendus 2,4 µm regroupés et 5 sur rendus natifs 9,362 µm, quotas par rouleau fixes par lot
-      (29/22/11/2 sur 64), lissage d'étiquettes 0,5. Entraînement complet : 78 125 itérations, environ cinq
-      heures sur un H100."
+    technique: "Modèles scrollprize/ink_9um : un petit étage d'entrée 3D (stem) qui alimente un U-Net 2D (hybride
+      3D vers 2D), sur un patch de 17 tranches ; étiquettes alignées de PHerc. 0139, PHerc. 1667, PHerc.
+      Paris. 4 et PHerc. 0814 à environ 9 µm isotrope ; deux graines (42 et 43), sept points de contrôle
+      chacun. Recette : 24 segments annotés sur rendus 2,4 µm regroupés et 5 sur rendus natifs 9,362 µm,
+      quotas par rouleau fixes par lot (29/22/11/2 sur 64), lissage d'étiquettes 0,5. Entraînement complet :
+      78 125 itérations, environ cinq heures sur un H100."
     relu: true
     note_date: Date de dernière mise à jour du tutoriel de détection d'encre, qui présente les modèles « 9 µm » ;
       le jeu « ink-labels » est daté 2026-07 ; l'essaim d'agents est postérieur à mars 2026 (date non

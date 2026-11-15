@@ -79,7 +79,7 @@ const CORRECTIONS = {
     11: {
       titre: 'Modèles pré-entraînés multi-rouleaux à 9 µm',
       fonctionnel: "On peut partir de la seule géométrie d'un segment, le rendre, appliquer les modèles partagés et regarder. Le modèle courant à 2,4 µm est ink_canonical_2um.",
-      technique: "Modèles scrollprize/ink_9um : petite tête 3D suivie d'un U-Net 2D (hybride 3D vers 2D), sur un patch de 17 tranches ; étiquettes alignées de PHerc. 0139, PHerc. 1667, PHerc. Paris. 4 et PHerc. 0814 à environ 9 µm isotrope ; deux graines (42 et 43), sept points de contrôle chacun. Recette : 24 segments annotés sur rendus 2,4 µm regroupés et 5 sur rendus natifs 9,362 µm, quotas par rouleau fixes par lot (29/22/11/2 sur 64), lissage d'étiquettes 0,5. Entraînement complet : 78 125 itérations, environ cinq heures sur un H100.",
+      technique: "Modèles scrollprize/ink_9um : un petit étage d'entrée 3D (stem) qui alimente un U-Net 2D (hybride 3D vers 2D), sur un patch de 17 tranches ; étiquettes alignées de PHerc. 0139, PHerc. 1667, PHerc. Paris. 4 et PHerc. 0814 à environ 9 µm isotrope ; deux graines (42 et 43), sept points de contrôle chacun. Recette : 24 segments annotés sur rendus 2,4 µm regroupés et 5 sur rendus natifs 9,362 µm, quotas par rouleau fixes par lot (29/22/11/2 sur 64), lissage d'étiquettes 0,5. Entraînement complet : 78 125 itérations, environ cinq heures sur un H100.",
     },
   },
 };
@@ -93,7 +93,15 @@ CORRECTIONS.encre[5] = {
   _fichiers: ['27_master_plan.md'], _sansPrix: true, _qui: ['Vesuvius Challenge'],
 };
 // Noms que les pages citées par un nœud ne relient pas à ce travail.
-const RETRAITS_QUI = { depliage: { 13: ['Sean Johnson'] } };
+// Stephen Parsons est cité pour la détection d'encre sur ces scans, pas pour le scan lui-même.
+const RETRAITS_QUI = { scan: { 0: ['Stephen Parsons'] }, depliage: { 13: ['Sean Johnson'] } };
+// Notes de date corrigées à la relecture.
+CORRECTIONS.scan = {
+  10: { note_date: "Date de l'annonce de la publication sous licence Creative Commons. La diffusion en OME-Zarr n'est pas datée par les sources." },
+};
+CORRECTIONS.depliage = {
+  13: { note_date: 'Prix de progrès de juillet et septembre 2026 ; la page sur les contraintes d’enroulement est datée du 12 juillet 2026 (dernière mise à jour).' },
+};
 // 2026-11-15 : le relevé rapportait « aucune lettre » en coupant la phrase avant la réserve de son auteur.
 CORRECTIONS.encre[13] = {
   fonctionnel: "On ne sait pas distinguer de façon fiable « pas d'encre » de « encre pas encore récupérée ». Le titre de PHerc. Paris. 4 n'a pas été trouvé. Une enquête d'un participant sur les 21 rouleaux de la liste sans segments au catalogue n'a trouvé aucune lettre ; son auteur précise que sa méthode échoue aussi sur un rouleau de contrôle, et qu'un résultat nul dit donc peu de chose. Pistes citées : entraînement multi-rouleaux, meilleures étiquettes, diagnostics plus solides, segmentation 3D directe.",
@@ -209,7 +217,7 @@ for (const domaine of Object.keys(BASES)) {
     };
     Object.assign(a, champs);
     a.relu = true; // tous les nœuds du défi ont été relus contre leur page le 2026-11-15
-    if (n.date_note) a.note_date = n.date_note;
+    if (n.date_note && !a.note_date) a.note_date = n.date_note;
     const qui = _qui ?? (n.qui ?? []).filter((q) => !(RETRAITS_QUI[domaine]?.[i] ?? []).includes(q));
     if (qui.length) a.qui = qui;
     if (n.prix && !_sansPrix) a.prix = { nom: n.prix.nom, montant: n.prix.montant };
