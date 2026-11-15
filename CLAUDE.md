@@ -59,6 +59,9 @@ résultat qui n'a pas été mesuré ; « non mesuré », « inconnu » et « est
 - Toute méthode primée doit être publiée en open source sous licence permissive : ici, MIT.
 - Aucune donnée de rouleau, aucun poids de modèle, aucun secret dans le dépôt.
   Consigner la commande qui télécharge une entrée, jamais l'entrée.
+  C'est une règle de ce projet, pas du défi : le prix « premières lettres » demande au contraire
+  au lauréat de publier son code, ses données, ses poids et ses résultats après avoir gagné.
+  Le jour venu, les poids se publient ailleurs que dans ce dépôt, avec l'accord de Kanemonium.
 - Les lectures de texte sont validées par des papyrologues : ne jamais annoncer une lecture
   comme acquise sur la seule foi d'une prédiction.
 - Les contributions sont jugées sur leur usage réel et leur documentation : un correctif n'est
