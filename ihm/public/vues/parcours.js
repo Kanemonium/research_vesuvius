@@ -84,21 +84,38 @@ export function voletParcours(app, domaine, choisie) {
   const ouverte = d.avancees.find((a) => a.id === choisie) ?? null;
   // Dans un parcours du défi tout entier, nos propres pas se distinguent : losange et pastille « Nous ».
   const mixte = d.portee === 'communaute';
-  let derniere = null;
-  const noeuds = d.avancees.map((a) => {
-    const e = STATUTS[a.statut] ?? STATUTS.acquis;
-    const rupture = annee(a) !== derniere ? h('li', { classe: 'pc-annee', 'aria-hidden': 'true' }, h('span', {}, annee(a))) : null;
-    derniere = annee(a);
-    return [rupture, h('li', { classe: 'pc-noeud', 'data-statut': a.statut, 'data-nous': a.nous && mixte ? 'oui' : null },
-      h('span', { classe: 'pc-point', 'aria-hidden': 'true' }),
-      h('a', { classe: 'pc-carte', href: `${base}&a=${a.id}`, 'aria-current': a.id === choisie ? 'true' : null },
-        h('span', { classe: 'pc-ligne' }, h('span', { classe: 'meta' }, dateSouple(a.date)), h('span', { classe: 'pilule', 'data-statut': e.statut }, e.nom),
-          a.nous && mixte ? h('span', { classe: 'pilule pc-nous' }, 'Nous') : null, a.prix ? prixDe(a.prix) : null),
-        h('strong', { classe: 'pc-nom' }, a.titre),
-        a.resume ? h('span', { classe: 'pc-texte' }, a.resume) : null,
-        a.qui.length ? h('span', { classe: 'meta pc-qui' }, a.qui.slice(0, 4).join(', '), a.qui.length > 4 ? '…' : '') : null))];
+  // Le graphe : une colonne par branche (un sous-sujet du domaine), une ligne par avancée.
+  // Toutes les branches partagent le même axe vertical : plus bas veut dire plus tard, quelle que soit la colonne.
+  const branches = d.branches.length ? d.branches : [{ id: '', titre: '' }];
+  const colonne = (a) => Math.max(0, branches.findIndex((b) => b.id === a.branche)) + 2; // la colonne 1 porte les années
+  const LIGNE0 = 3; // ligne 1 : la racine d'où partent les branches ; ligne 2 : leurs noms
+  const n = branches.length;
+  const racine = h('div', { classe: 'pb-racine', style: 'grid-column:2 / -1;grid-row:1', 'aria-hidden': 'true', html:
+    `<svg viewBox="0 0 ${n * 100} 64" preserveAspectRatio="none">${branches.map((_, i) => `<path d="M${n * 50} 6C${n * 50} 40 ${i * 100 + 50} 24 ${i * 100 + 50} 64" class="pb-b${i % 6}"/>`).join('')}</svg><span class="pb-souche"></span>` });
+  const entetes = branches.map((b, i) => h('div', { classe: `pb-branche pb-b${i % 6}`, style: `grid-column:${i + 2};grid-row:2` }, h('span', {}, b.titre || 'Parcours')));
+  // Le rail de chaque branche : en pointillé tant qu'elle n'a rien produit, plein entre son premier et son dernier pas.
+  const rails = branches.flatMap((b, i) => {
+    const lignes = d.avancees.map((a, k) => (colonne(a) === i + 2 ? k : -1)).filter((k) => k >= 0);
+    if (!lignes.length) return [];
+    const [premier, dernier] = [lignes[0] + LIGNE0, lignes.at(-1) + LIGNE0];
+    return [premier > LIGNE0 ? h('div', { classe: `pb-rail attente pb-b${i % 6}`, style: `grid-column:${i + 2};grid-row:${LIGNE0} / ${premier}`, 'aria-hidden': 'true' }) : null,
+      h('div', { classe: `pb-rail pb-b${i % 6}`, style: `grid-column:${i + 2};grid-row:${premier} / ${dernier + 1}`, 'aria-hidden': 'true' })];
   });
-  const graphe = h('ol', { classe: 'pc-graphe' }, noeuds);
+  let derniere = null;
+  const noeuds = d.avancees.flatMap((a, k) => {
+    const e = STATUTS[a.statut] ?? STATUTS.acquis;
+    const ligne = k + LIGNE0;
+    const rupture = annee(a) !== derniere ? h('div', { classe: 'pb-annee', style: `grid-column:1 / -1;grid-row:${ligne}`, 'aria-hidden': 'true' }, h('span', {}, annee(a))) : null;
+    derniere = annee(a);
+    const b = colonne(a) - 2;
+    return [rupture, h('div', { classe: `pb-noeud pb-b${b % 6}`, style: `grid-column:${b + 2};grid-row:${ligne}`, 'data-statut': a.statut, 'data-nous': a.nous && mixte ? 'oui' : null },
+      h('span', { classe: 'pb-point', 'aria-hidden': 'true' }),
+      h('a', { classe: 'pb-carte', href: `${base}&a=${a.id}`, 'aria-current': a.id === choisie ? 'true' : null, title: a.resume },
+        h('span', { classe: 'pb-ligne' }, h('span', { classe: 'meta' }, dateSouple(a.date)), h('span', { classe: 'pb-statut', 'data-statut': e.statut }, e.nom)),
+        h('strong', { classe: 'pb-nom' }, a.titre),
+        h('span', { classe: 'pb-ligne' }, h('span', { classe: 'pb-rappel' }, branches[b]?.titre ?? ''), a.nous && mixte ? h('span', { classe: 'pilule pc-nous' }, 'Nous') : null, a.prix ? prixDe({ montant: a.prix.montant }) : null)))];
+  });
+  const graphe = h('div', { classe: 'pb-graphe', style: `--branches:${n}`, role: 'list' }, racine, entetes, rails, noeuds);
   const volet = h('div', { classe: 'pc' }, tete, h('div', { classe: 'pc-corps' }, h('div', { classe: 'pc-defile' }, graphe), ouverte ? detail(ouverte, base, mixte) : synthese(app, d, piste)));
   // Le nœud ouvert reste en vue dans la colonne du graphe.
   if (ouverte) requestAnimationFrame(() => graphe.querySelector('[aria-current="true"]')?.scrollIntoView({ block: 'nearest' }));

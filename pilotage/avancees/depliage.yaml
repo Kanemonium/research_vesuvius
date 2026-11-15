@@ -6,8 +6,18 @@ portee: communaute
 lu_le: 2026-11-15
 resume: "Comment on retrouve la feuille de papyrus dans le scan et comment on l’aplatit : du tracé à la main
   aux méthodes automatiques. Le défi tout entier, lu dans les pages de scrollprize.org."
+branches:
+  - id: jalons
+    titre: Rouleaux déroulés
+  - id: outils
+    titre: Tracer à la main, outiller
+  - id: automatique
+    titre: Méthodes automatiques
+  - id: surface
+    titre: Surface et aplatissement
 avancees:
   - id: A-201
+    branche: jalons
     date: "2015"
     titre: "Précédent : le rouleau d'En-Gedi déroulé virtuellement"
     statut: acquis
@@ -29,6 +39,7 @@ avancees:
       - titre: scrollprize.org · grand prize
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/12_grand_prize.md
   - id: A-202
+    branche: outils
     date: null
     titre: Volume Cartographer, l'outil d'origine d'EduceLab
     statut: acquis
@@ -55,6 +66,7 @@ avancees:
       - titre: scrollprize.org · community projects
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/20_community_projects.md
   - id: A-203
+    branche: outils
     date: 2023-06-27
     titre: "Prix d'outillage de segmentation : flot optique, Khartes, traceurs"
     statut: acquis
@@ -80,6 +92,7 @@ avancees:
       - titre: scrollprize.org · community projects
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/20_community_projects.md
   - id: A-204
+    branche: outils
     date: 2023-07
     titre: "Une équipe de segmentation à plein temps : des centaines de cm² tracés à la main"
     statut: acquis
@@ -101,6 +114,7 @@ avancees:
       - titre: scrollprize.org · grandprize
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
   - id: A-205
+    branche: automatique
     date: 2023-12-31
     titre: "ThaumatoAnakalyptor : première segmentation automatique convaincante"
     statut: acquis
@@ -126,6 +140,7 @@ avancees:
       - titre: scrollprize.org · community projects
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/20_community_projects.md
   - id: A-206
+    branche: automatique
     date: 2024-12
     titre: "Prix de segmentation automatique : ajustement de spirale et traceur de surface"
     statut: acquis
@@ -156,6 +171,7 @@ avancees:
       - titre: scrollprize.org · winners
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/15_winners.md
   - id: A-207
+    branche: outils
     date: 2025-02-20
     titre: "VC3D : croissance de patchs (GrowPatch), traceur et copie vers les tours voisins"
     statut: acquis
@@ -182,6 +198,7 @@ avancees:
       - titre: scrollprize.org · segmentation
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/35_segmentation.md
   - id: A-208
+    branche: automatique
     date: 2025-07
     titre: "Constat : le traçage reste le goulot, trop lent et trop cher"
     statut: ouvert
@@ -202,6 +219,7 @@ avancees:
       - titre: scrollprize.org · grandprize
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
   - id: A-209
+    branche: surface
     date: 2025-11
     titre: "Compétition Kaggle « Surface Detection » : nnU-Net s'impose"
     statut: acquis
@@ -229,6 +247,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-210
+    branche: automatique
     date: null
     titre: "Lasagna : optimiser plusieurs feuilles empilées en même temps"
     statut: acquis
@@ -248,6 +267,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-211
+    branche: surface
     date: null
     titre: Format tifxyz et aplatissement par flatboi (SLIM)
     statut: acquis
@@ -267,6 +287,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-212
+    branche: automatique
     date: "2026"
     titre: "Ajustement de spirale : une surface globale pour tout le rouleau"
     statut: acquis
@@ -296,6 +317,7 @@ avancees:
       - titre: scrollprize.org · data datasets
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/02_data_datasets.md
   - id: A-213
+    branche: jalons
     date: 2026-06-25
     titre: PHerc. 1667 entièrement déroulé virtuellement
     statut: acquis
@@ -316,6 +338,7 @@ avancees:
       - titre: scrollprize.org · firstscroll
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/36_firstscroll.md
   - id: A-214
+    branche: automatique
     date: "2026"
     titre: Contraintes d'enroulement, fibres et mailleurs automatiques de la communauté
     statut: en-cours
@@ -349,6 +372,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-215
+    branche: automatique
     date: 2026-10-14
     titre: "Problème ouvert : aucune méthode ne trace seule une surface complète et juste"
     statut: ouvert

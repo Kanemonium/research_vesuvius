@@ -30,8 +30,11 @@ Short illustrated notes on the ideas this project runs into: what each one is, h
 | K-22 | [Depth ambiguity and 3D ink](K-22-depth-ambiguity-3d-ink.en.md) | [L'ambiguïté de profondeur et l'encre en 3D](K-22-depth-ambiguity-3d-ink.fr.md) |
 | K-23 | [Learning without labels](K-23-learning-without-labels.en.md) | [Apprendre sans étiquettes](K-23-learning-without-labels.fr.md) |
 | K-24 | [Pretraining and transfer](K-24-pretraining-and-transfer.en.md) | [Le pré-entraînement et le transfert](K-24-pretraining-and-transfer.fr.md) |
+| K-25 | [TimeSformer](K-25-timesformer.en.md) | [TimeSformer](K-25-timesformer.fr.md) |
+| K-26 | [The Dice score](K-26-dice-score.en.md) | [Le score Dice](K-26-dice-score.fr.md) |
 
 Facts come from the [Vesuvius Challenge](https://scrollprize.org) site as read on 2026-11-14; each note links its source.
 Notes K-11 to K-16 cover the training code: they also rely on the `ScrollPrize/villa` source at commit `2d3fb38` and on our own measured runs (`experiments/`).
 The same notes are shown in the cockpit under the "Doc" tab (`npm run ihm`).
 Notes K-18 to K-24 cover what the community has achieved on ink detection and what remains open: they rely on the scrollprize.org pages kept in `ScrollPrize/villa` (`scrollprize.org/docs/`) at commit `2d3fb38`, read on 2026-11-15.
+Notes K-25 and K-26 go back to the original sources: the TimeSformer paper (arXiv:2102.05095) and the code of `ScrollPrize/villa` that uses it (`deprecated/ink-detection/`), and the Dice score as used in villa's ink loss.

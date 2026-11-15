@@ -718,34 +718,9 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .pc-compteurs > div:nth-child(2) { border-left-color: var(--cristal); }
 .pc-compteurs strong { font: 800 1.9rem/1 var(--f-titre); }
 /* Le graphe : un fil vertical, du plus ancien en haut au plus récent en bas. */
-.pc-graphe { list-style: none; margin: 0; padding: 0 0 0 86px; position: relative; max-width: 860px; }
-.pc-graphe::before { content: ""; position: absolute; left: 98px; top: 10px; bottom: 10px; border-left: 2px solid var(--filet); }
-.pc-annee { position: relative; height: 0; }
-.pc-annee span { position: absolute; left: -86px; top: 14px; width: 66px; text-align: right; font: 800 1.25rem/1 var(--f-titre); color: var(--encre-40); }
-.pc-noeud { position: relative; padding: 0 0 var(--e-4) 44px; }
-.pc-point { position: absolute; left: 3px; top: 16px; width: 20px; height: 20px; border-radius: 50%; background: var(--valide); box-shadow: 0 0 0 4px var(--papier); z-index: 1; transition: transform var(--trans); }
-.pc-noeud[data-statut="en-cours"] .pc-point { background: var(--cristal); }
-.pc-noeud[data-statut="en-cours"] .pc-point::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid var(--cristal); animation: onde-bouton 2s ease-out infinite; }
-.pc-noeud[data-statut="ouvert"] .pc-point { background: var(--papier); border: 2px dashed var(--encre-40); }
-.pc-noeud[data-nous="oui"] .pc-point { border-radius: 4px; transform: rotate(45deg); }
-.pc-noeud::before { content: ""; position: absolute; left: 22px; top: 25px; width: 22px; border-top: 2px solid var(--filet); }
-.pc-carte { display: flex; flex-direction: column; gap: 5px; padding: var(--e-3) var(--e-4); border: 1px solid var(--filet); border-left: 4px solid var(--valide); border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0; background: var(--surface); text-decoration: none; color: inherit; transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans); }
-.pc-noeud[data-statut="en-cours"] .pc-carte { border-left-color: var(--cristal); }
-.pc-noeud[data-statut="ouvert"] .pc-carte { border-left-color: var(--encre-40); border-left-style: dashed; background: transparent; }
-.pc-carte:hover { transform: translateX(4px); box-shadow: var(--ombre); }
-.pc-noeud:hover .pc-point { transform: scale(1.2); }
-.pc-noeud[data-nous="oui"]:hover .pc-point { transform: rotate(45deg) scale(1.2); }
-.pc-carte[aria-current="true"] { background: var(--encre); color: var(--sur-encre); border-color: var(--encre); }
-.pc-carte[aria-current="true"] .meta, .pc-carte[aria-current="true"] .pc-texte { color: color-mix(in srgb, var(--sur-encre) 72%, transparent); }
-.pc-carte[aria-current="true"] .pilule { border-color: color-mix(in srgb, var(--sur-encre) 55%, transparent); }
-.pc-ligne { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; }
-.pc-nom { font: 700 1.05rem/1.25 var(--f-titre); letter-spacing: -0.01em; }
-.pc-texte { color: var(--encre-60); font-size: var(--t-petit); line-height: 1.5; }
-.pc-qui { text-transform: none; letter-spacing: 0; }
 .pc-prix { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: var(--pilule); background: var(--ev-soleil); color: #2E2B28; font: 600 var(--t-meta)/1.5 var(--f-mono); letter-spacing: 0.03em; }
 .pc-prix span { display: grid; }
 .pilule.pc-nous { border-color: var(--decision); color: var(--decision); }
-.pc-carte[aria-current="true"] .pilule.pc-nous { color: inherit; }
 @media (max-width: 1080px) {
   .carte-rail { height: auto; }
   .carte-rail[data-volet="carte"] .carte-volet:last-child, .carte-rail[data-volet="parcours"] .carte-volet:first-child { height: 0; overflow: hidden; }
@@ -754,12 +729,53 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
   .pc-defile, .pc-detail { overflow: visible; }
   .pc-tete { flex-wrap: wrap; }
 }
-@media (max-width: 720px) {
-  .pc-graphe { padding-left: 0; }
-  .pc-graphe::before { left: 12px; }
-  .pc-annee { height: auto; padding: var(--e-3) 0 var(--e-2) 44px; }
-  .pc-annee span { position: static; }
-}
 @media (prefers-reduced-motion: reduce) { .carte-rail { transition: none; } }
 .pc-note-date { margin-top: 4px; color: var(--encre-60); font-size: var(--t-meta); line-height: 1.5; }
-.pc-annee span { font-size: 1.1rem; white-space: nowrap; }
+
+/* ---------- Parcours en branches : une colonne par sous-sujet, un axe de dates commun ---------- */
+.pc-defile { overflow: auto; }
+.pb-graphe { --b0: var(--ev-ciel); --b1: var(--cristal); --b2: var(--ev-violet); --b3: var(--ev-pre); --b4: var(--decision); --b5: var(--ev-rose);
+  position: relative; display: grid; grid-template-columns: 64px repeat(var(--branches), minmax(190px, 1fr)); column-gap: var(--e-3); align-items: start; min-width: calc(64px + var(--branches) * 202px); padding-bottom: var(--e-6); }
+.pb-b0 { --teinte-b: var(--b0); } .pb-b1 { --teinte-b: var(--b1); } .pb-b2 { --teinte-b: var(--b2); }
+.pb-b3 { --teinte-b: var(--b3); } .pb-b4 { --teinte-b: var(--b4); } .pb-b5 { --teinte-b: var(--b5); }
+/* La racine : un point d'où partent toutes les branches. */
+.pb-racine { position: relative; height: 64px; }
+.pb-racine svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.pb-racine path { fill: none; stroke: var(--teinte-b); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.pb-souche { position: absolute; top: -2px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--encre); box-shadow: 0 0 0 4px var(--papier); }
+.pb-branche { position: sticky; top: 0; z-index: 4; display: flex; justify-content: center; padding-bottom: var(--e-3); background: linear-gradient(var(--papier) 70%, transparent); }
+.pb-branche span { padding: 5px 12px; border-radius: var(--pilule); background: var(--teinte-b); color: #fff; font: 600 0.82rem/1.2 var(--f-cond); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; }
+.pb-rail { justify-self: center; align-self: stretch; width: 0; border-left: 3px solid var(--teinte-b); z-index: 0; }
+.pb-rail.attente { border-left: 3px dotted color-mix(in srgb, var(--teinte-b) 45%, transparent); }
+/* Les années : un filet qui traverse toutes les branches. */
+.pb-annee { align-self: start; height: 0; border-top: 1px dashed var(--structure); z-index: 1; }
+.pb-annee span { position: relative; top: -0.7em; display: inline-block; padding-right: 8px; background: var(--papier); font: 800 1.1rem/1 var(--f-titre); color: var(--encre-40); white-space: nowrap; }
+.pb-noeud { position: relative; z-index: 2; padding: 20px 0 var(--e-3); }
+.pb-point { position: absolute; top: 9px; left: 50%; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: var(--teinte-b); box-shadow: 0 0 0 4px var(--papier); z-index: 1; transition: transform var(--trans); }
+.pb-noeud[data-statut="en-cours"] .pb-point::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid var(--teinte-b); animation: onde-bouton 2s ease-out infinite; }
+.pb-noeud[data-statut="ouvert"] .pb-point { background: var(--papier); border: 3px dashed var(--teinte-b); }
+.pb-noeud[data-nous="oui"] .pb-point { border-radius: 4px; transform: rotate(45deg); }
+.pb-carte { display: flex; flex-direction: column; gap: 6px; padding: 18px var(--e-3) var(--e-3); border: 1px solid var(--filet); border-top: 4px solid var(--teinte-b); border-radius: 0 0 var(--rayon-petit) var(--rayon-petit); background: var(--surface); text-decoration: none; color: inherit; transition: transform var(--trans), box-shadow var(--trans); }
+.pb-noeud[data-statut="ouvert"] .pb-carte { border-top-style: dashed; background: var(--papier); }
+.pb-carte:hover { transform: translateY(-3px); box-shadow: var(--ombre); }
+.pb-noeud:hover .pb-point { transform: scale(1.2); }
+.pb-noeud[data-nous="oui"]:hover .pb-point { transform: rotate(45deg) scale(1.2); }
+.pb-carte[aria-current="true"] { background: var(--encre); color: var(--sur-encre); border-color: var(--encre); border-top-color: var(--teinte-b); }
+.pb-carte[aria-current="true"] .meta { color: color-mix(in srgb, var(--sur-encre) 72%, transparent); }
+.pb-ligne { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; }
+.pb-nom { font: 700 0.92rem/1.25 var(--f-titre); letter-spacing: -0.01em; }
+.pb-statut { font: 500 var(--t-meta)/1.4 var(--f-mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--valide); }
+.pb-statut[data-statut="en-cours"] { color: var(--cristal-fonce); }
+.pb-statut[data-statut="a-faire"] { color: var(--encre-60); }
+.pb-carte[aria-current="true"] .pb-statut { color: inherit; }
+.pb-rappel { display: none; font: 600 var(--t-meta)/1.4 var(--f-cond); letter-spacing: 0.06em; text-transform: uppercase; color: var(--teinte-b); }
+@media (max-width: 720px) {
+  /* Écran étroit : une seule colonne, dans l'ordre des dates ; chaque carte rappelle sa branche. */
+  .pb-graphe { display: flex; flex-direction: column; gap: var(--e-2); min-width: 0; }
+  .pb-racine, .pb-branche, .pb-rail, .pb-point { display: none; }
+  .pb-annee { height: auto; border: 0; padding-top: var(--e-3); }
+  .pb-annee span { top: 0; }
+  .pb-noeud { padding: 0; }
+  .pb-carte { padding-top: var(--e-3); }
+  .pb-rappel { display: inline; }
+}

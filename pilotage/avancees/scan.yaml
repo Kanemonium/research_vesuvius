@@ -6,8 +6,18 @@ portee: communaute
 lu_le: 2026-11-15
 resume: "Comment les rouleaux sont scannés et mis à disposition : du premier scan de 2019 aux acquisitions de
   l’ESRF. Le défi tout entier, lu dans les pages de scrollprize.org."
+branches:
+  - id: acquisitions
+    titre: Scanner des rouleaux
+  - id: reglages
+    titre: Réglages et reconstruction
+  - id: resolution
+    titre: Plus fin que 2,4 µm
+  - id: donnees
+    titre: Données ouvertes
 avancees:
   - id: A-101
+    branche: acquisitions
     date: "2019"
     titre: Premiers scans de rouleaux et de fragments par EduceLab
     statut: acquis
@@ -30,6 +40,7 @@ avancees:
       - titre: scrollprize.org · firstletters
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/22_firstletters.md
   - id: A-102
+    branche: acquisitions
     date: null
     titre: Rouleau témoin carbonisé (« campfire scroll ») scanné sur un scanner de table
     statut: acquis
@@ -51,6 +62,7 @@ avancees:
       - titre: scrollprize.org · tutorial1
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/04_tutorial1.md
   - id: A-103
+    branche: donnees
     date: 2023-03-15
     titre: "Lancement du défi : scans de Diamond Light Source rendus publics"
     statut: acquis
@@ -82,6 +94,7 @@ avancees:
       - titre: scrollprize.org · data
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/02_data.md
   - id: A-104
+    branche: reglages
     date: "2024"
     titre: Quatre puis cinq rouleaux scannés ; recherche des meilleurs réglages
     statut: acquis
@@ -102,6 +115,7 @@ avancees:
       - titre: scrollprize.org · 2024 prizes
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/28_2024_prizes.md
   - id: A-105
+    branche: acquisitions
     date: 2025-07
     titre: "Acquisitions hélicoïdales sur BM18 (ESRF) : un grand rouleau en moins de deux heures"
     statut: acquis
@@ -121,6 +135,7 @@ avancees:
       - titre: scrollprize.org · master plan
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/27_master_plan.md
   - id: A-106
+    branche: reglages
     date: "2025"
     titre: "Réglage « basse résolution » : environ 9 µm, 1,2 m, 110 keV"
     statut: acquis
@@ -143,6 +158,7 @@ avancees:
       - titre: scrollprize.org · tutorial5
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/07_tutorial5.md
   - id: A-107
+    branche: reglages
     date: "2026"
     titre: "Régime actuel pour un rouleau entier : 2,4 µm, 22 cm, environ 78 keV"
     statut: acquis
@@ -170,6 +186,7 @@ avancees:
       - titre: scrollprize.org · firstscroll
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/36_firstscroll.md
   - id: A-108
+    branche: reglages
     date: null
     titre: "Reconstruction : trajectoire hélicoïdale, récupération de phase de Paganin"
     statut: acquis
@@ -191,6 +208,7 @@ avancees:
       - titre: scrollprize.org · faq
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/09_faq.md
   - id: A-109
+    branche: resolution
     date: null
     titre: "Très haute résolution (0,55 µm) : l'origine des zones « compressées » comprise"
     statut: acquis
@@ -213,6 +231,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-110
+    branche: resolution
     date: null
     titre: "Petites régions à 1,1 µm : l'encre y est nettement plus lisible"
     statut: acquis
@@ -233,6 +252,7 @@ avancees:
       - titre: scrollprize.org · faq
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/09_faq.md
   - id: A-111
+    branche: donnees
     date: 2026-06-25
     titre: "Données ouvertes : volumes en OME-Zarr diffusés en continu"
     statut: acquis
@@ -257,6 +277,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-112
+    branche: resolution
     date: 2026-10-14
     titre: "Problème ouvert : zones dégradées dès le scan et résolution sub-micronique impraticable"
     statut: ouvert

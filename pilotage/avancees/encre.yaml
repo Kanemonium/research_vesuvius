@@ -103,8 +103,20 @@ resume: >-
 
   - Le modèle n'est pas un lecteur : il ne reçoit ni mots grecs, ni transcriptions, ni dictionnaire ; il fait
   de la récupération de signal, la lecture restant humaine.
+branches:
+  - id: signal
+    titre: Le signal d'encre
+  - id: lectures
+    titre: Lire des rouleaux
+  - id: volume
+    titre: L'encre en volume
+  - id: generalisation
+    titre: D'un rouleau à l'autre
+  - id: nous
+    titre: Notre parcours
 avancees:
   - id: A-301
+    branche: signal
     date: null
     titre: L'encre est détectable par apprentissage, mais seulement sur des fragments
     statut: acquis
@@ -131,6 +143,7 @@ avancees:
       - titre: scrollprize.org · grand prize
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/12_grand_prize.md
   - id: A-302
+    branche: lectures
     date: 2023-07-14
     titre: Compétition Kaggle de détection d'encre sur fragments
     statut: acquis
@@ -161,6 +174,7 @@ avancees:
       - titre: scrollprize.org · winners
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/15_winners.md
   - id: A-303
+    branche: signal
     date: 2023-08
     titre: "Le « crackle » : première encre vue dans un rouleau fermé"
     statut: acquis
@@ -186,6 +200,7 @@ avancees:
       - titre: scrollprize.org · grandprize
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
   - id: A-304
+    branche: lectures
     date: 2023-10-12
     titre: "Premières lettres : le mot ΠΟΡΦΥΡΑϹ lu dans un rouleau fermé"
     statut: acquis
@@ -215,6 +230,7 @@ avancees:
       - titre: scrollprize.org · firstletters
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/22_firstletters.md
   - id: A-305
+    branche: lectures
     date: 2023-12-31
     titre: "Grand Prix 2023 : 15 colonnes lues avec un modèle TimeSformer"
     statut: acquis
@@ -244,11 +260,13 @@ avancees:
       montant: $700,000
     fiches:
       - K-21
+      - K-25
       - K-16
     sources:
       - titre: scrollprize.org · grandprize
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
   - id: A-306
+    branche: volume
     date: "2024"
     titre: "2024 : des mots dans un second rouleau, encre en 3D, objectif 90 % manqué de loin"
     statut: acquis
@@ -283,6 +301,7 @@ avancees:
       - titre: scrollprize.org · 2024 prizes
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/28_2024_prizes.md
   - id: A-307
+    branche: lectures
     date: 2025-05
     titre: Premier titre lu dans un rouleau fermé (PHerc. 172)
     statut: acquis
@@ -308,6 +327,7 @@ avancees:
       - titre: scrollprize.org · master plan
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/27_master_plan.md
   - id: A-308
+    branche: generalisation
     date: 2025-07
     titre: "Constat : les modèles de 2023-2024 ne se généralisent pas à la collection"
     statut: ouvert
@@ -331,6 +351,7 @@ avancees:
       - titre: scrollprize.org · master plan
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/27_master_plan.md
   - id: A-309
+    branche: lectures
     date: 2026-06-25
     titre: PHerc. 1667 lu en entier par pseudo-étiquetage itératif ; titre de PHerc. 139
     statut: acquis
@@ -357,6 +378,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-310
+    branche: volume
     date: 2026-06-25
     titre: Encre directement visible et segmentée en 3D dans PHerc. Paris. 4
     statut: acquis
@@ -386,6 +408,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-311
+    branche: signal
     date: "2026"
     titre: Le relief de surface seul permet de prédire l'encre
     statut: acquis
@@ -410,6 +433,7 @@ avancees:
       - titre: scrollprize.org · 2026 open problems
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
   - id: A-312
+    branche: generalisation
     date: 2026-09-06
     titre: Modèles pré-entraînés multi-rouleaux à 9 µm et premiers progrès de généralisation
     statut: en-cours
@@ -433,6 +457,7 @@ avancees:
     fiches:
       - K-20
       - K-12
+      - K-26
     pistes:
       - P-320
       - P-310
@@ -444,6 +469,7 @@ avancees:
       - titre: scrollprize.org · data datasets
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/02_data_datasets.md
   - id: A-313
+    branche: lectures
     date: 2026-10
     titre: "Premières lettres dans deux nouveaux rouleaux : PHerc. 306B et PHerc. 343"
     statut: acquis
@@ -466,6 +492,7 @@ avancees:
       - titre: scrollprize.org · winners
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/15_winners.md
   - id: A-314
+    branche: generalisation
     date: 2026-10-14
     titre: "Problème ouvert : faire marcher la détection d'encre sur tous les rouleaux"
     statut: ouvert
@@ -501,6 +528,7 @@ avancees:
       - titre: scrollprize.org · community projects
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/20_community_projects.md
   - id: A-381
+    branche: nous
     date: 2026-11-14
     titre: "Notre ligne de base : le modèle du tutoriel entraîné chez nous"
     statut: acquis
@@ -519,6 +547,7 @@ avancees:
       - K-11
       - K-12
   - id: A-382
+    branche: nous
     date: 2026-11-15
     titre: Notre première image d'encre, sur le segment du tutoriel
     statut: en-cours

@@ -5,8 +5,13 @@ resume: >-
   Faire tourner les programmes du défi sur un ordinateur portable ordinaire : Windows, une carte
   graphique de 8 Go, un disque limité. Chaque nœud est une chose que notre machine sait faire
   désormais, mesurée dans une exécution.
+branches:
+  - { id: installer, titre: "Installer" }
+  - { id: entrainer, titre: "Entraîner" }
+  - { id: predire, titre: "Prédire, longtemps" }
 avancees:
   - id: A-401
+    branche: installer
     date: "2026-11-14"
     titre: "Ubuntu sous Windows, carte graphique reconnue"
     statut: acquis
@@ -15,6 +20,7 @@ avancees:
     technique: "WSL 2, Ubuntu 24.04, environnements Python gérés par `uv`. RTX 3080 Laptop, 8 Go de mémoire vidéo."
     pistes: [P-410]
   - id: A-402
+    branche: installer
     date: "2026-11-14"
     titre: "La chaîne d'encre de villa installée"
     statut: acquis
@@ -24,6 +30,7 @@ avancees:
     pistes: [P-410]
     fiches: [K-17]
   - id: A-403
+    branche: installer
     date: "2026-11-14"
     titre: "Le segment du tutoriel sur le disque"
     statut: acquis
@@ -33,6 +40,7 @@ avancees:
     pistes: [P-310]
     fiches: [K-10, K-07]
   - id: A-404
+    branche: entrainer
     date: "2026-11-14"
     titre: "Entraîner dans 8 Go : des blocs de 128"
     statut: acquis
@@ -43,6 +51,7 @@ avancees:
     executions: [X-001]
     fiches: [K-12, K-14]
   - id: A-405
+    branche: entrainer
     date: "2026-11-14"
     titre: "Premier entraînement complet"
     statut: acquis
@@ -53,6 +62,7 @@ avancees:
     executions: [X-002]
     fiches: [K-11, K-13, K-15]
   - id: A-406
+    branche: predire
     date: "2026-11-15"
     titre: "Arrêter et reprendre une exécution longue"
     statut: acquis
@@ -62,6 +72,7 @@ avancees:
     pistes: [P-420, D-009]
     executions: [X-004]
   - id: A-407
+    branche: predire
     date: "2026-11-15"
     titre: "Première prédiction d'un segment entier"
     statut: en-cours
@@ -72,6 +83,7 @@ avancees:
     executions: [X-003]
     fiches: [K-08]
   - id: A-408
+    branche: predire
     date: null
     titre: "Raccourcir le temps de prédiction"
     statut: ouvert

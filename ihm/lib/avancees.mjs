@@ -32,12 +32,14 @@ export async function chargerAvancees(racine, erreurs = [], connus = new Set()) 
     const domaine = brut.domaine ?? nom.replace(/\.yaml$/, '');
     const portee = brut.portee ?? 'communaute';
     if (!PORTEES.includes(portee)) erreurs.push(`${nom} : portée inconnue « ${portee} »`);
+    const branches = liste(brut.branches).map((b) => ({ id: String(b.id ?? ''), titre: b.titre ?? '' }));
     const avancees = liste(brut.avancees).map((a) => {
       if (!/^A-\d{3}$/.test(a.id ?? '')) erreurs.push(`${nom} : identifiant d'avancée invalide « ${a.id} »`);
       else if (vus.has(a.id)) erreurs.push(`${nom} : identifiant ${a.id} en double`);
       vus.add(a.id);
       if (!a.titre) erreurs.push(`${a.id} : avancée sans titre`);
       if (!STATUTS_AVANCEE.includes(a.statut)) erreurs.push(`${a.id} : statut inconnu « ${a.statut} »`);
+      if (branches.length && !branches.some((b) => b.id === a.branche)) erreurs.push(`${a.id} : branche inconnue « ${a.branche} »`);
       const sources = liste(a.sources);
       // Ce que nous disons du travail des autres doit pouvoir être retrouvé.
       if (portee === 'communaute' && !a.nous && !sources.some((s) => /^https:\/\//.test(s?.lien ?? ''))) erreurs.push(`${a.id} : avancée de la communauté sans source`);
@@ -45,13 +47,13 @@ export async function chargerAvancees(racine, erreurs = [], connus = new Set()) 
         if (connus.size && !connus.has(id)) erreurs.push(`${a.id} : renvoie vers ${id}, qui n'existe pas`);
       }
       return {
-        id: a.id, date: a.date ? String(a.date) : null, noteDate: a.note_date ?? null, titre: a.titre ?? '', statut: a.statut, nous: Boolean(a.nous) || portee === 'nous',
+        id: a.id, branche: a.branche ?? '', date: a.date ? String(a.date) : null, noteDate: a.note_date ?? null, titre: a.titre ?? '', statut: a.statut, nous: Boolean(a.nous) || portee === 'nous',
         resume: a.resume ?? '', fonctionnelHtml: html(a.fonctionnel), techniqueHtml: html(a.technique),
         qui: liste(a.qui), prix: a.prix ?? null, sources,
         fiches: liste(a.fiches), pistes: liste(a.pistes), executions: liste(a.executions),
       };
     });
-    domaines[domaine] = { domaine, portee, resumeHtml: html(brut.resume), lu_le: brut.lu_le ? String(brut.lu_le) : null, fichier: `pilotage/avancees/${nom}`, avancees };
+    domaines[domaine] = { domaine, portee, branches, resumeHtml: html(brut.resume), lu_le: brut.lu_le ? String(brut.lu_le) : null, fichier: `pilotage/avancees/${nom}`, avancees };
   }
   return domaines;
 }

@@ -41,21 +41,21 @@ const RENVOIS = {
     pistes: { 6: ['P-220'], 8: ['P-210'], 11: ['P-240'], 13: ['P-230'], 14: ['P-250'] },
   },
   encre: {
-    fiches: { 0: ['K-02', 'K-19'], 1: ['K-19'], 2: ['K-18', 'K-07'], 3: ['K-18', 'K-09', 'K-24'], 4: ['K-21', 'K-16'], 5: ['K-22'], 7: ['K-20', 'K-18'], 8: ['K-09', 'K-24', 'K-16'], 9: ['K-22', 'K-23'], 10: ['K-18', 'K-04'], 11: ['K-20', 'K-12'], 13: ['K-20', 'K-22'] },
+    fiches: { 0: ['K-02', 'K-19'], 1: ['K-19'], 2: ['K-18', 'K-07'], 3: ['K-18', 'K-09', 'K-24'], 4: ['K-21', 'K-25', 'K-16'], 5: ['K-22'], 7: ['K-20', 'K-18'], 8: ['K-09', 'K-24', 'K-16'], 9: ['K-22', 'K-23'], 10: ['K-18', 'K-04'], 11: ['K-20', 'K-12', 'K-26'], 13: ['K-20', 'K-22'] },
     pistes: { 5: ['P-330'], 7: ['P-320'], 9: ['P-330', 'P-340'], 11: ['P-320', 'P-310'], 13: ['P-320', 'P-250'] },
   },
 };
 const NOUS = {
   encre: [
     {
-      id: 'A-381', date: '2026-11-14', titre: 'Notre ligne de base : le modèle du tutoriel entraîné chez nous', statut: 'acquis', nous: true,
+      id: 'A-381', branche: 'nous', date: '2026-11-14', titre: 'Notre ligne de base : le modèle du tutoriel entraîné chez nous', statut: 'acquis', nous: true,
       resume: "Le modèle du tutoriel d'encre entraîné jusqu'au bout sur notre ordinateur portable, avec des blocs plus petits que ceux du tutoriel.",
       fonctionnel: "Nous avons un point de départ à nous pour comprendre la chaîne. Il ne vaut que pour le segment du tutoriel, et sa qualité n'est pas encore regardée.",
       technique: 'U-Net 3D de villa, blocs de 128, 20 000 itérations. Détail dans X-002.',
       pistes: ['P-310', 'P-420'], executions: ['X-002'], fiches: ['K-11', 'K-12'],
     },
     {
-      id: 'A-382', date: '2026-11-15', titre: "Notre première image d'encre, sur le segment du tutoriel", statut: 'en-cours', nous: true,
+      id: 'A-382', branche: 'nous', date: '2026-11-15', titre: "Notre première image d'encre, sur le segment du tutoriel", statut: 'en-cours', nous: true,
       resume: "La prédiction parcourt le segment entier en 16 bandes. Ce ne sera pas une preuve : ce segment a servi à l'entraînement.",
       fonctionnel: "Première image que nous pourrons regarder ensemble. Elle dira si la chaîne fonctionne chez nous, pas si le modèle sait lire un autre rouleau.",
       technique: 'Exécution X-003. Aucune région tenue à l’écart : la mesure sur données jamais vues reste à faire.',
@@ -69,13 +69,29 @@ const RESUMES = {
   encre: 'Comment on fait apparaître une encre presque invisible aux rayons X : des fragments ouverts aux premiers rouleaux lus, et ce qui résiste encore. Le défi tout entier, lu dans les pages de scrollprize.org ; nos propres pas y figurent à leur date.',
 };
 const BASES = { scan: 100, depliage: 200, encre: 300 };
+// Les branches de chaque parcours (ses sous-sujets), et la branche de chaque avancée, par position dans le relevé.
+// Ce rangement est le nôtre : les pages du défi ne découpent pas ainsi.
+const BRANCHES = {
+  scan: {
+    liste: [{ id: 'acquisitions', titre: 'Scanner des rouleaux' }, { id: 'reglages', titre: 'Réglages et reconstruction' }, { id: 'resolution', titre: 'Plus fin que 2,4 µm' }, { id: 'donnees', titre: 'Données ouvertes' }],
+    de: ['acquisitions', 'acquisitions', 'donnees', 'reglages', 'acquisitions', 'reglages', 'reglages', 'reglages', 'resolution', 'resolution', 'donnees', 'resolution'],
+  },
+  depliage: {
+    liste: [{ id: 'jalons', titre: 'Rouleaux déroulés' }, { id: 'outils', titre: 'Tracer à la main, outiller' }, { id: 'automatique', titre: 'Méthodes automatiques' }, { id: 'surface', titre: 'Surface et aplatissement' }],
+    de: ['jalons', 'outils', 'outils', 'outils', 'automatique', 'automatique', 'outils', 'automatique', 'surface', 'automatique', 'surface', 'automatique', 'jalons', 'automatique', 'automatique'],
+  },
+  encre: {
+    liste: [{ id: 'signal', titre: "Le signal d'encre" }, { id: 'lectures', titre: 'Lire des rouleaux' }, { id: 'volume', titre: "L'encre en volume" }, { id: 'generalisation', titre: "D'un rouleau à l'autre" }, { id: 'nous', titre: 'Notre parcours' }],
+    de: ['signal', 'lectures', 'signal', 'lectures', 'lectures', 'volume', 'lectures', 'generalisation', 'lectures', 'volume', 'signal', 'generalisation', 'lectures', 'generalisation'],
+  },
+};
 const titrePage = (f) => `scrollprize.org · ${f.replace(/^\d+_/, '').replace(/\.mdx?$/, '').replace(/_/g, ' ')}`;
 
 for (const domaine of Object.keys(BASES)) {
   const avancees = releve[domaine].map((n, i) => {
     const fichiers = [...new Set(n.sources.map((s) => s.fichier))];
     const a = {
-      id: `A-${BASES[domaine] + i + 1}`, date: n.date ?? null, titre: n.titre, statut: n.statut,
+      id: `A-${BASES[domaine] + i + 1}`, branche: BRANCHES[domaine].de[i], date: n.date ?? null, titre: n.titre, statut: n.statut,
       resume: n.resume, fonctionnel: n.fonctionnel, technique: n.technique,
     };
     if (n.date_note) a.note_date = n.date_note;
@@ -93,7 +109,7 @@ for (const domaine of Object.keys(BASES)) {
   const resume = etat
     ? [RESUMES[domaine], '**Ce qui est acquis**', puces(etat.reussites), '**Ce qui résiste**', puces(etat.blocages)].join('\n\n')
     : RESUMES[domaine];
-  const doc = { domaine, portee: 'communaute', lu_le: '2026-11-15', resume, avancees: [...avancees, ...(NOUS[domaine] ?? [])] };
+  const doc = { domaine, portee: 'communaute', lu_le: '2026-11-15', resume, branches: BRANCHES[domaine].liste, avancees: [...avancees, ...(NOUS[domaine] ?? [])] };
   const entete = `# Parcours du domaine « ${domaine} » : le défi tout entier. Format : pilotage/README.md.\n# Écrit par scripts/avancees-depuis-releve.mjs à partir des pages de scrollprize.org (ScrollPrize/villa,\n# commit ${COMMIT.slice(0, 7)}, licence MIT). Textes français : reformulation d'Agent C., pas une traduction officielle.\n`;
   await writeFile(path.join(RACINE, 'pilotage', 'avancees', `${domaine}.yaml`), entete + YAML.stringify(doc, { lineWidth: 110 }), 'utf8');
   console.log(`${domaine} : ${doc.avancees.length} avancées`);
