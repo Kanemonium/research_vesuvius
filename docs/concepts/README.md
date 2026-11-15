@@ -23,7 +23,15 @@ Short illustrated notes on the ideas this project runs into: what each one is, h
 | K-15 | [The checkpoint](K-15-checkpoint.en.md) | [Le point de sauvegarde](K-15-checkpoint.fr.md) |
 | K-16 | [Held-out validation](K-16-held-out-validation.en.md) | [La validation tenue à l'écart](K-16-held-out-validation.fr.md) |
 | K-17 | [villa, the shared repository of the challenge](K-17-villa.en.md) | [villa, le dépôt commun du défi](K-17-villa.fr.md) |
+| K-18 | [Crackle](K-18-crackle.en.md) | [Le craquelé](K-18-crackle.fr.md) |
+| K-19 | [Fragments and ground truth](K-19-fragment-ground-truth.en.md) | [Le fragment et la vérité terrain](K-19-fragment-ground-truth.fr.md) |
+| K-20 | [Cross-scroll generalisation](K-20-cross-scroll-generalisation.en.md) | [La généralisation entre rouleaux](K-20-cross-scroll-generalisation.fr.md) |
+| K-21 | [Hallucination and window size](K-21-hallucination-window.en.md) | [L'hallucination et la taille de fenêtre](K-21-hallucination-window.fr.md) |
+| K-22 | [Depth ambiguity and 3D ink](K-22-depth-ambiguity-3d-ink.en.md) | [L'ambiguïté de profondeur et l'encre en 3D](K-22-depth-ambiguity-3d-ink.fr.md) |
+| K-23 | [Learning without labels](K-23-learning-without-labels.en.md) | [Apprendre sans étiquettes](K-23-learning-without-labels.fr.md) |
+| K-24 | [Pretraining and transfer](K-24-pretraining-and-transfer.en.md) | [Le pré-entraînement et le transfert](K-24-pretraining-and-transfer.fr.md) |
 
 Facts come from the [Vesuvius Challenge](https://scrollprize.org) site as read on 2026-11-14; each note links its source.
 Notes K-11 to K-16 cover the training code: they also rely on the `ScrollPrize/villa` source at commit `2d3fb38` and on our own measured runs (`experiments/`).
 The same notes are shown in the cockpit under the "Doc" tab (`npm run ihm`).
+Notes K-18 to K-24 cover what the community has achieved on ink detection and what remains open: they rely on the scrollprize.org pages kept in `ScrollPrize/villa` (`scrollprize.org/docs/`) at commit `2d3fb38`, read on 2026-11-15.

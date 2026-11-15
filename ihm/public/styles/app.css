@@ -691,3 +691,75 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
   .cn-page { padding: var(--e-4); }
 }
 @media (prefers-reduced-motion: reduce) { .cn-cellule[data-etat="en-cours"] .cn-corps { animation: none; } }
+
+/* ---------- Carte : le parcours d'un domaine, derrière la carte (elle glisse vers la gauche) ---------- */
+.carte-rail { display: flex; width: 200%; height: 100%; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
+.carte-rail[data-volet="parcours"] { transform: translateX(-50%); }
+.carte-volet { position: relative; flex: none; width: 50%; height: 100%; min-width: 0; }
+.pc { display: flex; flex-direction: column; height: 100%; padding: var(--e-5) var(--e-6) var(--e-5); }
+.pc-tete { flex: none; display: flex; align-items: center; gap: var(--e-5); margin-bottom: var(--e-5); }
+.pc-titre { display: flex; align-items: center; gap: var(--e-3); }
+.pc-titre .grand { font-size: clamp(1.6rem, 2.6vw, 2.5rem); }
+.pc-corps { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 520px); gap: var(--e-6); }
+.pc-defile { min-height: 0; overflow-y: auto; padding: 4px var(--e-4) var(--e-6) 4px; scrollbar-width: thin; scrollbar-color: var(--structure) transparent; }
+.pc-detail { min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--structure) transparent; }
+.pc-detail h2 { margin: var(--e-3) 0 var(--e-2); }
+.pc-detail h3 { font: 600 0.9rem/1 var(--f-cond); letter-spacing: 0.1em; text-transform: uppercase; color: var(--encre-60); margin: var(--e-5) 0 var(--e-2); }
+.pc-detail .tiroir-tete { position: relative; padding-right: 36px; }
+.pc-fermer { position: absolute; top: -4px; right: 0; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; text-decoration: none; font-size: 1.4rem; line-height: 1; color: var(--encre-60); }
+.pc-fermer:hover { background: var(--papier-creux); color: var(--encre); }
+.pc-resume { margin-top: var(--e-3); font-size: 1.02rem; line-height: 1.5; }
+.pc-liens { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+.pc-sources { margin: 0; padding-left: 1.1em; font-size: var(--t-petit); overflow-wrap: anywhere; }
+.pc-sources li + li { margin-top: 4px; }
+.pc-compteurs { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); margin: var(--e-4) 0; }
+.pc-compteurs > div { display: flex; flex-direction: column; gap: 2px; padding: var(--e-3); border-left: 4px solid var(--structure); background: var(--papier); border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0; }
+.pc-compteurs > div:nth-child(1) { border-left-color: var(--valide); }
+.pc-compteurs > div:nth-child(2) { border-left-color: var(--cristal); }
+.pc-compteurs strong { font: 800 1.9rem/1 var(--f-titre); }
+/* Le graphe : un fil vertical, du plus ancien en haut au plus récent en bas. */
+.pc-graphe { list-style: none; margin: 0; padding: 0 0 0 86px; position: relative; max-width: 860px; }
+.pc-graphe::before { content: ""; position: absolute; left: 98px; top: 10px; bottom: 10px; border-left: 2px solid var(--filet); }
+.pc-annee { position: relative; height: 0; }
+.pc-annee span { position: absolute; left: -86px; top: 14px; width: 66px; text-align: right; font: 800 1.25rem/1 var(--f-titre); color: var(--encre-40); }
+.pc-noeud { position: relative; padding: 0 0 var(--e-4) 44px; }
+.pc-point { position: absolute; left: 3px; top: 16px; width: 20px; height: 20px; border-radius: 50%; background: var(--valide); box-shadow: 0 0 0 4px var(--papier); z-index: 1; transition: transform var(--trans); }
+.pc-noeud[data-statut="en-cours"] .pc-point { background: var(--cristal); }
+.pc-noeud[data-statut="en-cours"] .pc-point::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid var(--cristal); animation: onde-bouton 2s ease-out infinite; }
+.pc-noeud[data-statut="ouvert"] .pc-point { background: var(--papier); border: 2px dashed var(--encre-40); }
+.pc-noeud[data-nous="oui"] .pc-point { border-radius: 4px; transform: rotate(45deg); }
+.pc-noeud::before { content: ""; position: absolute; left: 22px; top: 25px; width: 22px; border-top: 2px solid var(--filet); }
+.pc-carte { display: flex; flex-direction: column; gap: 5px; padding: var(--e-3) var(--e-4); border: 1px solid var(--filet); border-left: 4px solid var(--valide); border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0; background: var(--surface); text-decoration: none; color: inherit; transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans); }
+.pc-noeud[data-statut="en-cours"] .pc-carte { border-left-color: var(--cristal); }
+.pc-noeud[data-statut="ouvert"] .pc-carte { border-left-color: var(--encre-40); border-left-style: dashed; background: transparent; }
+.pc-carte:hover { transform: translateX(4px); box-shadow: var(--ombre); }
+.pc-noeud:hover .pc-point { transform: scale(1.2); }
+.pc-noeud[data-nous="oui"]:hover .pc-point { transform: rotate(45deg) scale(1.2); }
+.pc-carte[aria-current="true"] { background: var(--encre); color: var(--sur-encre); border-color: var(--encre); }
+.pc-carte[aria-current="true"] .meta, .pc-carte[aria-current="true"] .pc-texte { color: color-mix(in srgb, var(--sur-encre) 72%, transparent); }
+.pc-carte[aria-current="true"] .pilule { border-color: color-mix(in srgb, var(--sur-encre) 55%, transparent); }
+.pc-ligne { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; }
+.pc-nom { font: 700 1.05rem/1.25 var(--f-titre); letter-spacing: -0.01em; }
+.pc-texte { color: var(--encre-60); font-size: var(--t-petit); line-height: 1.5; }
+.pc-qui { text-transform: none; letter-spacing: 0; }
+.pc-prix { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: var(--pilule); background: var(--ev-soleil); color: #2E2B28; font: 600 var(--t-meta)/1.5 var(--f-mono); letter-spacing: 0.03em; }
+.pc-prix span { display: grid; }
+.pilule.pc-nous { border-color: var(--decision); color: var(--decision); }
+.pc-carte[aria-current="true"] .pilule.pc-nous { color: inherit; }
+@media (max-width: 1080px) {
+  .carte-rail { height: auto; }
+  .carte-rail[data-volet="carte"] .carte-volet:last-child, .carte-rail[data-volet="parcours"] .carte-volet:first-child { height: 0; overflow: hidden; }
+  .pc { height: auto; padding: var(--e-4); }
+  .pc-corps { grid-template-columns: 1fr; }
+  .pc-defile, .pc-detail { overflow: visible; }
+  .pc-tete { flex-wrap: wrap; }
+}
+@media (max-width: 720px) {
+  .pc-graphe { padding-left: 0; }
+  .pc-graphe::before { left: 12px; }
+  .pc-annee { height: auto; padding: var(--e-3) 0 var(--e-2) 44px; }
+  .pc-annee span { position: static; }
+}
+@media (prefers-reduced-motion: reduce) { .carte-rail { transition: none; } }
+.pc-note-date { margin-top: 4px; color: var(--encre-60); font-size: var(--t-meta); line-height: 1.5; }
+.pc-annee span { font-size: 1.1rem; white-space: nowrap; }

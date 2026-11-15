@@ -4,6 +4,7 @@ import { appendFile, readFile, readdir, stat, writeFile } from 'node:fs/promises
 import path from 'node:path';
 import { marked } from 'marked';
 import YAML from 'yaml';
+import { chargerAvancees, fichiersAvancees } from './avancees.mjs';
 
 export const TYPES_PISTE = ['racine', 'domaine', 'piste', 'decision'];
 export const STATUTS_PISTE = ['a-explorer', 'en-cours', 'validee', 'impasse'];
@@ -159,7 +160,8 @@ export async function chargerEtat(racine) {
     for (const s of x.sorties) if (!GENRES_SORTIE.includes(s.genre)) erreurs.push(`${x.id} : genre de sortie « ${s.genre} » inconnu`);
   }
 
-  return { pistes, taches, horizon, fiches, executions, erreurs };
+  const avancees = await chargerAvancees(racine, erreurs, new Set([...pistes, ...fiches, ...executions].map((e) => e.id)));
+  return { pistes, taches, horizon, fiches, executions, avancees, erreurs };
 }
 
 const LANGUES = ['fr', 'en'];
@@ -263,6 +265,7 @@ export async function empreinte(racine) {
     const concepts = path.join(racine, 'docs', 'concepts');
     for (const n of await readdir(concepts)) if (n.endsWith('.md')) fichiers.push(path.join(concepts, n));
   } catch { /* pas encore de fiches */ }
+  fichiers.push(...await fichiersAvancees(racine));
   for (const x of await fichiersExecutions(racine)) {
     fichiers.push(x.fichier);
     // Le début et la fin d'une exécution (fichiers d'état écrits par le lanceur) redessinent la page ;

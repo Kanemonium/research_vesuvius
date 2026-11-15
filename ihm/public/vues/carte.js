@@ -3,6 +3,7 @@
 // pointillé = à explorer, orange qui pulse = en cours, vert coché = validée, losange bleu = décision.
 // On zoome à la molette, on déplace en glissant, on recentre d'un double-clic.
 import { embleme, emblemeDans } from '../emblemes.js';
+import { voletParcours } from './parcours.js';
 import { LIBELLES, adresse, avecBulle, dateLongue, envoyer, glyphe, h, lienId, lier, pilule, resume, s } from '../outils.js';
 
 const BANDE = 138;
@@ -13,6 +14,9 @@ const polaire = (r, a) => [r * Math.cos(a), r * Math.sin(a)];
 const pt = (r, a) => polaire(r, a).map((v) => v.toFixed(1)).join(' ');
 
 let memoire = null; // cadrage courant, conservé quand on change de nœud
+// Dernier volet montré et dernier domaine ouvert : servent à animer le glissement entre la carte et un parcours.
+let voletPrecedent = null;
+let dernierDomaine = null;
 
 /** Donne à chaque piste un angle propre : un créneau par nœud, regroupés par domaine. */
 function disposer(pistes) {
@@ -64,7 +68,7 @@ function contenuBulle(p, app) {
     h('div', { classe: 'meta' }, `${p.id} · ${LIBELLES[p.type]} · ${LIBELLES[p.statut]}`),
     h('strong', {}, p.titre),
     cause ? h('div', {}, h('em', {}, `${cause.titre} — `), resume(cause.md)) : null,
-    h('div', { classe: 'meta', style: 'margin-top:6px' }, `${n} tâche${n > 1 ? 's' : ''} ouverte${n > 1 ? 's' : ''} · cliquer pour ouvrir`),
+    h('div', { classe: 'meta', style: 'margin-top:6px' }, p.type === 'domaine' ? 'cliquer pour ouvrir le parcours du domaine' : `${n} tâche${n > 1 ? 's' : ''} ouverte${n > 1 ? 's' : ''} · cliquer pour ouvrir`),
   ];
 }
 
@@ -130,14 +134,14 @@ function dessiner(app, choisie) {
   for (const r of R.anneaux.slice(2)) fond.append(s('circle', { classe: 'c-anneau', r }));
   fond.append(s('circle', { classe: 'c-anneau', r: R.bord - 14, 'stroke-dasharray': '2 5' }));
 
-  const aller = (id) => { location.hash = `#/carte?id=${id}`; };
+  const aller = (p) => { location.hash = p.type === 'domaine' ? `#/carte?domaine=${p.domaine}` : `#/carte?id=${p.id}`; };
   const bouton = (g, p) => {
     g.setAttribute('tabindex', '0');
     g.setAttribute('role', 'button');
     g.setAttribute('aria-label', `${p.id}, ${p.titre}, ${LIBELLES[p.type]}, ${LIBELLES[p.statut]}`);
     g.setAttribute('aria-pressed', String(p.id === choisie));
-    g.addEventListener('click', () => aller(p.id));
-    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); aller(p.id); } });
+    g.addEventListener('click', () => aller(p));
+    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); aller(p); } });
     return avecBulle(g, () => contenuBulle(p, app));
   };
 
@@ -234,6 +238,7 @@ function tiroir(app, p) {
     h('div', { classe: 'tiroir-tete' }, embleme(p.domaine, 38), h('span', { classe: 'etiquette' }, p.id),
       pilule(p.statut, p.type === 'decision' ? 'losange' : 'rond'), h('span', { classe: 'meta' }, LIBELLES[p.type])),
     h('h2', { classe: 'titre' }, p.titre),
+    p.type === 'domaine' ? h('p', { style: 'margin:0 0 12px' }, h('a', { classe: 'bouton mini', href: `#/carte?domaine=${p.domaine}` }, 'Ouvrir le parcours du domaine →')) : null,
     h('p', { classe: 'meta' }, `${p.domaine} · ${dateLongue(p.date)}`, p.source ? [' · ', h('a', { href: p.source, target: '_blank', rel: 'noreferrer' }, 'source ↗')] : null),
     prix.length ? h('p', { style: 'margin-top:8px' }, prix.map((x) => h('a', { classe: 'pilule', href: '#/horizon', style: 'margin-right:6px' }, embleme('prix', 14), x.titre))) : null,
     p.sections.map((sec) => [h('h3', {}, sec.titre), lier(h('div', { classe: 'prose', html: sec.html }))]),
@@ -279,6 +284,18 @@ export function vueCarte(vue, app, params) {
         legende('impasse', 'Impasse'), legende('validee', 'Décision', 'losange')),
       dessin ? h('p', { classe: 'meta' }, 'Molette : zoom · glisser : déplacer · double-clic : recentrer') : null));
 
-  vue.append(conteneur);
+  // Deux volets côte à côte : la carte, et le parcours d'un domaine. Ouvrir un domaine fait glisser le tout vers la gauche.
+  const domaine = params.get('domaine');
+  const volet = domaine ? 'parcours' : 'carte';
+  if (domaine) dernierDomaine = domaine;
+  const second = h('div', { classe: 'carte-volet' }, dernierDomaine ? voletParcours(app, dernierDomaine, params.get('a')) : null);
+  const premier = h('div', { classe: 'carte-volet' }, conteneur);
+  const anime = app.depuis === 'carte' && voletPrecedent && voletPrecedent !== volet;
+  const rail = h('div', { classe: 'carte-rail', 'data-volet': anime ? voletPrecedent : volet }, premier, second);
+  const cacher = () => { premier.inert = volet !== 'carte'; second.inert = volet !== 'parcours'; };
+  cacher();
+  vue.append(rail);
+  if (anime) requestAnimationFrame(() => requestAnimationFrame(() => { rail.dataset.volet = volet; }));
+  voletPrecedent = volet;
   if (dessin) installerCadrage(dessin.svg, conteneur, dessin.cadre);
 }

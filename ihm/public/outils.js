@@ -23,7 +23,7 @@ export const s = (balise, attrs, ...enfants) => poser(document.createElementNS(S
 
 export const LIBELLES = {
   'a-explorer': 'À explorer', 'en-cours': 'En cours', validee: 'Validée', impasse: 'Impasse',
-  'a-faire': 'À faire', bloquee: 'Bloquée', faite: 'Faite',
+  'a-faire': 'À faire', bloquee: 'Bloquée', faite: 'Faite', acquis: 'Acquis',
   racine: 'Défi', domaine: 'Domaine', piste: 'Piste', decision: 'Décision',
   faible: 'faible', moyenne: 'moyenne', forte: 'forte',
   prevue: 'Prévue', 'en-pause': 'En pause',

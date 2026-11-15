@@ -1,0 +1,84 @@
+# Parcours du domaine « Outils » : seulement le nôtre. Format : pilotage/README.md.
+domaine: outils
+portee: nous
+resume: >-
+  Faire tourner les programmes du défi sur un ordinateur portable ordinaire : Windows, une carte
+  graphique de 8 Go, un disque limité. Chaque nœud est une chose que notre machine sait faire
+  désormais, mesurée dans une exécution.
+avancees:
+  - id: A-401
+    date: "2026-11-14"
+    titre: "Ubuntu sous Windows, carte graphique reconnue"
+    statut: acquis
+    resume: "Le code de recherche tourne dans Ubuntu (WSL 2), avec la carte graphique visible depuis Ubuntu."
+    fonctionnel: "Sans cela, aucun programme du défi ne se lance sur notre machine. Tâche T-001."
+    technique: "WSL 2, Ubuntu 24.04, environnements Python gérés par `uv`. RTX 3080 Laptop, 8 Go de mémoire vidéo."
+    pistes: [P-410]
+  - id: A-402
+    date: "2026-11-14"
+    titre: "La chaîne d'encre de villa installée"
+    statut: acquis
+    resume: "Le paquet de détection d'encre de villa s'installe et se lance chez nous, après deux obstacles d'installation."
+    fonctionnel: "Nous pouvons entraîner et prédire avec le même code que l'équipe du défi. Tâche T-002 ; les obstacles sont décrits dans P-410."
+    technique: "Dépôt [ScrollPrize/villa](https://github.com/ScrollPrize/villa) au commit `2d3fb38`, paquet `vesuvius.ink_detection`."
+    pistes: [P-410]
+    fiches: [K-17]
+  - id: A-403
+    date: "2026-11-14"
+    titre: "Le segment du tutoriel sur le disque"
+    statut: acquis
+    resume: "Le segment étiqueté du tutoriel d'encre est téléchargé en entier : environ 87 Go."
+    fonctionnel: "C'est notre seule donnée d'entraînement pour l'instant. Tâche T-003."
+    technique: "Segment `w00_20231016151002` de PHerc. Paris. 4, au format OME-Zarr. Le dépôt ne contient que la commande de téléchargement, jamais la donnée."
+    pistes: [P-310]
+    fiches: [K-10, K-07]
+  - id: A-404
+    date: "2026-11-14"
+    titre: "Entraîner dans 8 Go : des blocs de 128"
+    statut: acquis
+    resume: "Avec les blocs du tutoriel la carte sature ; avec des blocs de 128 l'entraînement tient et devient praticable."
+    fonctionnel: "Un entraînement complet passe de plusieurs jours estimés à moins de deux heures. L'effet sur la qualité du modèle n'est pas mesuré."
+    technique: "Essais courts X-001 : mémoire vidéo et vitesse relevées pour plusieurs tailles de bloc."
+    pistes: [P-420]
+    executions: [X-001]
+    fiches: [K-12, K-14]
+  - id: A-405
+    date: "2026-11-14"
+    titre: "Premier entraînement complet"
+    statut: acquis
+    resume: "Le modèle du tutoriel entraîné jusqu'au bout sur notre machine : 20 000 itérations."
+    fonctionnel: "Nous avons un modèle à nous, avec son point de sauvegarde, pour prédire. Ce qu'il vaut reste à regarder sur une image."
+    technique: "U-Net 3D de villa, 202 millions de valeurs, blocs de 128. Détail et courbe de perte dans X-002."
+    pistes: [P-420]
+    executions: [X-002]
+    fiches: [K-11, K-13, K-15]
+  - id: A-406
+    date: "2026-11-15"
+    titre: "Arrêter et reprendre une exécution longue"
+    statut: acquis
+    resume: "Une prédiction se découpe en bandes et reprend à la première manquante ; un entraînement repart de son point de sauvegarde."
+    fonctionnel: "Une exécution de plusieurs heures ne bloque plus l'ordinateur : on la gèle, on l'arrête, on la relance sans tout refaire."
+    technique: "Découpage par l'option `--roi` de villa. Vérifié sur une petite zone dans X-004 : deux bandes redonnent l'image à 0,9 % de pixels près, d'un niveau sur 255 au plus."
+    pistes: [P-420, D-009]
+    executions: [X-004]
+  - id: A-407
+    date: "2026-11-15"
+    titre: "Première prédiction d'un segment entier"
+    statut: en-cours
+    resume: "Le modèle parcourt tout le segment du tutoriel, en 16 bandes, pour produire une image d'encre."
+    fonctionnel: "Ce sera la première image que nous pourrons regarder. Elle ne prouvera rien : le segment a servi à l'entraînement."
+    technique: "Exécution X-003, lot de 4, recouvrement de moitié. Une bande prend une vingtaine de minutes."
+    pistes: [P-310]
+    executions: [X-003]
+    fiches: [K-08]
+  - id: A-408
+    date: null
+    titre: "Raccourcir le temps de prédiction"
+    statut: ouvert
+    resume: "Trois propositions publiques visent la vitesse de la prédiction d'encre de villa ; aucune n'est fusionnée ni essayée chez nous."
+    fonctionnel: "Si l'une tient ses promesses sur notre carte, une prédiction de plusieurs heures raccourcirait d'autant."
+    technique: "À mesurer nous-mêmes, avant et après, sur le même segment. Rien n'est acquis tant que ce n'est pas mesuré."
+    pistes: [P-420]
+    sources:
+      - { titre: "villa, demande de fusion 2521", lien: "https://github.com/ScrollPrize/villa/pull/2521" }
+      - { titre: "villa, demande de fusion 2525", lien: "https://github.com/ScrollPrize/villa/pull/2525" }

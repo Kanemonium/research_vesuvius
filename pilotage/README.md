@@ -156,6 +156,15 @@ affiche pas est suivi sans pourcentage.
 Une fiche citée par une exécution affiche en retour le lien vers cette exécution.
 Aucune donnée ni aucun poids dans ces fichiers : seulement des chiffres relevés et des extraits de journal.
 
+## Les avancées d'un domaine (`avancees/<domaine>.yaml`)
+
+Un fichier par domaine de la carte. Il alimente le « parcours » qui s'ouvre quand on clique la bande d'un domaine : un graphe vertical, du plus ancien au plus récent.
+
+- `domaine`, `portee` (`communaute` : le défi tout entier ; `nous` : notre seul travail), `lu_le`, `resume` (Markdown).
+- `avancees` : une liste de nœuds `A-…` avec `date` (`AAAA`, `AAAA-MM` ou `AAAA-MM-JJ`, ou `null` si la source ne la donne pas), `note_date`, `titre`, `statut` (`acquis`, `en-cours`, `ouvert`), `resume`, `fonctionnel`, `technique`, `qui`, `prix` (`nom`, `montant`), `sources` (`titre`, `lien`), `fiches`, `pistes`, `executions`, et `nous: true` pour un pas à nous dans un parcours du défi.
+- Une avancée de la communauté sans source est refusée par `npm run verifier`.
+- `scan`, `depliage` et `encre` sont écrits par `scripts/avancees-depuis-releve.mjs` à partir d'un relevé des pages de scrollprize.org, dont chaque citation est revérifiée mot pour mot. Ne pas les retoucher à la main : corriger le relevé ou le script, puis relancer. `pilotage` et `outils` sont tenus à la main.
+
 ## Liens
 
 Dans n'importe quel texte, un identifiant (`P-310`, `D-001`, `T-004`, `X-002`, `L-02`, `K-08`) devient

@@ -1,6 +1,6 @@
 ---
 id: P-514
-titre: "V1.4 : le carnet d'exécution"
+titre: "V1.4 : le carnet d'exécution et les parcours par domaine"
 type: piste
 domaine: pilotage
 statut: en-cours
@@ -17,6 +17,8 @@ Un bouton à droite du titre d'une exécution ouvre son « carnet » : une copie
 - **Kanemonium** (2026-11-15) : pensait que nos entraînements et nos prédictions tournaient dans un notebook, et voulait en lire une copie dans l'IHM, avec les résultats de chaque cellule en direct et les annotations reportées sur le code.
 - **Agent C.** (2026-11-15) : elles tournent par des scripts, pas dans un notebook. Le journal porte déjà des repères (« étape k/n », « bande i/n », arrêt, reprise) : l'IHM s'en sert pour découper la sortie en cellules. Le code montré est celui de la page de l'exécution, avec les mêmes annotations.
 - **Agent C.** (2026-11-15) : limite. Le programme de [ScrollPrize/villa](https://github.com/ScrollPrize/villa) n'écrit presque rien pendant une bande : « en direct » veut dire bande par bande. Une cellule très longue ne montre que son début et sa fin.
+- **Kanemonium** (2026-11-15) : derrière chaque domaine de la carte, un graphe vertical des avancées, pour « agréger ma vision avec le sujet tout entier » : celles du défi pour le scan, le dépliage et l'encre, les nôtres pour le pilotage et les outils. Chaque nœud cliquable, avec le détail fonctionnel et technique et le prix associé.
+- **Agent C.** (2026-11-15) : 61 avancées. Les 43 du défi viennent des pages de scrollprize.org gardées dans [ScrollPrize/villa](https://github.com/ScrollPrize/villa) ; 219 citations revérifiées mot pour mot avant écriture. Sept fiches nouvelles, K-18 à K-24. Limites : les prix mensuels n'ont pas tous été lus, et plusieurs dates sont absentes des sources.
 
 ## Suite
 

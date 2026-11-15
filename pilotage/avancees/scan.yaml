@@ -1,0 +1,276 @@
+# Parcours du domaine « scan » : le défi tout entier. Format : pilotage/README.md.
+# Écrit par scripts/avancees-depuis-releve.mjs à partir des pages de scrollprize.org (ScrollPrize/villa,
+# commit 2d3fb38, licence MIT). Textes français : reformulation d'Agent C., pas une traduction officielle.
+domaine: scan
+portee: communaute
+lu_le: 2026-11-15
+resume: "Comment les rouleaux sont scannés et mis à disposition : du premier scan de 2019 aux acquisitions de
+  l’ESRF. Le défi tout entier, lu dans les pages de scrollprize.org."
+avancees:
+  - id: A-101
+    date: "2019"
+    titre: Premiers scans de rouleaux et de fragments par EduceLab
+    statut: acquis
+    resume: L'équipe du professeur Brent Seales scanne des rouleaux d'Herculanum dans un accélérateur de
+      particules, ainsi que des fragments détachés dont l'encre est visible.
+    fonctionnel: "Ces scans sont le point de départ de tout le défi : ils donnent des volumes 3D de rouleaux
+      fermés, et des fragments photographiés qui servent de vérité terrain (ground truth) pour apprendre à
+      reconnaître l'encre. Sans ce jeu de données, aucun modèle d'encre n'aurait pu être entraîné."
+    technique: "La source parle de tomographie (CT-scans) 3D réalisée dans un accélérateur de particules, à des
+      résolutions allant jusqu'à 4 µm. Les fragments détachés portant de l'encre visible ont été scannés et
+      photographiés pour constituer un jeu de données de vérité terrain. La FAQ donne d'autres chiffres pour
+      les premiers scans (7,91 µm pour les rouleaux, 3,24 µm pour les fragments) : voir « contradictions »."
+    qui:
+      - Brent Seales
+      - EduceLab
+      - Stephen Parsons
+    fiches:
+      - K-03
+    sources:
+      - titre: scrollprize.org · firstletters
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/22_firstletters.md
+  - id: A-102
+    date: null
+    titre: Rouleau témoin carbonisé (« campfire scroll ») scanné sur un scanner de table
+    statut: acquis
+    resume: Stephen Parsons fabrique un faux rouleau, l'écrit avec deux encres, le carbonise dans un feu de camp
+      et le scanne.
+    fonctionnel: "Ce rouleau d'essai sert de terrain d'apprentissage : on y voit ce qu'un scan donne dans le
+      meilleur des cas, et la différence entre une encre visible aux rayons X (ferro-gallique) et une encre au
+      carbone, presque invisible."
+    technique: Le rouleau a été écrit à l'encre de carbone (faible contraste en tomographie) et à l'encre
+      ferro-gallique (fort contraste), puis carbonisé dans une boîte à biscuits et scanné sur un scanner de
+      table (benchtop CT) Bruker SkyScan 1173. Les photos X brutes sont prises par pas de 0,15 degré sur 360
+      degrés, soit 2400 photos ; la taille de voxel d'origine est de 26 µm (104 µm dans la version réduite du
+      tutoriel).
+    note_date: La source ne date pas la fabrication du « campfire scroll ».
+    qui:
+      - Stephen Parsons
+      - EduceLab/University of Kentucky
+    sources:
+      - titre: scrollprize.org · tutorial1
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/04_tutorial1.md
+  - id: A-103
+    date: 2023-03-15
+    titre: "Lancement du défi : scans de Diamond Light Source rendus publics"
+    statut: acquis
+    resume: Au lancement du Vesuvius Challenge, les scans à haute résolution de rouleaux de l'Institut de France,
+      réalisés au synchrotron Diamond Light Source près d'Oxford, sont mis à disposition.
+    fonctionnel: N'importe qui peut désormais travailler sur les volumes 3D des rouleaux fermés. Ces scans
+      constituent le jeu de données historique « EduceLab-Scrolls » (rouleaux 1 à 4 et fragments 1 à 6), sur
+      lequel ont été obtenus les premières lettres et le Grand Prix 2023.
+    technique: Le synchrotron produit un faisceau parallèle de rayons X à haut flux ; les photos X sont converties
+      en volume de voxels par reconstruction tomographique. Selon la FAQ, les premiers rouleaux ont été
+      scannés à 7,91 µm et les fragments à 3,24 µm, aux énergies de 54 keV et 88 keV. La FAQ précise qu'on ne
+      connaît pas la résolution minimale nécessaire pour détecter l'encre.
+    note_date: Date du lancement du défi et de la mise à disposition des scans ; la date d'acquisition à Diamond
+      n'est pas donnée dans ce passage.
+    qui:
+      - Nat Friedman
+      - Daniel Gross
+      - Brent Seales
+      - Institut de France
+      - Diamond Light Source
+      - EduceLab
+    fiches:
+      - K-03
+    sources:
+      - titre: scrollprize.org · grandprize
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
+      - titre: scrollprize.org · faq
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/09_faq.md
+      - titre: scrollprize.org · data
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/02_data.md
+  - id: A-104
+    date: "2024"
+    titre: Quatre puis cinq rouleaux scannés ; recherche des meilleurs réglages
+    statut: acquis
+    resume: Début 2024, le défi parle de quatre rouleaux scannés ; les prix 2024 portent sur les rouleaux 1 à 5 et
+      demandent à la communauté d'analyser les scans pour trouver les meilleurs réglages.
+    fonctionnel: "Le nombre de rouleaux disponibles augmente et la question devient : avec quels réglages
+      (résolution, énergie) scanner pour que l'encre soit détectable ? La communauté est invitée à comparer
+      les scans multi-énergies et multi-résolutions et à les recaler entre eux."
+    technique: La liste de souhaits 2024 mentionne l'analyse des scans multi-énergies / multi-résolutions et le
+      recalage de volumes (volume registration) par techniques déformables. Un volume du rouleau 5 (PHerc.
+      172) est référencé à 53 keV et 7,91 µm dans la page « Virtual Unwrapping ».
+    note_date: Année des prix 2024 ; les sources lues ne datent pas l'acquisition du rouleau 5.
+    qui:
+      - Vesuvius Challenge
+    sources:
+      - titre: scrollprize.org · grandprize
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
+      - titre: scrollprize.org · 2024 prizes
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/28_2024_prizes.md
+  - id: A-105
+    date: 2025-07
+    titre: "Acquisitions hélicoïdales sur BM18 (ESRF) : un grand rouleau en moins de deux heures"
+    statut: acquis
+    resume: L'équipe met au point des acquisitions hélicoïdales sur la ligne BM18 de l'ESRF et scanne plus de
+      trente rouleaux.
+    fonctionnel: Le temps de scan est plus que divisé par deux, tout en améliorant la résolution effective. Cela
+      ouvre la voie au scan des 300 rouleaux conservés, mais l'encre reste introuvable dans toutes ces
+      nouvelles données à cette date.
+    technique: Acquisitions tétra-, hexa- et octo-hélicoïdales sur la ligne de lumière (beamline) BM18 de l'ESRF ;
+      un grand rouleau est scanné à 9,2 µm de taille de pixel en moins de deux heures. Plus de trente rouleaux
+      scannés sous différents réglages, en variant résolution et mécanismes de contraste.
+    note_date: Date de la page « Master Plan » (25 juillet 2025), qui décrit l'état à cette date.
+    qui:
+      - Vesuvius Challenge
+      - ESRF (BM18)
+    sources:
+      - titre: scrollprize.org · master plan
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/27_master_plan.md
+  - id: A-106
+    date: "2025"
+    titre: "Réglage « basse résolution » : environ 9 µm, 1,2 m, 110 keV"
+    statut: acquis
+    resume: De nombreux échantillons ont été scannés avec un réglage à environ 9 µm qui semblait optimal, mais qui
+      s'est révélé moins bon que le réglage à 2,4 µm.
+    fonctionnel: Ce réglage a permis de scanner vite beaucoup de rouleaux. Les modèles d'encre « 9 µm » partagés
+      en 2026 travaillent à cette résolution, ce qui permet de chercher des lettres dans des rouleaux qui
+      n'ont que ce scan.
+    technique: Environ 9 µm de voxels isotropes, 1,2 m de distance de propagation (échantillon-détecteur), environ
+      110 keV d'énergie incidente moyenne. Le tutoriel cite un volume natif de PHerc. 0139 à 9,362 µm.
+    note_date: La source ne date pas ce réglage ; « 2025 » vient de la mention des « 2025 scans » (fiche ESRF)
+      dans 02_data.md et des noms de volumes à 9,362 µm cités dans le tutoriel.
+    qui:
+      - Vesuvius Challenge
+    fiches:
+      - K-04
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+      - titre: scrollprize.org · tutorial5
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/07_tutorial5.md
+  - id: A-107
+    date: "2026"
+    titre: "Régime actuel pour un rouleau entier : 2,4 µm, 22 cm, environ 78 keV"
+    statut: acquis
+    resume: Pour les scans récents de rouleaux entiers à l'ESRF, le réglage pratique retenu est de 2,4 µm avec une
+      courte distance de propagation.
+    fonctionnel: "C'est sur ces scans qu'ont été obtenus la lecture complète de PHerc. 1667 et l'encre directement
+      visible dans PHerc. Paris. 4. La source précise que ce n'est pas une recette universelle : des rouleaux
+      très grands ou très petits peuvent demander des ajustements."
+    technique: "Micro-tomographie X à contraste de phase (phase-contrast) sur BM18 : environ 2,4 µm de voxels
+      isotropes, 22 cm de distance de propagation, environ 78 keV d'énergie incidente moyenne. Trois
+      paramètres sont couplés : taille de voxel, énergie, distance échantillon-détecteur. Trop de propagation
+      floute le volume au lieu de l'éclaircir."
+    note_date: « 2026 » vient de la mention « updated scans (2026) » dans 02_data.md ; la page des problèmes
+      ouverts (14 octobre 2026) parle de « recent full-scroll scans ».
+    qui:
+      - Vesuvius Challenge
+      - ESRF (BM18)
+      - National Library of Naples “Vittorio Emanuele III”
+    fiches:
+      - K-04
+      - K-05
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+      - titre: scrollprize.org · firstscroll
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/36_firstscroll.md
+  - id: A-108
+    date: null
+    titre: "Reconstruction : trajectoire hélicoïdale, récupération de phase de Paganin"
+    statut: acquis
+    resume: Les scans BM18 sont reconstruits par une chaîne qui assemble plusieurs passes hélicoïdales décalées et
+      renforce le contraste par récupération de phase.
+    fonctionnel: On peut scanner des objets plus larges que le champ du détecteur, et obtenir un volume plus
+      contrasté à partir des franges de phase. La chaîne de reconstruction utilisée est publique.
+    technique: "Les projections sont acquises en trajectoire hélicoïdale à jusqu'à quatre positions décalées
+      latéralement, qui pavent des régions annulaires se recouvrant en partie. Après corrections (champ plat,
+      distorsion du détecteur, alignement des recouvrements), une récupération de phase de Paganin à une seule
+      distance est appliquée, puis le volume est reconstruit par rétroprojection hiérarchique accélérée sur
+      GPU. Chaîne citée : night_rail_bm18."
+    note_date: Décrit dans la FAQ sans date ; concerne les « recent scroll scans » de BM18.
+    qui:
+      - ESRF (BM18)
+    fiches:
+      - K-05
+    sources:
+      - titre: scrollprize.org · faq
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/09_faq.md
+  - id: A-109
+    date: null
+    titre: "Très haute résolution (0,55 µm) : l'origine des zones « compressées » comprise"
+    statut: acquis
+    resume: "Des essais à 0,55 µm expliquent pourquoi certaines zones d'un scan sont floues : les fibres
+      carbonisées très tassées brouillent le faisceau."
+    fonctionnel: "On sait maintenant que la qualité d'un scan est locale : un même volume peut contenir
+      d'excellentes zones et des zones presque impossibles à dérouler. Cela oriente les réglages (voxels plus
+      petits, propagation plus courte) et explique des échecs en aval."
+    technique: À 0,55 µm de taille de pixel détecteur (ligne ID11 de l'ESRF, sur PHerc. 500P2), on voit les parois
+      cellulaires et les cavités (lumen) des fibres. Tassées, ces microstructures dévient le faisceau et
+      créent un voile ; la source avance que les fibres carbonisées sont probablement proches du graphite,
+      fort « décohéreur ». Une même zone de PHerc. Paris. 4 est montrée à 7,91 µm (DLS) et 2,4 µm (ESRF).
+    note_date: La page (mise à jour le 14 octobre 2026) parle d'expériences « récentes » sans date.
+    qui:
+      - Vesuvius Challenge
+      - ESRF (ID11)
+    fiches:
+      - K-04
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+  - id: A-110
+    date: null
+    titre: "Petites régions à 1,1 µm : l'encre y est nettement plus lisible"
+    statut: acquis
+    resume: De petites régions ont été imagées jusqu'à 1,1 µm ; l'encre y ressort mieux qu'à 2,4 µm.
+    fonctionnel: C'est la preuve que monter en résolution aide la lecture. Mais scanner un rouleau entier à cette
+      finesse n'est pas praticable aujourd'hui.
+    technique: "La source compare la même zone : à 1,1 µm on lit deux lignes de grec, à 2,4 µm seulement deux
+      mots. Diviser la taille de voxel par deux multiplie le nombre de voxels par huit ; passer de 8 µm à 2 µm
+      représente environ 64 fois plus de données."
+    note_date: Constat rapporté dans la page du 14 octobre 2026 et dans la FAQ, sans date d'acquisition.
+    qui:
+      - Vesuvius Challenge
+    fiches:
+      - K-04
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+      - titre: scrollprize.org · faq
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/09_faq.md
+  - id: A-111
+    date: 2026-06-25
+    titre: "Données ouvertes : volumes en OME-Zarr diffusés en continu"
+    statut: acquis
+    resume: Les données tomographiques, les surfaces reconstruites et les transcriptions sont publiées sous
+      licence Creative Commons et archivées à l'ESRF.
+    fonctionnel: "On n'a plus besoin de télécharger des dizaines de téraoctets : les outils lisent seulement la
+      région utile. Un navigateur de données recense rouleaux, fragments, segments et prédictions d'encre."
+    technique: "Dépôt ouvert s3://vesuvius-challenge-open-data/, hébergé via le programme AWS Open Data, au format
+      OME-Zarr (découpé en blocs, multi-résolution). Licence CC-BY-NC 4.0 sauf mention contraire. Jeux
+      organisés : volumes, segments, représentations/prédictions, métadonnées ; points de contrôle de modèles
+      et jeux d'étiquettes sur Hugging Face."
+    note_date: Date de l'annonce de la lecture de PHerc. 1667, qui précise la mise à disposition ouverte des données.
+    qui:
+      - Vesuvius Challenge
+      - ESRF
+      - AWS
+    fiches:
+      - K-10
+    sources:
+      - titre: scrollprize.org · firstscroll
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/36_firstscroll.md
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+  - id: A-112
+    date: 2026-10-14
+    titre: "Problème ouvert : zones dégradées dès le scan et résolution sub-micronique impraticable"
+    statut: ouvert
+    resume: Certaines zones sortent du scanner déjà dégradées, et on ne sait pas scanner un rouleau entier en
+      dessous du micron.
+    fonctionnel: "Quand l'encre n'apparaît pas, on ne sait pas toujours si c'est le scan, la surface, les
+      étiquettes ou le modèle qui limite : il faut l'évaluer rouleau par rouleau. La source demande des
+      métriques de qualité de scan et des recettes d'acquisition propres à chaque rouleau."
+    technique: "Le papyrus très tassé diffuse le faisceau en un voile qu'aucun algorithme en aval ne peut
+      entièrement défaire. Approches actuelles citées : meilleurs régimes de scan, voxels plus petits,
+      distance de propagation plus courte, récupération de phase."
+    note_date: Date de dernière mise à jour de la page « Open Problems ».
+    qui:
+      - Vesuvius Challenge
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md

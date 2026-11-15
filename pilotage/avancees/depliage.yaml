@@ -1,0 +1,377 @@
+# Parcours du domaine « depliage » : le défi tout entier. Format : pilotage/README.md.
+# Écrit par scripts/avancees-depuis-releve.mjs à partir des pages de scrollprize.org (ScrollPrize/villa,
+# commit 2d3fb38, licence MIT). Textes français : reformulation d'Agent C., pas une traduction officielle.
+domaine: depliage
+portee: communaute
+lu_le: 2026-11-15
+resume: "Comment on retrouve la feuille de papyrus dans le scan et comment on l’aplatit : du tracé à la main
+  aux méthodes automatiques. Le défi tout entier, lu dans les pages de scrollprize.org."
+avancees:
+  - id: A-201
+    date: "2015"
+    titre: "Précédent : le rouleau d'En-Gedi déroulé virtuellement"
+    statut: acquis
+    resume: L'équipe du Dr Seales déroule virtuellement le rouleau d'En-Gedi, première réussite du déroulement
+      virtuel.
+    fonctionnel: "Cela prouve que la méthode (scanner, tracer la surface, aplatir, lire) fonctionne. Les rouleaux
+      d'Herculanum sont plus difficiles : très longs, serrés, abîmés, et leur encre est presque invisible aux
+      rayons X."
+    technique: "Mêmes étapes que pour Herculanum, avec une différence clé : l'encre d'Herculanum est
+      radiotransparente (radiolucent). En 2023, la source indique que personne n'avait encore réussi une
+      segmentation à grande échelle de ces rouleaux."
+    qui:
+      - Dr. Seales's team
+    fiches:
+      - K-06
+    sources:
+      - titre: scrollprize.org · tutorial
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/03_tutorial.md
+      - titre: scrollprize.org · grand prize
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/12_grand_prize.md
+  - id: A-202
+    date: null
+    titre: Volume Cartographer, l'outil d'origine d'EduceLab
+    statut: acquis
+    resume: Volume Cartographer est la première boîte à outils de déroulement virtuel, créée par Seth Parker et
+      d'autres dans le laboratoire de Brent Seales.
+    fonctionnel: C'est l'outil avec lequel l'équipe de segmentation a tracé les feuilles de papyrus en 2023. Les
+      participants l'ont amélioré, et une branche (fork) de Philip Allgaier a rassemblé les contributions de
+      la communauté.
+    technique: Interface graphique pour annoter des segments dans le volume ; combinaison d'algorithmes
+      automatiques et d'ajustements manuels. La sortie est un maillage triangulaire (.obj) puis un « surface
+      volume » aplati.
+    note_date: La source dit seulement que l'équipe de Seales a passé « deux décennies » à construire ces outils.
+    qui:
+      - Seth Parker
+      - Brent Seales
+      - EduceLab
+      - Julian Schilliger
+      - Philip Allgaier
+    fiches:
+      - K-06
+    sources:
+      - titre: scrollprize.org · grandprize
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
+      - titre: scrollprize.org · community projects
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/20_community_projects.md
+  - id: A-203
+    date: 2023-06-27
+    titre: "Prix d'outillage de segmentation : flot optique, Khartes, traceurs"
+    statut: acquis
+    resume: Deux séries de prix récompensent les outils qui aident l'équipe de segmentation à tracer des zones
+      plus grandes et plus difficiles.
+    fonctionnel: Grâce à ces outils, l'équipe de segmentation a pu cartographier beaucoup plus de papyrus, ce qui
+      a rendu possible la découverte du « crackle » puis des premières lettres.
+    technique: "Prix cités dans la page des lauréats : « Optical Flow Segmentation » par Julian (10 000 $, juin
+      2023), Khartes par Chuck (10 000 $), « VA Sheet Tracer » par Trevor, Tom, Babak et Boaz (10 000 $,
+      octobre 2023). Khartes permet de créer des maillages à la main en voyant un aperçu du segment rendu."
+    note_date: Date du premier prix « Segmentation Tooling » ; le second est daté du 3 octobre 2023.
+    qui:
+      - Julian Schilliger
+      - Chuck
+      - Yao Hsiao
+      - Trevor, Tom, Babak, and Boaz
+    prix:
+      nom: Segmentation Tooling (27 juin 2023) et Segmentation Tooling 2 (3 octobre 2023)
+      montant: $45,000 + $45,000
+    sources:
+      - titre: scrollprize.org · firstletters
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/22_firstletters.md
+      - titre: scrollprize.org · community projects
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/20_community_projects.md
+  - id: A-204
+    date: 2023-07
+    titre: "Une équipe de segmentation à plein temps : des centaines de cm² tracés à la main"
+    statut: acquis
+    resume: Le défi recrute des annotateurs à plein temps pour tracer le papyrus dans les scans et publier les
+      segments aplatis.
+    fonctionnel: "Tous les participants disposent des mêmes segments pour chercher l'encre. Cette décision a mené
+      directement à la découverte du « crackle ». Le prix à payer : plus de 100 $ par cm² de travail manuel."
+    technique: "Équipe citée début 2024 : Ben Kyles, David Josey et Konrad Rosenberg, opérant Volume Cartographer
+      avec un mélange d'algorithmes automatiques et d'ajustements manuels. En juillet 2023, des centaines de
+      cm² étaient segmentés et aplatis."
+    note_date: L'équipe est recrutée « early in the summer » 2023 ; le chiffre est donné pour juillet.
+    qui:
+      - Ben Kyles
+      - David Josey
+      - Konrad Rosenberg
+    sources:
+      - titre: scrollprize.org · firstletters
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/22_firstletters.md
+      - titre: scrollprize.org · grandprize
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
+  - id: A-205
+    date: 2023-12-31
+    titre: "ThaumatoAnakalyptor : première segmentation automatique convaincante"
+    statut: acquis
+    resume: La soumission gagnante du Grand Prix 2023 contient l'outil de Julian Schilliger, qui produit
+      automatiquement de très grands segments.
+    fonctionnel: Des re-segmentations de zones connues confirment les lectures d'encre, et de nouvelles zones
+      révèlent de l'écriture, par exemple sur le tour le plus externe du rouleau. La source précise qu'il
+      reste beaucoup à faire pour améliorer cet outil.
+    technique: Combine des méthodes classiques (détecteurs de bords par opérateur de gradient seuillé) et une
+      segmentation d'instances de nuages de points par apprentissage profond, pour détecter, fusionner et
+      rendre des segments.
+    note_date: Date de clôture du Grand Prix 2023 ; résultat annoncé le 5 février 2024.
+    qui:
+      - Julian Schilliger
+    prix:
+      nom: Grand Prize 2023 (partie de la soumission gagnante)
+      montant: $700,000
+    fiches:
+      - K-06
+    sources:
+      - titre: scrollprize.org · grandprize
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
+      - titre: scrollprize.org · community projects
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/20_community_projects.md
+  - id: A-206
+    date: 2024-12
+    titre: "Prix de segmentation automatique : ajustement de spirale et traceur de surface"
+    statut: acquis
+    resume: "Deux méthodes sont soumises au premier prix de segmentation automatique : l'ajustement de spirale de
+      Paul Henderson et le traceur de surface de Hendrik Schilling et Sean Johnson."
+    fonctionnel: "Ces deux approches deviennent l'état de l'art du déroulement : l'une globale (du haut vers le
+      bas), l'autre locale (du bas vers le haut). Aucune n'a atteint le critère de qualité du prix ; l'erreur
+      la plus fréquente reste le saut de feuille."
+    technique: "Le prix demandait de re-segmenter la zone du Grand Prix 2023 avec au plus 4 heures d'intervention
+      humaine et 48 heures de calcul. Les deux méthodes partent d'une représentation intermédiaire (prédiction
+      de surface par nnUNet, fibres verticales et horizontales). La spirale cherche un difféomorphisme 3D
+      déformant une spirale canonique ; le traceur étend des patchs localement puis les fusionne par
+      consensus. Soumission spirale : presque aucune intervention humaine ; traceur : 4 heures."
+    note_date: Mois indiqué par la page des lauréats ; la date limite du prix était le 31 décembre 2024.
+    qui:
+      - Paul Henderson
+      - Hendrik Schilling
+      - Sean Johnson
+    prix:
+      nom: First Automated Segmentation Prize (annoncé à $100,000 ; la page des lauréats indique $60,000 attribués,
+        soit $30,000 par équipe)
+      montant: $60,000
+    sources:
+      - titre: scrollprize.org · unwrapping
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/32_unwrapping.mdx
+      - titre: scrollprize.org · 2024 prizes
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/28_2024_prizes.md
+      - titre: scrollprize.org · winners
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/15_winners.md
+  - id: A-207
+    date: 2025-02-20
+    titre: "VC3D : croissance de patchs (GrowPatch), traceur et copie vers les tours voisins"
+    statut: acquis
+    resume: VC3D fait pousser un maillage le long de la surface prédite à partir d'un point de départ, puis
+      recopie le tracé sur les tours voisins.
+    fonctionnel: "Le traçage est fortement accéléré, mais reste semi-automatique : il faut inspecter et corriger.
+      La copie vers les tours voisins est un accélérateur, pas un remplacement de la vérification, car une
+      erreur locale se propage."
+    technique: "GrowPatch optimise à la fois : suivre la surface prédite, garder une géométrie lisse, un
+      espacement raisonnable, l'orientation locale (grilles de normales), et ne pas sauter sur une feuille
+      voisine ; il utilise le solveur Ceres. Le traceur relie des milliers de patchs se recouvrant : une trace
+      peut couvrir 10 cm² comme 2800 cm² ; un exemple de 53 cm² sur PHerc0172 a pris environ une minute. Une
+      version neuronale de Copy Out/In existe (copy_displacement_latest, entraînée sur des données 2,4 µm
+      réduites à 4,8 µm)."
+    note_date: Date de la dernière mise à jour du tutoriel de segmentation VC3D (archivé) ; la description de
+      GrowPatch et de Copy Out/In vient de la page du 14 octobre 2026.
+    qui:
+      - Vesuvius Challenge
+    pistes:
+      - P-220
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+      - titre: scrollprize.org · segmentation
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/35_segmentation.md
+  - id: A-208
+    date: 2025-07
+    titre: "Constat : le traçage reste le goulot, trop lent et trop cher"
+    statut: ouvert
+    resume: En 2025, le déroulement repose sur un traçage semi-automatique corrigé à la main, encore trop lent et
+      sujet aux erreurs.
+    fonctionnel: "À ce coût, dérouler les 300 rouleaux est hors de portée : il faut une percée vers
+      l'automatisation. L'objectif affiché est de ramener le coût d'un rouleau entier à 5 000 $ ou moins."
+    technique: Un rouleau entier mesure 10 à 20 cm de large et jusqu'à 15 mètres de long ; la source estime le
+      coût actuel à 1 à 5 millions de dollars par rouleau. Certaines parties sont si compressées que les
+      techniques actuelles ne peuvent pas les dérouler. Début 2024, le coût manuel était de plus de 100 $ par
+      cm².
+    note_date: Date de la page « Master Plan » (25 juillet 2025).
+    qui:
+      - Vesuvius Challenge
+    sources:
+      - titre: scrollprize.org · master plan
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/27_master_plan.md
+      - titre: scrollprize.org · grandprize
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
+  - id: A-209
+    date: 2025-11
+    titre: "Compétition Kaggle « Surface Detection » : nnU-Net s'impose"
+    statut: acquis
+    resume: Une compétition dédiée récompense les modèles qui prédisent la surface du papyrus sans trous ni
+      fusions de feuilles.
+    fonctionnel: Le modèle issu de la solution gagnante (« m7 ») est aujourd'hui un des deux points de contrôle
+      sur lesquels s'appuie la chaîne de déroulement. Les prédictions restent des indices géométriques, pas
+      une surface finie.
+    technique: "La métrique tenait compte de la topologie : elle récompensait les prédictions connexes et sans
+      trous et pénalisait trous, fusions et sauts de feuille. Recette gagnante : un nnU-Net standard configuré
+      pour quelques tailles de patch, entraîné très longtemps (bien plus que les 1 000 époques par défaut),
+      puis moyenne des prédictions (ensembling). Lauréats : 1er « Vesuvius Team » (60 000 $)."
+    note_date: La page des problèmes ouverts situe la compétition en novembre 2025 ; la page des lauréats date les
+      résultats de mars 2026.
+    qui:
+      - Vesuvius Team (1re place Kaggle)
+      - risk of overfitting (2e)
+      - W & A (3e)
+    prix:
+      nom: Kaggle Surface Detection
+      montant: $200,000
+    pistes:
+      - P-210
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+  - id: A-210
+    date: null
+    titre: "Lasagna : optimiser plusieurs feuilles empilées en même temps"
+    statut: acquis
+    resume: Lasagna est une alternative à GrowPatch qui ajuste une ou plusieurs feuilles voisines ensemble pour
+      qu'elles restent cohérentes.
+    fonctionnel: Il épouse mieux les zones complexes et courbées, au prix d'un calcul plus lourd. Il sert aussi à
+      corriger localement une surface brouillon et à suivre des fibres à partir de quelques points placés à la
+      main.
+    technique: "Optimisation globale en PyTorch de piles de maillages à faces quadrangulaires qui ne se croisent
+      pas. Entrées plus riches qu'une simple prédiction de surface : un volume dense de normales prédit par
+      U-Net, et un volume de « magnitude de gradient » dérivé d'un champ de position fractionnaire
+      d'enroulement, qui indique à quel point les tours sont serrés."
+    note_date: Décrit dans la page du 14 octobre 2026, sans date de mise en service.
+    qui:
+      - Vesuvius Challenge
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+  - id: A-211
+    date: null
+    titre: Format tifxyz et aplatissement par flatboi (SLIM)
+    statut: acquis
+    resume: La surface est stockée comme une grille de points 3D (tifxyz) puis aplatie en cherchant à conserver
+      les distances.
+    fonctionnel: Le format impose une topologie de grille, donc une seule feuille plate, et porte directement le
+      système de coordonnées 2D. C'est le format exigé pour toutes les soumissions aux prix ouverts.
+    technique: "tifxyz : un tableau 2D de coordonnées 3D, enregistré en trois images TIFF (x, y, z en float32),
+      avec cellules manquantes marquées à -1 ou par un masque. L'outil d'aplatissement en production, flatboi,
+      utilise SLIM (Scalable Locally Injective Mappings) et minimise l'énergie de Dirichlet symétrique."
+    note_date: Décrit dans la page du 14 octobre 2026, sans date.
+    qui:
+      - Vesuvius Challenge
+    fiches:
+      - K-07
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+  - id: A-212
+    date: "2026"
+    titre: "Ajustement de spirale : une surface globale pour tout le rouleau"
+    statut: acquis
+    resume: On part d'une spirale idéale et on la déforme pour qu'elle colle à tous les indices disponibles ;
+      c'est l'état de l'art pour segmenter un rouleau entier.
+    fonctionnel: "On obtient un résultat unique et cohérent à partir d'annotations éparses, en comblant les petits
+      trous. PHerc. Paris. 4 a été ajusté sur 130 tours. Limite reconnue : là où les annotations sont rares ou
+      le volume ambigu, la spirale ne suit pas forcément les vraies feuilles."
+    technique: "La déformation est représentée par un champ de vitesse stationnaire (difféomorphisme). Indices
+      utilisés : patchs tracés, squelettes de fibres, squelettes de prédiction de surface, contraintes de
+      points (même tour, un tour d'écart, numéro de tour absolu), champs de normales, ombilic. Contraintes
+      dures (vérifiées) préférées aux contraintes souples. Jeu « spiral-input » pour PHercParis4 : environ 27
+      000 patchs vérifiés et 204 000 non vérifiés (environ 49,6 Go)."
+    note_date: Année de la publication citée (Henderson, WACV 2026) ; le jeu de données « spiral-input » est daté
+      2026-07 et le tutoriel du 16 septembre 2026.
+    qui:
+      - Paul Henderson
+    fiches:
+      - K-06
+    pistes:
+      - P-240
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+      - titre: scrollprize.org · tutorial spiral
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/38_tutorial_spiral.md
+      - titre: scrollprize.org · data datasets
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/02_data_datasets.md
+  - id: A-213
+    date: 2026-06-25
+    titre: PHerc. 1667 entièrement déroulé virtuellement
+    statut: acquis
+    resume: Pour la première fois, un rouleau d'Herculanum est déroulé numériquement et lu d'un bout à l'autre
+      sans être ouvert.
+    fonctionnel: "On ne se demande plus si un rouleau fermé peut être lu : c'est fait. La question devient de
+      rendre le procédé automatique, fiable et applicable à tous les rouleaux."
+    technique: Surface d'écriture complète d'environ 1,4 mètre de papyrus et d'environ vingt-deux colonnes de
+      grec. Il s'agit du cœur conservé du rouleau (environ 8 cm sur une hauteur d'origine de 19 à 24 cm), les
+      couches externes ayant été détruites par d'anciennes tentatives d'ouverture. Scan sur BM18 (ESRF).
+    qui:
+      - Vesuvius Challenge
+      - ESRF
+      - National Library of Naples “Vittorio Emanuele III”
+    fiches:
+      - K-06
+    sources:
+      - titre: scrollprize.org · firstscroll
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/36_firstscroll.md
+  - id: A-214
+    date: "2026"
+    titre: Contraintes d'enroulement, fibres et mailleurs automatiques de la communauté
+    statut: en-cours
+    resume: L'équipe demande désormais des méthodes rapides pour produire des « contraintes d'enroulement » qui
+      alimentent la spirale ; la communauté livre des extracteurs de fibres et un mailleur automatique.
+    fonctionnel: "Le but change : au lieu de produire de grandes segmentations, on cherche des indices locaux
+      précis et on laisse la compréhension globale à la spirale. La quantité d'indices nécessaire est inconnue
+      d'avance mais bien inférieure à une segmentation complète."
+    technique: "ScrollFiesta (Ben Kyles, 20 000 $, juillet 2026) : mailleur de surface automatique, zarr en entrée
+      et tifxyz en sortie, qui produit des contraintes pour la spirale. Extraction automatique de fibres
+      (Samir Lerognon, 20 000 $, septembre 2026) : modèles de fibres affinés sur plus de rouleaux, splines
+      ajustées aux fibres prédites, intégration à VC3D et à la spirale. Un modèle nnUNet de fibres
+      (fiber_hz_vt) vient d'annotations tracées à la main sur les anciens scans à 7,91 µm."
+    note_date: Prix de progrès de juillet à octobre 2026 ; la page sur les contraintes d'enroulement n'a pas de
+      date lue.
+    qui:
+      - Ben Kyles
+      - Samir Lerognon
+      - Sean Johnson
+      - Vesuvius Challenge
+    prix:
+      nom: Progress Prizes (ScrollFiesta, juillet 2026 ; Automated fiber extraction, septembre 2026)
+      montant: $20,000 + $20,000
+    pistes:
+      - P-230
+    sources:
+      - titre: scrollprize.org · winding annotations
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/39_winding_annotations.md
+      - titre: scrollprize.org · winners
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/15_winners.md
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+  - id: A-215
+    date: 2026-10-14
+    titre: "Problème ouvert : aucune méthode ne trace seule une surface complète et juste"
+    statut: ouvert
+    resume: Aucune méthode ne trace automatiquement une surface complète et correcte dans un rouleau, et les
+      étiquettes d'entraînement sont elles-mêmes approximatives.
+    fonctionnel: "Le Grand Prix 2027 exige une chaîne de déroulement entièrement automatisée, avec au plus 8
+      heures documentées d'intervention humaine. Les pistes proposées : recaler les étiquettes sur le signal
+      (label snapping), apprentissage actif, traçage prudent de fibres, meilleures fonctions de perte pour la
+      spirale."
+    technique: "Défaillances types : fusions de feuilles, trous, sauts de feuille, zones compressées, zones
+      abîmées. Deux approches neuronales de traçage sont en pause (mode extrapolation et auto-régression de
+      maillage) : inférence lente à 2,4 µm et dérive, les petites erreurs s'accumulant d'un pas au suivant. La
+      qualité des étiquettes est désignée comme l'un des principaux goulots."
+    note_date: Date de dernière mise à jour de la page « Open Problems ».
+    qui:
+      - Vesuvius Challenge
+    prix:
+      nom: 2027 Grand Prize
+      montant: $1,000,000
+    pistes:
+      - P-250
+    sources:
+      - titre: scrollprize.org · 2026 open problems
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/37_2026_open_problems.md
+      - titre: scrollprize.org · prizes
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/34_prizes.md
