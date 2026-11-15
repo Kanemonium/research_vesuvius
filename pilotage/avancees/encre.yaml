@@ -331,14 +331,15 @@ avancees:
     date: 2025-07
     titre: "Constat : les modèles de 2023-2024 ne se généralisent pas à la collection"
     statut: ouvert
-    resume: Les percées de 2023 et 2024 ne fonctionnent pas sur les autres rouleaux ; dans tous les nouveaux
-      scans, l'encre reste introuvable à cette date.
+    resume: Les percées de 2023 et 2024 ne semblent pas se généraliser à toute la collection ; dans les nouvelles
+      données de l'équipe, l'encre reste insaisissable à cette date.
     fonctionnel: "On comprend pourquoi : dans les deux rouleaux lisibles, le signal amplifié par les modèles
       correspond soit à de grosses craquelures, soit à des points plus brillants aux rayons X, signe d'une
       plus forte concentration de métaux. Il faut donc chercher d'autres caractéristiques de l'encre."
     technique: Les modèles entraînés à amplifier ces deux signaux ne donnent pas de bons résultats sur les autres
       rouleaux. L'analyse de fragments suggère que, lorsque l'encre n'est ni riche en métal ni craquelée, des
       scans à plus haute résolution peuvent être nécessaires.
+    relu: true
     note_date: Date de la page « Master Plan » (25 juillet 2025).
     qui:
       - Vesuvius Challenge

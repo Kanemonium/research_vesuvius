@@ -1,6 +1,8 @@
 // Écrit pilotage/avancees/{scan,depliage,encre}.yaml à partir d'un relevé des pages de scrollprize.org.
 //
-//   node scripts/avancees-depuis-releve.mjs <relevé.json> <dossier des pages lues>
+//   node scripts/avancees-depuis-releve.mjs local/releves/avancees.json local/releves/pages
+//
+// Le relevé et les pages lues sont gardés dans local/releves/ (ignoré par git).
 //
 // Le relevé (fait le 2026-11-15 sur la documentation de ScrollPrize/villa, commit 2d3fb38) donne pour
 // chaque avancée un texte français et des citations anglaises tirées des pages. Ce script refuse
@@ -68,6 +70,13 @@ const RESUMES = {
   depliage: 'Comment on retrouve la feuille de papyrus dans le scan et comment on l’aplatit : du tracé à la main aux méthodes automatiques. Le défi tout entier, lu dans les pages de scrollprize.org.',
   encre: 'Comment on fait apparaître une encre presque invisible aux rayons X : des fragments ouverts aux premiers rouleaux lus, et ce qui résiste encore. Le défi tout entier, lu dans les pages de scrollprize.org ; nos propres pas y figurent à leur date.',
 };
+// Corrections décidées en relisant un nœud avec Kanemonium, la source ouverte à côté. Elles priment sur le relevé.
+const CORRECTIONS = {
+  encre: {
+    // 2026-11-15 : la source dit « do not appear to generalize » ; le relevé avait effacé cette prudence.
+    7: { resume: "Les percées de 2023 et 2024 ne semblent pas se généraliser à toute la collection ; dans les nouvelles données de l'équipe, l'encre reste insaisissable à cette date." },
+  },
+};
 const BASES = { scan: 100, depliage: 200, encre: 300 };
 // Les branches de chaque parcours (ses sous-sujets), et la branche de chaque avancée, par position dans le relevé.
 // Ce rangement est le nôtre : les pages du défi ne découpent pas ainsi.
@@ -94,6 +103,8 @@ for (const domaine of Object.keys(BASES)) {
       id: `A-${BASES[domaine] + i + 1}`, branche: BRANCHES[domaine].de[i], date: n.date ?? null, titre: n.titre, statut: n.statut,
       resume: n.resume, fonctionnel: n.fonctionnel, technique: n.technique,
     };
+    Object.assign(a, CORRECTIONS[domaine]?.[i] ?? {});
+    if (CORRECTIONS[domaine]?.[i]) a.relu = true;
     if (n.date_note) a.note_date = n.date_note;
     if (n.qui?.length) a.qui = n.qui;
     if (n.prix) a.prix = { nom: n.prix.nom, montant: n.prix.montant };
