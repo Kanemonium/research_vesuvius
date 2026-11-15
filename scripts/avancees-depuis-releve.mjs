@@ -55,11 +55,11 @@ const NOUS = {
       pistes: ['P-310', 'P-420'], executions: ['X-002'], fiches: ['K-11', 'K-12'],
     },
     {
-      id: 'A-382', branche: 'nous', date: '2026-11-15', titre: "Notre première image d'encre, sur le segment du tutoriel", statut: 'en-cours', nous: true,
-      resume: "La prédiction parcourt le segment entier en 16 bandes. Ce ne sera pas une preuve : ce segment a servi à l'entraînement.",
-      fonctionnel: "Première image que nous pourrons regarder ensemble. Elle dira si la chaîne fonctionne chez nous, pas si le modèle sait lire un autre rouleau.",
-      technique: 'Exécution X-003. Aucune région tenue à l’écart : la mesure sur données jamais vues reste à faire.',
-      pistes: ['P-310'], executions: ['X-003'], fiches: ['K-08', 'K-16'],
+      id: 'A-382', branche: 'nous', date: '2026-11-15', titre: "Notre première image d'encre, sur le segment du tutoriel", statut: 'acquis', nous: true,
+      resume: "Une image d'encre du segment entier, où des formes claires s'alignent en rangées. Pas une preuve : ce segment a servi à l'entraînement.",
+      fonctionnel: "La chaîne fonctionne chez nous de bout en bout. Reste à comparer l'image aux étiquettes : tant que ce n'est pas fait, on ne sait pas si le modèle a appris ou récité. Aucune lettre n'est identifiée.",
+      technique: 'Exécution X-003 : 5 h 34 min, 346 481 blocs. Aucune région tenue à l’écart : la mesure sur données jamais vues reste à faire.',
+      pistes: ['P-310'], executions: ['X-003'], fiches: ['K-08', 'K-16', 'K-21'],
     },
   ],
 };

@@ -75,10 +75,10 @@ avancees:
     branche: predire
     date: "2026-11-15"
     titre: "Première prédiction d'un segment entier"
-    statut: en-cours
-    resume: "Le modèle parcourt tout le segment du tutoriel, en 16 bandes, pour produire une image d'encre."
-    fonctionnel: "Ce sera la première image que nous pourrons regarder. Elle ne prouvera rien : le segment a servi à l'entraînement."
-    technique: "Exécution X-003, lot de 4, recouvrement de moitié. Une bande prend une vingtaine de minutes."
+    statut: acquis
+    resume: "Le modèle a parcouru tout le segment du tutoriel, en 16 bandes et 5 h 34 min, sans reprise."
+    fonctionnel: "Notre machine sait produire une image d'encre de 1,66 milliard de pixels. L'image ne prouve rien sur le modèle : le segment a servi à l'entraînement."
+    technique: "Exécution X-003 : 346 481 blocs, 17 blocs par seconde, lot de 4, pic de mémoire vidéo de 4 870 Mo."
     pistes: [P-310]
     executions: [X-003]
     fiches: [K-08]

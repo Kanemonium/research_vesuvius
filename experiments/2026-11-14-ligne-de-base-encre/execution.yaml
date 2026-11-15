@@ -499,38 +499,41 @@ executions:
   - id: X-003
     titre: "Première prédiction d'encre sur le segment du tutoriel"
     date: 2026-11-15
-    statut: en-cours
+    statut: terminee
     piste: P-310
     taches: [T-005]
     resume: >-
-      Faire tourner le modèle entraîné dans X-002 sur tout le segment w00_20231016151002 pour
-      obtenir une image d'encre, en 16 bandes pour pouvoir s'arrêter et reprendre. Lancée le
-      15 novembre 2026 avec l'accord de Kanemonium ; les résultats seront ajoutés à la fin.
+      Le modèle entraîné dans X-002 a parcouru tout le segment w00_20231016151002, en 16 bandes,
+      en 5 h 34 min. Il en sort une image d'encre de 32 249 × 51 380 pixels, où des formes claires
+      alignées en rangées apparaissent dans la moitié haute. Ce n'est pas une lecture, et pas encore
+      une preuve : ce segment a servi à l'entraînement.
 
     bilan:
-      - question: "Le type de résultat attendu"
-        valeur: "Une image d'encre en niveaux de gris"
+      - question: "Le type de résultat"
+        valeur: "Une image d'encre, avec des formes de lettres"
         detail: >-
-          Un fichier TIFF de la taille du segment, 32 249 × 51 380 pixels. La clarté de chaque
-          pixel, de 0 à 255, est la probabilité d'encre que le modèle lui donne. C'est la première
-          chose que l'on pourra regarder. Le fichier reste sur la machine : aucune donnée de
-          rouleau ne va dans le dépôt.
+          Un fichier TIFF de 32 249 × 51 380 pixels, 1,66 Go, resté sur la machine. Sur un aperçu
+          réduit seize fois, on voit dans la moitié haute des formes claires, de la taille de
+          lettres, alignées sur cinq ou six rangées, et une colonne de formes semblables au bord
+          gauche. Le reste montre surtout la trame des fibres du papyrus. À pleine résolution, un
+          extrait pris au centre ne montre que cette trame. Nous n'avons identifié aucune lettre :
+          cela revient à des papyrologues.
         fiches: [K-08]
       - question: "La représentativité"
-        valeur: "Un aperçu, pas une preuve"
+        valeur: "Probablement le corrigé appris, à vérifier"
         detail: >-
-          Le segment est celui qui a servi à l'entraînement. Là où des étiquettes existaient
-          (environ 2 % de la surface, estimation), le modèle a déjà vu la réponse. Le reste du
-          segment est nouveau pour lui, mais vient de la même feuille : le tutoriel annonce que
-          des lettres peuvent y apparaître. Cela ne dira rien d'un autre rouleau.
-        fiches: [K-16]
-      - question: "Ce qu'on ne sait pas encore"
-        valeur: "La durée"
+          Le modèle a été entraîné sur ce même segment. Là où des étiquettes existaient, il a vu la
+          réponse : retrouver des formes à ces endroits ne prouve rien. Nous n'avons pas encore
+          comparé l'image aux étiquettes ; tant que ce n'est pas fait, on ne peut pas dire si une
+          seule de ces formes est nouvelle pour lui. Cela ne dit rien non plus d'un autre rouleau.
+        fiches: [K-16, K-21]
+      - question: "Le niveau d'optimisation"
+        valeur: "5 h 34 min, 17 blocs par seconde"
         detail: >-
-          La mémoire vidéo est mesurée depuis X-004 : 4 869 Mo avec un lot de 4. La durée ne l'est
-          pas. Le segment compte environ 333 000 blocs à traiter (estimation : 82 % de sa surface
-          n'est pas vide), découpés en 16 bandes. Le tutoriel parle d'une heure environ, avec des
-          blocs quatre fois plus grands et sans dire sur quelle carte.
+          346 481 blocs en 20 072 secondes, démarrages compris. Pic de mémoire vidéo : 4 870 Mo sur
+          8 192. Aucune reprise n'a été nécessaire. Rien n'a été optimisé : un seul processus de
+          chargement, lot de 4. Trois propositions publiques visent ce temps ; aucune n'est essayée
+          chez nous.
         fiches: [K-12]
 
     code:
@@ -604,10 +607,51 @@ executions:
               tient. Un seul processus de chargement, pour ménager la mémoire vive ; son effet sur
               la vitesse n'est pas mesuré.
 
+    sorties:
+      - genre: mesures
+        titre: "L'exécution"
+        large: true
+        lignes:
+          - ["Durée totale", "5 h 34 min 32 s", "de 12:59:50 à 18:34:22, assemblage compris"]
+          - ["Bandes", "16 sur 16", "aucune reprise, aucune erreur ; code de sortie 0"]
+          - ["Blocs prédits", "346 481", "l'estimation d'avant lancement était de 333 000"]
+          - ["Vitesse d'ensemble", "17,3 blocs par seconde", "démarrage de chaque bande compris"]
+          - ["Une bande pleine", "19 à 29 minutes", "22 700 à 24 400 blocs ; la première et la dernière, partielles, 8 et 9 minutes"]
+          - ["Pic de mémoire vidéo", "4 870 Mo", "sur 8 192 ; 4 869 Mo dans X-004"]
+          - ["Part du segment non vide", "82,2 %", "annoncée par le programme de villa à chaque bande"]
+      - genre: mesures
+        titre: "L'image"
+        large: true
+        lignes:
+          - ["Taille", "32 249 × 51 380 pixels", "1,66 Go, un octet par pixel"]
+          - ["Pixels à zéro", "16,6 %", "les zones vides, que villa saute"]
+          - ["Valeur moyenne", "118 sur 255", "141 hors zones vides"]
+          - ["Valeur médiane", "129", "un quart des pixels sous 86, un quart au-dessus de 166"]
+          - ["Pixels très clairs (192 et plus)", "11,1 %", ""]
+        note: >-
+          L'image est grise presque partout : la moitié des pixels dépasse 128. Le modèle ne répond
+          donc pas « encre » ou « pas d'encre » de façon tranchée. Une cause possible, non vérifiée :
+          l'entraînement adoucit ses cibles (K-13), ce qui resserre les réponses vers le milieu.
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius/villa/vesuvius/predictions/w00_20231016151002, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "assemblee.tif"
+            taille: "1,66 Go"
+            role: "L'image d'encre entière."
+          - nom: "bande-….tif (16 fichiers)"
+            taille: "environ 1,2 Go en tout"
+            role: "Les bandes, avec leur témoin « fait » : relancer la commande ne recalcule rien."
+          - nom: "local/apercus/X-003.png et X-003-extrait.png"
+            taille: "2 015 × 3 211"
+            role: "Un aperçu réduit seize fois et un extrait à pleine résolution, dans le dossier local ignoré par git."
+
     limites: |
-      - Une image où des traits apparaissent n'est pas une lecture : seuls des papyrologues peuvent valider un texte.
-      - Sur les zones étiquetées, le modèle a déjà vu la réponse pendant l'entraînement.
-      - Aucun chiffre de qualité ne sortira de cette exécution : il n'y a toujours pas de zone de validation.
+      - Une image où des formes de lettres apparaissent n'est pas une lecture : seuls des papyrologues peuvent valider un texte.
+      - Le segment a servi à l'entraînement, et nous n'avons pas comparé l'image aux étiquettes : les formes visibles peuvent n'être que le corrigé appris par cœur.
+      - Aucun chiffre de qualité ne sort de cette exécution : il n'y a pas de zone de validation tenue à l'écart.
+      - La description de l'image vient d'un aperçu réduit seize fois et d'un seul extrait à pleine résolution, regardés par Agent C. ; Kanemonium ne l'a pas encore vue.
+      - La cause du gris d'ensemble n'est pas établie.
 
     credits:
       - github: ScrollPrize
