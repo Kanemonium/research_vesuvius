@@ -28,6 +28,8 @@ Le serveur ne nous appartient pas. Un robot officiel ne peut y entrer que sur in
 - Ce qui est lu est traduit, résumé et rangé dans `local/discord/lecture.json`, ignoré par git. Aucun message d'autrui n'entre dans le dépôt public ; une idée reprise dans le carnet est reformulée et attribuée à son auteur.
 - Les réponses sont rédigées en anglais par Agent C., relues par Kanemonium, et ne partent qu'avec son accord, message par message. Elles apparaissent dans le tiroir, à leur date.
 - Le tiroir de l'IHM ne parle jamais à Discord : il montre ce fichier.
+- L'actualité publique de GitHub (issues et demandes de fusion de villa) y entre par la même voie : relevée par `scripts/villa-actu.mjs` au moment d'une lecture, traduite, puis rangée dans le même fichier.
+- **Kanemonium** (2026-11-15) : tout ce que nous proposons dans un dépôt du défi ou d'un participant suit les règles de contribution de villa, résumées dans `docs/contribuer-a-villa.md`.
 
 ## Suite
 

@@ -5,7 +5,14 @@ import { h } from './outils.js';
 
 const LOGO = 'M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z';
 const CLOCHE = 'M12 3a5 5 0 0 0-5 5v3.2l-1.6 3.3a.6.6 0 0 0 .54.86h12.12a.6.6 0 0 0 .54-.86L17 11.2V8a5 5 0 0 0-5-5Zm-2 14.4a2 2 0 0 0 4 0Z';
-const ONGLETS = { synthese: 'Synthèse', 'pour-moi': 'Pour moi', actu: 'Actu' };
+const GITHUB = 'M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.25.8-.56v-2c-3.2.7-3.9-1.36-3.9-1.36-.5-1.340-1.300-1.700-1.300-1.700-1.050-.720.080-.700.080-.700 1.160.080 1.770 1.190 1.770 1.190 1.030 1.770 2.700 1.260 3.360.960.100-.750.400-1.260.730-1.550-2.550-.290-5.240-1.280-5.240-5.690 0-1.260.450-2.290 1.190-3.090-.120-.290-.520-1.460.110-3.050 0 0 .970-.310 3.180 1.180a11 11 0 0 1 5.800 0c2.200-1.490 3.170-1.180 3.170-1.180.630 1.590.230 2.760.110 3.050.740.800 1.190 1.830 1.190 3.090 0 4.420-2.690 5.390-5.260 5.680.410.360.780 1.060.780 2.140v3.170c0 .310.210.670.800.560C20.200 21.400 23.500 17.100 23.500 12 23.500 5.650 18.350.500 12 .500Z';
+const SOURCES = { discord: { nom: 'Discord', logo: () => LOGO }, github: { nom: 'GitHub', logo: () => GITHUB } };
+/** D'où vient le message : une petite pastille posée en haut du liseré. */
+const provenance = (source) => {
+  const s = SOURCES[source] ?? SOURCES.discord;
+  return h('span', { classe: 'tiroir-source', 'data-source': SOURCES[source] ? source : 'discord', title: `Vu sur ${s.nom}`, role: 'img', 'aria-label': `Vu sur ${s.nom}` }, svg(s.logo(), 12));
+};
+const ONGLETS = { synthese: 'Synthèse', 'pour-moi': 'Pour moi', actu: 'Actu', regles: 'Règles' };
 
 function svg(chemin, taille) {
   const el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -55,16 +62,18 @@ function avatar(nom, image) {
 const CALENDRIER = 'M7 2.5a1 1 0 0 1 1 1V5h8V3.5a1 1 0 1 1 2 0V5h1a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1V3.5a1 1 0 0 1 1-1ZM5 10v9h14v-9Z';
 const PERSONNES = 'M9 4a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Zm7.5 1.5a2.75 2.75 0 1 1 0 5.5 2.75 2.75 0 0 1 0-5.5ZM2.5 18.2c0-3 2.9-5.2 6.5-5.2s6.5 2.200 6.500 5.200V19a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1Zm15 1.800v-1.800c0-1.500-.5-2.800-1.400-3.900.2 0 .3 0 .4 0 2.800 0 5 1.700 5 4V19a1 1 0 0 1-1 1Z';
 const reperes = (m) => h('p', { classe: 'tiroir-reperes' },
-  m.salon ? h('span', { classe: 'tiroir-salon' }, h('b', { 'aria-hidden': 'true' }, '#'), m.salon) : null,
+  m.salon ? h('span', { classe: 'tiroir-salon', 'data-source': m.source ?? 'discord' }, h('b', { 'aria-hidden': 'true' }, '#'), m.salon) : null,
   h('span', { classe: 'tiroir-date' }, svg(CALENDRIER, 13), quand(m.date)));
 
 function message(m) {
   const nom = m.nous ? 'Nous' : m.auteur ?? '—';
   return h('article', { classe: 'tiroir-message', 'data-nous': m.nous ? 'oui' : null, style: `--teinte:${teinte(nom)}` },
+    provenance(m.source),
     h('header', {},
       avatar(nom, m.avatar),
       h('strong', {}, nom),
       m.nous ? h('span', { classe: 'pilule', 'data-statut': m.statut === 'envoyee' ? 'faite' : 'a-faire' }, m.statut === 'envoyee' ? 'envoyée' : 'brouillon') : null,
+      m.etat ? h('span', { classe: 'pilule', 'data-statut': { fusionnée: 'faite', ouverte: 'en-cours', fermée: 'impasse' }[m.etat] ?? 'a-faire' }, m.etat) : null,
       reperes(m)),
     m.fil ? h('p', { classe: 'tiroir-fil' }, m.fil) : null,
     h('p', {}, m.nous ? m.texte_fr ?? m.texte : m.texte),
@@ -74,13 +83,19 @@ function message(m) {
 }
 
 function corps(d) {
+  if (etat.onglet === 'regles') {
+    const texte = h('div', { classe: 'tiroir-regles prose' });
+    texte.innerHTML = d.regles_html || '<p>Règles introuvables : docs/contribuer-a-villa.md manque.</p>';
+    for (const a of texte.querySelectorAll('a[href^="http"]')) { a.target = '_blank'; a.rel = 'noreferrer'; }
+    return [texte];
+  }
   const p = d.problemes[etat.probleme] ?? Object.values(d.problemes)[0];
   if (etat.onglet === 'pour-moi') {
     return d.pour_moi.length ? d.pour_moi.map(message) : [h('p', { classe: 'tiroir-vide' }, d.pour_moi_note || 'Aucun message ne vous mentionne.')];
   }
   if (etat.onglet === 'actu') return p.actu.length ? p.actu.map(message) : [h('p', { classe: 'tiroir-vide' }, 'Rien de lu sur ce problème.')];
   return p.synthese.length ? p.synthese.map((s) => h('article', { classe: 'tiroir-point', 'data-poids': s.pour_nous ?? null },
-    h('h3', {}, s.titre), h('p', {}, s.texte),
+    provenance(s.source), h('h3', {}, s.titre), h('p', {}, s.texte),
     s.auteurs?.length ? h('p', { classe: 'tiroir-auteurs' }, svg(PERSONNES, 14), h('span', { classe: 'meta' }, 'D’après'),
       ...s.auteurs.map((a) => h('span', { classe: 'tiroir-auteur' }, avatar(a), a))) : null, liens(s.liens)))
     : [h('p', { classe: 'tiroir-vide' }, 'Pas encore de synthèse sur ce problème.')];
@@ -107,8 +122,9 @@ function dessiner() {
     b.title = !d ? 'Discord' : d.a_relire ? `Discord : ${age(d).toLowerCase()}, plus de ${d.delai_heures} h sans lecture` : `Discord : ${age(d).toLowerCase()}`;
   }
   if (!d) return;
-  const avecChoix = etat.onglet !== 'pour-moi';
-  tiroir.replaceChildren(
+  const avecChoix = etat.onglet === 'synthese' || etat.onglet === 'actu';
+  // replaceChildren écrirait « null » en toutes lettres : on retire les éléments absents.
+  tiroir.replaceChildren(...[
     h('header', { classe: 'tiroir-tete' },
       h('span', { classe: 'tiroir-logo' }, svg(LOGO, 22)),
       h('div', {}, h('h2', {}, 'Discord du défi'), h('p', { classe: 'meta', 'data-alerte': d.a_relire ? 'oui' : null }, d.erreur ?? age(d))),
@@ -121,8 +137,9 @@ function dessiner() {
     avecChoix ? h('div', { classe: 'tiroir-choix', role: 'group', 'aria-label': 'Problème' }, ...Object.entries(d.problemes).map(([cle, p]) =>
       h('button', { type: 'button', 'aria-pressed': String(cle === etat.probleme), onclick: () => { etat.probleme = cle; retenir('discord-probleme', cle); dessiner(); } }, p.nom))) : null,
     h('div', { classe: 'tiroir-corps' }, ...corps(d),
-      d.non_lu && etat.onglet !== 'pour-moi' ? h('p', { classe: 'tiroir-note' }, h('strong', {}, 'Non lu cette fois : '), d.non_lu) : null,
-      h('p', { classe: 'tiroir-note' }, 'Lecture faite à votre demande, traduite et résumée par Agent C. Ces messages restent sur cette machine : rien n’en est copié dans le dépôt public.')));
+      d.non_lu && avecChoix ? h('p', { classe: 'tiroir-note' }, h('strong', {}, 'Non lu cette fois : '), d.non_lu) : null,
+      etat.onglet === 'regles' ? null : h('p', { classe: 'tiroir-note' }, 'Lecture faite à votre demande, traduite et résumée par Agent C. Ces messages restent sur cette machine : rien n’en est copié dans le dépôt public.')),
+  ].filter(Boolean));
 }
 
 async function charger() {

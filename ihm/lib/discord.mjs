@@ -4,6 +4,7 @@
 // ignoré par git et ne doit jamais entrer dans le dépôt public.
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { marked } from 'marked';
 
 export const PROBLEMES = { encre: "L'encre", deroulement: 'Le déroulement' };
 /** Au-delà de ce délai sans lecture, l'IHM le signale dans la barre du haut. */
@@ -17,8 +18,18 @@ function fil(actu, reponses, probleme) {
   return [...liste(actu), ...notres].sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 
+/** Les règles de contribution de villa, résumées en français dans docs/contribuer-a-villa.md. */
+async function regles(racine) {
+  try {
+    return marked.parse(await readFile(path.join(racine, 'docs', 'contribuer-a-villa.md'), 'utf8'));
+  } catch {
+    return '';
+  }
+}
+
 export async function lireDiscord(racine, maintenant = new Date()) {
   const vide = {
+    regles_html: await regles(racine), github_lu_le: null,
     lu_le: null, age_heures: null, a_relire: true, delai_heures: DELAI_HEURES, salons_lus: [], non_lu: '',
     problemes: Object.fromEntries(Object.entries(PROBLEMES).map(([cle, nom]) => [cle, { nom, synthese: [], actu: [] }])),
     pour_moi: [], pour_moi_note: '',
@@ -33,6 +44,8 @@ export async function lireDiscord(racine, maintenant = new Date()) {
   const lu = brut.lu_le ? new Date(brut.lu_le) : null;
   const age = lu && !Number.isNaN(lu.getTime()) ? (maintenant - lu) / 3_600_000 : null;
   return {
+    regles_html: vide.regles_html,
+    github_lu_le: brut.github_lu_le ?? null,
     lu_le: brut.lu_le ?? null,
     age_heures: age === null ? null : Math.max(0, Math.round(age * 10) / 10),
     a_relire: age === null || age >= DELAI_HEURES,

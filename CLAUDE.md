@@ -60,6 +60,24 @@ résultat qui n'a pas été mesuré ; « non mesuré », « inconnu » et « est
 - Les contributions sont jugées sur leur usage réel et leur documentation : un correctif n'est
   proposé à `ScrollPrize/villa` que pour un défaut réellement rencontré, avec preuve avant/après.
 
+## Contribuer au code des autres (villa, dépôts du défi, dépôts de participants)
+
+Demande de Kanemonium du 2026-11-15 : tout commit, toute demande de fusion, issue ou commentaire
+que nous laissons dans un dépôt du défi ou d'un de ses membres suit les règles de contribution de
+villa. Elles sont résumées dans `docs/contribuer-a-villa.md` (onglet « Règles » du tiroir de l'IHM) ;
+relire le `CONTRIBUTING.md` du dépôt visé avant chaque proposition, il peut avoir changé.
+
+- Seulement pour un problème que Kanemonium a rencontré en travaillant sur de vraies données de
+  rouleau. Jamais de « partie de pêche » aux défauts dans leur code.
+- Une preuve avant et après, produite sur notre machine avec de vraies données, gardée dans une
+  exécution `X-…`. Pas d'exemple synthétique.
+- Suivre leur modèle de demande de fusion ou d'issue ; texte court, sans jargon.
+- La motivation est écrite par Kanemonium avec ses mots (Agent C. la traduit sans l'embellir), il
+  relit le code, et c'est lui qui atteste que l'exemple et la preuve sont vrais.
+- Dire en une ligne qu'Agent C. (Claude) a aidé à écrire.
+- Le plus petit changement possible, une proposition à la fois, résultats numériques inchangés
+  sauf si c'est l'objet annoncé, tests du sous-projet lancés avant.
+
 ## Citer le travail des autres
 
 Demande de Kanemonium du 2026-11-15 : ne jamais s'approprier le travail de quelqu'un d'autre, que

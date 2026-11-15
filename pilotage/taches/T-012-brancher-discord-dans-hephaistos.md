@@ -21,6 +21,11 @@ etapes:
     detail: "Tiroir à droite avec sa tirette, onglets Synthèse, Pour moi et Actu, choix entre l'encre et le déroulement. Icône dans la barre du haut, avec une cloche après huit heures sans lecture. Bouton qui dépose une demande de lecture dans la boîte."
   - date: 2026-11-15
     genre: etape
+    statut: faite
+    titre: "Les règles de villa et l'actualité de GitHub"
+    detail: "Quatrième onglet « Règles » : le résumé français de `docs/contribuer-a-villa.md`. `scripts/villa-actu.mjs` relève les issues et demandes de fusion récentes de villa ; elles entrent, traduites, dans Synthèse et Actu. Une pastille Discord ou GitHub dit d'où vient chaque message."
+  - date: 2026-11-15
+    genre: etape
     statut: a-faire
     titre: "Lire l'intérieur des fils du forum d'encre"
     detail: "La première lecture s'est arrêtée au premier message de chaque fil. Deux fils ont plus de cent réponses."

@@ -607,3 +607,19 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .tiroir-auteurs > svg { color: var(--ev-turquoise); }
 .tiroir-auteur { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
 .tiroir-auteur .tiroir-avatar { width: 20px; height: 20px; font-size: 0.52rem; }
+/* Provenance d'un message : la pastille Discord ou GitHub, posée en haut du liseré. */
+.tiroir-point, .tiroir-message { position: relative; margin-top: 6px; }
+.tiroir-source { position: absolute; top: -9px; left: -13px; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: #fff; background: var(--discord); box-shadow: 0 0 0 2px var(--surface); }
+.tiroir-source[data-source="github"] { background: #24292F; }
+:root[data-theme="carbone"] .tiroir-source[data-source="github"] { background: #F2EEE7; color: #1A1816; }
+.tiroir-salon[data-source="github"] b { color: var(--valide); }
+.tiroir-message header { padding-left: 4px; }
+.tiroir-message header .pilule { font-size: 0.58rem; padding: 1px 7px; }
+.tiroir-regles { font-size: var(--t-petit); line-height: 1.55; }
+.tiroir-regles h1 { font: 800 1.15rem/1.2 var(--f-titre); margin-bottom: var(--e-3); }
+.tiroir-regles h2 { margin: var(--e-5) 0 var(--e-2); padding-left: var(--e-3); border-left: 4px solid var(--cristal); font: 700 0.95rem/1.25 var(--f-titre); }
+.tiroir-regles p, .tiroir-regles ul, .tiroir-regles ol { margin-bottom: var(--e-3); }
+.tiroir-regles ul, .tiroir-regles ol { padding-left: 1.3em; }
+.tiroir-regles li + li { margin-top: 4px; }
+.tiroir-regles code { font: 500 0.92em var(--f-mono); }
+.tiroir-onglets button { padding-inline: 9px; }
