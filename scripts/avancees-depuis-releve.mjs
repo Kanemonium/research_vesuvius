@@ -43,8 +43,8 @@ const RENVOIS = {
     pistes: { 6: ['P-220'], 8: ['P-210'], 11: ['P-240'], 13: ['P-230'], 14: ['P-250'] },
   },
   encre: {
-    fiches: { 0: ['K-02', 'K-19'], 1: ['K-19'], 2: ['K-18', 'K-07'], 3: ['K-18', 'K-09', 'K-24'], 4: ['K-21', 'K-25', 'K-16'], 5: ['K-22'], 7: ['K-20', 'K-18'], 8: ['K-09', 'K-24', 'K-16'], 9: ['K-22', 'K-23'], 10: ['K-18', 'K-04'], 11: ['K-20', 'K-12'], 13: ['K-20', 'K-22'] },
-    pistes: { 5: ['P-330'], 7: ['P-320'], 9: ['P-330', 'P-340'], 11: ['P-320', 'P-310'], 13: ['P-320', 'P-250'] },
+    fiches: { 0: ['K-02', 'K-19'], 1: ['K-19'], 2: ['K-18', 'K-07'], 3: ['K-18', 'K-09', 'K-24'], 4: ['K-21', 'K-25', 'K-16'], 7: ['K-20', 'K-18'], 8: ['K-09', 'K-24', 'K-16'], 9: ['K-22', 'K-23'], 10: ['K-18', 'K-04'], 11: ['K-20', 'K-12'], 13: ['K-20', 'K-22'] },
+    pistes: { 7: ['P-320'], 9: ['P-330', 'P-340'], 11: ['P-320', 'P-310'], 13: ['P-320', 'P-250'] },
   },
 };
 const NOUS = {
@@ -83,6 +83,17 @@ const CORRECTIONS = {
     },
   },
 };
+// 2026-11-15 : le nœud de 2024 fondait quatre travaux sans lien et son titre affirmait un échec qu'aucune page n'écrit.
+// Il ne garde que les mots du second rouleau ; les trois autres travaux ont leur nœud (AJOUTS).
+CORRECTIONS.encre[5] = {
+  titre: '2024 : des mots dans un second rouleau fermé',
+  resume: "En 2024, des mots sont extraits d'un second rouleau fermé : l'équipe y voit la preuve que le résultat de 2023 n'était pas un cas unique.",
+  fonctionnel: "La même année, l'équipe dit s'être concentrée sur un dépliage plus efficace et plus automatique.",
+  technique: 'Les pages lues ne nomment pas ce second rouleau et ne décrivent pas la méthode employée.',
+  _fichiers: ['27_master_plan.md'], _sansPrix: true, _qui: ['Vesuvius Challenge'],
+};
+// Noms que les pages citées par un nœud ne relient pas à ce travail.
+const RETRAITS_QUI = { depliage: { 13: ['Sean Johnson'] } };
 // 2026-11-15 : le relevé rapportait « aucune lettre » en coupant la phrase avant la réserve de son auteur.
 CORRECTIONS.encre[13] = {
   fonctionnel: "On ne sait pas distinguer de façon fiable « pas d'encre » de « encre pas encore récupérée ». Le titre de PHerc. Paris. 4 n'a pas été trouvé. Une enquête d'un participant sur les 21 rouleaux de la liste sans segments au catalogue n'a trouvé aucune lettre ; son auteur précise que sa méthode échoue aussi sur un rouleau de contrôle, et qu'un résultat nul dit donc peu de chose. Pistes citées : entraînement multi-rouleaux, meilleures étiquettes, diagnostics plus solides, segmentation 3D directe.",
@@ -94,6 +105,51 @@ const RETOUCHES_ETAT = [
 // Nœuds ajoutés à la relecture, placés après la position indiquée du relevé. Leur citation est vérifiée comme les autres.
 const AJOUTS = {
   encre: [
+    {
+      apres: 5,
+      noeud: {
+        id: 'A-316', branche: 'volume', date: '2024-04', titre: "Un modèle détecte l'encre en volume, sans dépliage", statut: 'acquis', relu: true,
+        resume: "Ryan Chesler est primé pour un modèle qui cherche l'encre directement dans le rouleau en volume, sans segmentation ni aplatissement.",
+        fonctionnel: "Une autre voie que la chaîne habituelle : on ne déplie pas avant de chercher l'encre. Les pages lues ne disent pas ce que ce modèle a permis de lire.",
+        technique: "La page des projets le décrit comme un modèle de détection d'encre qui travaille sur les données du rouleau entier en 3D. Prix « Open Source » d'avril 2024.",
+        qui: ['Ryan Chesler'], prix: { nom: 'Open Source Prize, « 3D ink detection »', montant: '$20,000' }, fiches: ['K-22'], pistes: ['P-330'],
+      },
+      preuves: [
+        { fichier: '20_community_projects.md', citation: 'Ink detection model that works on full scroll data in 3D, without segmentation nor flattening.' },
+        { fichier: '15_winners.md', citation: '3D ink detection by Ryan Chesler' },
+      ],
+    },
+    {
+      apres: 5,
+      noeud: {
+        id: 'A-317', branche: 'lectures', date: '2024', titre: 'Grand Prix 2024 : lire 90 % de quatre rouleaux', statut: 'ouvert', relu: true,
+        resume: "Le défi vise la lecture de 90 % de quatre rouleaux parmi les rouleaux 1 à 5. Les pages lues ne disent pas si ce prix a été attribué.",
+        fonctionnel: "Pour situer la marche à franchir, la page donne la note qu'aurait eue le résultat de 2023 avec la grille de 2024 : 137 lignes acceptées sur 206 complètes, soit 67 % pour 90 % exigés. C'est un point de départ, pas un résultat de 2024.",
+        technique: "Il faut segmenter 90 % ou plus du total des rouleaux. Chaque ligne est jugée par des papyrologues ; 90 % des lignes complètes doivent être « lisibles » ou « peut-être », les lignes incomplètes n'étant pas jugées. Sur la bannière de 2023 : 240 lignes, 206 complètes, 137 acceptées.",
+        note_date: "Année du prix. Son issue n'est indiquée dans aucune des pages lues.",
+        qui: ['Vesuvius Challenge'], prix: { nom: '2024 Grand Prize', montant: '$200,000' },
+      },
+      preuves: [
+        { fichier: '28_2024_prizes.md', citation: 'will go to the first person or team to read 90% of 4 scrolls from Scrolls 1-5.' },
+        { fichier: '28_2024_prizes.md', citation: 'Total lines: 240. Complete lines: 206. Passing lines: 137.' },
+        { fichier: '28_2024_prizes.md', citation: "As a baseline, here's how the 2023 Grand Prize banner would have scored:" },
+      ],
+    },
+    {
+      apres: 5,
+      noeud: {
+        id: 'A-318', branche: 'generalisation', date: '2024-07', titre: "Des essais d'apprentissage auto-supervisé pour l'encre", statut: 'acquis', relu: true,
+        resume: "Jorge García-Carrasco est primé trois fois en 2024 pour des essais d'apprentissage auto-supervisé appliqué à l'encre.",
+        fonctionnel: "Les pages lues ne donnent que les intitulés de ces prix : elles ne disent pas ce que ces essais ont montré.",
+        technique: "Intitulés des prix : « DINO ink detection » (juillet 2024), « Self-supervised ink detection », avec Andoni Irazusta-Garmendia (septembre), « Self-supervised pretraining for ink detection » (octobre).",
+        note_date: 'Date du premier des trois prix.',
+        qui: ['Jorge García-Carrasco', 'Andoni Irazusta-Garmendia'], prix: { nom: 'Open Source Prizes (juillet, septembre, octobre 2024)', montant: '$2,500 + $2,500 + $1,000' }, fiches: ['K-23'], pistes: ['P-340'],
+      },
+      preuves: [
+        { fichier: '15_winners.md', citation: 'DINO ink detection by Jorge García Carrasco' },
+        { fichier: '15_winners.md', citation: 'Self-supervised pretraining for ink detection by Jorge García-Carrasco' },
+      ],
+    },
     {
       apres: 11,
       noeud: {
@@ -123,23 +179,40 @@ const BRANCHES = {
   },
   encre: {
     liste: [{ id: 'signal', titre: "Le signal d'encre" }, { id: 'lectures', titre: 'Lire des rouleaux' }, { id: 'volume', titre: "L'encre en volume" }, { id: 'generalisation', titre: "D'un rouleau à l'autre" }, { id: 'nous', titre: 'Notre parcours' }],
-    de: ['signal', 'lectures', 'signal', 'lectures', 'lectures', 'volume', 'lectures', 'generalisation', 'lectures', 'volume', 'signal', 'generalisation', 'lectures', 'generalisation'],
+    de: ['signal', 'lectures', 'signal', 'lectures', 'lectures', 'lectures', 'lectures', 'generalisation', 'lectures', 'volume', 'signal', 'generalisation', 'lectures', 'generalisation'],
   },
 };
+// Corrections de fidélité issues de la relecture de tous les nœuds (scripts/avancees-corrections.json).
+const { corrections: FIDELITE } = JSON.parse(await readFile(path.join(RACINE, 'scripts', 'avancees-corrections.json'), 'utf8'));
+const appliquees = new Set();
+/** Remplace, dans un champ du relevé, chaque phrase fautive par sa version fidèle. Échoue si une phrase a disparu. */
+function fidele(domaine, liste, position, champ, texte) {
+  let sortie = texte;
+  FIDELITE.forEach((c, k) => {
+    if (c.domaine !== domaine || c.liste !== liste || c.position !== position || c.champ !== champ) return;
+    if (!sortie.includes(c.avant)) throw new Error(`correction ${domaine}/${liste}/${position}/${champ} : phrase introuvable « ${c.avant.slice(0, 60)} »`);
+    sortie = sortie.replace(c.avant, () => c.apres);
+    appliquees.add(k);
+  });
+  return sortie;
+}
 const titrePage = (f) => `scrollprize.org · ${f.replace(/^\d+_/, '').replace(/\.mdx?$/, '').replace(/_/g, ' ')}`;
 
 for (const domaine of Object.keys(BASES)) {
   const avancees = releve[domaine].map((n, i) => {
-    const fichiers = [...new Set(n.sources.map((s) => s.fichier))];
+    const { _fichiers, _sansPrix, _qui, ...champs } = CORRECTIONS[domaine]?.[i] ?? {};
+    const fichiers = _fichiers ?? [...new Set(n.sources.map((s) => s.fichier))];
+    const texte = (champ) => fidele(domaine, 'noeuds', i, champ, n[champ]);
     const a = {
-      id: `A-${BASES[domaine] + i + 1}`, branche: BRANCHES[domaine].de[i], date: n.date ?? null, titre: n.titre, statut: n.statut,
-      resume: n.resume, fonctionnel: n.fonctionnel, technique: n.technique,
+      id: `A-${BASES[domaine] + i + 1}`, branche: BRANCHES[domaine].de[i], date: n.date ?? null, titre: texte('titre'), statut: n.statut,
+      resume: texte('resume'), fonctionnel: texte('fonctionnel'), technique: texte('technique'),
     };
-    Object.assign(a, CORRECTIONS[domaine]?.[i] ?? {});
-    if (CORRECTIONS[domaine]?.[i]) a.relu = true;
+    Object.assign(a, champs);
+    a.relu = true; // tous les nœuds du défi ont été relus contre leur page le 2026-11-15
     if (n.date_note) a.note_date = n.date_note;
-    if (n.qui?.length) a.qui = n.qui;
-    if (n.prix) a.prix = { nom: n.prix.nom, montant: n.prix.montant };
+    const qui = _qui ?? (n.qui ?? []).filter((q) => !(RETRAITS_QUI[domaine]?.[i] ?? []).includes(q));
+    if (qui.length) a.qui = qui;
+    if (n.prix && !_sansPrix) a.prix = { nom: n.prix.nom, montant: n.prix.montant };
     const { fiches, pistes } = RENVOIS[domaine];
     if (fiches[i]) a.fiches = fiches[i];
     if (pistes[i]) a.pistes = pistes[i];
@@ -153,13 +226,14 @@ for (const domaine of Object.keys(BASES)) {
   // Pour l'encre, la vue d'ensemble reprend l'état des lieux du relevé : ce qui est acquis, ce qui résiste.
   const etat = domaine === 'encre' ? releve.etat_de_l_art : null;
   const retouche = (texte) => RETOUCHES_ETAT.reduce((s, [avant, apres]) => s.replace(avant, apres), texte);
-  const puces = (l) => l.map((e) => `- ${retouche(e.texte)}`).join('\n');
+  const puces = (l, liste) => l.map((e, k) => `- ${retouche(fidele(domaine, liste, k, 'texte', e.texte))}`).join('\n');
   const resume = etat
-    ? [RESUMES[domaine], '**Ce qui est acquis**', puces(etat.reussites), '**Ce qui résiste**', puces(etat.blocages)].join('\n\n')
+    ? [RESUMES[domaine], '**Ce qui est acquis**', puces(etat.reussites, 'reussites'), '**Ce qui résiste**', puces(etat.blocages, 'blocages')].join('\n\n')
     : RESUMES[domaine];
   const doc = { domaine, portee: 'communaute', lu_le: '2026-11-15', resume, branches: BRANCHES[domaine].liste, avancees: [...avancees, ...(NOUS[domaine] ?? [])] };
   const entete = `# Parcours du domaine « ${domaine} » : le défi tout entier. Format : pilotage/README.md.\n# Écrit par scripts/avancees-depuis-releve.mjs à partir des pages de scrollprize.org (ScrollPrize/villa,\n# commit ${COMMIT.slice(0, 7)}, licence MIT). Textes français : reformulation d'Agent C., pas une traduction officielle.\n`;
   await writeFile(path.join(RACINE, 'pilotage', 'avancees', `${domaine}.yaml`), entete + YAML.stringify(doc, { lineWidth: 110 }), 'utf8');
   console.log(`${domaine} : ${doc.avancees.length} avancées`);
 }
-console.log(`${citations} citations retrouvées mot pour mot.`);
+if (appliquees.size !== FIDELITE.length) throw new Error(`${FIDELITE.length - appliquees.size} correction(s) de fidélité n'ont pas trouvé leur phrase`);
+console.log(`${citations} citations retrouvées mot pour mot ; ${appliquees.size} corrections de fidélité appliquées.`);

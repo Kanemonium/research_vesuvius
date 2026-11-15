@@ -38,7 +38,8 @@ resume: >-
   - En octobre 2026, de l'écriture a été trouvée dans deux rouleaux jamais lus (PHerc. 306B et PHerc. 343).
 
   - Un premier progrès de généralisation entre rouleaux : une configuration trouvée par un essaim d'agents a
-  presque doublé le Dice de validation sur PHerc. 1667 en n'entraînant que sur PHerc. 139.
+  presque doublé le Dice de validation (calculé sur des pseudo-étiquettes) sur PHerc. 1667 en n'entraînant que
+  sur PHerc. 139.
 
   - La morphologie de surface seule (profilométrie optique sur fragments ouverts) contient une information
   exploitable pour localiser l'encre.
@@ -57,8 +58,8 @@ resume: >-
   étape de la chaîne limite le résultat.
 
   - Nature du signal : dans les deux rouleaux lisibles en 2025, le signal amplifié correspondait à de grosses
-  craquelures ou à des points riches en métal ; les modèles entraînés là-dessus échouent sur les autres
-  rouleaux.
+  craquelures ou à des points plus brillants aux rayons X, signe de plus de métaux ; en juillet 2025, les
+  modèles entraînés à amplifier ces signaux ne donnaient pas de bons résultats sur les autres rouleaux.
 
   - Ambiguïté de profondeur : les photos de fragments donnent des étiquettes 2D, sans dire où le signal
   d'encre se trouve en profondeur dans le volume.
@@ -100,8 +101,9 @@ resume: >-
   de mesure sur données tenues à l'écart ; un contributeur note que les améliorations ne se distinguent alors
   pas du bruit.
 
-  - Fragilité des modèles 9 µm : sensibles au décalage en profondeur de la surface ; un modèle entraîné sur un
-  seul segment reste loin d'une bonne lecture sur un segment jamais vu.
+  - Deux limites distinctes. Modèles 9 µm : sensibles au décalage en profondeur de la surface. Modèle 3D natif
+  du tutoriel, entraîné sur un seul segment : sur un segment jamais vu, des lettres commencent à apparaître
+  mais on reste loin d'une bonne lecture.
 
   - Le modèle n'est pas un lecteur : il ne reçoit ni mots grecs, ni transcriptions, ni dictionnaire ; il fait
   de la récupération de signal, la lecture restant humaine.
@@ -130,6 +132,7 @@ avancees:
       modèle est entraîné avec, en entrée, le scan du fragment autour de la surface et, en étiquette, l'encre
       visible sur la photographie infrarouge alignée. Référence citée : la thèse de Stephen Parsons et
       l'article « EduceLab-Scrolls »."
+    relu: true
     note_date: Travaux antérieurs au lancement de mars 2023 ; l'article EduceLab-Scrolls cité est de 2023
       (arXiv:2304.02084). La source ne donne pas de date précise.
     qui:
@@ -151,13 +154,14 @@ avancees:
     statut: acquis
     resume: Des centaines d'équipes cherchent le meilleur modèle pour détecter l'encre dans les fragments ouverts,
       où la vérité terrain vient des photos.
-    fonctionnel: La compétition produit d'excellents modèles sur fragments, mais ils ne fonctionnent pas tels
-      quels sur les segments aplatis des rouleaux. Ils serviront de base à Youssef Nader pour les premières
-      lettres.
+    fonctionnel: La compétition produit d'excellents modèles sur fragments, mais ils ne semblaient pas fonctionner
+      sur les segments aplatis produits par l'équipe de segmentation. Ils serviront de base à Youssef Nader
+      pour les premières lettres.
     technique: "Étiquettes : vérité terrain issue directement des photos des fragments (et non du « crackle »,
       inconnu à l'époque). Premier prix : « ryches » (25 000 $), identifié comme Ryan Chesler dans la liste
       des projets communautaires. Un prix de suivi (12 000 $, 8 septembre 2023) demandait d'appliquer ces
       modèles aux rouleaux."
+    relu: true
     note_date: Date de la page des lauréats. La page archivée du concours donne une date limite au 14 juin 2023
       (voir « contradictions »).
     qui:
@@ -180,13 +184,15 @@ avancees:
     date: 2023-08
     titre: "Le « crackle » : première encre vue dans un rouleau fermé"
     statut: acquis
-    resume: Casey Handmer repère à l'œil, dans les surfaces aplaties, une texture craquelée qui dessine des lettres.
+    resume: Casey Handmer repère à l'œil, dans les surfaces aplaties, une texture craquelée qui semble former des
+      lettres.
     fonctionnel: C'est la première preuve directement visible d'encre et de lettres dans un rouleau complet. Elle
       a inspiré directement le travail de Luke Farritor et amélioré la compréhension du signal d'encre.
     technique: Découverte par inspection visuelle prolongée des « surface volumes » bruts produits par l'équipe de
       segmentation. Le crackle est une texture de boue craquelée, légèrement en relief sur le papyrus ; il est
       rare. La source précise que dans PHerc. Paris. 4, l'encre peut former une fine couche à la surface du
       papyrus.
+    relu: true
     note_date: « In early August » ; le billet de blog cité porte la date 2023/08/05 dans son adresse.
     qui:
       - Casey Handmer
@@ -215,7 +221,9 @@ avancees:
       révèle d'autres. Youssef part des modèles gagnants de Kaggle, les adapte aux rouleaux (pré-entraînement
       non supervisé sur les rouleaux, puis affinage sur les étiquettes des fragments), puis itère des
       pseudo-étiquettes ; ses modèles finaux sont entraînés uniquement sur des segments de rouleau. Critère du
-      prix : au moins 10 lettres dans 4 cm². Les papyrologues ont annoté 13 lettres."
+      prix : au moins 10 lettres dans 4 cm². Sur l'image de Luke, les papyrologues ont annoté 13 lettres,
+      indépendamment et à l'unanimité, mais avec des niveaux de confiance variables."
+    relu: true
     note_date: Date de l'annonce ; Luke Farritor a vu le mot en août 2023 selon la source.
     qui:
       - Luke Farritor
@@ -239,14 +247,16 @@ avancees:
     resume: L'équipe de Youssef Nader, Luke Farritor et Julian Schilliger fait lire plus de 2000 caractères du
       rouleau 1.
     fonctionnel: "Environ 5 % du premier rouleau sont déroulés et lus : un texte philosophique épicurien inédit
-      sur le plaisir. Le code est publié en open source, et quatre équipes indépendantes obtiennent des images
-      très proches de la même zone, ce qui écarte l'invention de texte."
+      sur le plaisir. Le code est publié en open source, et les soumissions reçues, faites avec des modèles et
+      des étiquettes différents sur les mêmes segments, donnent des images très proches de la même zone :
+      c'est l'un des trois arguments avancés contre l'invention de texte."
     technique: "Trois architectures de modèles, les images les plus nettes venant souvent d'un modèle fondé sur
       TimeSformer (image principale : TimeSformer 64x64). Garde-fous contre le surapprentissage et
       l'hallucination : plusieurs architectures, étude sur les tailles de fenêtre d'entrée/sortie, lissage
       d'étiquettes (label smoothing), plis de validation variés. Critère atteint : 4 passages de 140
       caractères avec au moins 85 % de caractères récupérables ; plus 11 autres colonnes. Trois deuxièmes ex
       æquo à 50 000 $."
+    relu: true
     note_date: Date limite et date retenue par la page des lauréats ; annonce des gagnants le 5 février 2024.
     qui:
       - Youssef Nader
@@ -268,40 +278,98 @@ avancees:
       - titre: scrollprize.org · grandprize
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/26_grandprize.md
   - id: A-306
-    branche: volume
+    branche: lectures
     date: "2024"
-    titre: "2024 : des mots dans un second rouleau, encre en 3D, objectif 90 % manqué de loin"
+    titre: "2024 : des mots dans un second rouleau fermé"
     statut: acquis
-    resume: En 2024, des mots sont extraits d'un second rouleau fermé, et un modèle détecte l'encre directement en
-      3D, pendant que le défi vise la lecture de 90 % de quatre rouleaux.
-    fonctionnel: "La réussite de 2023 n'était pas un cas unique. Mais la bannière du Grand Prix 2023, notée selon
-      la grille 2024, n'atteignait que 67 % de lignes acceptées pour 90 % exigés : il fallait de plus grandes
-      segmentations et une meilleure récupération d'encre."
-    technique: "Modèle 3D de Ryan Chesler (20 000 $, avril 2024) : détection d'encre sur le rouleau complet, sans
-      segmentation ni aplatissement. Grille 2024 : chaque ligne est jugée lisible, illisible, « peut-être » ou
-      incomplète ; sur la bannière 2023, 240 lignes dont 206 complètes et 137 acceptées. Expériences
-      communautaires la même année : pré-entraînement auto-supervisé et DINO pour l'encre (Jorge
-      García-Carrasco)."
+    resume: "En 2024, des mots sont extraits d'un second rouleau fermé : l'équipe y voit la preuve que le résultat
+      de 2023 n'était pas un cas unique."
+    fonctionnel: La même année, l'équipe dit s'être concentrée sur un dépliage plus efficace et plus automatique.
+    technique: Les pages lues ne nomment pas ce second rouleau et ne décrivent pas la méthode employée.
+    relu: true
     note_date: Année ; le prix « 3D ink detection » est d'avril 2024. Le second rouleau n'est pas nommé dans les
       fichiers lus.
     qui:
-      - Ryan Chesler
+      - Vesuvius Challenge
+    sources:
+      - titre: scrollprize.org · master plan
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/27_master_plan.md
+  - id: A-318
+    branche: generalisation
+    date: 2024-07
+    titre: Des essais d'apprentissage auto-supervisé pour l'encre
+    statut: acquis
+    relu: true
+    resume: Jorge García-Carrasco est primé trois fois en 2024 pour des essais d'apprentissage auto-supervisé
+      appliqué à l'encre.
+    fonctionnel: "Les pages lues ne donnent que les intitulés de ces prix : elles ne disent pas ce que ces essais
+      ont montré."
+    technique: "Intitulés des prix : « DINO ink detection » (juillet 2024), « Self-supervised ink detection »,
+      avec Andoni Irazusta-Garmendia (septembre), « Self-supervised pretraining for ink detection »
+      (octobre)."
+    note_date: Date du premier des trois prix.
+    qui:
       - Jorge García-Carrasco
+      - Andoni Irazusta-Garmendia
+    prix:
+      nom: Open Source Prizes (juillet, septembre, octobre 2024)
+      montant: $2,500 + $2,500 + $1,000
+    fiches:
+      - K-23
+    pistes:
+      - P-340
+    sources:
+      - titre: scrollprize.org · winners
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/15_winners.md
+  - id: A-317
+    branche: lectures
+    date: "2024"
+    titre: "Grand Prix 2024 : lire 90 % de quatre rouleaux"
+    statut: ouvert
+    relu: true
+    resume: Le défi vise la lecture de 90 % de quatre rouleaux parmi les rouleaux 1 à 5. Les pages lues ne disent
+      pas si ce prix a été attribué.
+    fonctionnel: "Pour situer la marche à franchir, la page donne la note qu'aurait eue le résultat de 2023 avec
+      la grille de 2024 : 137 lignes acceptées sur 206 complètes, soit 67 % pour 90 % exigés. C'est un point
+      de départ, pas un résultat de 2024."
+    technique: "Il faut segmenter 90 % ou plus du total des rouleaux. Chaque ligne est jugée par des papyrologues
+      ; 90 % des lignes complètes doivent être « lisibles » ou « peut-être », les lignes incomplètes n'étant
+      pas jugées. Sur la bannière de 2023 : 240 lignes, 206 complètes, 137 acceptées."
+    note_date: Année du prix. Son issue n'est indiquée dans aucune des pages lues.
+    qui:
       - Vesuvius Challenge
     prix:
-      nom: 2024 Grand Prize (lire 90 % de 4 rouleaux ; attribution non indiquée dans les fichiers lus)
+      nom: 2024 Grand Prize
       montant: $200,000
+    sources:
+      - titre: scrollprize.org · 2024 prizes
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/28_2024_prizes.md
+  - id: A-316
+    branche: volume
+    date: 2024-04
+    titre: Un modèle détecte l'encre en volume, sans dépliage
+    statut: acquis
+    relu: true
+    resume: Ryan Chesler est primé pour un modèle qui cherche l'encre directement dans le rouleau en volume, sans
+      segmentation ni aplatissement.
+    fonctionnel: "Une autre voie que la chaîne habituelle : on ne déplie pas avant de chercher l'encre. Les pages
+      lues ne disent pas ce que ce modèle a permis de lire."
+    technique: La page des projets le décrit comme un modèle de détection d'encre qui travaille sur les données du
+      rouleau entier en 3D. Prix « Open Source » d'avril 2024.
+    qui:
+      - Ryan Chesler
+    prix:
+      nom: Open Source Prize, « 3D ink detection »
+      montant: $20,000
     fiches:
       - K-22
     pistes:
       - P-330
     sources:
-      - titre: scrollprize.org · master plan
-        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/27_master_plan.md
       - titre: scrollprize.org · community projects
         lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/20_community_projects.md
-      - titre: scrollprize.org · 2024 prizes
-        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/28_2024_prizes.md
+      - titre: scrollprize.org · winners
+        lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/15_winners.md
   - id: A-307
     branche: lectures
     date: 2025-05
@@ -314,6 +382,7 @@ avancees:
     technique: Le prix demandait une image du titre lisible par les papyrologues, sans que le candidat ait à le
       lire lui-même. L'image du résultat est nommée d'après le rouleau 5. Les fichiers lus ne détaillent pas
       le modèle utilisé.
+    relu: true
     note_date: Mois indiqué par la page des lauréats.
     qui:
       - Marcel Roth
@@ -368,6 +437,7 @@ avancees:
       budget d'entraînement ; seule change la quantité de données pseudo-étiquetées. Le modèle 0 n'est pas
       entraîné sur PHerc. 1667. Une région de validation, jamais utilisée pour créer des étiquettes, devient
       de plus en plus lisible."
+    relu: true
     qui:
       - Vesuvius Challenge
       - G. Angelotti et co-auteurs (arXiv:2606.29085)
@@ -395,6 +465,7 @@ avancees:
       à partir d'un autre modèle d'encre 3D. Un autre entraîneur apprend 4 classes (fond, fibre verticale,
       fibre horizontale, encre) sans aucune étiquette de vérité terrain, à partir de deux réseaux «
       professeurs » gelés.
+    relu: true
     note_date: Annoncé avec la lecture de PHerc. 1667 ; les modèles DINO et d'auto-distillation sont décrits dans
       la page du 14 octobre 2026.
     qui:
@@ -423,6 +494,7 @@ avancees:
       mécaniquement : PHerc. 248, PHerc. 250, PHerc. 500P2. L'étude mesure la dégradation de la détection
       quand on grossit la résolution latérale. Le signal peut dépendre de la texture fine, de la rugosité, de
       craquelures, de dépôts ou de déformations."
+    relu: true
     note_date: Année de publication de l'article cité (Scientific Reports, 2026).
     qui:
       - Angelotti
@@ -502,11 +574,13 @@ avancees:
     statut: acquis
     resume: Deux prix « First Letters » sont attribués pour de l'écriture trouvée dans des rouleaux où rien
       n'avait encore été lu.
-    fonctionnel: La détection d'encre fonctionne donc sur de nouveaux rouleaux. Ces deux rouleaux sortent de la
-      liste éligible ; il reste au plus 8 prix de ce type à gagner.
+    fonctionnel: De l'écriture a donc été trouvée dans deux rouleaux où rien n'avait encore été lu ; les pages
+      lues ne disent pas par quelle méthode. Ces deux rouleaux sortent de la liste éligible ; il reste au plus
+      8 prix de ce type à gagner.
     technique: "Critère : 10 lettres dans une zone de 4 cm². PHerc. 306B : lecture probable « τὸ δι᾽ αὑτὸ αἱρετόν
       » (ce qui est désirable en soi). PHerc. 343 : texte trouvé en profondeur dans le rouleau, traduit « tout
       ce qui arrive / est engendré ». Les fichiers lus ne décrivent pas les méthodes employées."
+    relu: true
     note_date: Mois indiqué par la page des lauréats.
     qui:
       - Liam Warner

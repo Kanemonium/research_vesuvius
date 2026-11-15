@@ -47,7 +47,7 @@ export async function chargerAvancees(racine, erreurs = [], connus = new Set()) 
         if (connus.size && !connus.has(id)) erreurs.push(`${a.id} : renvoie vers ${id}, qui n'existe pas`);
       }
       return {
-        id: a.id, branche: a.branche ?? '', date: a.date ? String(a.date) : null, noteDate: a.note_date ?? null, titre: a.titre ?? '', statut: a.statut, nous: Boolean(a.nous) || portee === 'nous',
+        id: a.id, branche: a.branche ?? '', date: a.date ? String(a.date) : null, noteDate: a.note_date ?? null, titre: a.titre ?? '', statut: a.statut, nous: Boolean(a.nous) || portee === 'nous', relu: Boolean(a.relu),
         resume: a.resume ?? '', fonctionnelHtml: html(a.fonctionnel), techniqueHtml: html(a.technique),
         qui: liste(a.qui), prix: a.prix ?? null, sources,
         fiches: liste(a.fiches), pistes: liste(a.pistes), executions: liste(a.executions),

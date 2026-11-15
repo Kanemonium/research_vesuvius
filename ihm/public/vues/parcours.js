@@ -37,6 +37,7 @@ function detail(a, base, mixte, app) {
     h('h2', { classe: 'titre' }, a.titre),
     h('p', { classe: 'meta' }, dateSouple(a.date)),
     a.noteDate ? h('p', { classe: 'pc-note-date' }, a.noteDate) : null,
+    a.relu ? h('p', { classe: 'pc-relu', title: 'Chaque phrase de ce nœud a été comparée à sa page d’origine' }, 'Relu contre sa source') : null,
     a.prix ? h('p', { style: 'margin-top:10px' }, prixDe(a.prix)) : null,
     a.resume ? lier(h('p', { classe: 'pc-resume' }, a.resume)) : null,
     bloc('Ce que cela permet', a.fonctionnelHtml ? lier(h('div', { classe: 'prose', html: a.fonctionnelHtml })) : null),

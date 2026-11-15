@@ -25,11 +25,13 @@ avancees:
       particules, ainsi que des fragments détachés dont l'encre est visible.
     fonctionnel: "Ces scans sont le point de départ de tout le défi : ils donnent des volumes 3D de rouleaux
       fermés, et des fragments photographiés qui servent de vérité terrain (ground truth) pour apprendre à
-      reconnaître l'encre. Sans ce jeu de données, aucun modèle d'encre n'aurait pu être entraîné."
+      reconnaître l'encre. Les fragments scannés et photographiés fournissent le jeu de vérité terrain sur
+      lequel un modèle d'encre peut être entraîné."
     technique: "La source parle de tomographie (CT-scans) 3D réalisée dans un accélérateur de particules, à des
       résolutions allant jusqu'à 4 µm. Les fragments détachés portant de l'encre visible ont été scannés et
       photographiés pour constituer un jeu de données de vérité terrain. La FAQ donne d'autres chiffres pour
       les premiers scans (7,91 µm pour les rouleaux, 3,24 µm pour les fragments) : voir « contradictions »."
+    relu: true
     qui:
       - Brent Seales
       - EduceLab
@@ -54,6 +56,7 @@ avancees:
       table (benchtop CT) Bruker SkyScan 1173. Les photos X brutes sont prises par pas de 0,15 degré sur 360
       degrés, soit 2400 photos ; la taille de voxel d'origine est de 26 µm (104 µm dans la version réduite du
       tutoriel).
+    relu: true
     note_date: La source ne date pas la fabrication du « campfire scroll ».
     qui:
       - Stephen Parsons
@@ -68,13 +71,15 @@ avancees:
     statut: acquis
     resume: Au lancement du Vesuvius Challenge, les scans à haute résolution de rouleaux de l'Institut de France,
       réalisés au synchrotron Diamond Light Source près d'Oxford, sont mis à disposition.
-    fonctionnel: N'importe qui peut désormais travailler sur les volumes 3D des rouleaux fermés. Ces scans
-      constituent le jeu de données historique « EduceLab-Scrolls » (rouleaux 1 à 4 et fragments 1 à 6), sur
-      lequel ont été obtenus les premières lettres et le Grand Prix 2023.
+    fonctionnel: N'importe qui peut désormais travailler sur les volumes 3D des rouleaux fermés. Selon la page de
+      données, les rouleaux 1 à 4 et les fragments 1 à 6 scannés à Diamond avant 2025 forment le jeu de
+      données historique « EduceLab-Scrolls » ; la source ne précise pas lesquels étaient publiés dès le
+      lancement.
     technique: Le synchrotron produit un faisceau parallèle de rayons X à haut flux ; les photos X sont converties
       en volume de voxels par reconstruction tomographique. Selon la FAQ, les premiers rouleaux ont été
       scannés à 7,91 µm et les fragments à 3,24 µm, aux énergies de 54 keV et 88 keV. La FAQ précise qu'on ne
       connaît pas la résolution minimale nécessaire pour détecter l'encre.
+    relu: true
     note_date: Date du lancement du défi et de la mise à disposition des scans ; la date d'acquisition à Diamond
       n'est pas donnée dans ce passage.
     qui:
@@ -96,16 +101,18 @@ avancees:
   - id: A-104
     branche: reglages
     date: "2024"
-    titre: Quatre puis cinq rouleaux scannés ; recherche des meilleurs réglages
+    titre: Quatre rouleaux scannés début 2024, prix 2024 portant sur les rouleaux 1 à 5 ; recherche des meilleurs
+      réglages
     statut: acquis
     resume: Début 2024, le défi parle de quatre rouleaux scannés ; les prix 2024 portent sur les rouleaux 1 à 5 et
       demandent à la communauté d'analyser les scans pour trouver les meilleurs réglages.
-    fonctionnel: "Le nombre de rouleaux disponibles augmente et la question devient : avec quels réglages
-      (résolution, énergie) scanner pour que l'encre soit détectable ? La communauté est invitée à comparer
-      les scans multi-énergies et multi-résolutions et à les recaler entre eux."
+    fonctionnel: La liste de souhaits 2024 propose d'analyser les scans multi-énergies et multi-résolutions pour
+      trouver les réglages de scan optimaux (la source ne précise pas le critère). La communauté est invitée à
+      comparer les scans multi-énergies et multi-résolutions et à les recaler entre eux.
     technique: La liste de souhaits 2024 mentionne l'analyse des scans multi-énergies / multi-résolutions et le
       recalage de volumes (volume registration) par techniques déformables. Un volume du rouleau 5 (PHerc.
       172) est référencé à 53 keV et 7,91 µm dans la page « Virtual Unwrapping ».
+    relu: true
     note_date: Année des prix 2024 ; les sources lues ne datent pas l'acquisition du rouleau 5.
     qui:
       - Vesuvius Challenge
@@ -121,12 +128,13 @@ avancees:
     statut: acquis
     resume: L'équipe met au point des acquisitions hélicoïdales sur la ligne BM18 de l'ESRF et scanne plus de
       trente rouleaux.
-    fonctionnel: Le temps de scan est plus que divisé par deux, tout en améliorant la résolution effective. Cela
-      ouvre la voie au scan des 300 rouleaux conservés, mais l'encre reste introuvable dans toutes ces
-      nouvelles données à cette date.
+    fonctionnel: Le temps de scan est plus que divisé par deux, tout en améliorant la résolution effective. À
+      cette date, l'encre reste difficile à faire apparaître dans toutes ces nouvelles données ; la source
+      ajoute toutefois qu'un titre a été extrait de l'un des rouleaux fermés dits « lisibles ».
     technique: Acquisitions tétra-, hexa- et octo-hélicoïdales sur la ligne de lumière (beamline) BM18 de l'ESRF ;
       un grand rouleau est scanné à 9,2 µm de taille de pixel en moins de deux heures. Plus de trente rouleaux
       scannés sous différents réglages, en variant résolution et mécanismes de contraste.
+    relu: true
     note_date: Date de la page « Master Plan » (25 juillet 2025), qui décrit l'état à cette date.
     qui:
       - Vesuvius Challenge
@@ -141,11 +149,12 @@ avancees:
     statut: acquis
     resume: De nombreux échantillons ont été scannés avec un réglage à environ 9 µm qui semblait optimal, mais qui
       s'est révélé moins bon que le réglage à 2,4 µm.
-    fonctionnel: Ce réglage a permis de scanner vite beaucoup de rouleaux. Les modèles d'encre « 9 µm » partagés
-      en 2026 travaillent à cette résolution, ce qui permet de chercher des lettres dans des rouleaux qui
-      n'ont que ce scan.
+    fonctionnel: De nombreux échantillons ont été scannés avec ce réglage. Les modèles d'encre « 9 µm » partagés
+      dans le tutoriel travaillent à une résolution commune d'environ 9 µm ; ils servent à chercher de l'encre
+      dans des rouleaux que personne n'a encore lus, pour lesquels il n'existe pas d'étiquettes.
     technique: Environ 9 µm de voxels isotropes, 1,2 m de distance de propagation (échantillon-détecteur), environ
       110 keV d'énergie incidente moyenne. Le tutoriel cite un volume natif de PHerc. 0139 à 9,362 µm.
+    relu: true
     note_date: La source ne date pas ce réglage ; « 2025 » vient de la mention des « 2025 scans » (fiche ESRF)
       dans 02_data.md et des noms de volumes à 9,362 µm cités dans le tutoriel.
     qui:
@@ -171,6 +180,7 @@ avancees:
       isotropes, 22 cm de distance de propagation, environ 78 keV d'énergie incidente moyenne. Trois
       paramètres sont couplés : taille de voxel, énergie, distance échantillon-détecteur. Trop de propagation
       floute le volume au lieu de l'éclaircir."
+    relu: true
     note_date: « 2026 » vient de la mention « updated scans (2026) » dans 02_data.md ; la page des problèmes
       ouverts (14 octobre 2026) parle de « recent full-scroll scans ».
     qui:
@@ -199,6 +209,7 @@ avancees:
       distorsion du détecteur, alignement des recouvrements), une récupération de phase de Paganin à une seule
       distance est appliquée, puis le volume est reconstruit par rétroprojection hiérarchique accélérée sur
       GPU. Chaîne citée : night_rail_bm18."
+    relu: true
     note_date: Décrit dans la FAQ sans date ; concerne les « recent scroll scans » de BM18.
     qui:
       - ESRF (BM18)
@@ -221,6 +232,7 @@ avancees:
       cellulaires et les cavités (lumen) des fibres. Tassées, ces microstructures dévient le faisceau et
       créent un voile ; la source avance que les fibres carbonisées sont probablement proches du graphite,
       fort « décohéreur ». Une même zone de PHerc. Paris. 4 est montrée à 7,91 µm (DLS) et 2,4 µm (ESRF).
+    relu: true
     note_date: La page (mise à jour le 14 octobre 2026) parle d'expériences « récentes » sans date.
     qui:
       - Vesuvius Challenge
@@ -236,11 +248,12 @@ avancees:
     titre: "Petites régions à 1,1 µm : l'encre y est nettement plus lisible"
     statut: acquis
     resume: De petites régions ont été imagées jusqu'à 1,1 µm ; l'encre y ressort mieux qu'à 2,4 µm.
-    fonctionnel: C'est la preuve que monter en résolution aide la lecture. Mais scanner un rouleau entier à cette
-      finesse n'est pas praticable aujourd'hui.
+    fonctionnel: La source dit avoir des indices que les données à 1,1 µm donnent des résultats plus nets que
+      celles à 2,4 µm. Mais scanner un rouleau entier à cette finesse n'est pas praticable aujourd'hui.
     technique: "La source compare la même zone : à 1,1 µm on lit deux lignes de grec, à 2,4 µm seulement deux
       mots. Diviser la taille de voxel par deux multiplie le nombre de voxels par huit ; passer de 8 µm à 2 µm
       représente environ 64 fois plus de données."
+    relu: true
     note_date: Constat rapporté dans la page du 14 octobre 2026 et dans la FAQ, sans date d'acquisition.
     qui:
       - Vesuvius Challenge
@@ -264,6 +277,7 @@ avancees:
       OME-Zarr (découpé en blocs, multi-résolution). Licence CC-BY-NC 4.0 sauf mention contraire. Jeux
       organisés : volumes, segments, représentations/prédictions, métadonnées ; points de contrôle de modèles
       et jeux d'étiquettes sur Hugging Face."
+    relu: true
     note_date: Date de l'annonce de la lecture de PHerc. 1667, qui précise la mise à disposition ouverte des données.
     qui:
       - Vesuvius Challenge
@@ -286,9 +300,10 @@ avancees:
     fonctionnel: "Quand l'encre n'apparaît pas, on ne sait pas toujours si c'est le scan, la surface, les
       étiquettes ou le modèle qui limite : il faut l'évaluer rouleau par rouleau. La source demande des
       métriques de qualité de scan et des recettes d'acquisition propres à chaque rouleau."
-    technique: "Le papyrus très tassé diffuse le faisceau en un voile qu'aucun algorithme en aval ne peut
-      entièrement défaire. Approches actuelles citées : meilleurs régimes de scan, voxels plus petits,
-      distance de propagation plus courte, récupération de phase."
+    technique: "Le papyrus très tassé diffuse le faisceau en un voile qu'aucun algorithme en aval ne pourra
+      peut-être entièrement défaire. Approches actuelles citées : meilleurs régimes de scan, voxels plus
+      petits, distance de propagation plus courte, récupération de phase."
+    relu: true
     note_date: Date de dernière mise à jour de la page « Open Problems ».
     qui:
       - Vesuvius Challenge

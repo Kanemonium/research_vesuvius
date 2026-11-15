@@ -29,6 +29,7 @@ avancees:
     technique: "Mêmes étapes que pour Herculanum, avec une différence clé : l'encre d'Herculanum est
       radiotransparente (radiolucent). En 2023, la source indique que personne n'avait encore réussi une
       segmentation à grande échelle de ces rouleaux."
+    relu: true
     qui:
       - Dr. Seales's team
     fiches:
@@ -51,6 +52,7 @@ avancees:
     technique: Interface graphique pour annoter des segments dans le volume ; combinaison d'algorithmes
       automatiques et d'ajustements manuels. La sortie est un maillage triangulaire (.obj) puis un « surface
       volume » aplati.
+    relu: true
     note_date: La source dit seulement que l'équipe de Seales a passé « deux décennies » à construire ces outils.
     qui:
       - Seth Parker
@@ -77,6 +79,7 @@ avancees:
     technique: "Prix cités dans la page des lauréats : « Optical Flow Segmentation » par Julian (10 000 $, juin
       2023), Khartes par Chuck (10 000 $), « VA Sheet Tracer » par Trevor, Tom, Babak et Boaz (10 000 $,
       octobre 2023). Khartes permet de créer des maillages à la main en voyant un aperçu du segment rendu."
+    relu: true
     note_date: Date du premier prix « Segmentation Tooling » ; le second est daté du 3 octobre 2023.
     qui:
       - Julian Schilliger
@@ -103,6 +106,7 @@ avancees:
     technique: "Équipe citée début 2024 : Ben Kyles, David Josey et Konrad Rosenberg, opérant Volume Cartographer
       avec un mélange d'algorithmes automatiques et d'ajustements manuels. En juillet 2023, des centaines de
       cm² étaient segmentés et aplatis."
+    relu: true
     note_date: L'équipe est recrutée « early in the summer » 2023 ; le chiffre est donné pour juillet.
     qui:
       - Ben Kyles
@@ -116,7 +120,7 @@ avancees:
   - id: A-205
     branche: automatique
     date: 2023-12-31
-    titre: "ThaumatoAnakalyptor : première segmentation automatique convaincante"
+    titre: "ThaumatoAnakalyptor : la plus forte approche de segmentation automatique vue à cette date"
     statut: acquis
     resume: La soumission gagnante du Grand Prix 2023 contient l'outil de Julian Schilliger, qui produit
       automatiquement de très grands segments.
@@ -126,6 +130,7 @@ avancees:
     technique: Combine des méthodes classiques (détecteurs de bords par opérateur de gradient seuillé) et une
       segmentation d'instances de nuages de points par apprentissage profond, pour détecter, fusionner et
       rendre des segments.
+    relu: true
     note_date: Date de clôture du Grand Prix 2023 ; résultat annoncé le 5 février 2024.
     qui:
       - Julian Schilliger
@@ -150,10 +155,12 @@ avancees:
       bas), l'autre locale (du bas vers le haut). Aucune n'a atteint le critère de qualité du prix ; l'erreur
       la plus fréquente reste le saut de feuille."
     technique: "Le prix demandait de re-segmenter la zone du Grand Prix 2023 avec au plus 4 heures d'intervention
-      humaine et 48 heures de calcul. Les deux méthodes partent d'une représentation intermédiaire (prédiction
-      de surface par nnUNet, fibres verticales et horizontales). La spirale cherche un difféomorphisme 3D
-      déformant une spirale canonique ; le traceur étend des patchs localement puis les fusionne par
-      consensus. Soumission spirale : presque aucune intervention humaine ; traceur : 4 heures."
+      humaine et 48 heures de calcul. Les deux méthodes partent d'une représentation intermédiaire : une
+      prédiction de surface par nnUNet, à laquelle la spirale ajoute les fibres verticales et horizontales. La
+      source précise que ces prédictions contiennent des erreurs (fausses fusions, trous). La spirale cherche
+      un difféomorphisme 3D déformant une spirale canonique ; le traceur étend des patchs localement puis les
+      fusionne par consensus. Soumission spirale : presque aucune intervention humaine ; traceur : 4 heures."
+    relu: true
     note_date: Mois indiqué par la page des lauréats ; la date limite du prix était le 31 décembre 2024.
     qui:
       - Paul Henderson
@@ -186,6 +193,7 @@ avancees:
       peut couvrir 10 cm² comme 2800 cm² ; un exemple de 53 cm² sur PHerc0172 a pris environ une minute. Une
       version neuronale de Copy Out/In existe (copy_displacement_latest, entraînée sur des données 2,4 µm
       réduites à 4,8 µm)."
+    relu: true
     note_date: Date de la dernière mise à jour du tutoriel de segmentation VC3D (archivé) ; la description de
       GrowPatch et de Copy Out/In vient de la page du 14 octobre 2026.
     qui:
@@ -205,11 +213,13 @@ avancees:
     resume: En 2025, le déroulement repose sur un traçage semi-automatique corrigé à la main, encore trop lent et
       sujet aux erreurs.
     fonctionnel: "À ce coût, dérouler les 300 rouleaux est hors de portée : il faut une percée vers
-      l'automatisation. L'objectif affiché est de ramener le coût d'un rouleau entier à 5 000 $ ou moins."
+      l'automatisation. L'équipe dit croire possible de ramener le coût du déroulement d'un rouleau entier à 5
+      000 $ ou moins."
     technique: Un rouleau entier mesure 10 à 20 cm de large et jusqu'à 15 mètres de long ; la source estime le
       coût actuel à 1 à 5 millions de dollars par rouleau. Certaines parties sont si compressées que les
       techniques actuelles ne peuvent pas les dérouler. Début 2024, le coût manuel était de plus de 100 $ par
       cm².
+    relu: true
     note_date: Date de la page « Master Plan » (25 juillet 2025).
     qui:
       - Vesuvius Challenge
@@ -232,6 +242,7 @@ avancees:
       trous et pénalisait trous, fusions et sauts de feuille. Recette gagnante : un nnU-Net standard configuré
       pour quelques tailles de patch, entraîné très longtemps (bien plus que les 1 000 époques par défaut),
       puis moyenne des prédictions (ensembling). Lauréats : 1er « Vesuvius Team » (60 000 $)."
+    relu: true
     note_date: La page des problèmes ouverts situe la compétition en novembre 2025 ; la page des lauréats date les
       résultats de mars 2026.
     qui:
@@ -260,6 +271,7 @@ avancees:
       pas. Entrées plus riches qu'une simple prédiction de surface : un volume dense de normales prédit par
       U-Net, et un volume de « magnitude de gradient » dérivé d'un champ de position fractionnaire
       d'enroulement, qui indique à quel point les tours sont serrés."
+    relu: true
     note_date: Décrit dans la page du 14 octobre 2026, sans date de mise en service.
     qui:
       - Vesuvius Challenge
@@ -274,10 +286,12 @@ avancees:
     resume: La surface est stockée comme une grille de points 3D (tifxyz) puis aplatie en cherchant à conserver
       les distances.
     fonctionnel: Le format impose une topologie de grille, donc une seule feuille plate, et porte directement le
-      système de coordonnées 2D. C'est le format exigé pour toutes les soumissions aux prix ouverts.
+      système de coordonnées 2D. C'est le format de maillage exigé pour les soumissions au Grand Prix 2027,
+      aux prix « First Letters » et au prix du titre ; les prix de progrès acceptent aussi d'autres formats.
     technique: "tifxyz : un tableau 2D de coordonnées 3D, enregistré en trois images TIFF (x, y, z en float32),
       avec cellules manquantes marquées à -1 ou par un masque. L'outil d'aplatissement en production, flatboi,
       utilise SLIM (Scalable Locally Injective Mappings) et minimise l'énergie de Dirichlet symétrique."
+    relu: true
     note_date: Décrit dans la page du 14 octobre 2026, sans date.
     qui:
       - Vesuvius Challenge
@@ -301,6 +315,7 @@ avancees:
       points (même tour, un tour d'écart, numéro de tour absolu), champs de normales, ombilic. Contraintes
       dures (vérifiées) préférées aux contraintes souples. Jeu « spiral-input » pour PHercParis4 : environ 27
       000 patchs vérifiés et 204 000 non vérifiés (environ 49,6 Go)."
+    relu: true
     note_date: Année de la publication citée (Henderson, WACV 2026) ; le jeu de données « spiral-input » est daté
       2026-07 et le tutoriel du 16 septembre 2026.
     qui:
@@ -321,13 +336,16 @@ avancees:
     date: 2026-06-25
     titre: PHerc. 1667 entièrement déroulé virtuellement
     statut: acquis
-    resume: Pour la première fois, un rouleau d'Herculanum est déroulé numériquement et lu d'un bout à l'autre
-      sans être ouvert.
+    resume: Pour la première fois, le texte conservé d'un rouleau d'Herculanum est déroulé numériquement et lu en
+      continu, d'un bout à l'autre, sans être ouvert ; les lectures restent fragmentaires, avec des lacunes là
+      où la surface est perdue.
     fonctionnel: "On ne se demande plus si un rouleau fermé peut être lu : c'est fait. La question devient de
       rendre le procédé automatique, fiable et applicable à tous les rouleaux."
-    technique: Surface d'écriture complète d'environ 1,4 mètre de papyrus et d'environ vingt-deux colonnes de
-      grec. Il s'agit du cœur conservé du rouleau (environ 8 cm sur une hauteur d'origine de 19 à 24 cm), les
-      couches externes ayant été détruites par d'anciennes tentatives d'ouverture. Scan sur BM18 (ESRF).
+    technique: Surface d'écriture complète d'environ 1,4 mètre de papyrus ; le texte lu correspond aux parties
+      basses d'environ vingt-deux colonnes de grec, transcrites et relues par des papyrologues. Il s'agit du
+      cœur conservé du rouleau (environ 8 cm sur une hauteur d'origine de 19 à 24 cm), les couches externes
+      ayant été détruites par d'anciennes tentatives d'ouverture. Scan sur BM18 (ESRF).
+    relu: true
     qui:
       - Vesuvius Challenge
       - ESRF
@@ -352,12 +370,12 @@ avancees:
       (Samir Lerognon, 20 000 $, septembre 2026) : modèles de fibres affinés sur plus de rouleaux, splines
       ajustées aux fibres prédites, intégration à VC3D et à la spirale. Un modèle nnUNet de fibres
       (fiber_hz_vt) vient d'annotations tracées à la main sur les anciens scans à 7,91 µm."
+    relu: true
     note_date: Prix de progrès de juillet à octobre 2026 ; la page sur les contraintes d'enroulement n'a pas de
       date lue.
     qui:
       - Ben Kyles
       - Samir Lerognon
-      - Sean Johnson
       - Vesuvius Challenge
     prix:
       nom: Progress Prizes (ScrollFiesta, juillet 2026 ; Automated fiber extraction, septembre 2026)
@@ -386,6 +404,7 @@ avancees:
       abîmées. Deux approches neuronales de traçage sont en pause (mode extrapolation et auto-régression de
       maillage) : inférence lente à 2,4 µm et dérive, les petites erreurs s'accumulant d'un pas au suivant. La
       qualité des étiquettes est désignée comme l'un des principaux goulots."
+    relu: true
     note_date: Date de dernière mise à jour de la page « Open Problems ».
     qui:
       - Vesuvius Challenge

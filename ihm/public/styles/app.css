@@ -813,3 +813,5 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .px-liste p { color: var(--encre-60); }
 .px-source { margin-top: var(--e-4); text-transform: none; letter-spacing: 0; }
 @media (max-width: 720px) { .px-liste li { grid-template-columns: 1fr; gap: 4px; } .pc-bascule { min-width: 0; width: 100%; margin: 0; } }
+.pc-relu { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--valide); font: 500 var(--t-meta)/1.4 var(--f-mono); letter-spacing: 0.05em; text-transform: uppercase; }
+.pc-relu::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--valide); }

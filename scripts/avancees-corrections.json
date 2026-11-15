@@ -1,0 +1,258 @@
+{
+ "note": "Corrections de fidélité décidées le 2026-11-15, après relecture de chaque nœud contre sa page d'origine (accord de Kanemonium). Chaque entrée remplace « avant » par « apres » dans le champ indiqué du relevé. Appliquées par scripts/avancees-depuis-releve.mjs.",
+ "corrections": [
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 0,
+   "champ": "fonctionnel",
+   "type": "non sourcé",
+   "gravite": "moyenne",
+   "source": "22_firstletters.md",
+   "avant": "Sans ce jeu de données, aucun modèle d'encre n'aurait pu être entraîné.",
+   "apres": "Les fragments scannés et photographiés fournissent le jeu de vérité terrain sur lequel un modèle d'encre peut être entraîné."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 2,
+   "champ": "fonctionnel",
+   "type": "fusion",
+   "gravite": "moyenne",
+   "source": "02_data.md",
+   "avant": "Ces scans constituent le jeu de données historique « EduceLab-Scrolls » (rouleaux 1 à 4 et fragments 1 à 6), sur lequel ont été obtenus les premières lettres et le Grand Prix 2023.",
+   "apres": "Selon la page de données, les rouleaux 1 à 4 et les fragments 1 à 6 scannés à Diamond avant 2025 forment le jeu de données historique « EduceLab-Scrolls » ; la source ne précise pas lesquels étaient publiés dès le lancement."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 3,
+   "champ": "titre",
+   "type": "ajout",
+   "gravite": "moyenne",
+   "source": "28_2024_prizes.md",
+   "avant": "Quatre puis cinq rouleaux scannés ; recherche des meilleurs réglages",
+   "apres": "Quatre rouleaux scannés début 2024, prix 2024 portant sur les rouleaux 1 à 5 ; recherche des meilleurs réglages"
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 3,
+   "champ": "fonctionnel",
+   "type": "ajout",
+   "gravite": "moyenne",
+   "source": "28_2024_prizes.md",
+   "avant": "Le nombre de rouleaux disponibles augmente et la question devient : avec quels réglages (résolution, énergie) scanner pour que l'encre soit détectable ?",
+   "apres": "La liste de souhaits 2024 propose d'analyser les scans multi-énergies et multi-résolutions pour trouver les réglages de scan optimaux (la source ne précise pas le critère)."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 4,
+   "champ": "fonctionnel",
+   "type": "réserve coupée",
+   "gravite": "moyenne",
+   "source": "27_master_plan.md",
+   "avant": "Cela ouvre la voie au scan des 300 rouleaux conservés, mais l'encre reste introuvable dans toutes ces nouvelles données à cette date.",
+   "apres": "À cette date, l'encre reste difficile à faire apparaître dans toutes ces nouvelles données ; la source ajoute toutefois qu'un titre a été extrait de l'un des rouleaux fermés dits « lisibles »."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 5,
+   "champ": "fonctionnel",
+   "type": "non sourcé",
+   "gravite": "moyenne",
+   "source": "37_2026_open_problems.md",
+   "avant": "Ce réglage a permis de scanner vite beaucoup de rouleaux.",
+   "apres": "De nombreux échantillons ont été scannés avec ce réglage."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 5,
+   "champ": "fonctionnel",
+   "type": "ajout",
+   "gravite": "moyenne",
+   "source": "07_tutorial5.md",
+   "avant": "Les modèles d'encre « 9 µm » partagés en 2026 travaillent à cette résolution, ce qui permet de chercher des lettres dans des rouleaux qui n'ont que ce scan.",
+   "apres": "Les modèles d'encre « 9 µm » partagés dans le tutoriel travaillent à une résolution commune d'environ 9 µm ; ils servent à chercher de l'encre dans des rouleaux que personne n'a encore lus, pour lesquels il n'existe pas d'étiquettes."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 9,
+   "champ": "fonctionnel",
+   "type": "prudence effacée",
+   "gravite": "moyenne",
+   "source": "37_2026_open_problems.md",
+   "avant": "C'est la preuve que monter en résolution aide la lecture.",
+   "apres": "La source dit avoir des indices que les données à 1,1 µm donnent des résultats plus nets que celles à 2,4 µm."
+  },
+  {
+   "domaine": "scan",
+   "liste": "noeuds",
+   "position": 11,
+   "champ": "technique",
+   "type": "prudence effacée",
+   "gravite": "moyenne",
+   "source": "37_2026_open_problems.md",
+   "avant": "Le papyrus très tassé diffuse le faisceau en un voile qu'aucun algorithme en aval ne peut entièrement défaire.",
+   "apres": "Le papyrus très tassé diffuse le faisceau en un voile qu'aucun algorithme en aval ne pourra peut-être entièrement défaire."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 4,
+   "champ": "titre",
+   "type": "jugement",
+   "gravite": "moyenne",
+   "source": "26_grandprize.md",
+   "avant": "ThaumatoAnakalyptor : première segmentation automatique convaincante",
+   "apres": "ThaumatoAnakalyptor : la plus forte approche de segmentation automatique vue à cette date"
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 5,
+   "champ": "technique",
+   "type": "généralisation",
+   "gravite": "moyenne",
+   "source": "32_unwrapping.mdx",
+   "avant": "Les deux méthodes partent d'une représentation intermédiaire (prédiction de surface par nnUNet, fibres verticales et horizontales).",
+   "apres": "Les deux méthodes partent d'une représentation intermédiaire : une prédiction de surface par nnUNet, à laquelle la spirale ajoute les fibres verticales et horizontales. La source précise que ces prédictions contiennent des erreurs (fausses fusions, trous)."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 7,
+   "champ": "fonctionnel",
+   "type": "prudence effacée",
+   "gravite": "moyenne",
+   "source": "27_master_plan.md",
+   "avant": "L'objectif affiché est de ramener le coût d'un rouleau entier à 5 000 $ ou moins.",
+   "apres": "L'équipe dit croire possible de ramener le coût du déroulement d'un rouleau entier à 5 000 $ ou moins."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 10,
+   "champ": "fonctionnel",
+   "type": "généralisation",
+   "gravite": "forte",
+   "source": "34_prizes.md",
+   "avant": "C'est le format exigé pour toutes les soumissions aux prix ouverts.",
+   "apres": "C'est le format de maillage exigé pour les soumissions au Grand Prix 2027, aux prix « First Letters » et au prix du titre ; les prix de progrès acceptent aussi d'autres formats."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 12,
+   "champ": "resume",
+   "type": "réserve coupée",
+   "gravite": "moyenne",
+   "source": "36_firstscroll.md",
+   "avant": "Pour la première fois, un rouleau d'Herculanum est déroulé numériquement et lu d'un bout à l'autre sans être ouvert.",
+   "apres": "Pour la première fois, le texte conservé d'un rouleau d'Herculanum est déroulé numériquement et lu en continu, d'un bout à l'autre, sans être ouvert ; les lectures restent fragmentaires, avec des lacunes là où la surface est perdue."
+  },
+  {
+   "domaine": "depliage",
+   "liste": "noeuds",
+   "position": 12,
+   "champ": "technique",
+   "type": "réserve coupée",
+   "gravite": "moyenne",
+   "source": "36_firstscroll.md",
+   "avant": "Surface d'écriture complète d'environ 1,4 mètre de papyrus et d'environ vingt-deux colonnes de grec.",
+   "apres": "Surface d'écriture complète d'environ 1,4 mètre de papyrus ; le texte lu correspond aux parties basses d'environ vingt-deux colonnes de grec, transcrites et relues par des papyrologues."
+  },
+  {
+   "domaine": "encre",
+   "liste": "noeuds",
+   "position": 1,
+   "champ": "fonctionnel",
+   "type": "prudence effacée",
+   "gravite": "moyenne",
+   "source": "26_grandprize.md",
+   "avant": "La compétition produit d'excellents modèles sur fragments, mais ils ne fonctionnent pas tels quels sur les segments aplatis des rouleaux.",
+   "apres": "La compétition produit d'excellents modèles sur fragments, mais ils ne semblaient pas fonctionner sur les segments aplatis produits par l'équipe de segmentation."
+  },
+  {
+   "domaine": "encre",
+   "liste": "noeuds",
+   "position": 2,
+   "champ": "resume",
+   "type": "prudence effacée",
+   "gravite": "moyenne",
+   "source": "26_grandprize.md",
+   "avant": "Casey Handmer repère à l'œil, dans les surfaces aplaties, une texture craquelée qui dessine des lettres.",
+   "apres": "Casey Handmer repère à l'œil, dans les surfaces aplaties, une texture craquelée qui semble former des lettres."
+  },
+  {
+   "domaine": "encre",
+   "liste": "noeuds",
+   "position": 3,
+   "champ": "technique",
+   "type": "réserve coupée",
+   "gravite": "moyenne",
+   "source": "22_firstletters.md",
+   "avant": "Les papyrologues ont annoté 13 lettres.",
+   "apres": "Sur l'image de Luke, les papyrologues ont annoté 13 lettres, indépendamment et à l'unanimité, mais avec des niveaux de confiance variables."
+  },
+  {
+   "domaine": "encre",
+   "liste": "noeuds",
+   "position": 4,
+   "champ": "fonctionnel",
+   "type": "ajout",
+   "gravite": "moyenne",
+   "source": "26_grandprize.md",
+   "avant": "Le code est publié en open source, et quatre équipes indépendantes obtiennent des images très proches de la même zone, ce qui écarte l'invention de texte.",
+   "apres": "Le code est publié en open source, et les soumissions reçues, faites avec des modèles et des étiquettes différents sur les mêmes segments, donnent des images très proches de la même zone : c'est l'un des trois arguments avancés contre l'invention de texte."
+  },
+  {
+   "domaine": "encre",
+   "liste": "noeuds",
+   "position": 12,
+   "champ": "fonctionnel",
+   "type": "jugement",
+   "gravite": "moyenne",
+   "source": "34_prizes.md",
+   "avant": "La détection d'encre fonctionne donc sur de nouveaux rouleaux.",
+   "apres": "De l'écriture a donc été trouvée dans deux rouleaux où rien n'avait encore été lu ; les pages lues ne disent pas par quelle méthode."
+  },
+  {
+   "domaine": "encre",
+   "liste": "reussites",
+   "position": 8,
+   "champ": "texte",
+   "type": "réserve coupée",
+   "gravite": "moyenne",
+   "source": "37_2026_open_problems.md",
+   "avant": "Un premier progrès de généralisation entre rouleaux : une configuration trouvée par un essaim d'agents a presque doublé le Dice de validation sur PHerc. 1667 en n'entraînant que sur PHerc. 139.",
+   "apres": "Un premier progrès de généralisation entre rouleaux : une configuration trouvée par un essaim d'agents a presque doublé le Dice de validation (calculé sur des pseudo-étiquettes) sur PHerc. 1667 en n'entraînant que sur PHerc. 139."
+  },
+  {
+   "domaine": "encre",
+   "liste": "blocages",
+   "position": 3,
+   "champ": "texte",
+   "type": "prudence effacée",
+   "gravite": "moyenne",
+   "source": "27_master_plan.md",
+   "avant": "Nature du signal : dans les deux rouleaux lisibles en 2025, le signal amplifié correspondait à de grosses craquelures ou à des points riches en métal ; les modèles entraînés là-dessus échouent sur les autres rouleaux.",
+   "apres": "Nature du signal : dans les deux rouleaux lisibles en 2025, le signal amplifié correspondait à de grosses craquelures ou à des points plus brillants aux rayons X, signe de plus de métaux ; en juillet 2025, les modèles entraînés à amplifier ces signaux ne donnaient pas de bons résultats sur les autres rouleaux."
+  },
+  {
+   "domaine": "encre",
+   "liste": "blocages",
+   "position": 15,
+   "champ": "texte",
+   "type": "fusion",
+   "gravite": "moyenne",
+   "source": "07_tutorial5.md",
+   "avant": "Fragilité des modèles 9 µm : sensibles au décalage en profondeur de la surface ; un modèle entraîné sur un seul segment reste loin d'une bonne lecture sur un segment jamais vu.",
+   "apres": "Deux limites distinctes. Modèles 9 µm : sensibles au décalage en profondeur de la surface. Modèle 3D natif du tutoriel, entraîné sur un seul segment : sur un segment jamais vu, des lettres commencent à apparaître mais on reste loin d'une bonne lecture."
+  }
+ ]
+}
