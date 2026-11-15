@@ -38,7 +38,7 @@ etapes:
     genre: etape
     statut: a-faire
     titre: Comprendre pourquoi le fond reste gris
-    detail: "Le fond étiqueté devrait être sombre. Piste non vérifiée : l'adoucissement des cibles à l'entraînement. À regarder avant tout nouvel entraînement."
+    detail: "Le tutoriel l'annonce en partie, pour ses modèles partagés : cibles adoucies à 0,25 et 0,75, donc un fond qui ne tombe pas à zéro. À vérifier : la valeur d'adoucissement de notre propre entraînement. L'encre à 201 sur 255 colle (0,79). Le fond à 129 (0,51 au lieu de 0,25) ne colle pas. Premier geste, prévu par le tutoriel : réétaler l'image pour l'affichage et regarder à nouveau."
 ---
 
 Fait quand une image de prédiction d'encre est produite et regardée ensemble.
