@@ -29,6 +29,9 @@ dist/
 .DS_Store
 Thumbs.db
 
+# Lectures de Discord : des messages d'autres personnes, qui restent sur la machine
+/local/
+
 # Journaux d'exécution : le brut reste sur la machine, seul le condensé est historisé
 experiments/**/journaux/*.brut.log
 experiments/**/journaux/*.vram

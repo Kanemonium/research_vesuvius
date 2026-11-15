@@ -1,4 +1,5 @@
 // Point d'entrée : état, navigation par ancre (#/vue?id=…), thème.
+import { installerDiscord } from './discord.js';
 import { embleme } from './emblemes.js';
 import { cacherBulle, dateLongue, h, joursAvant } from './outils.js';
 import { vueCap } from './vues/cap.js';
@@ -113,6 +114,7 @@ setInterval(async () => {
 }, 3000);
 libelleTheme();
 horloge();
+installerDiscord();
 app.recharger().catch((e) => {
   document.getElementById('vue').replaceChildren(h('div', { classe: 'bandeau', role: 'alert' }, `Impossible de lire le carnet : ${e.message}`));
 });

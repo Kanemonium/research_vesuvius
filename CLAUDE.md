@@ -21,6 +21,9 @@ première occurrence). Le README et les messages destinés à la communauté du 
 1. Lire `pilotage/boite.md` : les messages sous « À lire » ont été laissés depuis l'IHM.
    Y répondre dans la conversation, puis les déplacer sous « Traités ».
 2. Regarder les tâches `en-cours` et `a-faire` de priorité 1 dans `pilotage/taches/`.
+   Regarder aussi `lu_le` dans `local/discord/lecture.json` : au-delà de huit heures, le dire à
+   Kanemonium et proposer une lecture (cadre : D-010 ; deux ou trois lectures par jour au plus,
+   jamais en tâche de fond, rien de Discord dans le dépôt, aucun envoi sans son accord).
 3. Pendant la séance, **tenir le carnet à jour au fil de l'eau** :
    - une idée, une hypothèse, un obstacle → une piste dans `pilotage/pistes/` ;
    - un échange qui fait bifurquer → une ligne datée dans la section « Réflexions » de la piste,

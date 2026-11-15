@@ -3,6 +3,7 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { lireDiscord } from './lib/discord.mjs';
 import { etatGithub } from './lib/github.mjs';
 import { changerStatutTache, chargerEtat, deposerMessage, empreinte, lireBoite } from './lib/pilotage.mjs';
 import { lireJournal, signalerExecution, suiviExecution } from './lib/suivi.mjs';
@@ -68,6 +69,10 @@ async function api(req, res, url) {
   }
   if (req.method === 'GET' && url.pathname === '/api/version') {
     return json(res, 200, { version: await empreinte(RACINE) });
+  }
+  // Le tiroir Discord : un fichier local, jamais un appel à Discord (ihm/lib/discord.mjs).
+  if (req.method === 'GET' && url.pathname === '/api/discord') {
+    return json(res, 200, await lireDiscord(RACINE));
   }
   if (req.method === 'GET' && url.pathname === '/api/github') {
     return json(res, 200, await etatGithub(RACINE));
