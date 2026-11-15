@@ -57,9 +57,9 @@ const NOUS = {
     {
       id: 'A-382', branche: 'nous', date: '2026-11-15', titre: "Notre première image d'encre, sur le segment du tutoriel", statut: 'acquis', nous: true,
       resume: "Une image d'encre du segment entier, où des formes claires s'alignent en rangées. Pas une preuve : ce segment a servi à l'entraînement.",
-      fonctionnel: "La chaîne fonctionne chez nous de bout en bout. Reste à comparer l'image aux étiquettes : tant que ce n'est pas fait, on ne sait pas si le modèle a appris ou récité. Aucune lettre n'est identifiée.",
-      technique: 'Exécution X-003 : 5 h 34 min, 346 481 blocs. Aucune région tenue à l’écart : la mesure sur données jamais vues reste à faire.',
-      pistes: ['P-310'], executions: ['X-003'], fiches: ['K-08', 'K-16', 'K-21'],
+      fonctionnel: "La chaîne fonctionne chez nous de bout en bout. Comparée aux étiquettes, l'image montre des formes de lettres aussi hors de la zone corrigée (5,8 % de l'image) : le modèle ne fait pas que réciter. Mais il sépare mal l'encre du fond. Aucune lettre n'est identifiée.",
+      technique: 'Exécution X-003 : 5 h 34 min, 346 481 blocs. Réponse médiane de 201 sur 255 sur l’encre étiquetée, de 129 sur le fond étiqueté. Aucune région tenue à l’écart : la mesure sur données jamais vues reste à faire.',
+      pistes: ['P-310'], executions: ['X-003'], fiches: ['K-08', 'K-16', 'K-21', 'K-26'],
     },
   ],
 };

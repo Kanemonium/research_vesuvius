@@ -2,6 +2,7 @@
 // En haut, le code utile avec ses annotations (les mêmes que sur la page) ; en dessous, ce que
 // l'exécution a affiché, découpé en cellules par le serveur (/api/executions/X-…/carnet) et
 // rafraîchi toutes les trois secondes tant qu'elle tourne. Rien ne s'y lance : c'est de la lecture.
+import { figureApercu, imagesDe } from './apercu.js';
 import { dateLongue, h, pilule } from './outils.js';
 
 const ICONE = '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.500" y="2.800" width="11.500" height="14.400" rx="1.600"/><path d="M7.500 2.800v14.400M3 6.500h3M3 10h3M3 13.500h3M10 7h3.500M10 10h3.500"/></svg>';
@@ -53,7 +54,12 @@ export function ouvrirCarnet(x, codeAnnote) {
         h('div', { classe: 'cn-marge' }, h('span', { classe: 'cn-compteur' }, `In [${i + 1}]`)),
         h('div', { classe: 'cn-corps' }, codeAnnote(bloc)))) : h('p', { classe: 'doux' }, 'Aucun extrait de code n’est consigné pour cette exécution.'),
       h('h3', { classe: 'cn-partie' }, 'L’exécution'),
-      sorties));
+      sorties,
+      // Comme la dernière cellule d'un notebook : les images que l'exécution a produites.
+      imagesDe(x).length ? [h('h3', { classe: 'cn-partie' }, 'Les images'),
+        imagesDe(x).map((s, i) => h('section', { classe: 'cn-cellule', 'data-genre': 'image' },
+          h('div', { classe: 'cn-marge' }, h('span', { classe: 'cn-compteur' }, `Fig. ${i + 1}`)),
+          h('div', { classe: 'cn-corps' }, h('header', { classe: 'cn-tete' }, h('strong', {}, s.titre)), figureApercu(s))))] : null));
   document.body.append(fenetre);
 
   let releve = null;

@@ -165,6 +165,14 @@ Un fichier par domaine de la carte. Il alimente le « parcours » qui s'ouvre qu
 - Une avancée de la communauté sans source est refusée par `npm run verifier`.
 - `scan`, `depliage` et `encre` sont écrits par `scripts/avancees-depuis-releve.mjs` à partir d'un relevé des pages de scrollprize.org, dont chaque citation est revérifiée mot pour mot. Ne pas les retoucher à la main : corriger le relevé ou le script, puis relancer. `pilotage` et `outils` sont tenus à la main.
 
+### Les prix attribués (`prix-attribues.yaml`)
+
+Tout l'historique des prix du défi, section par section, d'après sa page des lauréats. Chaque lauréat a `qui`, `montant`, `intitule`, `quoi` et un `domaine` (`scan`, `depliage`, `encre`, `outils`, `autre`) : ce rangement est le nôtre. Le fichier est écrit par `scripts/prix-depuis-releve.mjs`, qui revérifie chaque citation du relevé ; ne pas le retoucher à la main. Il s'ouvre dans le parcours d'un domaine, par « Prix attribués ».
+
+### Les images d'une exécution
+
+Une sortie de genre `image` nomme un fichier de `local/apercus/` (`fichier: X-003.png`), avec `titre`, `alt` et `legende`. Ce dossier est ignoré par git : aucune donnée de rouleau n'entre dans le dépôt. L'IHM sert l'image depuis la machine où l'exécution a tourné ; ailleurs elle dit que l'image manque. Les mêmes images apparaissent en vignettes dans la tâche liée, dans le carnet de l'exécution et dans les nœuds des parcours qui la citent.
+
 ## Liens
 
 Dans n'importe quel texte, un identifiant (`P-310`, `D-001`, `T-004`, `X-002`, `L-02`, `K-08`) devient

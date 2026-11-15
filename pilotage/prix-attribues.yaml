@@ -1,0 +1,1725 @@
+# Tous les prix attribués par le défi, d'après sa page des lauréats. Format : pilotage/README.md.
+# Écrit par scripts/prix-depuis-releve.mjs (ScrollPrize/villa, commit 2d3fb38, licence MIT).
+# Textes français et rangement par domaine : Agent C., pas une traduction officielle.
+lu_le: 2026-11-15
+source:
+  titre: scrollprize.org · winners
+  lien: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org/docs/15_winners.md
+sections:
+  - titre: Progress Prizes (October 2026)
+    date: 2026-10
+    total: $40,750
+    but: Improve the tools and training methods needed to read the scrolls.
+    laureats:
+      - qui: Jaime Lomeli-Rodriguez / @jaimelomro_79060
+        montant: $20,000
+        intitule: Virtual unwrapping
+        quoi: Divers travaux intéressants sur le déroulage virtuel (virtual unwrapping), dont HercUNet et HercuViT.
+        domaine: depliage
+      - qui: Domenico Russo / @klavis223
+        montant: $5,000
+        intitule: reader-v3 ink model
+        quoi: Version mise à jour du modèle d'encre (ink model) à 9,6 µm, désormais utilisé dans la majorité des
+          candidatures « First Letters ».
+        domaine: encre
+      - qui: Samir Lerognon / @qualzz
+        montant: $2,500
+        intitule: Automated fiber extraction
+        quoi: "Suite du travail sur l'extraction automatique des fibres (automated fiber extraction) : modèles et
+          traçage améliorés, nouvelle visualisation des fibres dans VC3D."
+        domaine: depliage
+      - qui: Leonel Wainer / @LimeGS
+        montant: $1,000
+        intitule: winding-field
+        quoi: "Nouvelle approche de segmentation : ajuster un champ scalaire (scalar field) dont les isosurfaces
+          entières correspondent aux surfaces d'enroulement."
+        domaine: depliage
+      - qui: Chase Hendrick / @Chase
+        montant: $1,000
+        intitule: Extending patches in VC3D
+        quoi: Ajout à VC3D qui prolonge les morceaux de surface (patches) par des heuristiques appliquées directement
+          au volume CT brut.
+        domaine: depliage
+      - qui: Ben Kyles / @hari_seldon and colleagues
+        montant: $1,000
+        intitule: ScrollFiesta pipeline
+        quoi: Suite du travail sur la chaîne ScrollFiesta, dont un aplatissement UV guidé par les fibres (fiber-guided
+          UV flattening).
+        domaine: depliage
+      - qui: Forrest McDonald / @forrest
+        montant: $1,000
+        intitule: UFSM
+        quoi: Tentative de déroulage rapide de bout en bout (end-to-end unwrapping), qui produit de grandes étendues
+          de surface cohérente sur plusieurs enroulements.
+        domaine: depliage
+      - qui: Leonel Wainer / @LimeGS and Paulo Sergio Camillo / @pscamillo
+        montant: $500
+        intitule: ink-sdk
+        quoi: Outil qui permet de lancer facilement une batterie de modèles d'encre (ink models), de l'équipe et de la
+          communauté, sur un segment.
+        domaine: encre
+      - qui: Leonel Wainer / @LimeGS
+        montant: $500
+        intitule: Discord chat search
+        quoi: Service de recherche dans les discussions, qui donne un résumé à jour du contenu du Discord.
+        domaine: outils
+      - qui: Chase Hendrick / @Chase
+        montant: $500
+        intitule: Lossless CT compression
+        quoi: Amélioration d'environ 10 % de la compression sans perte (lossless compression) des volumes CT dans
+          vc-delta3d.
+        domaine: outils
+      - qui: Giovanni Pellerano / @evilaliv3
+        montant: $500
+        intitule: Assorted villa PRs
+        quoi: Plusieurs PR fusionnées dans villa, surtout des corrections de justesse sur des outils en usage.
+        domaine: outils
+      - qui: Andreas Hadjinicolaou / @AndreasHad
+        montant: $500
+        intitule: Apple Silicon support
+        quoi: Plusieurs PR fusionnées pour que les outils les plus utilisés fonctionnent sur Apple Silicon.
+        domaine: outils
+      - qui: Jude Wallis / @Jude
+        montant: $500
+        intitule: Umbilici for crushed scrolls
+        quoi: Améliorations géométriques du générateur automatique d'ombilic (umbilicus), pour les rouleaux écrasés.
+        domaine: depliage
+      - qui: Teddy Ove Johannes Wasserman / @biggiejuke02
+        montant: $500
+        intitule: Ink pipeline improvements
+        quoi: "Améliorations de confort et de vitesse de la chaîne d'encre (ink pipeline) : chargement des données
+          plus rapide, plusieurs points de sauvegarde (checkpoints) lancés d'un coup sur la même entrée."
+        domaine: encre
+      - qui: Pray Apostel
+        montant: $500
+        intitule: windcon
+        quoi: Extrait directement des données CT des contraintes « même enroulement » (same-winding constraints),
+          utilisables pour les ajustements de spirale (spiral fits).
+        domaine: depliage
+      - qui: Tyler Phipps / @mlkman29
+        montant: $500
+        intitule: Assorted villa speed-ups
+        quoi: Plusieurs petites accélérations du code villa en usage.
+        domaine: outils
+      - qui: William Stevens / @Will Stevens
+        montant: $500
+        intitule: Patch stitching optimisation
+        quoi: Améliorations progressives de l'optimisation qui assemble de petits morceaux (patches) en surfaces.
+        domaine: depliage
+      - qui: Yupeng Tang / @ytang454
+        montant: $500
+        intitule: Comparing surface models
+        quoi: Mesures chiffrées, par la cohérence de GrowPatch, de l'efficacité réelle de trois modèles de surface à 9
+          µm pour la segmentation.
+        domaine: depliage
+      - qui: Giovanni Pellerano / @evilaliv3
+        montant: $250
+        intitule: Rectina ink model
+        quoi: Un nouveau modèle d'encre (ink model) à 9 µm.
+        domaine: encre
+      - qui: Alexey Murashkin / @alexmur6692
+        montant: $250
+        intitule: VC3D on Windows
+        quoi: Corrections de compatibilité Windows pour VC3D.
+        domaine: outils
+      - qui: Liam Warner / @Prodigle
+        montant: $250
+        intitule: Assorted villa PRs
+        quoi: Trois corrections de bogues utiles sur des outils en usage.
+        domaine: outils
+      - qui: Mohamad Al-Zawahreh
+        montant: $250
+        intitule: Hecate on DirectML
+        quoi: Un moteur d'exécution DirectML (DirectML backend) pour le modèle d'encre Hecate.
+        domaine: encre
+      - qui: Junlong Shen / @Jason
+        montant: $250
+        intitule: VC3D platform fixes
+        quoi: Corrections de compatibilité entre plateformes pour VC3D.
+        domaine: outils
+      - qui: Ehimen Nathaniel
+        montant: $250
+        intitule: Zarr downsampling issue
+        quoi: "A trouvé un défaut dans les données publiées : les niveaux zarr sous-échantillonnés (downsampled) ne
+          gardaient que les premières tranches de profondeur. A aussi entraîné une version réduite de la
+          recette ink9um."
+        domaine: scan
+      - qui: Vincent Lemonnier / @vskinox
+        montant: $250
+        intitule: Windows & ROCm fixes
+        quoi: Corrections de compatibilité Windows et ROCm.
+        domaine: outils
+      - qui: Lucas Young / @LucasY
+        montant: $250
+        intitule: Spiral fitter on Mac
+        quoi: Correction d'un bogue de l'ajusteur de spirale (spiral fitter) sur Mac, plus une petite correction de
+          compilation Mac.
+        domaine: outils
+      - qui: Sebastien Chicoineau / @Seb_Chic and Chris Thomas
+        montant: $250
+        intitule: Windows & AMD fixes
+        quoi: Corrections de compatibilité Windows pour VC3D, et corrections de prise en charge AMD pour l'ajusteur de
+          spirale (spiral fitter) et Lasagna.
+        domaine: outils
+      - qui: Alex Haeseker
+        montant: $250
+        intitule: Assorted Windows PRs
+        quoi: Plusieurs PR de compatibilité Windows fusionnées.
+        domaine: outils
+      - qui: Ryan Campbell / @campbelltron1
+        montant: $250
+        intitule: Mean-teacher training fixes
+        quoi: Corrections de justesse de l'entraînement semi-supervisé « mean-teacher ».
+        domaine: outils
+      - qui: Hyojun Kwon / @jamiolrangmalrang4936
+        montant: $250
+        intitule: Copy displacement tracer fix
+        quoi: Corrige un vrai bogue dans les modèles de traceur neuronal (neural tracer) « Copy displacement ».
+        domaine: depliage
+      - qui: Eugenio Giuseppe Nerelli / @nerln
+        montant: $250
+        intitule: Assorted villa PRs
+        quoi: PR utiles de plateforme et de compatibilité pour VC3D et vesuvius.
+        domaine: outils
+      - qui: Matteo Bulloni / @matteobulloni_73362
+        montant: $250
+        intitule: Faster GrowPatch tracing
+        quoi: Petites améliorations de vitesse du traçage de surface dans GrowPatch.
+        domaine: depliage
+      - qui: Antonio Alonso-Stepanov
+        montant: $250
+        intitule: Spiral fitter on Apple Silicon
+        quoi: Correctif de compatibilité Apple Silicon (MPS) pour l'ajusteur de spirale (spiral fitter).
+        domaine: outils
+  - titre: "First Letters: PHerc. 306B (October, 2026)"
+    date: 2026-10
+    total: $50,000
+    but: Find 10 letters within a 4 cm² area of a scroll where nothing has been read yet.
+    laureats:
+      - qui: Liam Warner (@Prodigle) and Nicola Bodill (@polytrope)
+        montant: $50,000
+        intitule: Winners
+        quoi: "Ont trouvé de l'écriture dans PHerc. 306B, avec une lecture probable en grec que la source traduit par
+          « that which is in itself desirable » (ce qui est désirable en soi). But du prix : 10 lettres dans
+          une zone de 4 cm² d'un rouleau où rien n'avait encore été lu."
+        domaine: encre
+  - titre: "First Letters: PHerc. 343 (October, 2026)"
+    date: 2026-10
+    total: $50,000
+    but: Find 10 letters within a 4 cm² area of a scroll where nothing has been read yet.
+    laureats:
+      - qui: Erwin Nieuwlaar
+        montant: $50,000
+        intitule: Winner
+        quoi: "A trouvé, profondément à l'intérieur de PHerc. 343, un texte grec que la source traduit par «
+          everything that happens / is generated » (tout ce qui arrive / est engendré). But du prix : 10
+          lettres dans une zone de 4 cm² d'un rouleau où rien n'avait encore été lu."
+        domaine: encre
+  - titre: Progress Prizes (September 2026)
+    date: 2026-09
+    total: $40,500
+    but: Improve the tools and training methods needed to read the scrolls.
+    laureats:
+      - qui: Samir Lerognon / @qualzz
+        montant: $20,000
+        intitule: Automated fiber extraction
+        quoi: "Extraction automatique des fibres (automated fiber extraction) : affine les modèles de fibres existants
+          sur les données d'autres rouleaux, ajuste des splines sur les fibres prédites et relie le tout à
+          VC3D et à l'ajusteur de spirale."
+        domaine: depliage
+      - qui: Ben Kyles / @hari_seldon and team
+        montant: $5,000
+        intitule: ScrollFiesta pipeline
+        quoi: La chaîne ScrollFiesta produit maintenant des surfaces très propres sur des zones assez grandes des
+          rouleaux.
+        domaine: depliage
+      - qui: Domenico Russo / @klavis223
+        montant: $5,000
+        intitule: reader-v2 ink model
+        quoi: Modèle d'encre (ink model) distillé sur des volumes natifs à 9,6 µm, désormais largement utilisé par la
+          communauté.
+        domaine: encre
+      - qui: Houjing Huang
+        montant: $1,000
+        intitule: PLatS
+        quoi: Approche de segmentation qui entraîne un modèle à apprendre un plongement par instance (instance
+          embedding) des feuilles de papyrus.
+        domaine: depliage
+      - qui: Thomas Kelly / @thomas_35601
+        montant: $1,000
+        intitule: Assigning patches to windings
+        quoi: Approche prometteuse pour rattacher les morceaux de surface (patches) aux enroulements globaux.
+        domaine: depliage
+      - qui: Forrest McDonald / @forrest
+        montant: $1,000
+        intitule: volcomp
+        quoi: Compresseur par blocs (chunked compressor) pour les CT de rouleaux et les prédictions de modèles,
+          désormais pris en charge par VC3D.
+        domaine: outils
+      - qui: Yupeng Tang / @ytang454
+        montant: $500
+        intitule: Full-scroll inferences
+        quoi: A lancé des inférences sur rouleau entier avec plusieurs modèles de surface de l'équipe et de la
+          communauté.
+        domaine: depliage
+      - qui: Aleksei Drobkov / @alyalya1404
+        montant: $500
+        intitule: Scroll umbilici
+        quoi: A produit les ombilics (umbilici) de plusieurs rouleaux du prix.
+        domaine: depliage
+      - qui: Hyojun Kwon
+        montant: $500
+        intitule: Ink detection experiments
+        quoi: Diverses expériences de détection d'encre avec étiquettes manuelles et pseudo-étiquettes (pseudo
+          labels), mesurant entre autres la généralisation d'un rouleau à l'autre.
+        domaine: encre
+      - qui: Sergei Evland
+        montant: $500
+        intitule: Winding consistency checks
+        quoi: A repéré un défaut non trivial dans find-inconsistent-windings et construit un outil qui facilite le
+          contrôle de cohérence des contraintes d'enroulement (winding constraints).
+        domaine: depliage
+      - qui: Sebastien Chicoineau
+        montant: $500
+        intitule: ProbeGuide
+        quoi: Expérience sur l'intérêt de filtrer les pseudo-étiquettes d'encre (ink pseudo-labels) par similarité de
+          caractéristiques DINO.
+        domaine: encre
+      - qui: Christopher William Scheirer / @Chris Scheirer
+        montant: $500
+        intitule: Renderer memory fix
+        quoi: Le moteur de rendu (renderer) ne charge plus que les blocs réellement nécessaires le long de la surface,
+          ce qui réduit fortement la mémoire utilisée.
+        domaine: outils
+      - qui: Junfeng Lu / @Ausar
+        montant: $500
+        intitule: Faster Hecate inference
+        quoi: Inférence Hecate plus rapide, plus un affinage (fine-tuning) de modèles d'encre et des comparaisons
+          détaillées.
+        domaine: encre
+      - qui: Marcel Gwerder / @mg02346
+        montant: $500
+        intitule: Lighter ink training tutorial
+        quoi: Le tutoriel d'entraînement d'encre ne télécharge plus que les données nécessaires à l'entraînement (2,4
+          Go au lieu de 92 Go), avec d'autres corrections.
+        domaine: encre
+      - qui: Jashanjot Singh Gill and Nhat Nam Tran
+        montant: $500
+        intitule: Winding annotation tool
+        quoi: Outil qui génère des annotations d'enroulement (winding annotations) pour l'ajusteur de spirale.
+        domaine: depliage
+      - qui: Christos Vasilopoulos / @chrisvas_12645
+        montant: $250
+        intitule: Assorted villa PRs
+        quoi: Plusieurs PR utiles fusionnées dans villa.
+        domaine: outils
+      - qui: Kaden Pool / @thatguybrodie
+        montant: $250
+        intitule: Assorted villa PRs
+        quoi: Cinq PR fusionnées dans villa, dont la correction du choix des couches d'entrée du modèle d'encre.
+        domaine: outils
+      - qui: Santiago Pelufo / @spelufo
+        montant: $250
+        intitule: Assorted villa PRs
+        quoi: Plusieurs PR utiles fusionnées dans villa.
+        domaine: outils
+      - qui: Alex Clark
+        montant: $250
+        intitule: Ink ensembling
+        quoi: Petites améliorations chiffrées de la détection d'encre par combinaison de modèles (ensembling).
+        domaine: encre
+      - qui: Eugenio Giuseppe Nerelli / @nerln
+        montant: $250
+        intitule: Assorted villa PRs
+        quoi: Cinq PR fusionnées dans villa.
+        domaine: outils
+      - qui: Jonathan Marrs / @martian87
+        montant: $250
+        intitule: Assorted villa PRs
+        quoi: Diverses PR utiles fusionnées dans villa.
+        domaine: outils
+      - qui: Sebastien Andersson
+        montant: $250
+        intitule: Horizontal flip in VC3D
+        quoi: Ajoute le retournement horizontal (horizontal flip) à l'aperçu de rotation de VC3D.
+        domaine: depliage
+      - qui: Armando Gaona de Stefani / @Armando_Gaona
+        montant: $250
+        intitule: Lasagna on Windows
+        quoi: Corrections pour la prise en charge de Windows par Lasagna.
+        domaine: outils
+      - qui: Shuhan Yang / @qizhiran
+        montant: $250
+        intitule: Spiral fitting & ink on Windows
+        quoi: Prise en charge de Windows pour les flux d'ajustement de spirale (spiral fitting), d'aplatissement et
+          d'encre.
+        domaine: outils
+      - qui: Miika Kestilä
+        montant: $250
+        intitule: Ink training leakage fix
+        quoi: Corrige un bogue de fuite de données (data leakage) dans l'entraînement d'encre 3D.
+        domaine: encre
+      - qui: Bryant Le
+        montant: $250
+        intitule: Spiralising PHerc. 0211
+        quoi: A « spiralisé » et publié une longueur notable de PHerc. 0211, plus une PR fusionnée.
+        domaine: depliage
+      - qui: Ryan Gurganious / @DarthCeltic85 and Daine Ball / @Clexious
+        montant: $250
+        intitule: Single-pass Hecate
+        quoi: Fait prédire Hecate en une seule passe (single pass), soit environ 35 % de gain de vitesse.
+        domaine: encre
+  - titre: Progress Prizes (August 2026)
+    date: 2026-08
+    total: $31,000
+    but: Improve the tools and training methods needed to read the scrolls.
+    laureats:
+      - qui: William Stevens
+        montant: $20,000
+        intitule: Patch-based unwrapping
+        quoi: "Déroulage par morceaux (patch-based unwrapping) : détecte les morceaux chevauchants dont l'alignement
+          2D implique des positions 3D incompatibles, les écarte et réunit le reste en composantes aplaties.
+          Environ 365 cm² couverts sur PHerc. 1667."
+        domaine: depliage
+      - qui: Ben Kyles / @hari_seldon and collaborators
+        montant: $2,500
+        intitule: 9 µm surface model & ScrollFiesta fixes
+        quoi: Modèle de surface à 9 µm réentraîné par distillation de prédictions à 2,4 µm (feuilles plus fines et
+          plus continues), plus des corrections et améliorations de la chaîne de déroulage ScrollFiesta.
+        domaine: depliage
+      - qui: Domenico Russo
+        montant: $1,000
+        intitule: Ink checkpoint benchmarking
+        quoi: Compare les 14 points de sauvegarde (checkpoints) d'encre à 9 µm publiés, et réentraîne à partir
+          d'étiquettes denses d'un modèle professeur (teacher) plutôt que des bandes étiquetées à la main.
+        domaine: encre
+      - qui: Mihajlo Nestorović
+        montant: $1,000
+        intitule: Seeded sheet growing
+        quoi: Modèle 3D entraîné qui fait croître une seule feuille de papyrus à partir d'une graine (seed), avec une
+          chaîne qui produit des données d'entraînement plus difficiles.
+        domaine: depliage
+      - qui: Paulo Sergio Camillo / @pscamillo
+        montant: $1,000
+        intitule: How many depth slices?
+        quoi: Vraies expériences d'entraînement sur le nombre de tranches de profondeur (depth slices) dont le modèle
+          d'encre à 9 µm a réellement besoin.
+        domaine: encre
+      - qui: Santiago Pelufo
+        montant: $1,000
+        intitule: Lasagna & VC3D improvements
+        quoi: Sept changements fusionnés dans villa, dont l'aplatissement sur GPU Mac dans Lasagna, une barre
+          d'échelle HiDPI et diverses corrections de navigation et de recalage (registration).
+        domaine: depliage
+      - qui: Lutfiya Miller and Chris Müller
+        montant: $1,000
+        intitule: First Letters on PHerc. 0826
+        quoi: Ont déroulé de bout en bout la démarche « First Letters » sur PHerc. 0826 et publié images, commandes,
+          échecs et coûts, plus deux PR fusionnées.
+        domaine: encre
+      - qui: Benjamin Hamm
+        montant: $1,000
+        intitule: nnInteractive label refinement
+        quoi: "Applique nnInteractive à l'affinage des étiquettes de surface (surface label refinement) : étiquettes
+          bien plus proches de la vraie surface, avec encore quelques défauts topologiques."
+        domaine: depliage
+      - qui: Erwin Nieuwlaar
+        montant: $500
+        intitule: Dense pseudo-labels & checkpoint repair
+        quoi: Étend la recette d'entraînement d'encre avec des pseudo-étiquettes denses tirées de scans natifs à 113
+          keV, et répare un point de sauvegarde publié du Scroll 1 dont la couche de sortie non entraînée
+          donnait des prédictions vides.
+        domaine: encre
+      - qui: Oleksandr Kozlenko
+        montant: $500
+        intitule: Assorted villa fixes
+        quoi: "Plusieurs corrections utiles : entraînement, inférence, mise à l'échelle des coordonnées, métriques de
+          validation et outils en ligne de commande."
+        domaine: outils
+      - qui: TAUIL Abd Elilah
+        montant: $500
+        intitule: Sustained PR work
+        quoi: Travail de PR tout au long du mois, notamment pour que vesuvius.predict prétraite le CT de la même façon
+          qu'à l'entraînement du modèle.
+        domaine: outils
+      - qui: Praneeth Reddy
+        montant: $250
+        intitule: Shared disk cache
+        quoi: Rend le cache disque du traçage neuronal de villa disponible pour le flux général des modèles, pour ne
+          plus retélécharger les mêmes blocs.
+        domaine: outils
+      - qui: Shuhan Yang
+        montant: $250
+        intitule: Spiral fitting on Windows
+        quoi: Fait compiler et tourner les outils d'ajustement de spirale (spiral fitting) sous Windows avec moins de
+          ressources de calcul, plus des correctifs qui réduisent le trafic et le temps de rendu sur volumes
+          distants.
+        domaine: outils
+      - qui: Ryan Gurganious
+        montant: $250
+        intitule: VC3D agent bridge fixes
+        quoi: Permet au pont d'agent (agent bridge) de VC3D de lancer Lasagna avec le volume choisi, et de télécharger
+          de gros segments sans les déclarer manquants.
+        domaine: outils
+      - qui: Armando Gaona de Stefani
+        montant: $250
+        intitule: Checkpoint averaging
+        quoi: Expériences soignées de moyenne de points de sauvegarde (checkpoint averaging) sur les modèles d'encre.
+        domaine: encre
+  - titre: Progress Prizes (July 2026)
+    date: 2026-07
+    total: $33,500
+    but: Improve the tools and training methods needed to read the scrolls.
+    laureats:
+      - qui: Ben Kyles / @hari_seldon
+        montant: $20,000
+        intitule: ScrollFiesta
+        quoi: "Poursuite du mailleur automatique de surface (automatic surface mesher) ScrollFiesta : désormais
+          compatible villa (zarr en entrée, tifxyz en sortie), il se cale sur le papyrus dans le scan CT et
+          produit des contraintes pour l'ajustement de spirale."
+        domaine: depliage
+      - qui: William Stevens
+        montant: $2,500
+        intitule: Optimising patch connectivity
+        quoi: Repère et retire les zones à problème qui causent des sauts de feuille (sheet switching), en gardant une
+          ossature de morceaux sûrs ; appliqué à tout le Scroll 4.
+        domaine: depliage
+      - qui: Alan Thompson
+        montant: $1,000
+        intitule: Portable GPU kernels for ScrollFiesta
+        quoi: Pilote Rust/CubeCL pour le point chaud de projection « MLS-midpoint » de ScrollFiesta, qui tourne sur
+          AMD, NVIDIA et WGPU.
+        domaine: depliage
+      - qui: Prasad Khake
+        montant: $1,000
+        intitule: Zarr 3 read fixes
+        quoi: Corrige la lecture des zarr 3 multi-échelles dans la classe Volume de la bibliothèque Python vesuvius et
+          rétablit un cache de blocs optionnel.
+        domaine: outils
+      - qui: Hyojun Kwon
+        montant: $1,000
+        intitule: Ink detection validation harness
+        quoi: Tutoriel de détection d'encre retravaillé avec de vraies partitions de validation mises à l'écart
+          (held-out), plus un correctif amont de dépassement mémoire (OOM).
+        domaine: encre
+      - qui: Josep Carreras
+        montant: $1,000
+        intitule: windcheck
+        quoi: Détecte les auto-intersections (self-intersections) dans les surfaces tifxyz, pour attraper les erreurs
+          silencieuses de croisement d'enroulements lors d'un filtrage à grande échelle.
+        domaine: depliage
+      - qui: Aviad Cohen
+        montant: $1,000
+        intitule: TIFXYZ Doctor
+        quoi: Outil déterministe de contrôle qualité et de tri des grilles de surface tifxyz (métadonnées, cohérence,
+          distorsion, topologie), plus un correctif de bornes fusionné dans VC3D.
+        domaine: depliage
+      - qui: J. Miguel Giraldo
+        montant: $1,000
+        intitule: Faster decohesion augmentation
+        quoi: A vectorisé l'augmentation d'entraînement DecohesionTransform, en remplaçant une boucle de noyau GPU
+          exécutée à chaque itération.
+        domaine: outils
+      - qui: TAUIL Abd Elilah
+        montant: $1,000
+        intitule: Reproducibility fixes & ROI inference
+        quoi: Diverses corrections fusionnées et prise en charge de l'inférence sur région d'intérêt (ROI), plus une
+          analyse à résultat négatif sur la mesure du signal d'encre d'un rouleau à l'autre.
+        domaine: outils
+      - qui: Shuhan Yang
+        montant: $1,000
+        intitule: Spiral fitting on consumer GPUs
+        quoi: Fait tourner l'ajusteur de spirale (spiral fitter) officiel sur des cartes de 12 Go et sans l'extension
+          C++ native vc.
+        domaine: outils
+      - qui: Erwin Nieuwlaar
+        montant: $1,000
+        intitule: tifxyz repair & tracing fixes
+        quoi: Corrige les boîtes englobantes du meta.json des tifxyz et remet à l'échelle les déplacements du traçage
+          neuronal (neural tracing) pour des tailles de voxel différentes de celles de l'entraînement.
+        domaine: depliage
+      - qui: Matteo Bulloni
+        montant: $1,000
+        intitule: scroll-data-audit
+        quoi: Chasse aux défauts dans le catalogue de données ouvertes et dans volume-cartographer, avec des contrôles
+          des métadonnées du catalogue et des correctifs fusionnés dans VC3D.
+        domaine: scan
+      - qui: Nicolas Dolegieviez
+        montant: $1,000
+        intitule: fit_spiral fixes
+        quoi: "Quatre correctifs fusionnés : fit_spiral fonctionne sous Windows, et des pertes (losses) mises à zéro
+          en silence deviennent des échecs visibles."
+        domaine: depliage
+  - titre: Progress Prizes (June 2026)
+    date: 2026-06
+    total: $3,000
+    but: Improve the tools and training methods needed to read the scrolls.
+    laureats:
+      - qui: Paulo Sergio Camillo / @pscamillo
+        montant: $2,000
+        intitule: 3D augmentations & ScrollFiesta speedups
+        quoi: Nouvelles augmentations inspirées des artefacts de scan CT pour entraîner des modèles de segmentation
+          3D, plus des gains de vitesse dans ScrollFiesta.
+        domaine: depliage
+      - qui: Joseph Balmaceda
+        montant: $1,000
+        intitule: Fiber format converter
+        quoi: Convertit des fibres annotées en squelette du format NML vers CSV, JSON et SWC, avec une analyse de
+          longueur, de ramification et d'orientation.
+        domaine: depliage
+  - titre: Progress Prizes (May, 2026)
+    date: 2026-05
+    total: $12,000
+    but: Improve the tools and training methods needed to read the scrolls.
+    laureats:
+      - qui: Ben Kyles / @hari_seldon
+        montant: $10,000
+        intitule: Scroll Fiesta
+        quoi: Mailleur automatique (automatic mesher) des prédictions de surface, qui tente de corriger les erreurs
+          topologiques.
+        domaine: depliage
+      - qui: Paulo Sergio Camillo / @pscamillo
+        montant: $2,000
+        intitule: 3D augmentations
+        quoi: Transformations « Scroll Decohesion », « Realistic Warp » et « Squeeze » pour entraîner des modèles
+          d'apprentissage automatique sur des scans CT.
+        domaine: outils
+  - titre: Kaggle Surface Detection (March, 2026)
+    date: 2026-03
+    total: $200,000
+    but: Optimize topologically accurate papyrus surface detection methods.
+    laureats:
+      - qui: Vesuvius Team
+        montant: $60,000
+        intitule: 1st
+        quoi: 1re place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: risk of overfitting
+        montant: $40,000
+        intitule: 2nd
+        quoi: 2e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: W & A
+        montant: $30,000
+        intitule: 3rd
+        quoi: 3e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: Starry
+        montant: $20,000
+        intitule: 4th
+        quoi: 4e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: Dieter
+        montant: $15,000
+        intitule: 5th
+        quoi: 5e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: "#hui"
+        montant: $10,000
+        intitule: 6th
+        quoi: 6e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: DECEM
+        montant: $10,000
+        intitule: 7th
+        quoi: 7e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: lingyundev
+        montant: $5,000
+        intitule: 8th
+        quoi: 8e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: 阿對對對對隊
+        montant: $5,000
+        intitule: 9th
+        quoi: 9e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+      - qui: Vibes & Scrolls Trade-off
+        montant: $5,000
+        intitule: 10th
+        quoi: 10e place du concours Kaggle « Surface Detection », dont le but était d'optimiser des méthodes de
+          détection de la surface du papyrus exactes sur le plan topologique (la source ne décrit pas la
+          solution).
+        domaine: depliage
+  - titre: Open Source (March, 2026)
+    date: 2026-03
+    total: $1,000
+    but: Improve virtual unwrapping for the Surface Detection challenge.
+    laureats:
+      - qui: Paul Geiger / @PaulG
+        montant: $1,000
+        intitule: Scroll Slab Viewer
+        quoi: Visionneuse 3D facile à prendre en main, pensée pour le défi Kaggle « Surface Detection ».
+        domaine: outils
+  - titre: Open Source (July, 2025)
+    date: 2025-07
+    total: $1,000
+    but: Improve virtual unwrapping
+    laureats:
+      - qui: William Stevens / @Will Stevens
+        montant: $1,000
+        intitule: Data handling and ball-spring method
+        quoi: "Récompensé pour « Data handling and ball-spring method » (gestion des données et méthode
+          billes-ressorts ; but de la section : améliorer le déroulage virtuel). La source ne donne que cet
+          intitulé."
+        domaine: depliage
+  - titre: Open Source (June, 2025)
+    date: 2025-06
+    total: $2,500
+    but: Improve virtual unwrapping
+    laureats:
+      - qui: William Stevens / @Will Stevens
+        montant: $2,500
+        intitule: Stress metrics
+        quoi: "Récompensé pour « Stress metrics » (mesures de contrainte ; but de la section : améliorer le déroulage
+          virtuel). La source ne donne que cet intitulé."
+        domaine: depliage
+  - titre: Open Source (May, 2025)
+    date: 2025-05
+    total: $7,000
+    but: Updates to tooling
+    laureats:
+      - qui: Philip Allgaier / @spacegaier
+        montant: $5,000
+        intitule: VC3D stability improvements
+        quoi: Récompensé pour « VC3D stability improvements » (améliorations de stabilité de VC3D). La source ne donne
+          que cet intitulé.
+        domaine: depliage
+      - qui: Marcel Roth / @_mvrcii
+        montant: $1,000
+        intitule: Volume masking pipeline
+        quoi: Récompensé pour « Volume masking pipeline » (chaîne de masquage de volume). La source ne donne que cet
+          intitulé.
+        domaine: scan
+      - qui: Hsiao Yao and Dalufish / @.yaohsiao and @dalufish
+        montant: $1,000
+        intitule: neuroglancer-mini
+        quoi: Récompensé pour « neuroglancer-mini ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: outils
+  - titre: First Title Prize (May, 2025)
+    date: 2025-05
+    total: $60,000
+    but: Discover the end title of a sealed Herculaneum scroll.
+    laureats:
+      - qui: Marcel Roth and Micha Nowak
+        montant: $60,000
+        intitule: Winner
+        quoi: Lauréats du « First Title Prize », dont le but était de découvrir le titre final (end title) d'un
+          rouleau d'Herculanum scellé.
+        domaine: encre
+  - titre: Open Source (April, 2025)
+    date: 2025-04
+    total: $7,000
+    but: Get us closer to reading entire scrolls
+    laureats:
+      - qui: Will Stevens
+        montant: $2,500
+        intitule: Further work on ball and spring surface growing and analysis
+        quoi: Récompensé pour « Further work on ball and spring surface growing and analysis » (suite du travail sur
+          la croissance de surface par billes et ressorts, et son analyse). La source ne donne que cet
+          intitulé.
+        domaine: depliage
+      - qui: Lachlan Parker
+        montant: $2,500
+        intitule: Mask-3D fork and work on synthetic data generation
+        quoi: Récompensé pour « Mask-3D fork and work on synthetic data generation » (dérivé (fork) de Mask-3D et
+          travail sur la génération de données synthétiques). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Stephane Gouttebroze
+        montant: $1,000
+        intitule: Surface refinement in khartes
+        quoi: Récompensé pour « Surface refinement in khartes » (affinage de surface dans khartes). La source ne donne
+          que cet intitulé.
+        domaine: depliage
+      - qui: Yao Hsao
+        montant: $1,000
+        intitule: Simplified fork of neuroglancer
+        quoi: Récompensé pour « Simplified fork of neuroglancer » (dérivé (fork) simplifié de neuroglancer). La source
+          ne donne que cet intitulé.
+        domaine: outils
+  - titre: Open Source (February, 2025)
+    date: 2025-02
+    total: $10,500
+    but: Get us closer to reading entire scrolls.
+    laureats:
+      - qui: Johannes Rudolph / @jrudolph
+        montant: $2,500
+        intitule: vesuvius-gui developments
+        quoi: Récompensé pour « vesuvius-gui developments » (évolutions de vesuvius-gui). La source ne donne que cet
+          intitulé.
+        domaine: outils
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $2,500
+        intitule: Improved FASP segmentation
+        quoi: Récompensé pour « Improved FASP segmentation » (segmentation FASP améliorée). La source ne donne que cet
+          intitulé.
+        domaine: depliage
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $2,500
+        intitule: VC3D improvements
+        quoi: Récompensé pour « VC3D improvements » (améliorations de VC3D). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Forrest McDonald / @verditelabs
+        montant: $1,000
+        intitule: Masked scroll Zarrs
+        quoi: Récompensé pour « Masked scroll Zarrs » (fichiers Zarr de rouleaux masqués). La source ne donne que cet
+          intitulé.
+        domaine: scan
+      - qui: William Stevens / @Will Stevens
+        montant: $1,000
+        intitule: Particle-based flattening
+        quoi: Récompensé pour « Particle-based flattening » (aplatissement par particules). La source ne donne que cet
+          intitulé.
+        domaine: depliage
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $1,000
+        intitule: Ink detection refinements
+        quoi: Récompensé pour « Ink detection refinements » (affinages de la détection d'encre). La source ne donne
+          que cet intitulé.
+        domaine: encre
+  - titre: First Automated Segmentation (December, 2024)
+    date: 2024-12
+    total: $60,000
+    but: Reproduce the 2023 Grand Prize segmentation result, but faster.
+    laureats:
+      - qui: Hendrik Schilling / @waldkauz, Sean Johnson / @sean (bruniss)
+        montant: $30,000
+        intitule: Gold Aureus++
+        quoi: Prix « Gold Aureus++ » de la première segmentation automatisée (First Automated Segmentation), dont le
+          but était de reproduire, plus vite, le résultat de segmentation du Grand Prix 2023.
+        domaine: depliage
+      - qui: Paul Henderson / @pmh47
+        montant: $30,000
+        intitule: Gold Aureus++
+        quoi: Prix « Gold Aureus++ » de la première segmentation automatisée (First Automated Segmentation), dont le
+          but était de reproduire, plus vite, le résultat de segmentation du Grand Prix 2023.
+        domaine: depliage
+  - titre: Open Source (December, 2024)
+    date: 2024-12
+    total: $13,500
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: Tim Skinner / @Tim S, Lachlan Parker, John Skinner
+        montant: $2,500
+        intitule: Volumetric segmentation model
+        quoi: Récompensé pour « Volumetric segmentation model » (modèle de segmentation volumétrique). La source ne
+          donne que cet intitulé.
+        domaine: depliage
+      - qui: Nicola Bodill / @polytrope
+        montant: $2,500
+        intitule: Ink labels
+        quoi: Récompensé pour « Ink labels » (étiquettes d'encre). La source ne donne que cet intitulé.
+        domaine: encre
+      - qui: James Darby / @james darby
+        montant: $2,500
+        intitule: Interactive mesh refinement
+        quoi: Récompensé pour « Interactive mesh refinement » (affinage interactif de maillage). La source ne donne
+          que cet intitulé.
+        domaine: depliage
+      - qui: Johannes Rudolph / @jrudolph
+        montant: $1,000
+        intitule: vesuvius-render
+        quoi: Récompensé pour « vesuvius-render ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: outils
+      - qui: Yao Hsiao / @Yao Hsiao, Dalufishe / @Dalufish
+        montant: $1,000
+        intitule: Electric field-based flattening
+        quoi: Récompensé pour « Electric field-based flattening » (aplatissement fondé sur un champ électrique). La
+          source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Chuck / @khartes_chuck
+        montant: $1,000
+        intitule: Data overlays in Khartes
+        quoi: Récompensé pour « Data overlays in Khartes » (superpositions de données dans Khartes). La source ne
+          donne que cet intitulé.
+        domaine: outils
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $1,000
+        intitule: Optimized ink detection
+        quoi: Récompensé pour « Optimized ink detection » (détection d'encre optimisée). La source ne donne que cet
+          intitulé.
+        domaine: encre
+      - qui: Forrest McDonald / @verditelabs
+        montant: $1,000
+        intitule: Supervoxel-based segmentation methods
+        quoi: Récompensé pour « Supervoxel-based segmentation methods » (méthodes de segmentation à base de
+          supervoxels). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: William Stevens / @Will Stevens
+        montant: $1,000
+        intitule: Segmentation tools
+        quoi: Récompensé pour « Segmentation tools » (outils de segmentation). La source ne donne que cet intitulé.
+        domaine: depliage
+  - titre: Open Source (November, 2024)
+    date: 2024-11
+    total: $29,000
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $10,000
+        intitule: Segment patch generation
+        quoi: Récompensé pour « Segment patch generation » (génération de morceaux de segment). La source ne donne que
+          cet intitulé.
+        domaine: depliage
+      - qui: Forrest McDonald / @verditelabs
+        montant: $10,000
+        intitule: vesuvius-c library
+        quoi: Récompensé pour « vesuvius-c library » (bibliothèque vesuvius-c). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Yao Hsiao / @Yao Hsiao, Dalufishe / @Dalufish
+        montant: $2,500
+        intitule: Electric potential scroll flattening
+        quoi: Récompensé pour « Electric potential scroll flattening » (aplatissement de rouleau par potentiel
+          électrique). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Sean Johnson / @sean (bruniss), Hendrik Schilling / @waldkauz
+        montant: $2,500
+        intitule: Various datasets
+        quoi: Récompensé pour « Various datasets » (divers jeux de données). La source ne donne que cet intitulé.
+        domaine: scan
+      - qui: Marcel Roth
+        montant: $1,000
+        intitule: phalanx
+        quoi: Récompensé pour « phalanx ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: autre
+      - qui: James Darby / @james darby
+        montant: $1,000
+        intitule: 2D -> 3D labeling tool
+        quoi: Récompensé pour « 2D -> 3D labeling tool » (outil d'étiquetage de la 2D vers la 3D). La source ne donne
+          que cet intitulé.
+        domaine: outils
+      - qui: Chuck / @khartes_chuck
+        montant: $1,000
+        intitule: zarr_to_ome script
+        quoi: Récompensé pour « zarr_to_ome script » (script zarr_to_ome). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Elian Rafael Dal Prá / @err, Sean Johnson / @sean (bruniss)
+        montant: $1,000
+        intitule: New segment in title region
+        quoi: Récompensé pour « New segment in title region » (nouveau segment dans la région du titre). La source ne
+          donne que cet intitulé.
+        domaine: depliage
+  - titre: Open Source (October, 2024)
+    date: 2024-10
+    total: $18,500
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: Sean Johnson / @sean (bruniss)
+        montant: $2,500
+        intitule: Segmentation models
+        quoi: Récompensé pour « Segmentation models » (modèles de segmentation). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $2,500
+        intitule: Optimizing surface models
+        quoi: Récompensé pour « Optimizing surface models » (optimisation de modèles de surface). La source ne donne
+          que cet intitulé.
+        domaine: depliage
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $2,500
+        intitule: Surface mesh refinement
+        quoi: Récompensé pour « Surface mesh refinement » (affinage de maillage de surface). La source ne donne que
+          cet intitulé.
+        domaine: depliage
+      - qui: Forrest McDonald / @verditelabs
+        montant: $2,500
+        intitule: C library
+        quoi: Récompensé pour « C library » (bibliothèque C). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Johannes Rudolph / @jrudolph
+        montant: $2,500
+        intitule: Zarr support in vesuvius-gui
+        quoi: Récompensé pour « Zarr support in vesuvius-gui » (prise en charge de Zarr dans vesuvius-gui). La source
+          ne donne que cet intitulé.
+        domaine: outils
+      - qui: Jorge García-Carrasco / @jgcarrasco
+        montant: $1,000
+        intitule: Self-supervised pretraining for ink detection
+        quoi: Récompensé pour « Self-supervised pretraining for ink detection » (pré-entraînement auto-supervisé pour
+          la détection d'encre). La source ne donne que cet intitulé.
+        domaine: encre
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $1,000
+        intitule: Interactive segmentation improvements in Volume Cartographer
+        quoi: Récompensé pour « Interactive segmentation improvements in Volume Cartographer » (améliorations de la
+          segmentation interactive dans Volume Cartographer). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: William Stevens / @Will Stevens
+        montant: $1,000
+        intitule: Segmentation toolkit improvements
+        quoi: Récompensé pour « Segmentation toolkit improvements » (améliorations de la boîte à outils de
+          segmentation). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: James Darby / @james darby
+        montant: $1,000
+        intitule: Umbilicus Maker
+        quoi: Récompensé pour « Umbilicus Maker » (fabrique d'ombilic). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: James Darby / @james darby
+        montant: $1,000
+        intitule: Meshing high curvature segmentations
+        quoi: Récompensé pour « Meshing high curvature segmentations » (maillage de segmentations à forte courbure).
+          La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Yao Hsiao / @Yao Hsiao, Dalufishe / @Dalufish
+        montant: $1,000
+        intitule: Visualization canvas
+        quoi: Récompensé pour « Visualization canvas » (canevas de visualisation). La source ne donne que cet
+          intitulé.
+        domaine: outils
+  - titre: Open Source (September, 2024)
+    date: 2024-09
+    total: $48,500
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: Sean Johnson / @sean (bruniss)
+        montant: $20,000
+        intitule: Fiber following
+        quoi: Récompensé pour « Fiber following » (suivi de fibres). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Youssef Nader / @YoussefNader
+        montant: $10,000
+        intitule: Inkalyzer
+        quoi: Récompensé pour « Inkalyzer ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: encre
+      - qui: Youssef Nader / @YoussefNader
+        montant: $2,500
+        intitule: Fragment ink labeling
+        quoi: Récompensé pour « Fragment ink labeling » (étiquetage de l'encre sur fragments). La source ne donne que
+          cet intitulé.
+        domaine: encre
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $2,500
+        intitule: Fast meshing and flattening
+        quoi: Récompensé pour « Fast meshing and flattening » (maillage et aplatissement rapides). La source ne donne
+          que cet intitulé.
+        domaine: depliage
+      - qui: James Darby / @james darby
+        montant: $2,500
+        intitule: Meshes from volumetric labels
+        quoi: Récompensé pour « Meshes from volumetric labels » (maillages à partir d'étiquettes volumétriques). La
+          source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Johannes Rudolph / @jrudolph
+        montant: $2,500
+        intitule: vesuvius-gui improvements
+        quoi: Récompensé pour « vesuvius-gui improvements » (améliorations de vesuvius-gui). La source ne donne que
+          cet intitulé.
+        domaine: outils
+      - qui: Jorge García-Carrasco / @jgcarracsco, Andoni Irazusta-Garmendia / @theleprechaun25
+        montant: $2,500
+        intitule: Self-supervised ink detection
+        quoi: Récompensé pour « Self-supervised ink detection » (détection d'encre auto-supervisée). La source ne
+          donne que cet intitulé.
+        domaine: encre
+      - qui: Hendrik Schilling / @waldkauz
+        montant: $1,000
+        intitule: Segmentation optimization
+        quoi: Récompensé pour « Segmentation optimization » (optimisation de la segmentation). La source ne donne que
+          cet intitulé.
+        domaine: depliage
+      - qui: James Darby / @james darby
+        montant: $1,000
+        intitule: Volumetric labeling improvements
+        quoi: Récompensé pour « Volumetric labeling improvements » (améliorations de l'étiquetage volumétrique). La
+          source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Paul Geiger / @PaulG
+        montant: $1,000
+        intitule: Scroll Sleuth
+        quoi: Récompensé pour « Scroll Sleuth ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: autre
+      - qui: William Stevens / @Will Stevens
+        montant: $1,000
+        intitule: Small surface segmentation
+        quoi: Récompensé pour « Small surface segmentation » (segmentation de petites surfaces). La source ne donne
+          que cet intitulé.
+        domaine: depliage
+      - qui: Chuck / @khartes_chuck
+        montant: $1,000
+        intitule: Data streaming in Khartes
+        quoi: Récompensé pour « Data streaming in Khartes » (diffusion des données en flux dans Khartes). La source ne
+          donne que cet intitulé.
+        domaine: outils
+      - qui: Seth Stewart
+        montant: $1,000
+        intitule: Vesuvius Ink Generator
+        quoi: Récompensé pour « Vesuvius Ink Generator » (générateur d'encre Vesuvius). La source ne donne que cet
+          intitulé.
+        domaine: encre
+  - titre: Open Source (August, 2024)
+    date: 2024-08
+    total: $41,000
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: Johannes Rudolph / @jrudolph
+        montant: $10,000
+        intitule: Segment Browser
+        quoi: Récompensé pour « Segment Browser » (navigateur de segments). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: James Darby / @james darby
+        montant: $10,000
+        intitule: Volumetric instance labeling
+        quoi: Récompensé pour « Volumetric instance labeling » (étiquetage volumétrique par instance). La source ne
+          donne que cet intitulé.
+        domaine: depliage
+      - qui: Chuck / @khartes_chuck
+        montant: $10,000
+        intitule: Khartes3D
+        quoi: Récompensé pour « Khartes3D ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: outils
+      - qui: Johannes Rudolph / @jrudolph
+        montant: $2,500
+        intitule: Rescaled fragment surface volumes
+        quoi: Récompensé pour « Rescaled fragment surface volumes » (volumes de surface de fragments remis à
+          l'échelle). La source ne donne que cet intitulé.
+        domaine: scan
+      - qui: Will Stevens / @Will Stevens
+        montant: $2,500
+        intitule: Flood fill for segmentation
+        quoi: Récompensé pour « Flood fill for segmentation » (remplissage par diffusion (flood fill) pour la
+          segmentation). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: James Darby / @james darby
+        montant: $2,500
+        intitule: Convert volumetric segmentations to meshes
+        quoi: Récompensé pour « Convert volumetric segmentations to meshes » (conversion de segmentations
+          volumétriques en maillages). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Arefeh Sherafati / @arefeh, Lou Schlessinger / @ls_96
+        montant: $2,500
+        intitule: Ink detection patch aggregation report
+        quoi: Récompensé pour « Ink detection patch aggregation report » (rapport sur l'agrégation de morceaux
+          (patches) en détection d'encre). La source ne donne que cet intitulé.
+        domaine: encre
+      - qui: Yao Hsiao / @Yao Hsiao, Dalufishe / @Dalufish
+        montant: $1,000
+        intitule: wj-wt-ftt
+        quoi: Récompensé pour « wj-wt-ftt ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: autre
+  - titre: Open Source (July, 2024)
+    date: 2024-07
+    total: $11,000
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: James Darby / @james_darby
+        montant: $2,500
+        intitule: 3D instance segmentation improvements
+        quoi: Récompensé pour « 3D instance segmentation improvements » (améliorations de la segmentation 3D par
+          instance). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Jared Landau / @tetradrachm
+        montant: $2,500
+        intitule: Vesuvius GP+
+        quoi: Récompensé pour « Vesuvius GP+ ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: autre
+      - qui: Jorge García Carrasco / @jgcarrasco
+        montant: $2,500
+        intitule: DINO ink detection
+        quoi: Récompensé pour « DINO ink detection » (détection d'encre avec DINO). La source ne donne que cet
+          intitulé.
+        domaine: encre
+      - qui: Forrest McDonald / @verditelabs
+        montant: $2,500
+        intitule: Hraun updates
+        quoi: Récompensé pour « Hraun updates » (mises à jour de Hraun). La source ne donne que cet intitulé.
+        domaine: autre
+      - qui: Yao Hsiao / @Yao Hsiao, Dalufishe / @Dalufish
+        montant: $1,000
+        intitule: Web volume annotator
+        quoi: Récompensé pour « Web volume annotator » (annotateur de volume sur le web). La source ne donne que cet
+          intitulé.
+        domaine: outils
+  - titre: Open Source (June, 2024)
+    date: 2024-06
+    total: $12,500
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: James Darby / @james_darby
+        montant: $2,500
+        intitule: Volumetric segmentation tools
+        quoi: Récompensé pour « Volumetric segmentation tools » (outils de segmentation volumétrique). La source ne
+          donne que cet intitulé.
+        domaine: depliage
+      - qui: Philip Allgaier / @spacegaier
+        montant: $2,500
+        intitule: Volume Cartographer improvements
+        quoi: Récompensé pour « Volume Cartographer improvements » (améliorations de Volume Cartographer). La source
+          ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Santiago Pelufo / @spelufo
+        montant: $2,500
+        intitule: Segmentation pipeline
+        quoi: Récompensé pour « Segmentation pipeline » (chaîne de segmentation). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Paul Geiger
+        montant: $1,000
+        intitule: Scroll volume alignment
+        quoi: Récompensé pour « Scroll volume alignment » (alignement de volumes de rouleau). La source ne donne que
+          cet intitulé.
+        domaine: scan
+      - qui: Sean Johnson / @Bruniss
+        montant: $1,000
+        intitule: Updated 3D ink detection volume
+        quoi: Récompensé pour « Updated 3D ink detection volume » (volume de détection d'encre 3D mis à jour). La
+          source ne donne que cet intitulé.
+        domaine: encre
+      - qui: Huang Cheng Jiun / @pocper1, Yao Hsiao / @Yao Hsiao
+        montant: $1,000
+        intitule: Web volume viewer
+        quoi: Récompensé pour « Web volume viewer » (visionneuse de volume sur le web). La source ne donne que cet
+          intitulé.
+        domaine: outils
+      - qui: James Darby / @james_darby
+        montant: $1,000
+        intitule: Seam carving for densification
+        quoi: Récompensé pour « Seam carving for densification » (« seam carving » pour la densification). La source
+          ne donne que cet intitulé.
+        domaine: depliage
+      - qui: James Darby / @james_darby
+        montant: $1,000
+        intitule: Mesh chunking
+        quoi: Récompensé pour « Mesh chunking » (découpage de maillage en blocs). La source ne donne que cet intitulé.
+        domaine: depliage
+  - titre: Open Source (May, 2024)
+    date: 2024-05
+    total: $29,000
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: Philip Allgaier / @spacegaier
+        montant: $10,000
+        intitule: Volume Cartographer improvements
+        quoi: Récompensé pour « Volume Cartographer improvements » (améliorations de Volume Cartographer). La source
+          ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Chuck / @khartes_chuck
+        montant: $10,000
+        intitule: Khartes improvements
+        quoi: Récompensé pour « Khartes improvements » (améliorations de Khartes). La source ne donne que cet
+          intitulé.
+        domaine: outils
+      - qui: Sean Johnson / @Bruniss
+        montant: $2,500
+        intitule: Scroll 2 segments
+        quoi: Récompensé pour « Scroll 2 segments » (segments du Scroll 2). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Johannes Rudolph / @jrudolph
+        montant: $2,500
+        intitule: vesuvius-gui
+        quoi: Récompensé pour « vesuvius-gui ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: outils
+      - qui: Oliver Daubney / @O_D
+        montant: $1,000
+        intitule: Scroll compression and masking
+        quoi: Récompensé pour « Scroll compression and masking » (compression et masquage de rouleau). La source ne
+          donne que cet intitulé.
+        domaine: scan
+      - qui: James Darby / @james_darby
+        montant: $1,000
+        intitule: Volumetric segmentation architecture investigation
+        quoi: Récompensé pour « Volumetric segmentation architecture investigation » (étude d'architectures de
+          segmentation volumétrique). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Yao Hsiao / @Yao Hsiao
+        montant: $1,000
+        intitule: Browser-based scroll viewer
+        quoi: Récompensé pour « Browser-based scroll viewer » (visionneuse de rouleau dans le navigateur). La source
+          ne donne que cet intitulé.
+        domaine: outils
+      - qui: Forrest McDonald / @VerditeLabs
+        montant: $1,000
+        intitule: 3D segmentation prototype
+        quoi: Récompensé pour « 3D segmentation prototype » (prototype de segmentation 3D). La source ne donne que cet
+          intitulé.
+        domaine: depliage
+  - titre: Open Source (April, 2024)
+    date: 2024-04
+    total: $35,000
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: Ryan Chesler / @emel_ryan
+        montant: $20,000
+        intitule: 3D ink detection
+        quoi: Récompensé pour « 3D ink detection » (détection d'encre en 3D). La source ne donne que cet intitulé.
+        domaine: encre
+      - qui: Giorgio Angelotti / @Jordi
+        montant: $2,500
+        intitule: Mesh merging
+        quoi: Récompensé pour « Mesh merging » (fusion de maillages). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: James Darby / @james darby
+        montant: $2,500
+        intitule: Instance segmentation labels
+        quoi: Récompensé pour « Instance segmentation labels » (étiquettes de segmentation par instance). La source ne
+          donne que cet intitulé.
+        domaine: depliage
+      - qui: Ryan Chesler / @emel_ryan
+        montant: $2,500
+        intitule: Unsupervised pretraining
+        quoi: Récompensé pour « Unsupervised pretraining » (pré-entraînement non supervisé). La source ne donne que
+          cet intitulé.
+        domaine: autre
+      - qui: Sean Johnson / @Bruniss
+        montant: $2,500
+        intitule: New segments
+        quoi: Récompensé pour « New segments » (nouveaux segments). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Forrest McDonald / @VerditeLabs
+        montant: $1,000
+        intitule: Volumetric processing tools
+        quoi: Récompensé pour « Volumetric processing tools » (outils de traitement volumétrique). La source ne donne
+          que cet intitulé.
+        domaine: outils
+      - qui: Giorgio Angelotti / @Jordi
+        montant: $1,000
+        intitule: Point cloud comparison
+        quoi: Récompensé pour « Point cloud comparison » (comparaison de nuages de points). La source ne donne que cet
+          intitulé.
+        domaine: outils
+      - qui: James Darby, Ryan Reszetnik, Liamo Pennimpede, Lucas Nelson
+        montant: $1,000
+        intitule: Instance segmentation experiments
+        quoi: Récompensé pour « Instance segmentation experiments » (expériences de segmentation par instance). La
+          source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Santiago Pelufo / @spelufo
+        montant: $1,000
+        intitule: Meshing and chunking
+        quoi: Récompensé pour « Meshing and chunking » (maillage et découpage en blocs). La source ne donne que cet
+          intitulé.
+        domaine: depliage
+      - qui: Yao Hsiao / @Yao Hsiao
+        montant: $1,000
+        intitule: Pipeline Visualize
+        quoi: Récompensé pour « Pipeline Visualize » (visualisation de la chaîne de traitement). La source ne donne
+          que cet intitulé.
+        domaine: outils
+  - titre: Open Source (March, 2024)
+    date: 2024-03
+    total: $42,500
+    but: Increase the probability we read 90% of four scrolls in 2024.
+    laureats:
+      - qui: Giorgio Angelotti / @Jordi
+        montant: $20,000
+        intitule: Rendering improvements
+        quoi: Récompensé pour « Rendering improvements » (améliorations du rendu). La source ne donne que cet
+          intitulé.
+        domaine: outils
+      - qui: Chuck / @khartes_chuck
+        montant: $10,000
+        intitule: Multiresolution chunked volumes
+        quoi: Récompensé pour « Multiresolution chunked volumes » (volumes multi-résolution découpés en blocs). La
+          source ne donne que cet intitulé.
+        domaine: scan
+      - qui: Jorge Villaescusa / @mojonero
+        montant: $2,500
+        intitule: Volumetric ink detection
+        quoi: Récompensé pour « Volumetric ink detection » (détection d'encre volumétrique). La source ne donne que
+          cet intitulé.
+        domaine: encre
+      - qui: Tim Skinner / @Tim S
+        montant: $2,500
+        intitule: Volumetric segmentation labels
+        quoi: Récompensé pour « Volumetric segmentation labels » (étiquettes de segmentation volumétrique). La source
+          ne donne que cet intitulé.
+        domaine: depliage
+      - qui: James Darby / @james darby
+        montant: $2,500
+        intitule: Data improvements
+        quoi: Récompensé pour « Data improvements » (améliorations des données). La source ne donne que cet intitulé.
+        domaine: scan
+      - qui: Oliver Daubney / @O_D
+        montant: $1,000
+        intitule: Segment-to-segment label mapping
+        quoi: Récompensé pour « Segment-to-segment label mapping » (correspondance d'étiquettes de segment à segment).
+          La source ne donne que cet intitulé.
+        domaine: autre
+      - qui: Yao Hsiao / @Yao Hsiao
+        montant: $1,000
+        intitule: Cell viewer and segmentation comparison
+        quoi: Récompensé pour « Cell viewer and segmentation comparison » (visionneuse de cellules et comparaison de
+          segmentations). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Santiago Pelufo / @spelufo
+        montant: $1,000
+        intitule: Superpixels and cells
+        quoi: Récompensé pour « Superpixels and cells » (superpixels et cellules). La source ne donne que cet
+          intitulé.
+        domaine: autre
+      - qui: Sean Johnson / @Bruniss
+        montant: $1,000
+        intitule: Other segmentation axes, 3D ink labels
+        quoi: Récompensé pour « Other segmentation axes, 3D ink labels » (autres axes de segmentation, étiquettes
+          d'encre 3D). La source ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Nicola Bodill / @polytrope
+        montant: $1,000
+        intitule: Colab notebook and ink labels
+        quoi: Récompensé pour « Colab notebook and ink labels » (carnet Colab et étiquettes d'encre). La source ne
+          donne que cet intitulé.
+        domaine: encre
+  - titre: Grand Prize 2023 (December 31, 2023)
+    date: 2023-12-31
+    total: $850,000
+    but: Reveal four passages within the scrolls.
+    laureats:
+      - qui: Youssef Nader, Luke Farritor, and Julian Schilliger
+        montant: $700,000
+        intitule: Winner
+        quoi: Lauréats (Winner) du Grand Prix 2023, dont le but était de révéler quatre passages à l'intérieur des
+          rouleaux.
+        domaine: encre
+      - qui: SQ Mah
+        montant: $50,000
+        intitule: Runner up
+        quoi: Finaliste (Runner up) du Grand Prix 2023, dont le but était de révéler quatre passages à l'intérieur des
+          rouleaux.
+        domaine: encre
+      - qui: Lou Schlessinger and Arefeh Sherafati
+        montant: $50,000
+        intitule: Runner up
+        quoi: Finalistes (Runner up) du Grand Prix 2023, dont le but était de révéler quatre passages à l'intérieur
+          des rouleaux.
+        domaine: encre
+      - qui: Elian Rafael Dal Prá, Sean Johnson, Leonardo Scabini, Raí Fernando Dal Prá, João Vitor Brentigani
+          Torezan, Daniel Baldin Franceschini, Bruno Pereira Kellm, Marcelo Soccol Gris, and Odemir Martinez
+          Bruno
+        montant: $50,000
+        intitule: Runner up
+        quoi: Finalistes (Runner up) du Grand Prix 2023, dont le but était de révéler quatre passages à l'intérieur
+          des rouleaux.
+        domaine: encre
+  - titre: Open Source (December 31, 2023)
+    date: 2023-12-31
+    total: $12,000
+    but: Increase the probability the Grand Prize gets awarded.
+    laureats:
+      - qui: Yao Hsiao / @Yao_Hsiao
+        montant: $3,000
+        intitule: Segment maps
+        quoi: Récompensé pour « Segment maps » (cartes de segments). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Sean Johnson / @Bruniss
+        montant: $3,000
+        intitule: Large segments and colab notebook
+        quoi: Récompensé pour « Large segments and colab notebook » (grands segments et carnet Colab). La source ne
+          donne que cet intitulé.
+        domaine: depliage
+      - qui: Julian Schilliger / @RICHI
+        montant: $3,000
+        intitule: Crackle Viewer
+        quoi: Récompensé pour « Crackle Viewer ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: outils
+      - qui: Youssef Nader / @YoussefNader
+        montant: $3,000
+        intitule: Segment maps
+        quoi: Récompensé pour « Segment maps » (cartes de segments). La source ne donne que cet intitulé.
+        domaine: outils
+  - titre: Open Source (November 30, 2023)
+    date: 2023-11-30
+    total: $25,000
+    but: Increase the probability the Grand Prize gets awarded.
+    laureats:
+      - qui: Philip Allgaier / @spacegaier
+        montant: $8,000
+        intitule: Next-gen Volume Cartographer
+        quoi: Récompensé pour « Next-gen Volume Cartographer » (Volume Cartographer de nouvelle génération). La source
+          ne donne que cet intitulé.
+        domaine: depliage
+      - qui: Johannes Rudolph / @jrudolph
+        montant: $5,000
+        intitule: Segment Browser
+        quoi: Récompensé pour « Segment Browser » (navigateur de segments). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Anton Repushko / @repushko
+        montant: $5,000
+        intitule: Ink Detection Masks
+        quoi: Récompensé pour « Ink Detection Masks » (masques de détection d'encre). La source ne donne que cet
+          intitulé.
+        domaine: encre
+      - qui: Chuck / @khartes_chuck
+        montant: $1,000
+        intitule: Sharkbite fix
+        quoi: Récompensé pour « Sharkbite fix » (correctif « Sharkbite »). La source ne donne que cet intitulé.
+        domaine: autre
+      - qui: Giorgio Angelotti / @jordi45698
+        montant: $1,000
+        intitule: Vesuvius Kintsugi
+        quoi: Récompensé pour « Vesuvius Kintsugi ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: autre
+      - qui: Sean Johnson / @bruniss
+        montant: $1,000
+        intitule: Crackle Labels
+        quoi: Récompensé pour « Crackle Labels » (étiquettes « Crackle »). La source ne donne que cet intitulé.
+        domaine: autre
+      - qui: Timo Meireman / @timo_71099
+        montant: $1,000
+        intitule: Omit
+        quoi: Récompensé pour « Omit ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: autre
+      - qui: Yao Hsiao / @Yao_Hsiao and Dalufishe / @Dalufish
+        montant: $1,000
+        intitule: Segment Viewer
+        quoi: Récompensé pour « Segment Viewer » (visionneuse de segments). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Brett Olsen / @brett_olsen
+        montant: $1,000
+        intitule: Single-sheet Segmentation
+        quoi: Récompensé pour « Single-sheet Segmentation » (segmentation d'une feuille unique). La source ne donne
+          que cet intitulé.
+        domaine: depliage
+      - qui: Santiago Pelufo / @spelufo
+        montant: $1,000
+        intitule: Multiple Contributions
+        quoi: Récompensé pour « Multiple Contributions » (contributions multiples). La source ne donne que cet
+          intitulé.
+        domaine: autre
+  - titre: First Letters & Ink (October 12, 2023)
+    date: 2023-10-12
+    total: $60,000
+    but: Find the first letters within the scrolls.
+    laureats:
+      - qui: Luke Farritor / @lukeboi
+        montant: $40,000
+        intitule: First Letters
+        quoi: Prix « First Letters », dont le but était de trouver les premières lettres à l'intérieur des rouleaux.
+        domaine: encre
+      - qui: Youssef Nader / @YoussefNader
+        montant: $10,000
+        intitule: First Letters, 2nd place
+        quoi: Deuxième place du prix « First Letters », dont le but était de trouver les premières lettres à
+          l'intérieur des rouleaux.
+        domaine: encre
+      - qui: Casey Handmer / @cjhandmer
+        montant: $10,000
+        intitule: First Ink
+        quoi: Prix « First Ink » (première encre), dans la section dont le but était de trouver les premières lettres
+          à l'intérieur des rouleaux.
+        domaine: encre
+  - titre: Segmentation Tooling 2 (October 3, 2023)
+    date: 2023-10-03
+    total: $45,000
+    but: Help the segmentation team do larger and harder areas.
+    laureats:
+      - qui: Trevor, Tom, Babak, and Boaz
+        montant: $10,000
+        intitule: VA Sheet Tracer
+        quoi: Récompensé pour « VA Sheet Tracer ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: depliage
+      - qui: Julian Schilliger / @RICHI
+        montant: $10,000
+        intitule: Extremely Fast Segmentation
+        quoi: Récompensé pour « Extremely Fast Segmentation » (segmentation extrêmement rapide). La source ne donne
+          que cet intitulé.
+        domaine: depliage
+      - qui: Chuck / @khartes_chuck
+        montant: $10,000
+        intitule: Khartes
+        quoi: Récompensé pour « Khartes ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: depliage
+      - qui: Ahron Wayne / @WayneWayneHello
+        montant: $5,000
+        intitule: CT scanning campfire scrolls
+        quoi: Récompensé pour « CT scanning campfire scrolls » (scan CT de rouleaux « campfire »). La source ne donne
+          que cet intitulé.
+        domaine: scan
+      - qui: Yao Hsiao / @Yao_Hsiao and Dalufishe / @Dalufish
+        montant: $5,000
+        intitule: Segment Viewer
+        quoi: Récompensé pour « Segment Viewer » (visionneuse de segments). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Santiago Pelufo / @spelufo
+        montant: $5,000
+        intitule: Ilastik integration
+        quoi: Récompensé pour « Ilastik integration » (intégration d'Ilastik). La source ne donne que cet intitulé.
+        domaine: depliage
+  - titre: Ink Detection Followup (September 8, 2023)
+    date: 2023-09-08
+    total: $12,000
+    but: Take the models from the Ink Detection Prize (see below) and apply them to the scrolls, to find letters.
+    laureats:
+      - qui: Ryan Chesler / @emel_ryan
+        montant: $3,000
+        intitule: Top Ink Detection Model Analysis
+        quoi: Récompensé pour « Top Ink Detection Model Analysis » (analyse des meilleurs modèles de détection
+          d'encre). La source ne donne que cet intitulé.
+        domaine: encre
+      - qui: Luke Farritor / @lukeboi
+        montant: $3,000
+        intitule: Fine Tuning
+        quoi: Récompensé pour « Fine Tuning » (affinage (fine-tuning)). La source ne donne que cet intitulé.
+        domaine: encre
+      - qui: Julian Schilliger / @RICHI
+        montant: $1,500
+        intitule: Crackle Viewer
+        quoi: Récompensé pour « Crackle Viewer ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: outils
+      - qui: Team OverthINKingSegmenter
+        montant: $1,500
+        intitule: Resolution Analysis
+        quoi: Récompensé pour « Resolution Analysis » (analyse de résolution). La source ne donne que cet intitulé.
+        domaine: encre
+      - qui: Youssef Nader / @YoussefNader
+        montant: $1,500
+        intitule: Scroll Pretraining
+        quoi: Récompensé pour « Scroll Pretraining » (pré-entraînement sur rouleau). La source ne donne que cet
+          intitulé.
+        domaine: encre
+      - qui: Yao / @Yao_Hsiao and Dalufishe / @Dalufish
+        montant: $1,500
+        intitule: Vesuvius Challenge Whiteboard
+        quoi: Récompensé pour « Vesuvius Challenge Whiteboard » (tableau blanc du Vesuvius Challenge). La source ne
+          donne que cet intitulé.
+        domaine: outils
+  - titre: Kaggle Ink Detection (July 14, 2023)
+    date: 2023-07-14
+    total: $100,000
+    but: Optimize fragment-based ink detection methods.
+    laureats:
+      - qui: ryches
+        montant: $25,000
+        intitule: 1st
+        quoi: 1re place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: RTX23090
+        montant: $20,000
+        intitule: 2nd
+        quoi: 2e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: wuyu
+        montant: $15,000
+        intitule: 3rd
+        quoi: 3e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: POSCO DX - Heeyoung Ahn
+        montant: $10,000
+        intitule: 4th
+        quoi: 4e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: Aksell
+        montant: $5,000
+        intitule: 5th
+        quoi: 5e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: chumajin
+        montant: $5,000
+        intitule: 6th
+        quoi: 6e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: OverthINKingSegmenter
+        montant: $5,000
+        intitule: 7th
+        quoi: 7e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: Luck is all you need
+        montant: $5,000
+        intitule: 8th
+        quoi: 8e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: still 1 fold, 2 net
+        montant: $5,000
+        intitule: 9th
+        quoi: 9e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+      - qui: Feng Qilong
+        montant: $5,000
+        intitule: 10th
+        quoi: 10e place du concours Kaggle « Ink Detection », dont le but était d'optimiser des méthodes de détection
+          d'encre sur fragments (la source ne décrit pas la solution).
+        domaine: encre
+  - titre: Segmentation Tooling (June 27, 2023)
+    date: 2023-06-27
+    total: $45,000
+    but: Help the segmentation team do larger and harder areas.
+    laureats:
+      - qui: Julian / @RICHI
+        montant: $10,000
+        intitule: Optical Flow Segmentation
+        quoi: Récompensé pour « Optical Flow Segmentation » (segmentation par flux optique). La source ne donne que
+          cet intitulé.
+        domaine: depliage
+      - qui: Chuck / @khartes_chuck
+        montant: $10,000
+        intitule: Khartes
+        quoi: Récompensé pour « Khartes ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: depliage
+      - qui: James / @thatGuy
+        montant: $5,000
+        intitule: Masked data
+        quoi: Récompensé pour « Masked data » (données masquées). La source ne donne que cet intitulé.
+        domaine: scan
+      - qui: Yao / @Yao_Hsiao
+        montant: $5,000
+        intitule: Volume Viewer
+        quoi: Récompensé pour « Volume Viewer » (visionneuse de volume). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Moshe / @moshelevy
+        montant: $5,000
+        intitule: VolumeAnnotate
+        quoi: Récompensé pour « VolumeAnnotate ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: depliage
+      - qui: Luke Farritor / @lukeboi
+        montant: $5,000
+        intitule: Scroll Viewer
+        quoi: Récompensé pour « Scroll Viewer » (visionneuse de rouleau). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Santiago / @spelufo
+        montant: $5,000
+        intitule: vesuvius-build and vesuvius-blender
+        quoi: Récompensé pour « vesuvius-build and vesuvius-blender ». La source ne donne que cet intitulé, sans
+          décrire le travail.
+        domaine: outils
+  - titre: Open Source (April 14, 2023)
+    date: 2023-04-14
+    total: $10,000
+    but: Increase the probability the Grand Prize gets awarded.
+    laureats:
+      - qui: Luke Farritor / @lukeboi
+        montant: $2,500
+        intitule: Scroll Viewer
+        quoi: Récompensé pour « Scroll Viewer » (visionneuse de rouleau). La source ne donne que cet intitulé.
+        domaine: outils
+      - qui: Ryosuke Tanaka
+        montant: $2,500
+        intitule: 2.5D Segmentation Baseline
+        quoi: Récompensé pour « 2.5D Segmentation Baseline » (base de référence de segmentation 2.5D). La source ne
+          donne que cet intitulé.
+        domaine: autre
+      - qui: Moshe Levy / @moshelevy
+        montant: $2,500
+        intitule: VolumeAnnotate
+        quoi: Récompensé pour « VolumeAnnotate ». La source ne donne que cet intitulé, sans décrire le travail.
+        domaine: depliage
+      - qui: Brett Olsen / @caethan
+        montant: $2,500
+        intitule: Countless community contributions
+        quoi: Récompensé pour « Countless community contributions » (innombrables contributions à la communauté). La
+          source ne donne que cet intitulé.
+        domaine: autre

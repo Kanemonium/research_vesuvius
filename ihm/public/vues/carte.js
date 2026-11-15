@@ -288,7 +288,7 @@ export function vueCarte(vue, app, params) {
   const domaine = params.get('domaine');
   const volet = domaine ? 'parcours' : 'carte';
   if (domaine) dernierDomaine = domaine;
-  const second = h('div', { classe: 'carte-volet' }, dernierDomaine ? voletParcours(app, dernierDomaine, params.get('a')) : null);
+  const second = h('div', { classe: 'carte-volet' }, dernierDomaine ? voletParcours(app, dernierDomaine, params.get('a'), { vue: params.get('vue'), tous: params.get('tous') === '1' }) : null);
   const premier = h('div', { classe: 'carte-volet' }, conteneur);
   const anime = app.depuis === 'carte' && voletPrecedent && voletPrecedent !== volet;
   const rail = h('div', { classe: 'carte-rail', 'data-volet': anime ? voletPrecedent : volet }, premier, second);

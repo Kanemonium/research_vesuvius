@@ -1,6 +1,7 @@
 // Vue « Exécutions » : ce que nous avons fait tourner, rendu lisible.
 // Pour chaque exécution : ce qu'elle a produit, le code utile avec sa lecture annotée, puis les sorties.
 // Les rendus sont des fichiers experiments/<dossier>/execution.yaml ; le format est dans pilotage/README.md.
+import { figureApercu } from '../apercu.js';
 import { boutonCarnet } from '../carnet.js';
 import { embleme } from '../emblemes.js';
 import { adresse, avecBulle, compteGithub, credit, dateLongue, h, lienId, lier, pilule, s } from '../outils.js';
@@ -99,6 +100,8 @@ function sortieDe(sortie) {
     corps = h('table', { classe: 'mesures' }, h('tbody', {}, sortie.lignes.map((l) => h('tr', {}, h('th', { scope: 'row' }, l[0]), h('td', { classe: 'mesure-valeur' }, l[1]), h('td', { classe: 'doux' }, l[2] ?? '')))));
   } else if (sortie.genre === 'courbe') {
     corps = courbe(sortie);
+  } else if (sortie.genre === 'image') {
+    corps = figureApercu(sortie);
   } else if (sortie.genre === 'journal') {
     corps = h('pre', { classe: 'journal', tabindex: 0 }, String(sortie.texte ?? '').replace(/\n$/, ''));
   } else {
@@ -107,7 +110,7 @@ function sortieDe(sortie) {
         h('div', {}, h('div', { classe: 'mono' }, f.nom), lier(h('div', { classe: 'doux' }, f.role ?? ''))), h('span', { classe: 'fin meta' }, f.taille ?? ''))))];
   }
   return h('section', { classe: `carte sortie ${sortie.large ? 'large' : ''}` },
-    h('div', { classe: 'carte-tete' }, h('h3', { classe: 'cond' }, sortie.titre), h('span', { classe: 'meta' }, { mesures: 'Mesures', courbe: 'Courbe', journal: 'Journal', fichiers: 'Fichiers' }[sortie.genre])),
+    h('div', { classe: 'carte-tete' }, h('h3', { classe: 'cond' }, sortie.titre), h('span', { classe: 'meta' }, { mesures: 'Mesures', courbe: 'Courbe', journal: 'Journal', fichiers: 'Fichiers', image: 'Image' }[sortie.genre])),
     corps,
     sortie.noteHtml ? lier(h('div', { classe: 'prose doux sortie-note', html: sortie.noteHtml })) : null);
 }

@@ -2,6 +2,7 @@
 // Cliquer une carte fait glisser le tableau hors de l'écran, vers la gauche, pour laisser la place au détail :
 // ce que la tâche demande, puis les étapes et les bugs qu'elle a traversés (clé « etapes » de son fichier).
 // Déplacer une tâche réécrit son fichier dans pilotage/taches/.
+import { vignettes } from '../apercu.js';
 import { embleme } from '../emblemes.js';
 import { LIBELLES, adresse, dateCourte, dateLongue, envoyer, glyphe, h, lienId, lier, pilule } from '../outils.js';
 
@@ -107,7 +108,9 @@ export function vueTaches(vue, app, params) {
             h('span', { classe: 'meta' }, t.etapes.length ? `${pluriel(t.etapes.length - bugs.length, 'étape')} · ${pluriel(bugs.length, 'bug')}` : 'rien de consigné')),
           t.etapes.length
             ? h('ol', { classe: 'parcours' }, t.etapes.map((e) => etape(e, e.genre === 'bug' ? 0 : ++n)))
-            : h('p', { classe: 'vide' }, 'Aucune étape consignée pour cette tâche. Elles s’écrivent dans son fichier, sous la clé « etapes ».')),
+            : h('p', { classe: 'vide' }, 'Aucune étape consignée pour cette tâche. Elles s’écrivent dans son fichier, sous la clé « etapes ».'),
+          // Les images produites par les exécutions de cette tâche.
+          vignettes(courses) ? [h('div', { classe: 'detail-entete', style: 'margin-top:28px' }, h('h2', { classe: 'cond' }, 'Les images')), vignettes(courses, 4)] : null),
         h('aside', { classe: 'detail-cote' },
           h('section', { classe: 'carte' },
             h('h2', { classe: 'cond' }, 'Ce qui définit « fait »'),

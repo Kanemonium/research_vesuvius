@@ -3,6 +3,7 @@
 // où les nôtres s'insèrent à leur date ; pour le pilotage et les outils, seulement les nôtres.
 // Les données sont dans pilotage/avancees/<domaine>.yaml. Cliquer un nœud ouvre son détail,
 // fonctionnel puis technique, avec le prix associé et les sources.
+import { vignettes } from '../apercu.js';
 import { embleme } from '../emblemes.js';
 import { LIBELLES, adresse, dateLongue, h, lienId, lier } from '../outils.js';
 
@@ -24,7 +25,8 @@ const annee = (a) => a.date?.slice(0, 4) ?? (a.statut === 'ouvert' ? 'à venir' 
 const lienExt = (s) => h('a', { href: s.lien, target: '_blank', rel: 'noreferrer' }, `${s.titre ?? s.lien.replace(/^https:\/\/(www\.)?/, '')} ↗`);
 const prixDe = (p) => h('span', { classe: 'pc-prix', title: 'Prix associé' }, h('span', { html: TROPHEE }), [p.nom, p.montant].filter(Boolean).join(' · '));
 
-function detail(a, base, mixte) {
+function detail(a, base, mixte, app) {
+  const liees = app.etat.executions.filter((x) => a.executions.includes(x.id));
   const e = STATUTS[a.statut] ?? STATUTS.acquis;
   const bloc = (titre, contenu) => (contenu ? [h('h3', {}, titre), contenu] : null);
   return h('aside', { classe: 'carte pc-detail', 'aria-live': 'polite' },
@@ -41,7 +43,7 @@ function detail(a, base, mixte) {
     bloc('Comment c’est fait', a.techniqueHtml ? lier(h('div', { classe: 'prose', html: a.techniqueHtml })) : null),
     bloc('Qui', a.qui.length ? h('p', {}, a.qui.join(', ')) : null),
     bloc('Pour comprendre', a.fiches.length ? h('p', { classe: 'pc-liens' }, a.fiches.map((id) => lienId(id))) : null),
-    bloc('Chez nous', a.pistes.length + a.executions.length ? h('p', { classe: 'pc-liens' }, [...a.pistes, ...a.executions].map((id) => lienId(id))) : null),
+    bloc('Chez nous', a.pistes.length + a.executions.length ? [h('p', { classe: 'pc-liens' }, [...a.pistes, ...a.executions].map((id) => lienId(id))), vignettes(liees)] : null),
     bloc('Sources', a.sources.length ? h('ul', { classe: 'pc-sources' }, a.sources.map((s) => h('li', {}, s.lien ? lienExt(s) : s.titre))) : null));
 }
 
@@ -71,13 +73,44 @@ function synthese(app, d, piste) {
 }
 
 /** Le volet « parcours » d'un domaine. « choisie » est l'identifiant de l'avancée ouverte, ou null. */
-export function voletParcours(app, domaine, choisie) {
+const NOMS_DOMAINE = { scan: 'Scan', depliage: 'Dépliage', encre: 'Encre', outils: 'Outils', autre: 'Autre' };
+const argent = (n) => `${n.toLocaleString('fr-FR')} $`;
+
+/** Tous les prix attribués par le défi dans ce domaine (ou dans tous), du plus récent au plus ancien. */
+function listePrix(app, domaine, tous, base) {
+  const { sections, source, lu_le: lu } = app.etat.prixAttribues ?? { sections: [] };
+  const garde = (l) => tous || l.domaine === domaine;
+  const visibles = sections.map((s) => ({ ...s, laureats: s.laureats.filter(garde) })).filter((s) => s.laureats.length);
+  const nombre = visibles.reduce((n, s) => n + s.laureats.length, 0);
+  const somme = visibles.reduce((n, s) => n + s.laureats.reduce((m, l) => m + l.dollars, 0), 0);
+  return h('div', { classe: 'px' },
+    h('div', { classe: 'px-tete' },
+      h('p', {}, h('strong', {}, `${nombre} prix`), ` · ${argent(somme)}`, tous ? ' · tous domaines' : ` · ${NOMS_DOMAINE[domaine] ?? domaine}`),
+      h('div', { classe: 'dsc-choix', role: 'group', 'aria-label': 'Domaines montrés' },
+        h('a', { href: `${base}&vue=prix`, 'aria-pressed': String(!tous) }, 'Ce domaine'),
+        h('a', { href: `${base}&vue=prix&tous=1`, 'aria-pressed': String(tous) }, 'Tous les domaines'))),
+    visibles.length ? visibles.map((s) => h('section', { classe: 'px-section' },
+      h('header', {}, h('span', { classe: 'px-date' }, dateSouple(s.date)), h('h3', {}, s.titre), h('span', { classe: 'meta' }, `total de la section : ${s.total}`)),
+      h('ul', { classe: 'px-liste' }, s.laureats.map((l) => h('li', { 'data-domaine': l.domaine },
+        h('span', { classe: 'pc-prix' }, h('span', { html: TROPHEE }), l.montant ?? '—'),
+        h('div', {}, h('strong', {}, l.intitule ?? l.qui), h('span', { classe: 'px-qui' }, l.intitule ? l.qui : ''), h('p', {}, l.quoi)),
+        tous ? h('span', { classe: 'pilule' }, NOMS_DOMAINE[l.domaine] ?? l.domaine) : null)))))
+      : h('p', { classe: 'vide' }, 'Aucun prix relevé pour ce domaine.'),
+    h('p', { classe: 'meta px-source' }, 'Rangement par domaine : le nôtre. ', source?.lien ? lienExt(source) : null, lu ? ` · lu le ${dateLongue(lu)}` : ''));
+}
+
+export function voletParcours(app, domaine, choisie, { vue = null, tous = false } = {}) {
   const d = app.etat.avancees?.[domaine];
   const piste = app.etat.pistes.find((p) => p.type === 'domaine' && p.domaine === domaine);
   const base = `#/carte?domaine=${domaine}`;
   const retour = h('a', { classe: 'bouton mini discret', href: piste ? adresse(piste.id) : '#/carte' }, '← La carte');
+  const nPrix = (app.etat.prixAttribues?.sections ?? []).reduce((n, s) => n + s.laureats.filter((l) => l.domaine === domaine).length, 0);
+  const enPrix = vue === 'prix';
+  const bascule = h('div', { classe: 'dsc-choix pc-bascule', role: 'group', 'aria-label': 'Ce que montre le parcours' },
+    h('a', { href: base, 'aria-pressed': String(!enPrix) }, 'Avancées'),
+    h('a', { href: `${base}&vue=prix`, 'aria-pressed': String(enPrix) }, `Prix attribués (${nPrix})`));
   const tete = h('div', { classe: 'pc-tete' }, retour,
-    h('div', { classe: 'pc-titre' }, embleme(domaine, 44), h('div', {}, h('p', { classe: 'meta' }, d?.portee === 'nous' ? 'Parcours · le nôtre' : 'Parcours · le défi tout entier'), h('h1', { classe: 'grand' }, piste?.titre ?? domaine))));
+    h('div', { classe: 'pc-titre' }, embleme(domaine, 44), h('div', {}, h('p', { classe: 'meta' }, d?.portee === 'nous' ? 'Parcours · le nôtre' : 'Parcours · le défi tout entier'), h('h1', { classe: 'grand' }, piste?.titre ?? domaine))), bascule);
   if (!d || !d.avancees.length) {
     return h('div', { classe: 'pc' }, tete, h('div', { classe: 'vide', style: 'max-width:60ch' }, 'Aucune avancée n’est encore consignée pour ce domaine.'));
   }
@@ -116,7 +149,7 @@ export function voletParcours(app, domaine, choisie) {
         h('span', { classe: 'pb-ligne' }, h('span', { classe: 'pb-rappel' }, branches[b]?.titre ?? ''), a.nous && mixte ? h('span', { classe: 'pilule pc-nous' }, 'Nous') : null, a.prix ? prixDe({ montant: a.prix.montant }) : null)))];
   });
   const graphe = h('div', { classe: 'pb-graphe', style: `--branches:${n}`, role: 'list' }, racine, entetes, rails, noeuds);
-  const volet = h('div', { classe: 'pc' }, tete, h('div', { classe: 'pc-corps' }, h('div', { classe: 'pc-defile' }, graphe), ouverte ? detail(ouverte, base, mixte) : synthese(app, d, piste)));
+  const volet = h('div', { classe: 'pc' }, tete, h('div', { classe: 'pc-corps' }, h('div', { classe: 'pc-defile' }, enPrix ? listePrix(app, domaine, tous, base) : graphe), ouverte ? detail(ouverte, base, mixte, app) : synthese(app, d, piste)));
   // Le nœud ouvert reste en vue dans la colonne du graphe.
   if (ouverte) requestAnimationFrame(() => graphe.querySelector('[aria-current="true"]')?.scrollIntoView({ block: 'nearest' }));
   return volet;

@@ -31,9 +31,14 @@ etapes:
     detail: "Agent C. a regardé un aperçu réduit seize fois : des formes claires alignées en rangées dans la moitié haute. Kanemonium ne l'a pas encore vue. C'est le segment d'entraînement : un premier aperçu, pas une preuve."
   - date: 2026-11-15
     genre: etape
-    statut: a-faire
+    statut: faite
     titre: Comparer l'image aux étiquettes
-    detail: "Superposer l'image d'encre aux étiquettes et au masque de supervision du segment : les formes visibles sont-elles toutes dans les zones étiquetées ? Sans cela, on ne sait pas si le modèle a appris ou récité."
+    detail: "Fait avec `scripts/wsl/comparer_aux_etiquettes.py`. Des formes de lettres apparaissent aussi hors de la zone étiquetée (5,8 % de l'image) : le modèle ne fait pas que réciter. Mais il sépare mal l'encre du fond : médiane 201 sur l'encre étiquetée, 129 sur le fond étiqueté."
+  - date: 2026-11-15
+    genre: etape
+    statut: a-faire
+    titre: Comprendre pourquoi le fond reste gris
+    detail: "Le fond étiqueté devrait être sombre. Piste non vérifiée : l'adoucissement des cibles à l'entraînement. À regarder avant tout nouvel entraînement."
 ---
 
 Fait quand une image de prédiction d'encre est produite et regardée ensemble.

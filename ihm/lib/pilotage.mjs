@@ -4,7 +4,7 @@ import { appendFile, readFile, readdir, stat, writeFile } from 'node:fs/promises
 import path from 'node:path';
 import { marked } from 'marked';
 import YAML from 'yaml';
-import { chargerAvancees, fichiersAvancees } from './avancees.mjs';
+import { chargerAvancees, chargerPrix, fichierPrix, fichiersAvancees } from './avancees.mjs';
 
 export const TYPES_PISTE = ['racine', 'domaine', 'piste', 'decision'];
 export const STATUTS_PISTE = ['a-explorer', 'en-cours', 'validee', 'impasse'];
@@ -14,7 +14,7 @@ export const CONFIANCES = ['faible', 'moyenne', 'forte'];
 export const ETATS_ETAPE = { etape: ['a-faire', 'en-cours', 'faite'], bug: ['ouvert', 'contourne', 'corrige'] };
 export const STATUTS_EXECUTION = ['prevue', 'en-cours', 'terminee', 'echouee'];
 export const GENRES_NOTE = ['parametrage', 'architecture', 'optimisation', 'donnees', 'mesure'];
-export const GENRES_SORTIE = ['mesures', 'courbe', 'journal', 'fichiers'];
+export const GENRES_SORTIE = ['mesures', 'courbe', 'journal', 'fichiers', 'image'];
 const SOURCES_PERMISES = /^(experiments|scripts|src)\//;
 const ID_TACHE = /^T-\d{3,}$/;
 
@@ -158,10 +158,13 @@ export async function chargerEtat(racine) {
     for (const c of comptes) if (!/^[A-Za-z0-9][A-Za-z0-9-]{0,38}$/.test(c.github ?? '')) erreurs.push(`${x.id} : crédit sans compte GitHub valide (« ${c.github} »)`);
     for (const a of x.code.flatMap((c) => c.auteurs)) if (!/^[0-9a-f]{40}$/.test(a.commit ?? '')) erreurs.push(`${x.id} : l'auteur « ${a.github} » d'un extrait doit citer le commit complet`);
     for (const s of x.sorties) if (!GENRES_SORTIE.includes(s.genre)) erreurs.push(`${x.id} : genre de sortie « ${s.genre} » inconnu`);
+    // Une image n'est qu'un nom de fichier dans local/apercus/ : jamais un chemin, jamais une donnée versionnée.
+    for (const s of x.sorties) if (s.genre === 'image' && !/^[\w.-]+\.(png|jpg)$/.test(s.fichier ?? '')) erreurs.push(`${x.id} : l'image « ${s.titre} » doit nommer un fichier .png ou .jpg de local/apercus/`);
   }
 
   const avancees = await chargerAvancees(racine, erreurs, new Set([...pistes, ...fiches, ...executions].map((e) => e.id)));
-  return { pistes, taches, horizon, fiches, executions, avancees, erreurs };
+  const prixAttribues = await chargerPrix(racine, erreurs);
+  return { pistes, taches, horizon, fiches, executions, avancees, prixAttribues, erreurs };
 }
 
 const LANGUES = ['fr', 'en'];
@@ -265,7 +268,7 @@ export async function empreinte(racine) {
     const concepts = path.join(racine, 'docs', 'concepts');
     for (const n of await readdir(concepts)) if (n.endsWith('.md')) fichiers.push(path.join(concepts, n));
   } catch { /* pas encore de fiches */ }
-  fichiers.push(...await fichiersAvancees(racine));
+  fichiers.push(...await fichiersAvancees(racine), fichierPrix(racine));
   for (const x of await fichiersExecutions(racine)) {
     fichiers.push(x.fichier);
     // Le début et la fin d'une exécution (fichiers d'état écrits par le lanceur) redessinent la page ;

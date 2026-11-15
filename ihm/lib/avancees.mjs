@@ -57,3 +57,26 @@ export async function chargerAvancees(racine, erreurs = [], connus = new Set()) 
   }
   return domaines;
 }
+
+const DOMAINES_PRIX = ['scan', 'depliage', 'encre', 'outils', 'autre'];
+export const fichierPrix = (racine) => path.join(racine, 'pilotage', 'prix-attribues.yaml');
+/** Montant en dollars d'un texte comme « $20,000 », ou 0 s'il n'y a pas de montant. */
+export const dollars = (texte) => Number(String(texte ?? '').replace(/[^\d]/g, '')) || 0;
+
+/** Tous les prix attribués par le défi (pilotage/prix-attribues.yaml), section par section. */
+export async function chargerPrix(racine, erreurs = []) {
+  let brut;
+  try { brut = YAML.parse(await readFile(fichierPrix(racine), 'utf8')) ?? {}; } catch (e) {
+    if (e.code !== 'ENOENT') erreurs.push(`prix-attribues.yaml : illisible (${e.message})`);
+    return { lu_le: null, source: null, sections: [] };
+  }
+  const sections = liste(brut.sections).map((s) => ({
+    titre: s.titre ?? '', date: s.date ? String(s.date) : null, total: s.total ?? null, but: s.but ?? null,
+    laureats: liste(s.laureats).map((l) => {
+      if (!DOMAINES_PRIX.includes(l.domaine)) erreurs.push(`prix « ${s.titre} » : domaine inconnu « ${l.domaine} »`);
+      return { qui: l.qui ?? '', montant: l.montant ?? null, dollars: dollars(l.montant), intitule: l.intitule ?? null, quoi: l.quoi ?? '', domaine: l.domaine };
+    }),
+  }));
+  if (sections.length && !/^https:\/\//.test(brut.source?.lien ?? '')) erreurs.push('prix-attribues.yaml : source manquante');
+  return { lu_le: brut.lu_le ? String(brut.lu_le) : null, source: brut.source ?? null, sections };
+}

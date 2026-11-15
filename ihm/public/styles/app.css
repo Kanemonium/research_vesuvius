@@ -779,3 +779,37 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
   .pb-carte { padding-top: var(--e-3); }
   .pb-rappel { display: inline; }
 }
+
+/* ---------- Aperçus d'images d'une exécution (servis depuis local/apercus/, hors dépôt) ---------- */
+.apercu { margin: 0; }
+.apercu-cadre { display: block; overflow: hidden; border-radius: var(--rayon-petit); background: #141211; line-height: 0; }
+.apercu-cadre[hidden], .apercu-absent[hidden] { display: none; }
+.apercu-cadre img { display: block; width: 100%; height: auto; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+.apercu-cadre:hover img { transform: scale(1.03); }
+.apercu figcaption { display: flex; flex-direction: column; gap: 2px; margin-top: var(--e-2); color: var(--encre-60); font-size: var(--t-petit); line-height: 1.5; }
+.apercu figcaption strong { color: var(--encre); }
+.apercu-absent { padding: var(--e-4); border: 1px dashed var(--structure); border-radius: var(--rayon-petit); color: var(--encre-60); font-size: var(--t-petit); }
+.apercus { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: var(--e-3); margin-top: var(--e-3); }
+.apercu.compact figcaption { font-size: var(--t-meta); }
+.pc-detail .apercus { grid-template-columns: 1fr; }
+
+/* ---------- Parcours : la liste de tous les prix attribués ---------- */
+.pc-bascule { margin: 0 0 0 auto; min-width: 320px; }
+.dsc-choix a { flex: 1; padding: 6px 10px; border-radius: var(--pilule); text-align: center; text-decoration: none; color: var(--encre-60); font: 500 var(--t-petit)/1.2 var(--f-texte); white-space: nowrap; }
+.dsc-choix a[aria-pressed="true"] { background: var(--encre); color: var(--sur-encre); }
+.px { max-width: 980px; padding-bottom: var(--e-6); }
+.px-tete { display: flex; align-items: center; justify-content: space-between; gap: var(--e-4); flex-wrap: wrap; margin-bottom: var(--e-4); }
+.px-tete .dsc-choix { margin: 0; min-width: 280px; }
+.px-section { margin-bottom: var(--e-5); }
+.px-section > header { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--e-2) var(--e-3); padding-bottom: var(--e-2); border-bottom: 1px dashed var(--structure); }
+.px-section h3 { font: 700 1rem/1.25 var(--f-titre); }
+.px-date { font: 800 1rem/1 var(--f-titre); color: var(--cristal-fonce); white-space: nowrap; }
+.px-section > header .meta { margin-left: auto; text-transform: none; letter-spacing: 0; }
+.px-liste { list-style: none; margin: 0; padding: 0; }
+.px-liste li { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: var(--e-3); align-items: start; padding: var(--e-3) 0; border-bottom: 1px solid var(--filet); font-size: var(--t-petit); line-height: 1.5; }
+.px-liste .pc-prix { justify-self: start; }
+.px-liste strong { font-size: 0.92rem; }
+.px-qui { margin-left: 8px; color: var(--encre-60); }
+.px-liste p { color: var(--encre-60); }
+.px-source { margin-top: var(--e-4); text-transform: none; letter-spacing: 0; }
+@media (max-width: 720px) { .px-liste li { grid-template-columns: 1fr; gap: 4px; } .pc-bascule { min-width: 0; width: 100%; margin: 0; } }

@@ -13,10 +13,12 @@ const ICI = path.dirname(fileURLToPath(import.meta.url));
 const RACINE = path.resolve(ICI, '..');
 const PUBLIC = path.join(ICI, 'public');
 const CONCEPTS = path.join(RACINE, 'docs', 'concepts');
+// Aperçus des exécutions : des images réduites, gardées sur la machine, hors du dépôt.
+const APERCUS = path.join(RACINE, 'local', 'apercus');
 const PORT = Number(process.env.IHM_PORT || process.env.PORT) || 4173;
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.json': 'application/json', '.png': 'image/png',
+  '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpeg',
 };
 
 function json(res, code, corps) {
@@ -103,8 +105,9 @@ async function api(req, res, url) {
 async function statique(res, url) {
   // Les planches des fiches vivent avec les fiches, dans docs/concepts/img/.
   const planche = /^\/concepts\/img\/([\w.-]+\.svg)$/.exec(url.pathname);
-  const base = planche ? path.join(CONCEPTS, 'img') : PUBLIC;
-  const relatif = planche ? planche[1] : url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname).replace(/^\/+/, '');
+  const apercu = /^\/apercus\/([\w.-]+\.(?:png|jpg))$/.exec(decodeURIComponent(url.pathname));
+  const base = planche ? path.join(CONCEPTS, 'img') : apercu ? APERCUS : PUBLIC;
+  const relatif = planche ? planche[1] : apercu ? apercu[1] : url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname).replace(/^\/+/, '');
   const fichier = path.resolve(base, relatif);
   if (fichier !== base && !fichier.startsWith(base + path.sep)) {
     res.writeHead(403).end();
