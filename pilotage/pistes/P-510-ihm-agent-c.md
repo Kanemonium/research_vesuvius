@@ -1,6 +1,6 @@
 ---
 id: P-510
-titre: "IHM Agent C."
+titre: "IHM Hephaist'OS"
 type: piste
 domaine: pilotage
 statut: en-cours
@@ -19,6 +19,8 @@ Une interface locale qui réunit le mouvement GitHub, les tâches, la carte des 
 
 - **Kanemonium** (2026-11-14) : « tu es bien branché sur l'alimentation de l'IHM pour tracer notre épopée ? »
 - **Agent C.** (2026-11-14) : oui. J'écris le carnet pendant nos échanges, et l'IHM se met à jour seule quand un fichier change. Les ajustements visuels demandés sont consignés dans D-004.
+- **Kanemonium** (2026-11-15) : l'outil ne doit pas porter le nom d'Agent C., « c'est toi, ce n'est pas l'outil ». Il propose Hephaist'OS et fournit le logo. Il veut aussi ouvrir une tâche pour voir ses étapes et ses bugs, des cartes au liseré gauche plat, l'accueil derrière le logo, et un onglet pour les rendus d'exécution : « en l'état je ne sais même pas ce que l'entraînement de 2 h a produit ».
+- **Agent C.** (2026-11-15) : fait, voir D-007 et T-010. Le reproche sur l'entraînement était juste : j'avais consigné des chiffres, pas ce qu'ils voulaient dire. Les rendus X-001 et X-002 répondent maintenant à trois questions fixes (le type de résultat, sa représentativité, son niveau d'optimisation) et chaque notion du code a sa fiche, K-11 à K-16.
 
 ## Suite
 

@@ -1,0 +1,9 @@
+{
+  "id": "X-001",
+  "debut": null,
+  "fin": "2026-11-14T19:57:22+01:00",
+  "code": 0,
+  "pic_vram_mo": 7996,
+  "commande": "bash experiments/2026-11-14-ligne-de-base-encre/mesurer.sh <essai-court.json puis essai-court-128.json>",
+  "note": "Deux essais lancés l un après l autre : pas de durée unique."
+}

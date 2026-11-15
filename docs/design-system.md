@@ -1,6 +1,6 @@
 # Design système « Cendre »
 
-Le design système de l'IHM d'Agent C. Les jetons sont dans
+Le design système de Hephaist'OS, l'IHM du projet. Les jetons sont dans
 [`ihm/public/styles/tokens.css`](../ihm/public/styles/tokens.css), les composants dans
 [`app.css`](../ihm/public/styles/app.css).
 
@@ -96,6 +96,19 @@ une échelle 4 · 8 · 12 · 16 · 24 · 32 · 48 · 72 ; une seule ombre, très
 | `.bulle` | aperçu au survol et au focus clavier |
 | `.embleme` | pastille colorée d'identité (voir ci-dessous) |
 | `.lien-id` | lien interne vers un identifiant, précédé de l'emblème de son onglet |
+| carte à liseré (`.tache`, `.etape-corps`, `.exe-carte`, `.note`, `.bilan-carte`) | bord gauche **plat** de 4 px qui dit le statut ou le genre ; arrondis sur les coins droits seulement |
+| `.glisse` | deux volets côte à côte ; le premier sort par la gauche quand on ouvre le second |
+| `.credit` + `.portrait` | lien vers GitHub précédé de la photo de profil de l'auteur (rond de 18 px) ; posé seul sur tout lien GitHub du carnet. Sert à citer le travail des autres |
+| `.avancement` | barre de progression d'une exécution : orange en cours, verte terminée, rouge arrêtée ; l'état est aussi écrit dessous |
+| `.journal-bouton` | ouvre le journal : un témoin qui émet une onde tant que l'exécution tourne, vert une fois terminée |
+| `.journal-fenetre` | fenêtre du journal, mise à jour toutes les secondes et demie pendant l'exécution |
+| `.code-bloc` + `.notes` | extrait de code numéroté et, à sa droite, les notes qui l'expliquent ; survoler une note éclaire ses lignes |
+
+### Le nom et le logo
+
+L'outil s'appelle **Hephaist'OS** (D-007). Agent C. est l'assistant, pas l'outil. Le logo, une
+enclume et sa flamme en pixels fournie par Kanemonium, est `ihm/public/logo.png` ; il est
+affiché sans lissage (`image-rendering: pixelated`). Il ramène à l'accueil, qui n'est pas un onglet.
 
 ## Emblèmes
 
@@ -104,12 +117,12 @@ grille 32 × 32, trois à cinq aplats, aucun contour fin : lisible dès 20 px.
 
 | Famille | Emblèmes |
 |---|---|
-| Vues | `cap` (boussole), `carte` (nœuds), `taches` (case cochée), `github` (branche), `horizon` (soleil levant), `doc` (livre ouvert) |
-| Domaines | `defi` (volcan), `scan` (faisceau), `depliage` (spirale et feuille à plat), `encre` (goutte), `outils` (écrou), `pilotage` (cible) |
+| Vues | `carte` (nœuds), `taches` (case cochée), `executions` (invite de commande), `github` (branche), `horizon` (soleil levant), `doc` (livre ouvert) ; `cap` (boussole) reste dessiné mais l'accueil s'ouvre par le logo |
+| Domaines | `defi` (volcan), `scan` (faisceau), `depliage` (spirale et feuille à plat), `encre` (goutte), `apprentissage` (trois neurones reliés), `outils` (écrou), `pilotage` (cible) |
 | Objets | `boite`, `mouvement`, `probleme`, `livrable`, `prix` |
 
 Un emblème accompagne toujours un texte : il aide à repérer, il ne remplace pas le libellé.
-Le nombre de jours de la page Cap est le seul texte en relief ; il se recalcule à chaque jour.
+Le nombre de jours de l'accueil est le seul texte en relief ; il se recalcule à chaque jour.
 
 ## Planches des fiches
 
@@ -128,11 +141,21 @@ Le fond papier est fixe : en thème Carbone, la planche apparaît comme une page
 - **Rubans** (`vues/horizon.js`). Problèmes → livrables → prix. L'épaisseur dit la confiance
   (faible, moyenne, forte). Survoler un élément éclaire toute sa chaîne. Un livrable dont une
   tâche est en cours porte une bordure orange qui tourne ; un livrable fait, une bordure verte.
+- **Parcours d'une tâche** (`vues/taches.js`). Étapes numérotées et bugs sur un fil pointillé.
+  Une étape porte un rond numéroté, un bug le triangle d'alerte et une étiquette rouge ; l'état
+  est toujours écrit (Faite, Corrigé, Contourné, Ouvert).
+- **Code annoté** (`vues/executions.js`). Le code sur fond sombre dans les deux thèmes, numéros de
+  ligne du fichier d'origine. Chaque note a un genre, dit par un mot et une pastille de l'éventail :
+  paramétrage (ciel), architecture (violet), optimisation (braise), données (turquoise), mesure (pré).
+- **Courbes** (`vues/executions.js`). Une seule série par courbe, trait d'encre de 2 px, grille
+  discrète, valeur exacte au survol ou au clavier. Deux mesures d'échelles différentes font deux
+  courbes côte à côte, jamais deux axes.
 - **Frise** (`vues/horizon.js`). D'aujourd'hui au 25 juin 2027 : drapeaux noirs pour les
   échéances fixes, losanges pour les fins de mois, ronds pour les livrables projetés.
 
 ## Accessibilité
 
 Tout nœud de la carte et tout point de la frise est atteignable au clavier et porte un nom
-lisible par un lecteur d'écran. Les animations se coupent avec `prefers-reduced-motion`.
+lisible par un lecteur d'écran. Les transitions de confort se coupent avec `prefers-reduced-motion` ; les animations d'état et le
+glissement du tableau des tâches, demandés par Kanemonium, restent.
 La mise en page tient jusqu'à 375 px de large.

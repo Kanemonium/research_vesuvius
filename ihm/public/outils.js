@@ -26,6 +26,8 @@ export const LIBELLES = {
   'a-faire': 'À faire', bloquee: 'Bloquée', faite: 'Faite',
   racine: 'Défi', domaine: 'Domaine', piste: 'Piste', decision: 'Décision',
   faible: 'faible', moyenne: 'moyenne', forte: 'forte',
+  prevue: 'Prévue',
+  ouvert: 'Ouvert', contourne: 'Contourné', corrige: 'Corrigé', terminee: 'Terminée', echouee: 'Échouée',
 };
 
 const JOUR = 86_400_000;
@@ -43,21 +45,47 @@ export function ilYA(d) {
 }
 export { versDate };
 
-/** Adresse de la vue qui montre un identifiant (P-, D-, T-, K-, L-, F-). */
+/** Adresse de la vue qui montre un identifiant (P-, D-, T-, X-, K-, L-, F-). */
 export function adresse(id) {
   if (/^[PD]-/.test(id)) return `#/carte?id=${id}`;
   if (/^T-/.test(id)) return `#/taches?id=${id}`;
+  if (/^X-/.test(id)) return `#/executions?id=${id}`;
   if (/^K-/.test(id)) return `#/doc?id=${id}`;
   return `#/horizon?id=${id}`;
 }
 
-/** Transforme les identifiants cités dans un texte en liens vers la bonne vue. */
+// ---------- Crédits : citer l'auteur d'un code qui n'est pas le nôtre
+const GITHUB = /^https:\/\/github\.com\/([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))(?:\/|$)/;
+/** Compte ou organisation GitHub visé par une adresse, ou null. */
+export const compteGithub = (href) => GITHUB.exec(href ?? '')?.[1] ?? null;
+/** Photo de profil GitHub d'un compte, en petit rond. Elle disparaît si elle ne se charge pas : le nom reste. */
+export function portrait(compte, taille = 18) {
+  const img = h('img', { classe: 'portrait', src: `https://github.com/${compte}.png?size=${taille * 3}`, alt: '', width: taille, height: taille, loading: 'lazy', referrerpolicy: 'no-referrer' });
+  img.addEventListener('error', () => img.remove());
+  return img;
+}
+/** Lien de crédit : la photo de profil, puis le nom, vers GitHub. */
+export const credit = (compte, texte = compte, href = `https://github.com/${compte}`) =>
+  h('a', { classe: 'credit', href, target: '_blank', rel: 'noreferrer', title: `${compte} sur GitHub` }, portrait(compte), h('span', {}, texte));
+/** Tout lien vers GitHub écrit dans un texte du carnet reçoit la photo de profil de son auteur. */
+function decorerCredits(racine) {
+  for (const a of racine.querySelectorAll('a[href^="https://github.com/"]')) {
+    const compte = compteGithub(a.getAttribute('href'));
+    if (!compte || a.classList.contains('credit')) continue;
+    a.classList.add('credit');
+    a.target = '_blank'; a.rel = 'noreferrer'; a.title = `${compte} sur GitHub`;
+    a.prepend(portrait(compte));
+  }
+}
+
+/** Transforme les identifiants cités dans un texte en liens vers la bonne vue, et signe les liens GitHub. */
 export function lier(racine) {
+  decorerCredits(racine);
   const marcheur = document.createTreeWalker(racine, NodeFilter.SHOW_TEXT);
   const textes = [];
   while (marcheur.nextNode()) if (!marcheur.currentNode.parentElement.closest('a, code')) textes.push(marcheur.currentNode);
   for (const noeud of textes) {
-    const morceaux = noeud.nodeValue.split(/\b([PDTLFK]-\d{2,3})\b/);
+    const morceaux = noeud.nodeValue.split(/\b([PDTLFKX]-\d{2,3})\b/);
     if (morceaux.length < 2) continue;
     noeud.replaceWith(...morceaux.map((m, i) => (i % 2 ? lienId(m) : m)));
   }
@@ -70,15 +98,15 @@ export const pilule = (statut, forme = 'rond') => h('span', { classe: 'pilule', 
  *  Rond pointillé = à faire, orange = en cours, vert coché = validé, croix = impasse ; losange bleu = décision. */
 export function glyphe(statut, taille = 14, forme = 'rond') {
   const svg = s('svg', { classe: 'glyphe', width: taille, height: taille, viewBox: '-8 -8 16 16', 'aria-hidden': 'true' });
-  const fait = statut === 'validee' || statut === 'faite';
-  const bloque = statut === 'impasse' || statut === 'bloquee';
+  const fait = ['validee', 'faite', 'corrige', 'terminee'].includes(statut);
+  const bloque = ['impasse', 'bloquee', 'ouvert', 'echouee'].includes(statut);
   const decision = forme === 'losange';
   const couleur = decision ? 'var(--decision)' : fait ? 'var(--valide)' : statut === 'en-cours' ? 'var(--cristal)' : null;
   const communs = {
     fill: fait || statut === 'en-cours' ? couleur : 'none',
     stroke: couleur ?? (bloque ? 'var(--alerte)' : 'currentColor'),
     'stroke-width': 1.5,
-    'stroke-dasharray': statut === 'a-explorer' || statut === 'a-faire' ? '2 2.4' : null,
+    'stroke-dasharray': ['a-explorer', 'a-faire', 'prevue'].includes(statut) ? '2 2.4' : null,
   };
   svg.append(decision ? s('path', { d: 'M0-7 7 0 0 7-7 0Z', ...communs }) : s('circle', { r: 6, ...communs }));
   if (fait) svg.append(s('path', { d: 'M-3 .3l2.1 2.1 3.9-4.6', fill: 'none', stroke: '#fff', 'stroke-width': 1.7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
@@ -90,6 +118,7 @@ export function glyphe(statut, taille = 14, forme = 'rond') {
 export function ongletDe(id) {
   if (/^[PD]-/.test(id)) return 'carte';
   if (/^T-/.test(id)) return 'taches';
+  if (/^X-/.test(id)) return 'executions';
   if (/^K-/.test(id)) return 'doc';
   return 'horizon';
 }

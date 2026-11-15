@@ -8,6 +8,7 @@ peut être lu par n'importe qui : pas de nom réel, pas d'adresse, pas de secret
 - **Kanemonium** : le chercheur, propriétaire du dépôt. C'est son pseudonyme de recherche ;
   ne jamais écrire son vrai nom ni son adresse dans un fichier, un commit ou une requête.
   Les commits partent sous l'identité `Kanemonium` (déjà réglée dans la configuration git locale).
+- **Hephaist'OS** : l'IHM, l'outil. Ce n'est pas toi (choix de Kanemonium, 2026-11-15).
 - **Agent C.** : toi. Un Jarvis à l'écrit. Tu tiens le carnet, tu prépares, tu mesures, tu
   préviens, pour que Kanemonium ne dépense son énergie que sur la réflexion.
 
@@ -25,7 +26,15 @@ première occurrence). Le README et les messages destinés à la communauté du 
    - un échange qui fait bifurquer → une ligne datée dans la section « Réflexions » de la piste,
      ou une décision `D-…` si un choix est arrêté ;
    - une piste abandonnée passe à `impasse` avec sa cause racine, elle n'est jamais supprimée ;
-   - un travail à faire → une tâche `T-…` liée à sa piste ;
+   - un travail à faire → une tâche `T-…` liée à sa piste ; chaque étape franchie et chaque bug
+     rencontré s'ajoutent à la clé `etapes` de son fichier, dans l'ordre où ils se sont passés ;
+   - une exécution (essai, entraînement, prédiction) → un rendu `X-…` dans
+     `experiments/<dossier>/execution.yaml`, en trois temps (demande de Kanemonium, 2026-11-15) :
+     **avant de lancer**, écrire sa page en `statut: prevue` avec ce qu'on sait déjà (ce qu'elle doit
+     produire : type, représentativité, niveau d'optimisation ; le code utile annoté ; ce qu'elle ne
+     dira pas) ; **lancer** toujours par `scripts/wsl/lancer-execution.sh`, qui alimente la barre de
+     progression et le journal en direct de l'IHM ; **à la fin**, compléter la page avec les résultats
+     mesurés et versionner le journal condensé. Chaque notion du code y renvoie à sa fiche `K-…` ;
    - une projection qui change → `pilotage/horizon.yaml` ;
    - une notion nouvelle pour Kanemonium (papyrologie, physique du scan, apprentissage) → une
      fiche `K-…` dans `docs/concepts/` : un fichier `.fr.md`, un fichier `.en.md` et une planche
@@ -45,6 +54,28 @@ résultat qui n'a pas été mesuré ; « non mesuré », « inconnu » et « est
   comme acquise sur la seule foi d'une prédiction.
 - Les contributions sont jugées sur leur usage réel et leur documentation : un correctif n'est
   proposé à `ScrollPrize/villa` que pour un défaut réellement rencontré, avec preuve avant/après.
+
+## Citer le travail des autres
+
+Demande de Kanemonium du 2026-11-15 : ne jamais s'approprier le travail de quelqu'un d'autre, que
+ce soit villa ou un autre participant du défi.
+
+- **Dans le code** : un fichier ou un passage repris ou adapté porte en tête son auteur, le lien
+  vers la source (avec le commit) et sa licence. Vérifier la licence avant de reprendre quoi que ce soit.
+- **Dans une exécution** : tout extrait qui ne vient pas du dépôt a sa `source` et son `auteur`
+  (compte GitHub), et l'exécution a une liste `credits`. `npm run verifier` le refuse sinon.
+- **Jusqu'à la personne** : derrière un projet il y a quelqu'un. Pour du code de villa, chercher qui a
+  écrit les lignes citées avec `scripts/wsl/auteurs-villa.sh <fichier> <début> <fin>`, puis relever son
+  compte sur la page GitHub du commit. Les inscrire sous `auteurs` (extrait) et `personnes` (crédit).
+  Ne jamais se fier à l'historique de notre installation de villa : c'est une copie superficielle, qui
+  attribuerait tout au dernier commit. Jamais d'adresse électronique : le nom public et le compte suffisent.
+- **Dans le carnet et les fiches** : citer par un lien Markdown vers GitHub
+  (`[ScrollPrize/villa](https://github.com/ScrollPrize/villa)`). L'IHM y ajoute seule la photo de
+  profil de l'auteur.
+- **Dans un commit ou une PR** : si le changement reprend, adapte ou s'appuie directement sur le
+  code de quelqu'un, une ligne le dit avant la signature : `D'après <compte>/<dépôt> (<lien>), licence <…>.`
+  S'il vient d'une personne précise (une PR, un message, un carnet), nommer cette personne.
+- Une idée venue d'un échange (Discord, issue) se cite aussi, dans la piste où elle est notée.
 
 ## Écrire sur GitHub (commits, PR, fusions, issues, commentaires)
 
@@ -71,7 +102,7 @@ un formulaire de prix, télécharger plus de quelques Go : toujours avec l'accor
 
 ## Repères techniques
 
-- IHM : `npm run ihm` → http://127.0.0.1:4173. Serveur Node sans compilation (`ihm/server.mjs`),
+- IHM (Hephaist'OS) : `npm run ihm` → http://127.0.0.1:4173. Serveur Node sans compilation (`ihm/server.mjs`),
   page statique (`ihm/public/`), design système décrit dans `docs/design-system.md`.
 - Le jeton GitHub est dans `.env` (ignoré par git) et ne sort jamais du serveur local.
 - Machine : Windows 11, RTX 3080 Laptop (8 Go de mémoire vidéo), WSL 2 présent. Le code de

@@ -16,6 +16,14 @@ Short illustrated notes on the ideas this project runs into: what each one is, h
 | K-08 | [Ink detection](K-08-ink-detection.en.md) | [La détection d'encre](K-08-ink-detection.fr.md) |
 | K-09 | [Pseudo-labelling](K-09-pseudo-labeling.en.md) | [Le pseudo-étiquetage](K-09-pseudo-labeling.fr.md) |
 | K-10 | [Chunked data](K-10-chunked-data.en.md) | [Les données par morceaux](K-10-chunked-data.fr.md) |
+| K-11 | [The U-shaped network](K-11-u-net.en.md) | [Le réseau en U](K-11-u-net.fr.md) |
+| K-12 | [The patch and "2.5D"](K-12-patch-and-2-5d.en.md) | [Le bloc et le « 2,5D »](K-12-patch-and-2-5d.fr.md) |
+| K-13 | [Loss and learning rate](K-13-loss-and-learning-rate.en.md) | [La perte et le taux d'apprentissage](K-13-loss-and-learning-rate.fr.md) |
+| K-14 | [Mixed precision](K-14-mixed-precision.en.md) | [La précision mixte](K-14-mixed-precision.fr.md) |
+| K-15 | [The checkpoint](K-15-checkpoint.en.md) | [Le point de sauvegarde](K-15-checkpoint.fr.md) |
+| K-16 | [Held-out validation](K-16-held-out-validation.en.md) | [La validation tenue à l'écart](K-16-held-out-validation.fr.md) |
+| K-17 | [villa, the shared repository of the challenge](K-17-villa.en.md) | [villa, le dépôt commun du défi](K-17-villa.fr.md) |
 
 Facts come from the [Vesuvius Challenge](https://scrollprize.org) site as read on 2026-11-14; each note links its source.
+Notes K-11 to K-16 cover the training code: they also rely on the `ScrollPrize/villa` source at commit `2d3fb38` and on our own measured runs (`experiments/`).
 The same notes are shown in the cockpit under the "Doc" tab (`npm run ihm`).

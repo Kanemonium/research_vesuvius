@@ -4,14 +4,18 @@ import { cacherBulle, dateLongue, h, joursAvant } from './outils.js';
 import { vueCap } from './vues/cap.js';
 import { vueCarte } from './vues/carte.js';
 import { vueDoc } from './vues/doc.js';
+import { vueExecutions } from './vues/executions.js';
 import { vueGithub } from './vues/github.js';
 import { vueHorizon } from './vues/horizon.js';
 import { vueTaches } from './vues/taches.js';
 
+// L'accueil (« cap ») n'est pas un onglet : on y revient par le logo, en haut à gauche.
+const ACCUEIL = 'cap';
 const VUES = {
-  cap: { titre: 'Cap', rendre: vueCap },
+  cap: { titre: 'Accueil', rendre: vueCap },
   carte: { titre: 'Carte', rendre: vueCarte },
   taches: { titre: 'Tâches', rendre: vueTaches },
+  executions: { titre: 'Exécutions', rendre: vueExecutions },
   github: { titre: 'GitHub', rendre: vueGithub },
   horizon: { titre: 'Horizon', rendre: vueHorizon },
   doc: { titre: 'Doc', rendre: vueDoc },
@@ -40,17 +44,21 @@ const app = {
 
 function route() {
   const m = /^#\/(\w+)(?:\?(.*))?$/.exec(location.hash);
-  const nom = m && VUES[m[1]] ? m[1] : 'cap';
+  const nom = m && VUES[m[1]] ? m[1] : ACCUEIL;
   return { nom, params: new URLSearchParams(m?.[2] ?? '') };
 }
 
 function rendre() {
   const { nom, params } = route();
   cacherBulle();
-  document.getElementById('nav').replaceChildren(...Object.entries(VUES).map(([cle, v], i) =>
+  document.getElementById('nav').replaceChildren(...Object.entries(VUES).filter(([cle]) => cle !== ACCUEIL).map(([cle, v], i) =>
     h('a', { href: `#/${cle}`, 'aria-current': cle === nom ? 'page' : null }, embleme(cle, 34), h('span', {}, v.titre),
       h('span', { classe: 'mono', style: 'opacity:.55;font-size:.7em' }, `0${i + 1}`))));
-  document.title = `${VUES[nom].titre} — Agent C.`;
+  document.querySelector('.marque').setAttribute('aria-current', nom === ACCUEIL ? 'page' : 'false');
+  document.title = `${VUES[nom].titre} — Hephaist'OS`;
+  // Certaines vues s'animent seulement quand on y était déjà (le glissement du tableau des tâches).
+  app.depuis = app.vueCourante ?? null;
+  app.vueCourante = nom;
   const vue = document.getElementById('vue');
   vue.replaceChildren();
   vue.className = 'page';

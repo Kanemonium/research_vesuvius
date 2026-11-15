@@ -18,6 +18,8 @@ const DESSINS = {
   carte: fond(N) + trait('M16 16 8.5 9.5M16 16 24.5 12M16 16 20 25', W, 1.8)
     + rond(8.5, 9.5, 3, B) + rond(24.5, 12, 3, C) + rond(20, 25, 3, P) + rond(16, 16, 4, S),
   taches: fond(P) + `<rect x="7.5" y="7.5" width="17" height="17" rx="4" fill="${W}"/>` + trait('M11.6 16.4l3.1 3.1 5.9-7', N, 3),
+  executions: fond(B) + `<rect x="6" y="8" width="20" height="16" rx="3.4" fill="${N}"/>` + trait('M10.4 13l3.4 3-3.4 3', S, 2.4)
+    + `<rect x="16" y="18" width="6.4" height="2.4" rx="1.2" fill="${W}"/>`,
   github: fond(C) + trait('M11 9v14M11 19c0-5.5 10-2.5 10-8.5', N, 2.8) + rond(11, 8, 3.2, S) + rond(11, 24, 3.2, S) + rond(21, 10, 3.2, B),
   horizon: fond(N) + forme('M8 18a8 8 0 0 1 16 0Z', S) + forme('M1.2 18H30.8A15 15 0 0 1 1.2 18Z', B)
     + trait('M8 23.5h16', V, 2.2) + rond(6, 9, 1.4, C) + rond(25, 7, 1.4, R),
@@ -34,6 +36,8 @@ const DESSINS = {
     + rond(13.2, 19.2, 2.1, S) + rond(24, 8.5, 1.7, C),
   outils: fond(T) + forme('M16 6 26 16 16 26 6 16Z', N) + rond(16, 16, 4.2, S)
     + rond(16, 3.6, 1.7, B) + rond(28.4, 16, 1.7, B) + rond(16, 28.4, 1.7, B) + rond(3.6, 16, 1.7, B),
+  apprentissage: fond(R) + trait('M9 10.5 16 16 9 21.5M16 16h7.5', N, 1.9) + rond(9, 10.5, 3.1, W) + rond(9, 21.5, 3.1, W)
+    + rond(16, 16, 3.6, S) + rond(23.5, 16, 3.1, N),
   pilotage: fond(V) + rond(16, 16, 10.5, S) + rond(16, 16, 6.5, N) + rond(16, 16, 2.8, B),
 
   // ---- Objets ----

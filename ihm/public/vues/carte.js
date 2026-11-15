@@ -267,7 +267,7 @@ export function vueCarte(vue, app, params) {
 
   conteneur.append(
     dessin ? dessin.svg : arbre(app, choisie),
-    h('div', { classe: 'carte-titre' }, h('p', { classe: 'meta' }, '02/06 · Cartographie'), h('h1', { classe: 'grand' }, 'Les chemins')),
+    h('div', { classe: 'carte-titre' }, h('p', { classe: 'meta' }, '01/06 · Cartographie'), h('h1', { classe: 'grand' }, 'Les chemins')),
     h('div', { classe: 'carte-droite' },
       h('div', { classe: 'carte-modes' },
         h('a', { classe: `bouton mini ${mode === 'carte' ? '' : 'discret'}`, href: lien('carte') }, 'Carte'),

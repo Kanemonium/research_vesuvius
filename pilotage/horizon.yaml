@@ -17,7 +17,7 @@ recurrence_mensuelle: progres
 problemes:
   - id: F-01
     titre: "8 Go de mémoire vidéo"
-    detail: "La recette d'entraînement du tutoriel tient-elle sur notre carte ? Non mesuré."
+    detail: "Mesuré le 2026-11-14 : avec les blocs du tutoriel la carte sature et l'entraînement prendrait 120 heures ; avec des blocs de 128, moins de 2 heures. L'effet sur la qualité reste inconnu."
     piste: P-420
   - id: F-02
     titre: "Outils pensés pour de grosses machines"

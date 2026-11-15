@@ -28,3 +28,7 @@ dist/
 .claude/settings.local.json
 .DS_Store
 Thumbs.db
+
+# Journaux d'exécution : le brut reste sur la machine, seul le condensé est historisé
+experiments/**/journaux/*.brut.log
+experiments/**/journaux/*.vram

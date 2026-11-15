@@ -1,0 +1,124 @@
+sampling_audit={"patches": 8098, "strategy": "uniform"}
+Using dimensionality (3D) from ConfigManager
+Using 3D convolutions (nn.Conv3d)
+Using 3D normalization (nn.InstanceNorm3d)
+--- Full autoconfiguration from config ---
+Patch size adjusted from (64, 128, 128) to (64, 128, 128) to ensure divisibility by pooling factors [16 32 32]
+Task 'ink' configured with z-projection mode 'max'
+Task 'ink' configured with shared decoder + head (1 channels)
+NetworkFromConfig initialized with final configuration:
+  model_name: ink_det
+  basic_encoder_block: BasicBlockD
+  basic_decoder_block: ConvBlock
+  bottleneck_block: BasicBlockD
+  features_per_stage: [32, 64, 128, 256, 320, 320]
+  num_stages: 6
+  n_blocks_per_stage: [1, 3, 4, 6, 6, 6]
+  n_conv_per_stage_decoder: [1, 1, 1, 1, 1]
+  kernel_sizes: [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+  pool_op_kernel_sizes: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  conv_op: Conv3d
+  conv_bias: True
+  norm_op: InstanceNorm3d
+  norm_op_kwargs: {'affine': True, 'eps': 1e-05}
+  dropout_op: None
+  dropout_op_kwargs: None
+  nonlin: LeakyReLU
+  nonlin_kwargs: {'inplace': True, 'negative_slope': 0.01}
+  strides: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  return_skips: True
+  do_stem: True
+  stem_channels: 32
+  bottleneck_channels: None
+  stochastic_depth_p: 0.0
+  squeeze_excitation: False
+  squeeze_excitation_reduction_ratio: 0.0625
+  squeeze_excitation_type: channel
+  squeeze_excitation_add_maxpool: False
+  pool_type: conv
+  upsample_mode: transpconv
+  op_dims: 3
+  patch_size: (64, 128, 128)
+  batch_size: 2
+  in_channels: 1
+  autoconfigure: True
+  targets: {'ink': {'out_channels': 1, 'activation': 'none', 'z_projection_mode': 'max'}}
+  target_z_projection: {'ink': {'mode': 'max'}}
+  separate_decoders: False
+  num_pool_per_axis: [4, 5, 5]
+  must_be_divisible_by: [16 32 32]
+  guide_backbone: None
+  guide_backbone_config_path: None
+  guide_freeze: True
+  guide_patch_grid: None
+  guide_stage_keys: None
+  guide_skip_concat_projector_channels: None
+  guide_feature_gate_alpha: None
+  guide_tokenbook_tokens: None
+  guide_tokenbook_prototype_weighting: mean
+  guide_tokenbook_weight_mlp_hidden: None
+  guide_compile_policy: off
+  guide_fusion_stage: None
+  0%|          | 0/60 [00:00<?, ?it/s]/home/kanemonium/vesuvius/villa/vesuvius/src/vesuvius/ink_detection/training/train.py:882: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+  0%|          | 0/60 [00:04<?, ?it/s, loss=2.0589, lr=1.00e-05]
+  2%|▏         | 1/60 [00:04<00:20,  2.84it/s, loss=2.3129, lr=2.00e-05]
+  5%|▌         | 3/60 [00:04<00:12,  4.65it/s, loss=1.2850, lr=3.00e-05]
+  8%|▊         | 5/60 [00:05<00:10,  5.32it/s, loss=1.5535, lr=4.00e-05]
+ 10%|█         | 6/60 [00:05<00:12,  4.47it/s, loss=-0.1775, lr=5.00e-05]
+ 12%|█▏        | 7/60 [00:05<00:13,  3.98it/s, loss=2.1177, lr=6.00e-05] 
+ 13%|█▎        | 8/60 [00:06<00:18,  2.75it/s, loss=-0.0606, lr=8.00e-05]
+ 15%|█▌        | 9/60 [00:06<00:17,  2.84it/s, loss=0.8686, lr=9.00e-05] 
+ 17%|█▋        | 10/60 [00:07<00:17,  2.91it/s, loss=0.4828, lr=1.00e-04]
+ 18%|█▊        | 11/60 [00:07<00:16,  2.96it/s, loss=0.2536, lr=1.10e-04]
+ 20%|██        | 12/60 [00:07<00:16,  3.00it/s, loss=1.2470, lr=1.20e-04]
+ 22%|██▏       | 13/60 [00:08<00:15,  3.02it/s, loss=0.6041, lr=1.30e-04]
+ 23%|██▎       | 14/60 [00:08<00:15,  3.05it/s, loss=0.7823, lr=1.40e-04]
+ 25%|██▌       | 15/60 [00:08<00:14,  3.05it/s, loss=-0.1561, lr=1.50e-04]
+ 27%|██▋       | 16/60 [00:09<00:14,  3.06it/s, loss=1.0180, lr=1.60e-04] 
+ 28%|██▊       | 17/60 [00:09<00:14,  3.06it/s, loss=0.0023, lr=1.70e-04]
+ 30%|███       | 18/60 [00:09<00:13,  3.07it/s, loss=1.1196, lr=1.80e-04]
+ 32%|███▏      | 19/60 [00:10<00:13,  3.06it/s, loss=-0.1523, lr=1.90e-04]
+ 33%|███▎      | 20/60 [00:10<00:13,  3.01it/s, loss=0.9286, lr=2.00e-04] 
+ 35%|███▌      | 21/60 [00:10<00:12,  3.02it/s, loss=0.5477, lr=2.10e-04]
+ 37%|███▋      | 22/60 [00:11<00:12,  3.04it/s, loss=0.0784, lr=2.20e-04]
+ 38%|███▊      | 23/60 [00:11<00:12,  3.05it/s, loss=0.5515, lr=2.30e-04]
+ 40%|████      | 24/60 [00:11<00:11,  3.06it/s, loss=0.7728, lr=2.40e-04]
+ 42%|████▏     | 25/60 [00:12<00:11,  3.06it/s, loss=0.5982, lr=2.50e-04]
+ 43%|████▎     | 26/60 [00:12<00:11,  3.06it/s, loss=1.7351, lr=2.60e-04]
+ 45%|████▌     | 27/60 [00:12<00:10,  3.06it/s, loss=1.0922, lr=2.70e-04]
+ 47%|████▋     | 28/60 [00:13<00:10,  3.07it/s, loss=0.0424, lr=2.80e-04]
+ 48%|████▊     | 29/60 [00:13<00:10,  3.07it/s, loss=1.8857, lr=2.90e-04]
+ 50%|█████     | 30/60 [00:13<00:09,  3.06it/s, loss=-0.0721, lr=3.00e-04]
+ 52%|█████▏    | 31/60 [00:14<00:09,  3.06it/s, loss=0.2103, lr=3.10e-04] 
+ 53%|█████▎    | 32/60 [00:14<00:09,  3.07it/s, loss=0.1197, lr=3.20e-04]
+ 55%|█████▌    | 33/60 [00:14<00:08,  3.06it/s, loss=-0.0587, lr=3.30e-04]
+ 57%|█████▋    | 34/60 [00:15<00:08,  3.06it/s, loss=0.0263, lr=3.40e-04] 
+ 58%|█████▊    | 35/60 [00:15<00:08,  3.07it/s, loss=0.9485, lr=3.50e-04]
+ 60%|██████    | 36/60 [00:15<00:07,  3.06it/s, loss=1.1759, lr=3.60e-04]
+ 62%|██████▏   | 37/60 [00:16<00:07,  3.07it/s, loss=0.1267, lr=3.70e-04]
+ 63%|██████▎   | 38/60 [00:16<00:07,  3.06it/s, loss=0.5925, lr=3.80e-04]
+ 65%|██████▌   | 39/60 [00:16<00:06,  3.06it/s, loss=0.9716, lr=3.90e-04]
+ 67%|██████▋   | 40/60 [00:17<00:06,  3.06it/s, loss=0.0017, lr=4.00e-04]
+ 68%|██████▊   | 41/60 [00:17<00:06,  3.06it/s, loss=0.3945, lr=4.10e-04]
+ 70%|███████   | 42/60 [00:17<00:05,  3.05it/s, loss=-0.0468, lr=4.20e-04]
+ 72%|███████▏  | 43/60 [00:18<00:05,  3.06it/s, loss=0.8750, lr=4.30e-04] 
+ 73%|███████▎  | 44/60 [00:18<00:05,  3.06it/s, loss=0.4072, lr=4.40e-04]
+ 75%|███████▌  | 45/60 [00:18<00:04,  3.05it/s, loss=0.3346, lr=4.50e-04]
+ 77%|███████▋  | 46/60 [00:18<00:04,  3.06it/s, loss=0.5667, lr=4.60e-04]
+ 78%|███████▊  | 47/60 [00:19<00:04,  3.06it/s, loss=0.2735, lr=4.70e-04]
+ 80%|████████  | 48/60 [00:19<00:03,  3.04it/s, loss=0.7319, lr=4.80e-04]
+ 82%|████████▏ | 49/60 [00:19<00:03,  3.05it/s, loss=0.8275, lr=4.90e-04]
+ 83%|████████▎ | 50/60 [00:20<00:03,  3.01it/s, loss=0.0920, lr=5.00e-04]
+ 85%|████████▌ | 51/60 [00:20<00:02,  3.01it/s, loss=1.0289, lr=5.10e-04]
+ 87%|████████▋ | 52/60 [00:20<00:02,  3.02it/s, loss=0.5431, lr=5.20e-04]
+ 88%|████████▊ | 53/60 [00:21<00:02,  3.03it/s, loss=0.2660, lr=5.30e-04]
+ 90%|█████████ | 54/60 [00:21<00:01,  3.03it/s, loss=0.5907, lr=5.40e-04]
+ 92%|█████████▏| 55/60 [00:21<00:01,  3.03it/s, loss=0.7931, lr=5.50e-04]
+ 93%|█████████▎| 56/60 [00:22<00:01,  3.04it/s, loss=0.3296, lr=5.60e-04]
+ 95%|█████████▌| 57/60 [00:22<00:00,  3.03it/s, loss=0.0614, lr=5.70e-04]
+ 97%|█████████▋| 58/60 [00:22<00:00,  3.03it/s, loss=0.0812, lr=5.80e-04]
+ 98%|█████████▊| 59/60 [00:23<00:00,  3.03it/s, loss=0.4899, lr=5.90e-04]
+100%|██████████| 60/60 [00:23<00:00,  3.03it/s, loss=0.5154, lr=6.00e-04]
+100%|██████████| 60/60 [00:23<00:00,  2.54it/s, loss=0.5154, lr=6.00e-04]
+AMP gradient overflow at step 0: task_heads.ink.weight

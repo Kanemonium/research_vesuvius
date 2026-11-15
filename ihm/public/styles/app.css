@@ -31,10 +31,10 @@ code { font-family: var(--f-mono); font-size: 0.88em; background: var(--papier-c
   backdrop-filter: blur(10px); border-bottom: 1px solid var(--filet);
 }
 .marque { display: flex; align-items: center; gap: var(--e-3); text-decoration: none; }
-.marque-carre {
-  width: 46px; height: 46px; display: grid; place-items: center; background: var(--encre); color: var(--sur-encre);
-  font: 900 1.4rem/1 var(--f-titre); letter-spacing: -0.04em; border-radius: 6px;
-}
+.marque-logo { width: 52px; height: 52px; display: block; border-radius: 10px; object-fit: cover; image-rendering: pixelated; transition: transform var(--trans); }
+.marque:hover .marque-logo { transform: rotate(-4deg) scale(1.06); }
+.marque[aria-current="page"] .marque-logo { box-shadow: 0 0 0 2px var(--papier), 0 0 0 4px var(--cristal); }
+.marque-os { color: var(--cristal-fonce); }
 .marque-nom { font: 800 1.2rem/1 var(--f-titre); letter-spacing: -0.01em; text-transform: uppercase; white-space: nowrap; }
 .entete-fin .meta { white-space: nowrap; }
 .nav { display: flex; gap: var(--e-2); margin-inline: auto; flex-wrap: wrap; }
@@ -72,9 +72,10 @@ code { font-family: var(--f-mono); font-size: 0.88em; background: var(--papier-c
 }
 a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: var(--papier-creux); }
 .pilule[data-statut="en-cours"] { border-color: var(--cristal); }
-.pilule[data-statut="validee"], .pilule[data-statut="faite"] { border-color: var(--valide); }
-.pilule[data-statut="impasse"], .pilule[data-statut="bloquee"] { border-color: var(--alerte); }
-.pilule[data-statut="a-explorer"], .pilule[data-statut="a-faire"] { border-style: dashed; color: var(--encre-60); }
+.pilule[data-statut="validee"], .pilule[data-statut="faite"], .pilule[data-statut="corrige"], .pilule[data-statut="terminee"] { border-color: var(--valide); }
+.pilule[data-statut="impasse"], .pilule[data-statut="bloquee"], .pilule[data-statut="ouvert"], .pilule[data-statut="echouee"] { border-color: var(--alerte); }
+.pilule[data-statut="contourne"] { border-color: var(--cristal); }
+.pilule[data-statut="a-explorer"], .pilule[data-statut="a-faire"], .pilule[data-statut="prevue"] { border-style: dashed; color: var(--encre-60); }
 .etiquette { display: inline-block; background: var(--encre); color: var(--sur-encre); padding: 3px 9px; font: 600 0.9rem/1.2 var(--f-cond); letter-spacing: 0.08em; text-transform: uppercase; }
 .numero { width: 26px; height: 26px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--encre); color: var(--sur-encre); font: 600 0.72rem/1 var(--f-mono); }
 .bouton {
@@ -104,6 +105,21 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .lien-id { display: inline-flex; align-items: center; gap: 4px; vertical-align: baseline; font-family: var(--f-mono); font-size: 0.86em; white-space: nowrap; text-decoration-color: var(--cristal); }
 .lien-id .embleme { transform: translateY(1px); }
 .pilule .embleme { margin-left: -3px; }
+/* Crédit : la photo de profil GitHub de l'auteur, puis son nom, vers son dépôt. */
+.credit { display: inline-flex; align-items: center; gap: 6px; vertical-align: baseline; text-decoration-color: var(--structure); }
+.credit:hover { text-decoration-color: var(--cristal); }
+.portrait { flex: none; border-radius: 50%; background: var(--papier-creux); box-shadow: 0 0 0 1px var(--filet); transform: translateY(1px); }
+.code-auteur { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.code-auteur .credit { font-family: var(--f-mono); font-size: 0.86em; color: var(--encre-60); overflow-wrap: anywhere; }
+.credits .credit { font-weight: 600; }
+.credits .prose { margin-top: 4px; }
+.ecrit-par { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-bottom: var(--e-3); }
+.ecrit-par-qui { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.ecrit-par .credit { font-weight: 600; }
+.ecrit-par .mono { color: var(--encre-60); }
+.personnes { list-style: none; margin: var(--e-3) 0 0; padding: 0 0 0 var(--e-4); border-left: 1px dashed var(--structure); display: flex; flex-direction: column; gap: 8px; }
+.personnes li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.personnes .credit { font-weight: 500; }
 
 .bulle {
   position: fixed; z-index: 50; max-width: 320px; padding: var(--e-3) var(--e-4); background: var(--encre); color: var(--sur-encre);
@@ -191,17 +207,167 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .tableau { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--e-4); align-items: start; }
 .colonne { background: var(--papier-creux); border-radius: var(--rayon); padding: var(--e-3); min-height: 180px; }
 .colonne-tete { display: flex; justify-content: space-between; align-items: center; padding: var(--e-2) var(--e-2) var(--e-3); }
-.tache { background: var(--surface); border: 1px solid var(--filet); border-radius: var(--rayon-petit); padding: var(--e-4); margin-bottom: var(--e-3); }
-.tache[data-statut="en-cours"] { border-left: 3px solid var(--cristal); }
-.tache[data-statut="bloquee"] { border-left: 3px solid var(--alerte); }
-.tache.visee { outline: 2px solid var(--cristal); outline-offset: 2px; }
+/* Carte à liseré : le bord gauche est une barre plate de 4 px qui dit le statut ; seuls les coins droits sont arrondis. */
+.tache, .etape-corps, .exe-carte, .note, .bilan-carte {
+  --lisere: var(--structure); background: var(--surface); border: 1px solid var(--filet); border-left: 4px solid var(--lisere);
+  border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0;
+}
+[data-statut="en-cours"] { --lisere: var(--cristal); }
+[data-statut="faite"], [data-statut="corrige"], [data-statut="terminee"] { --lisere: var(--valide); }
+[data-statut="bloquee"], [data-statut="ouvert"], [data-statut="echouee"] { --lisere: var(--alerte); }
+[data-statut="contourne"] { --lisere: var(--cristal); }
+.tache { padding: var(--e-4); margin-bottom: var(--e-3); cursor: pointer; transition: transform var(--trans), box-shadow var(--trans); }
+.tache:hover { transform: translateX(3px); box-shadow: var(--ombre); }
 .tache-titre { font: 600 1rem/1.3 var(--f-titre); letter-spacing: -0.01em; margin: var(--e-2) 0; }
+.tache-titre a { text-decoration: none; }
+.tache-titre a:hover { text-decoration: underline; text-decoration-color: var(--cristal); }
+.tache-compte { display: block; margin-top: 6px; text-transform: none; letter-spacing: 0.02em; }
+.tache-compte b { color: var(--alerte); font-weight: 600; }
+.tache-fleches { margin-left: auto; display: flex; gap: 6px; }
 .tache-pied { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-2); margin-top: var(--e-3); }
-.tache details { margin-top: var(--e-2); font-size: var(--t-petit); color: var(--encre-60); }
-.tache summary { cursor: pointer; }
 .priorite { display: inline-flex; gap: 3px; }
 .priorite i { width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--encre-40); }
 .priorite i.on { background: var(--encre); border-color: var(--encre); }
+
+/* Glissement : le tableau sort par la gauche, le détail de la tâche entre par la droite. */
+.glisse { overflow: hidden; margin: -6px; padding: 6px; }
+.glisse-rail { display: flex; align-items: flex-start; width: 200%; transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1); }
+.glisse-rail[data-volet="detail"] { transform: translateX(-50%); }
+.glisse-volet { flex: none; width: 50%; padding-right: 12px; }
+.glisse-volet + .glisse-volet { padding: 0 0 0 12px; }
+.glisse-volet.hors { height: 0; overflow: hidden; visibility: hidden; }
+.tache-detail .fiche-titre { font-size: clamp(1.8rem, 3.4vw, 3rem); max-width: 24ch; }
+.detail-grille { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr); gap: var(--e-7); align-items: start; margin-top: var(--e-5); }
+.detail-entete { display: flex; align-items: baseline; justify-content: space-between; gap: var(--e-3); padding-bottom: var(--e-3); border-bottom: 1px solid var(--encre); margin-bottom: var(--e-5); }
+.detail-cote { display: flex; flex-direction: column; gap: var(--e-4); position: sticky; top: 108px; }
+.detail-deplacer { display: flex; align-items: center; gap: var(--e-3); margin-top: var(--e-4); padding-top: var(--e-3); border-top: 1px solid var(--filet); }
+.fiche-faits { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px var(--e-4); margin: 0; align-items: baseline; }
+.fiche-faits dt { font: 500 var(--t-meta)/1.3 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--encre-60); }
+.fiche-faits dd { margin: 0; overflow-wrap: anywhere; }
+.fiche-faits .pilule { white-space: normal; text-transform: none; letter-spacing: 0.02em; }
+/* Le parcours : étapes numérotées et bugs, reliés par un fil pointillé. */
+.parcours { list-style: none; margin: 0; padding: 0; position: relative; }
+.parcours::before { content: ""; position: absolute; left: 12px; top: 14px; bottom: 14px; border-left: 1px dashed var(--structure); }
+.etape { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: var(--e-4); align-items: start; }
+.etape + .etape { margin-top: var(--e-4); }
+.etape-repere { position: relative; z-index: 1; display: grid; place-items: center; padding-top: var(--e-3); }
+.etape[data-statut="faite"] .numero { background: var(--valide); }
+.etape[data-statut="en-cours"] .numero { background: var(--cristal); }
+.etape[data-statut="a-faire"] .numero { background: var(--papier); color: var(--encre-60); border: 1px dashed var(--encre-40); }
+.etape-corps { padding: var(--e-3) var(--e-4) var(--e-4); }
+.etape[data-genre="bug"] .etape-corps { background: color-mix(in srgb, var(--alerte) 5%, var(--surface)); }
+.etape[data-genre="bug"] .etiquette { background: var(--alerte); color: #fff; }
+.etape-tete { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-2) var(--e-3); }
+.etape-titre { font: 600 1.05rem/1.3 var(--f-titre); letter-spacing: -0.01em; margin: var(--e-2) 0 0; }
+.etape-corps .prose { margin-top: var(--e-2); color: var(--encre-60); }
+
+/* ---------- Vue Exécutions ---------- */
+.exe-vue { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: var(--e-7); align-items: start; }
+.exe-liste { position: sticky; top: 108px; display: flex; flex-direction: column; gap: var(--e-3); }
+.exe-carte { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: var(--e-3) var(--e-4); text-decoration: none; transition: transform var(--trans); }
+.exe-carte:hover { transform: translateX(3px); }
+.exe-carte[aria-current="page"] { background: var(--encre); color: var(--sur-encre); border-color: var(--encre); border-left-color: var(--lisere); }
+.exe-carte[aria-current="page"] .meta { color: color-mix(in srgb, var(--sur-encre) 65%, transparent); }
+.exe-carte { cursor: pointer; align-items: stretch; }
+.exe-titre { font: 600 1rem/1.25 var(--f-titre); text-decoration: none; color: inherit; }
+.exe-titre:hover { text-decoration: underline; text-decoration-color: var(--cristal); }
+.exe-pied { display: flex; align-items: center; justify-content: space-between; gap: var(--e-2); flex-wrap: wrap; }
+.exe-carte[aria-current="page"] .pilule { border-color: color-mix(in srgb, var(--sur-encre) 45%, transparent); }
+.exe-carte[aria-current="page"] .pilule[data-statut="en-cours"] { border-color: var(--cristal); }
+.exe-carte[aria-current="page"] .pilule[data-statut="terminee"] { border-color: var(--valide); }
+.exe-carte[aria-current="page"] .avancement-piste { background: color-mix(in srgb, var(--sur-encre) 22%, transparent); }
+.exe-carte[aria-current="page"] .journal-bouton { color: var(--sur-encre); border-color: color-mix(in srgb, var(--sur-encre) 45%, transparent); }
+
+/* Avancement : la piste est le fond, le remplissage dit l'état (orange en cours, vert terminée, rouge arrêtée). */
+.avancement { display: flex; flex-direction: column; gap: 6px; }
+.avancement[hidden] { display: none; }
+.avancement-piste { height: 6px; border-radius: 3px; background: var(--filet); overflow: hidden; }
+.avancement-piste i { display: block; height: 100%; width: 0; border-radius: 3px; background: var(--cristal); transition: width 0.6s ease-out; }
+.avancement[data-etat="terminee"] .avancement-piste i { background: var(--valide); }
+.avancement[data-etat="echouee"] .avancement-piste i { background: var(--alerte); }
+.avancement.indetermine .avancement-piste i { width: 34%; animation: va-et-vient 1.6s ease-in-out infinite alternate; }
+@keyframes va-et-vient { from { transform: translateX(0); } to { transform: translateX(194%); } }
+.avancement-texte { text-transform: none; letter-spacing: 0.02em; }
+.execution > .avancement { max-width: 640px; margin-bottom: var(--e-4); }
+.execution > .avancement .avancement-piste { height: 10px; border-radius: 5px; }
+.execution > .avancement .avancement-texte { font-size: 0.8rem; }
+.avant-lancement { margin-top: var(--e-4); padding: var(--e-3) var(--e-4); border: 1px dashed var(--structure); border-left: 4px solid var(--cristal); border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0; color: var(--encre-60); max-width: 78ch; }
+
+/* Bouton du journal : un témoin qui émet une onde tant que l'exécution tourne, vert une fois terminée. */
+.journal-bouton { display: inline-flex; align-items: center; gap: 8px; padding: 4px 11px 4px 9px; border: 1px solid var(--encre-40); border-radius: var(--pilule); background: transparent; font: 600 0.8rem/1.3 var(--f-cond); letter-spacing: 0.08em; text-transform: uppercase; transition: border-color var(--trans), background var(--trans); }
+.journal-bouton:hover:not(:disabled) { border-color: var(--encre); background: color-mix(in srgb, var(--encre) 8%, transparent); }
+.journal-bouton:disabled { cursor: default; border-style: dashed; color: var(--encre-60); }
+.journal-temoin { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--structure); flex: none; }
+.journal-bouton[data-etat="en-cours"] { border-color: var(--cristal); }
+.journal-bouton[data-etat="en-cours"] .journal-temoin { background: var(--cristal); }
+.journal-bouton[data-etat="en-cours"] .journal-temoin::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--cristal); animation: onde 1.8s ease-out infinite; }
+.journal-bouton[data-etat="terminee"] { border-color: var(--valide); }
+.journal-bouton[data-etat="terminee"] .journal-temoin { background: var(--valide); }
+.journal-bouton[data-etat="echouee"] { border-color: var(--alerte); }
+.journal-bouton[data-etat="echouee"] .journal-temoin { background: var(--alerte); }
+
+/* Fenêtre du journal */
+.journal-fenetre { width: min(1100px, calc(100vw - 32px)); height: min(820px, calc(100vh - 32px)); padding: 0; border: 1px solid var(--filet); border-radius: var(--rayon); background: var(--surface); color: var(--encre); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55); }
+.journal-fenetre[open] { display: flex; flex-direction: column; }
+.journal-fenetre::backdrop { background: rgba(20, 18, 17, 0.62); backdrop-filter: blur(3px); }
+.journal-tete { display: flex; align-items: center; gap: var(--e-3); padding: var(--e-4) var(--e-5); border-bottom: 1px solid var(--filet); }
+.journal-tete .titre { font-size: 1.15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.journal-fenetre > .avancement { padding: var(--e-3) var(--e-5); border-bottom: 1px solid var(--filet); }
+.journal-fenetre .journal-flux { flex: 1; min-height: 0; max-height: none; border-radius: 0; white-space: pre; }
+.journal-pied { display: flex; align-items: center; justify-content: space-between; gap: var(--e-3); flex-wrap: wrap; padding: var(--e-3) var(--e-5); border-top: 1px solid var(--filet); }
+.journal-pied label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.execution { min-width: 0; }
+.section-titre { display: flex; align-items: center; gap: var(--e-3); font: 700 1.5rem/1.15 var(--f-titre); letter-spacing: -0.02em; margin: var(--e-7) 0 var(--e-4); padding-top: var(--e-5); border-top: 1px solid var(--encre); }
+.bilan { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--e-4); }
+.bilan-carte { --lisere: var(--encre); padding: var(--e-4) var(--e-5) var(--e-5); }
+.bilan-valeur { font: 800 1.45rem/1.12 var(--f-titre); letter-spacing: -0.03em; margin: var(--e-2) 0 var(--e-3); }
+.bilan-carte .prose { color: var(--encre-60); }
+.note-fiches { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: var(--e-3); }
+.legende-genres { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: var(--e-4); font: 500 var(--t-meta)/1.3 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--encre-60); }
+.legende-genres span { display: inline-flex; align-items: center; gap: 7px; }
+.legende-genres i { width: 10px; height: 10px; border-radius: 50%; }
+.code-annote + .code-annote { margin-top: var(--e-7); }
+.code-entete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--e-2) var(--e-4); margin-bottom: var(--e-3); }
+.code-entete .mono { color: var(--encre-60); overflow-wrap: anywhere; }
+.code-annote > .prose { max-width: 78ch; margin-bottom: var(--e-4); }
+.code-grille { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--e-5); align-items: start; }
+.code-bloc { background: #211E1B; color: #EFE9DF; border-radius: 0 var(--rayon) var(--rayon) 0; padding: var(--e-3) 0; overflow-x: auto; font: 400 0.8rem/1.75 var(--f-mono); position: sticky; top: 108px; }
+.cl { display: grid; grid-template-columns: 44px 30px max-content; align-items: center; padding-right: var(--e-4); border-left: 3px solid transparent; transition: background var(--trans); min-width: 100%; width: max-content; }
+.cl-n { text-align: right; color: #8C847C; user-select: none; }
+.cl-m { display: grid; place-items: center; }
+.cl-m .numero { width: 19px; height: 19px; font-size: 0.66rem; color: #fff; }
+.cl-t { white-space: pre; }
+.cl:not(.notee) .cl-t { color: #A9A199; }
+.cl.vive { background: rgba(246, 194, 148, 0.2); border-left-color: var(--cristal); }
+.notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--e-3); }
+.note { --lisere: var(--genre); padding: var(--e-3) var(--e-4) var(--e-4); cursor: default; transition: box-shadow var(--trans), transform var(--trans); }
+.note:hover, .note:focus-visible { box-shadow: var(--ombre); transform: translateX(-3px); }
+.note-tete { display: flex; align-items: center; gap: var(--e-2); }
+.note-tete .numero { width: 22px; height: 22px; color: #fff; }
+.note-lignes { margin-left: auto; text-transform: none; letter-spacing: 0.02em; }
+.note-titre { font: 600 1.02rem/1.3 var(--f-titre); letter-spacing: -0.01em; margin: var(--e-2) 0 6px; }
+.note .prose { color: var(--encre-60); font-size: 0.93rem; }
+.sorties { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4); align-items: start; }
+.sortie { min-width: 0; }
+.sortie.large { grid-column: 1 / -1; }
+.sortie-note { margin-top: var(--e-3); font-size: 0.93rem; }
+.mesures { border-collapse: collapse; width: 100%; }
+.mesures th { text-align: left; font-weight: 400; padding: 8px 12px 8px 0; vertical-align: baseline; }
+.mesures td { padding: 8px 0 8px 12px; vertical-align: baseline; font-size: var(--t-petit); }
+.mesures tr + tr > * { border-top: 1px solid var(--filet); }
+.mesures .mesure-valeur { font: 600 0.95rem/1.3 var(--f-mono); white-space: nowrap; text-align: right; color: var(--encre); }
+.sortie-courbe { margin: 0; }
+.courbe { display: block; width: 100%; height: auto; overflow: visible; }
+.g-grille { stroke: var(--filet); stroke-width: 1; }
+.g-axe { stroke: var(--encre-40); stroke-width: 1; }
+.g-trait { fill: none; stroke: var(--encre); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.g-point .cible { fill: transparent; }
+.g-point .marque-point { fill: var(--surface); stroke: var(--encre); stroke-width: 1.6; transition: r var(--trans); }
+.g-point:hover .marque-point, .g-point:focus-visible .marque-point { fill: var(--cristal); stroke: var(--cristal-fonce); r: 5.5; }
+.g-point:focus-visible { outline: none; }
+.journal { margin: 0; background: #211E1B; color: #D9D2C8; border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0; padding: var(--e-4); overflow: auto; max-height: 340px; font: 400 0.78rem/1.65 var(--f-mono); }
+.fichiers .mono { overflow-wrap: anywhere; }
+.limites { max-width: 78ch; }
 
 /* ---------- Vue Horizon ---------- */
 .flux { position: relative; display: grid; grid-template-columns: 1fr 1.15fr 0.85fr; column-gap: clamp(60px, 9vw, 150px); align-items: center; }
@@ -313,7 +479,9 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 
 /* ---------- Petits écrans ---------- */
 @media (max-width: 1080px) {
-  .carte-vue, .doc-vue { grid-template-columns: 1fr; }
+  .carte-vue, .doc-vue, .exe-vue, .detail-grille, .code-grille { grid-template-columns: minmax(0, 1fr); }
+  .exe-liste, .detail-cote, .code-bloc { position: static; }
+  .sorties { grid-template-columns: 1fr; }
   .page.plein { height: auto; overflow: visible; }
   .carte-plein { display: flex; flex-direction: column; height: auto; overflow: visible; }
   .c-toile { position: relative; height: 72vh; order: 2; }
@@ -343,9 +511,14 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
   .flux { grid-template-columns: 1fr; row-gap: var(--e-5); }
   .flux > svg { display: none; }
   .vue-tete { flex-direction: column; align-items: flex-start; }
+  .mesures tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+  .mesures .mesure-valeur { white-space: normal; }
+  .mesures td.doux { grid-column: 1 / -1; padding: 0 0 8px; border-top: 0 !important; }
+  .mesures td.doux:empty { display: none; }
 }
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
-  .c-noeud .onde, .c-lueur, .flux-item.tourne { animation: none; }
-  .c-lueur { display: none; }
-}
+/* Les animations d'état (onde, éclat, bordure tournante) portent une information demandée par
+   Kanemonium : elles restent actives même quand le système réduit les animations. Seules les
+   transitions de confort sont coupées. */
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+/* Le glissement du tableau vers le détail d'une tâche est lui aussi une demande explicite : il reste. */
+.glisse-rail.glisse-rail { transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1) !important; }

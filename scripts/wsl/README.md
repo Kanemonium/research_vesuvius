@@ -14,3 +14,22 @@ wsl -d Ubuntu-24.04 -- bash scripts/wsl/etat.sh
 
 Relevé du 2026-11-14 sur la machine du projet : Ubuntu 24.04.5, RTX 3080 Laptop (8 Go, dont
 environ 1,9 Go déjà pris par Windows), 16 cœurs, 6 Go de mémoire accordés à WSL par défaut.
+
+## Lancer une exécution suivie dans l'IHM
+
+```bash
+bash scripts/wsl/lancer-execution.sh X-003 experiments/<dossier> <commande et ses arguments>
+```
+
+Écrit `journaux/X-003.etat.json` et `journaux/X-003.brut.log` dans le dossier de l'expérience, puis,
+à la fin, le journal condensé `journaux/X-003.log` (`condenser-journal.sh`). La page de l'exécution
+s'écrit avant, dans `execution.yaml` : voir `pilotage/README.md`.
+
+## Retrouver l'auteur d'un passage de villa
+
+```bash
+bash scripts/wsl/auteurs-villa.sh vesuvius/src/vesuvius/ink_detection/config.py 1022 1029
+```
+
+Lit l'historique complet de villa, gardé à part (`~/vesuvius/villa-historique.git`, une dizaine de Mo),
+et dit quels commits et quelles personnes ont écrit ces lignes. N'affiche aucune adresse électronique.

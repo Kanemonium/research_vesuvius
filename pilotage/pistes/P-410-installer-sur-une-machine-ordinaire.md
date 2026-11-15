@@ -24,6 +24,8 @@ Les outils du défi sont écrits pour Linux et pour de grosses cartes graphiques
   1. **Bibliothèques système absentes.** La commande compile sur place deux composants C++ (`vc-object-store`, `volume-cartographer`). Sans SQLite, puis sans Ceres, la configuration s'arrête. Le dépôt contient un script qui installe tout (`volume-cartographer/scripts/install_build_deps.sh minimal-build`), mais la page du tutoriel d'encre ne le mentionne pas. Il faut en plus `libboost-dev`.
   2. **Mémoire saturée.** La compilation lance une tâche par cœur : 27 compilateurs pour 6,8 Go de mémoire, plus rien n'avançait. À 4 tâches, un compilateur a encore été tué par le système. À 2 tâches (`CMAKE_BUILD_PARALLEL_LEVEL=2`), elle passe.
   3. **Délai réseau.** Un fichier CUDA de PyTorch a dépassé le délai par défaut de `uv` ; `UV_HTTP_TIMEOUT=900` règle le problème. Cause probable : notre téléchargement de données en parallèle, donc pas un défaut du dépôt.
+- **Kanemonium** (2026-11-15) : avons-nous utilisé l'outil qui ne télécharge que les blocs utiles à l'entraînement, et qui ferait passer le jeu de données de 92 Go à 2,4 Go ?
+- **Agent C.** (2026-11-15) : non, tout le dossier du segment a été téléchargé. L'outil que cite le tutoriel, `download_required_zarr_chunks`, s'applique au mode 3D natif : il copie les blocs du volume d'origine du rouleau, pas ceux du volume de surface que nous utilisons. Je n'ai pas trouvé la source du chiffre de 2,4 Go. L'ordre de grandeur est plausible pour l'entraînement seul (estimation : 8 098 blocs décalés de 64 pixels sur 65 couches, environ 2 Go avant compression), mais une prédiction sur tout le segment lit tout le niveau le plus fin, 63 Go. À vérifier avant de proposer quoi que ce soit à villa.
 
 ## Suite
 

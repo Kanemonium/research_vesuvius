@@ -88,3 +88,34 @@ test("le nom du dépôt se déduit de l'adresse distante", () => {
   assert.equal(nomDepot({ GITHUB_REPO: 'a/b' }, null), 'a/b');
   assert.equal(nomDepot({}, null), null);
 });
+
+test("le parcours d'une tâche n'accepte que des étapes et des bugs aux états connus", async () => {
+  const tache = path.join(copie, 'pilotage', 'taches', 'T-998-parcours.md');
+  await writeFile(tache, [
+    '---', 'id: T-998', 'titre: Parcours', 'statut: a-faire', 'piste: P-000', 'etapes:',
+    '  - genre: bug', '    statut: faite', '    titre: Mal rangé',
+    '  - genre: etape', '    statut: faite', '    titre: Bien rangé', '---', '',
+  ].join('\n'));
+  const { erreurs, taches } = await chargerEtat(copie);
+  assert.equal(taches.find((t) => t.id === 'T-998').etapes.length, 2);
+  assert.equal(erreurs.filter((e) => e.includes('T-998')).length, 1);
+  assert.ok(erreurs.some((e) => e.includes('T-998, étape 1') && e.includes('faite')));
+  await rm(tache);
+});
+
+test('chaque exécution montre du code réel, des notes sur des lignes existantes et des fiches connues', async () => {
+  const { executions, fiches, erreurs } = await chargerEtat(depot);
+  assert.deepEqual(erreurs, []);
+  assert.ok(executions.length >= 2);
+  const ids = new Set(fiches.map((f) => f.id));
+  for (const x of executions) {
+    assert.match(x.id, /^X-\d{3}$/);
+    assert.ok(x.bilan.length >= 1 && x.code.length >= 1, x.id);
+    // Une exécution prévue n'a encore rien mesuré : pas de sorties. Une exécution terminée en a.
+    assert.equal(x.sorties.length >= 1, x.statut === 'terminee', `${x.id} : sorties et statut « ${x.statut} »`);
+    for (const c of x.code) {
+      assert.ok(c.lignes.length > 0 && c.notes.length > 0, `${x.id} : ${c.titre}`);
+      for (const n of c.notes) for (const k of n.fiches) assert.ok(ids.has(k), `${x.id} : ${k}`);
+    }
+  }
+});

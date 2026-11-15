@@ -1,0 +1,8 @@
+{
+  "id": "X-002",
+  "debut": "2026-11-14T20:27:37+01:00",
+  "fin": "2026-11-14T22:30:13+01:00",
+  "code": 0,
+  "pic_vram_mo": 4959,
+  "commande": "bash experiments/2026-11-14-ligne-de-base-encre/mesurer.sh experiments/2026-11-14-ligne-de-base-encre/ligne-de-base-128.json"
+}

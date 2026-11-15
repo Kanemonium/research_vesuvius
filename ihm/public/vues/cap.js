@@ -1,4 +1,4 @@
-// Vue « Cap » : où nous en sommes, ce qui vient, et la boîte d'Agent C.
+// Accueil (« cap ») : où nous en sommes, ce qui vient, et la boîte d'Agent C. On y arrive par le logo.
 import { embleme } from '../emblemes.js';
 import { adresse, dateCourte, envoyer, h, ilYA, joursAvant, lienId, lier, pilule } from '../outils.js';
 
@@ -22,7 +22,7 @@ export function vueCap(vue, app) {
     h('div', { classe: 'tuile-nombre' }, nombre), h('div', { classe: 'meta' }, libelle));
 
   vue.append(h('section', { classe: 'hero' },
-    h('div', { classe: 'hero-coins' }, h('span', { classe: 'meta' }, 'Vesuvius Challenge · carnet de bord'), h('span', { classe: 'meta' }, '01/06 →')),
+    h('div', { classe: 'hero-coins' }, h('span', { classe: 'meta' }, 'Vesuvius Challenge · carnet de bord'), h('span', { classe: 'meta' }, 'Accueil')),
     h('h1', { classe: 'geant hero-titre' },
       h('span', {}, 'Lire'),
       h('span', { classe: 'hero-carre', title: `${jours} jours avant l'échéance du Grand Prix` }, h('span', {}, 'J-', h('b', {}, jours))),

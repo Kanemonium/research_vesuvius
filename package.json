@@ -2,7 +2,7 @@
   "name": "research-vesuvius",
   "version": "0.1.0",
   "private": true,
-  "description": "Open research notebook and tooling for the Vesuvius Challenge, with its local cockpit (Agent C.).",
+  "description": "Open research notebook and tooling for the Vesuvius Challenge, with its local cockpit (Hephaist'OS).",
   "license": "MIT",
   "type": "module",
   "engines": {

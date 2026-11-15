@@ -9,6 +9,8 @@ pilotage/
 ├── taches/     une tâche par fichier                               → le tableau
 ├── horizon.yaml  livrables projetés, problèmes anticipés, échéances → l'horizon
 └── boite.md    messages laissés à Agent C. depuis l'IHM
+
+experiments/<date>-<sujet>/execution.yaml   rendus d'exécution    → l'onglet Exécutions
 ```
 
 ## Une piste (`pistes/P-310-….md`)
@@ -56,13 +58,93 @@ responsable: "Agent C."
 echeance: null            # ou AAAA-MM-JJ
 issue: null               # numéro de l'issue GitHub liée, s'il y en a une
 creee: 2026-11-14
+etapes:                   # facultatif : le parcours de la tâche, dans l'ordre où il s'est passé
+  - date: 2026-11-14
+    genre: etape          # etape | bug
+    statut: faite         # étape : a-faire | en-cours | faite ; bug : ouvert | contourne | corrige
+    titre: "Installer Ubuntu 24.04"
+    detail: "Ce qui a été fait, ou la cause du bug et sa correction."
 ---
 
 Note libre : ce qui définit « fait ».
 ```
 
+Dans l'IHM, cliquer une carte du tableau fait glisser le tableau et montre ce parcours.
+Un bug n'est `corrige` que si sa cause a été retirée ; `contourne` dit qu'on a fait autrement.
+
+## Une exécution (`experiments/<dossier>/execution.yaml`)
+
+Un rendu par exécution réellement lancée : le code utile, sa lecture, ce qui en est sorti.
+Un fichier peut en décrire plusieurs, sous la clé `executions`.
+
+```yaml
+executions:
+  - id: X-002               # unique
+    titre: "Entraînement complet de la ligne de base"
+    date: 2026-11-14
+    statut: terminee        # prevue | en-cours | terminee | echouee
+    piste: P-420
+    taches: [T-004]
+    resume: "Une phrase ou deux."
+    bilan:                  # ce que l'exécution a produit, en trois ou quatre réponses courtes
+      - question: "Le type de résultat"
+        valeur: "Un fichier de poids"
+        detail: "Markdown."
+        fiches: [K-15]
+    code:                   # le code utile, annoté
+      - titre: "Le réglage"
+        fichier: experiments/…/config.json   # relu dans le dépôt (experiments/, scripts/ ou src/)
+        extrait: [11, 22]                    # facultatif : lignes à montrer
+        # ou, pour du code qui n'est pas dans le dépôt : texte: |, debut: 1022, origine:, source: (lien),
+        # auteur: ScrollPrize (compte GitHub) — obligatoire avec « source », pour citer qui l'a écrit
+        # auteurs: [{ github: erdpx, nom: "…", commit: <sha complet>, pr: 1456, date: 2026-08-14 }]
+        #   la ou les personnes qui ont écrit ces lignes, relevées par scripts/wsl/auteurs-villa.sh
+        notes:
+          - lignes: [15, 16]                 # numéros de ligne du fichier
+            genre: parametrage               # parametrage | architecture | optimisation | donnees | mesure
+            titre: "Deux blocs à la fois"
+            texte: "Markdown."
+            fiches: [K-13]
+    sorties:
+      - { genre: mesures, titre: "…", lignes: [["Durée", "1 h 53", "remarque"]] }
+      - { genre: courbe, titre: "…", x: "itération", y: "perte", points: [[1000, 0.51]] }
+      - { genre: journal, titre: "…", texte: "extrait du journal" }
+      - { genre: fichiers, titre: "…", lieu: "…", elements: [{ nom: "…", taille: "…", role: "…" }] }
+    limites: "Markdown : ce que l'exécution ne dit pas."
+    credits:                # le travail des autres sur lequel l'exécution s'appuie
+      - github: ScrollPrize          # compte ou organisation GitHub : donne la photo de profil
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa
+        licence: MIT
+        quoi: "Ce qui vient d'eux."
+        personnes:                   # facultatif : qui, dans ce projet, a écrit ce que nous faisons tourner
+          - { github: erdpx, nom: "…", part: "1 122 lignes de train.py" }
+```
+
+Partout dans le carnet, un lien Markdown vers `https://github.com/<compte>/…` s'affiche dans
+l'IHM précédé de la photo de profil du compte. C'est la façon de citer quelqu'un.
+
+### La vie d'une exécution
+
+1. **Avant de lancer** : écrire sa page, `statut: prevue`, avec ce qu'on sait déjà (ce qu'elle doit
+   produire, le code annoté, ce qu'elle ne dira pas). Pas de `sorties` : rien n'est mesuré.
+2. **Lancer** par `scripts/wsl/lancer-execution.sh <X-…> <dossier de l'expérience> <commande…>`.
+   Le lanceur écrit dans `experiments/<dossier>/journaux/` :
+   `X-….etat.json` (début, puis fin, code de sortie, pic de mémoire vidéo) et `X-….brut.log`
+   (tout ce que le programme affiche). L'IHM en tire la barre de progression et le journal en direct.
+3. **À la fin** : le lanceur condense le journal dans `X-….log` (une ligne de progression par
+   pour-cent). Compléter la page : `statut: terminee` ou `echouee`, le `bilan` réécrit avec ce qui a
+   été mesuré, les `sorties`. Le journal condensé et le fichier d'état sont versionnés ; le brut ne l'est pas.
+
+L'état montré dans l'IHM est celui du lanceur quand il existe, sinon le `statut` de la page.
+La barre de progression se lit dans les barres « tqdm » du journal ; un programme qui n'en
+affiche pas est suivi sans pourcentage.
+
+Une fiche citée par une exécution affiche en retour le lien vers cette exécution.
+Aucune donnée ni aucun poids dans ces fichiers : seulement des chiffres relevés et des extraits de journal.
+
 ## Liens
 
-Dans n'importe quel texte, un identifiant (`P-310`, `D-001`, `T-004`, `L-02`, `K-08`) devient
+Dans n'importe quel texte, un identifiant (`P-310`, `D-001`, `T-004`, `X-002`, `L-02`, `K-08`) devient
 un lien dans l'IHM. Le script `npm run verifier` refuse un identifiant de parent, de
-piste ou de livrable qui n'existe pas ; la CI le lance à chaque envoi.
+piste, de tâche, de fiche ou de livrable qui n'existe pas ; la CI le lance à chaque envoi.

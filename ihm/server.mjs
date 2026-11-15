@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { etatGithub } from './lib/github.mjs';
 import { changerStatutTache, chargerEtat, deposerMessage, empreinte, lireBoite } from './lib/pilotage.mjs';
+import { lireJournal, suiviExecution } from './lib/suivi.mjs';
 
 const ICI = path.dirname(fileURLToPath(import.meta.url));
 const RACINE = path.resolve(ICI, '..');
@@ -13,7 +14,7 @@ const CONCEPTS = path.join(RACINE, 'docs', 'concepts');
 const PORT = Number(process.env.IHM_PORT || process.env.PORT) || 4173;
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.json': 'application/json',
+  '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.json': 'application/json', '.png': 'image/png',
 };
 
 function json(res, code, corps) {
@@ -41,7 +42,22 @@ async function api(req, res, url) {
 
   if (req.method === 'GET' && url.pathname === '/api/etat') {
     const etat = await chargerEtat(RACINE);
+    for (const x of etat.executions) x.suivi = await suiviExecution(RACINE, x);
     return json(res, 200, { ...etat, boite: await lireBoite(RACINE) });
+  }
+  // Progression de toutes les exécutions : interrogée toutes les deux secondes pendant qu'une d'elles tourne.
+  if (req.method === 'GET' && url.pathname === '/api/executions/suivi') {
+    const { executions } = await chargerEtat(RACINE);
+    const suivis = {};
+    for (const x of executions) suivis[x.id] = await suiviExecution(RACINE, x);
+    return json(res, 200, suivis);
+  }
+  const journal = /^\/api\/executions\/(X-\d{3})\/journal$/.exec(url.pathname);
+  if (req.method === 'GET' && journal) {
+    const x = (await chargerEtat(RACINE)).executions.find((e) => e.id === journal[1]);
+    if (!x) return json(res, 404, { erreur: 'exécution inconnue' });
+    const morceau = await lireJournal(RACINE, x, Number(url.searchParams.get('depuis') ?? 0));
+    return json(res, 200, { ...morceau, suivi: await suiviExecution(RACINE, x) });
   }
   if (req.method === 'GET' && url.pathname === '/api/version') {
     return json(res, 200, { version: await empreinte(RACINE) });
@@ -91,5 +107,5 @@ createServer(async (req, res) => {
     json(res, 400, { erreur: e.message });
   }
 }).listen(PORT, '127.0.0.1', () => {
-  console.log(`Agent C. — IHM sur http://127.0.0.1:${PORT}`);
+  console.log(`Hephaist'OS sur http://127.0.0.1:${PORT}`);
 });

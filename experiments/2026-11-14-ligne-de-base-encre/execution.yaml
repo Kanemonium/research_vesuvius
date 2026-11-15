@@ -1,0 +1,617 @@
+# Rendus d'exécution de cette expérience, montrés dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Tout chiffre vient d'une mesure ; « estimation » et « inconnu » sont dits.
+executions:
+
+  # ------------------------------------------------------------------------------------------
+  - id: X-001
+    titre: "Essais courts : la recette du tutoriel tient-elle dans 8 Go ?"
+    date: 2026-11-14
+    statut: terminee
+    piste: P-420
+    taches: [T-004]
+    resume: >-
+      Deux lancements de 60 itérations, identiques à un réglage près : la taille des blocs.
+      Ils ne servent pas à entraîner un modèle, seulement à mesurer la mémoire vidéo et la vitesse
+      avant de s'engager sur deux heures de calcul.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Deux mesures, aucun modèle"
+        detail: >-
+          Soixante itérations ne suffisent pas à apprendre quoi que ce soit. Ce que ces essais
+          produisent, c'est un couple de chiffres par réglage : le pic de mémoire vidéo et la
+          vitesse. Rien n'a été sauvegardé.
+      - question: "Ce que ça représente"
+        valeur: "Notre machine, pas le modèle"
+        detail: >-
+          Les chiffres valent pour une RTX 3080 Laptop de 8 Go sous WSL2, avec un seul processus de
+          chargement. Ils ne disent rien de la qualité d'un modèle entraîné avec l'un ou l'autre réglage.
+      - question: "Le gain obtenu"
+        valeur: "De 120 heures à moins de 2"
+        detail: >-
+          Blocs de 256 : 21,7 secondes par itération, soit environ 120 heures pour 20 000.
+          Blocs de 128 : 3,03 itérations par seconde, soit environ 1 h 50. C'est ce réglage qui a
+          servi pour X-002.
+        fiches: [K-12]
+
+    code:
+      - titre: "Le réglage qui change"
+        fichier: experiments/2026-11-14-ligne-de-base-encre/essai-court-128.json
+        langage: json
+        extrait: [11, 22]
+        intro: >-
+          Le fichier complet est celui du tutoriel. L'autre essai, `essai-court.json`, ne diffère
+          que par la ligne 11 : `[64, 256, 256]`.
+        notes:
+          - lignes: 11
+            genre: optimisation
+            titre: "La taille du bloc, seul levier touché"
+            texte: >-
+              Un bloc est le petit pavé de scan que le modèle regarde d'un coup : 64 couches de
+              profondeur, puis 128 × 128 pixels au lieu de 256 × 256. Quatre fois moins de
+              données par bloc. Le pic de mémoire vidéo passe de 7 996 Mo à 4 895 Mo, et la
+              vitesse de 21,7 secondes par itération à 3,03 itérations par seconde.
+            fiches: [K-12]
+          - lignes: 16
+            genre: parametrage
+            titre: "Soixante itérations, pas vingt mille"
+            texte: >-
+              Assez pour que la mémoire se stabilise et que la vitesse se lise, trop peu pour
+              apprendre. Un essai dure moins de deux minutes avec des blocs de 128.
+          - lignes: 19
+            genre: parametrage
+            titre: "Un seul processus de chargement"
+            texte: >-
+              Le tutoriel en prévoit quatre. Ubuntu ne dispose ici que de 6,8 Go de mémoire vive,
+              et chaque processus en prend sa part : un seul suffit pour mesurer. L'effet sur la
+              vitesse n'a pas été mesuré.
+          - lignes: [21, 22]
+            genre: parametrage
+            titre: "Ni validation ni sauvegarde"
+            texte: >-
+              Avec un seuil de 100 000 itérations, ces deux étapes ne se déclenchent jamais sur un
+              essai de 60 : on ne mesure que l'entraînement lui-même.
+
+      - titre: "La commande qui lance et qui mesure"
+        fichier: experiments/2026-11-14-ligne-de-base-encre/mesurer.sh
+        langage: bash
+        extrait: [6, 25]
+        notes:
+          - lignes: [7, 8]
+            genre: optimisation
+            titre: "De la mémoire d'appoint avant tout"
+            texte: >-
+              Un premier lancement a été tué par le système au bout de 25 secondes : le programme
+              atteint 4,4 Go de mémoire vive rien qu'en chargeant les étiquettes d'une image de
+              32 249 × 51 380 pixels. Un fichier d'échange de 12 Go sur le disque évite cela.
+          - lignes: [15, 19]
+            genre: mesure
+            titre: "La sonde de mémoire vidéo"
+            texte: >-
+              Une petite boucle tourne à côté de l'entraînement : toutes les deux secondes elle
+              demande à la carte combien de mémoire est prise, et ne garde que le maximum. C'est de
+              là que viennent 7 996 Mo et 4 895 Mo. Ce chiffre inclut ce que Windows utilise déjà
+              pour l'affichage (environ 1,35 Go ce jour-là).
+          - lignes: 23
+            genre: parametrage
+            titre: "La commande du tutoriel, inchangée"
+            texte: >-
+              C'est l'entraînement de villa tel que le tutoriel le lance. Tout ce qu'il affiche part
+              dans un journal, relu ensuite pour en tirer la vitesse.
+
+    sorties:
+      - genre: mesures
+        titre: "256 contre 128"
+        large: true
+        lignes:
+          - ["Blocs 64 × 256 × 256 : pic de mémoire vidéo", "7 996 Mo", "sur 8 192 : la carte est saturée"]
+          - ["Blocs 64 × 256 × 256 : vitesse", "21,7 s / itération", "environ 120 heures pour 20 000 itérations"]
+          - ["Blocs 64 × 128 × 128 : pic de mémoire vidéo", "4 895 Mo", ""]
+          - ["Blocs 64 × 128 × 128 : vitesse", "3,03 itérations / s", "environ 1 h 50 pour 20 000 itérations"]
+          - ["Rapport de vitesse", "× 66", "pour 4 fois moins de données par itération"]
+        note: >-
+          Quatre fois moins de données, soixante-six fois plus vite : la lenteur du premier réglage
+          ne vient pas de la puissance de la carte mais de sa mémoire pleine. Explication probable,
+          non vérifiée directement : sous Windows, le pilote déborde alors sur la mémoire ordinaire.
+      - genre: journal
+        titre: "Fin du journal, blocs de 128"
+        large: true
+        texte: |
+          97%|█████████▋| 58/60 [00:22<00:00,  3.03it/s, loss=0.0812, lr=5.80e-04]
+          98%|█████████▊| 59/60 [00:23<00:00,  3.03it/s, loss=0.4899, lr=5.90e-04]
+          100%|██████████| 60/60 [00:23<00:00,  3.03it/s, loss=0.5154, lr=6.00e-04]
+          AMP gradient overflow at step 0: task_heads.ink.weight
+        note: >-
+          Chaque ligne : l'avancement, la vitesse (`it/s`, itérations par seconde), la perte du
+          dernier lot (`loss`, voir K-13) et le taux d'apprentissage (`lr`). La dernière ligne
+          signale un débordement au tout premier pas, attendu en précision mixte (K-14).
+
+    limites: |
+      - Soixante itérations ne disent rien de la qualité d'un modèle.
+      - Des blocs de 128 voient moins de contexte que des blocs de 256 : l'effet sur le résultat reste à mesurer.
+      - Un lot plus grand avec des blocs de 128 (4 ou 8) n'a pas été essayé.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Tout le code d'entraînement et de prédiction qui tourne ici : le paquet `vesuvius` de
+          villa, au commit `2d3fb38`. Nous n'avons écrit que les réglages et les scripts de lancement.
+        personnes:            # lignes de training/train.py par personne, au commit 2d3fb38 (git blame)
+          - { github: erdpx, nom: "elian rafael", part: "1 122 lignes de train.py, et toute la fonction de perte (losses.py)" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: >-
+          La recette suivie (fichier de réglage, commandes) et le segment étiqueté
+          `w00_20231016151002`, publiés par l'équipe du défi : https://scrollprize.org/tutorial5
+
+  # ------------------------------------------------------------------------------------------
+  - id: X-002
+    titre: "Entraînement complet de la ligne de base, blocs de 128"
+    date: 2026-11-14
+    statut: terminee
+    piste: P-420
+    taches: [T-004]
+    resume: >-
+      Le modèle du tutoriel d'encre, entraîné pendant 20 000 itérations sur le segment
+      w00_20231016151002 de PHerc. Paris. 4, avec le réglage retenu dans X-001.
+      1 h 53 min 51 s, sans erreur.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Un fichier de poids, pas encore une image"
+        detail: >-
+          L'entraînement produit des points de sauvegarde : des fichiers `.pth` de 816 Mo. Le
+          dernier, `ckpt_020000.pth`, contient 202 467 329 nombres répartis en 500 tableaux :
+          les réglages internes du réseau, tels que deux heures de calcul les ont ajustés.
+          Ce n'est ni une image d'encre ni une lecture. C'est l'outil qui servira à produire
+          l'image, à l'étape suivante (T-005).
+        fiches: [K-15, K-11]
+      - question: "La représentativité"
+        valeur: "Un seul segment, aucun contrôle"
+        detail: >-
+          Le modèle n'a vu qu'un segment d'un seul rouleau : 8 098 blocs, pris là où des
+          étiquettes existent, soit environ 2 % de la surface du segment (estimation : 8 098
+          blocs décalés de 64 pixels sur une image de 32 249 × 51 380). Aucune zone n'a été tenue
+          à l'écart pour l'interroger ensuite. Ce qu'il vaut ailleurs, même sur le reste de ce
+          segment, est donc **inconnu**.
+        fiches: [K-16]
+      - question: "Le niveau d'optimisation"
+        valeur: "Perte de 0,514 à 0,393, sans repère"
+        detail: >-
+          La perte d'entraînement, moyennée par tranche de 1 000 itérations, baisse de 24 %.
+          Mais ce nombre n'a pas d'échelle absolue, le tutoriel n'en donne aucun de référence, et
+          il est calculé sur les données d'entraînement. Il dit que le modèle apprend, pas à quel
+          point il est bon. Le modèle a vu 40 000 blocs, soit environ cinq passages sur les 8 098
+          disponibles, avec des blocs quatre fois plus petits que ceux de la recette.
+        fiches: [K-13]
+
+    code:
+      - titre: "Le réglage de l'entraînement"
+        fichier: experiments/2026-11-14-ligne-de-base-encre/ligne-de-base-128.json
+        langage: json
+        intro: >-
+          Tout l'entraînement tient dans ce fichier. C'est celui du tutoriel, avec deux lignes
+          modifiées : 11 et 19.
+        notes:
+          - lignes: [5, 9]
+            genre: architecture
+            titre: "Un réseau en U, en 3D, qui rend une image 2D"
+            texte: >-
+              `vesuvius_unet` est un réseau de neurones en forme de U : il résume le bloc étage
+              par étage, puis redessine une carte d'encre à la taille d'origine. Ici il a six
+              étages, de 32 à 320 filtres, soit 202 millions de nombres réglables (relevé dans le
+              journal et dans le fichier de poids). `mode: flat` et `z_projection_mode: max` : il
+              reçoit un pavé de 64 couches et n'en garde, en sortie, que la réponse la plus forte
+              sur l'épaisseur. D'où une image plate.
+            fiches: [K-11, K-12]
+          - lignes: 11
+            genre: optimisation
+            titre: "Des blocs de 128 au lieu de 256"
+            texte: >-
+              Le réglage qui fait tenir l'entraînement sur notre carte. Mesuré dans X-001 : la
+              mémoire vidéo retombe de 7 996 à 4 895 Mo et la durée prévue de 120 heures à moins
+              de deux. Le prix à payer est inconnu : le modèle voit moins de contexte autour de
+              chaque trait.
+            fiches: [K-12]
+          - lignes: [12, 13]
+            genre: donnees
+            titre: "Où les blocs sont pris"
+            texte: >-
+              Les blocs se chevauchent de moitié, et un bloc n'est retenu que si les étiquettes
+              couvrent au moins 5 % de sa surface. Sur ce segment, cela donne 8 098 blocs
+              d'entraînement (ligne `sampling_audit` du journal).
+          - lignes: [15, 16]
+            genre: parametrage
+            titre: "Deux blocs à la fois, vingt mille fois"
+            texte: >-
+              Une itération : le modèle regarde un lot de 2 blocs, compare sa réponse aux
+              étiquettes, et corrige un peu ses réglages. 20 000 itérations font 40 000 blocs vus,
+              soit environ cinq passages sur les 8 098 disponibles.
+            fiches: [K-13]
+          - lignes: 17
+            genre: optimisation
+            titre: "La taille des corrections"
+            texte: >-
+              Le taux d'apprentissage dit de combien les réglages bougent à chaque correction.
+              0,01 est son maximum : il y monte pendant les 1 000 premières itérations, puis
+              redescend en douceur jusqu'à zéro (relevé dans le journal, voir la courbe plus bas).
+            fiches: [K-13]
+          - lignes: 18
+            genre: optimisation
+            titre: "Des calculs sur 16 bits"
+            texte: >-
+              `fp16` : une partie des calculs se fait avec des nombres moitié moins longs. Moins
+              de mémoire vidéo, plus de vitesse, au prix d'un risque de débordement que les
+              lignes 24 et 25 surveillent.
+            fiches: [K-14]
+          - lignes: 19
+            genre: parametrage
+            titre: "Un seul processus de chargement"
+            texte: >-
+              Le tutoriel en prévoit quatre. Avec 6,8 Go de mémoire vive pour Ubuntu, un seul
+              évite de la saturer. Son effet sur la vitesse n'a pas été mesuré.
+          - lignes: [21, 22]
+            genre: mesure
+            titre: "Contrôler et sauvegarder en route"
+            texte: >-
+              Toutes les 500 itérations, le programme devait interroger le modèle sur une zone de
+              validation : le segment du tutoriel n'en a pas, cette étape a donc été sautée à
+              chaque fois, aperçus compris. Toutes les 1 000, il écrit un point de sauvegarde :
+              il y en a 20.
+            fiches: [K-16, K-15]
+          - lignes: [24, 25]
+            genre: mesure
+            titre: "Le garde-fou du démarrage"
+            texte: >-
+              Pendant les 200 premiers pas, le programme vérifie que les corrections calculées
+              sont des nombres finis, et tolère quatre débordements. Il y en a eu un, au pas 0 :
+              ce pas a été sauté, rien d'autre ensuite (`gradient_health.json`).
+            fiches: [K-14]
+          - lignes: [27, 33]
+            genre: donnees
+            titre: "Un segment, en pleine résolution"
+            texte: >-
+              Le dossier contient un seul segment. `volume_scale: "0"` désigne le niveau le plus
+              fin du volume de surface : 63 des 86 Go téléchargés. Les cinq autres niveaux, plus
+              grossiers, n'ont pas servi.
+
+      - titre: "Ce que villa décide à notre place : la perte"
+        origine: "villa @ 2d3fb38 · vesuvius/src/vesuvius/ink_detection/config.py"
+        source: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/vesuvius/src/vesuvius/ink_detection/config.py#L1022-L1029
+        langage: python
+        auteur: ScrollPrize
+        auteurs:              # relevé par scripts/wsl/auteurs-villa.sh sur les lignes citées
+          - github: erdpx
+            nom: "elian rafael"
+            commit: 960d76ac7f32557c2ecf323323288d8f23bb71f1
+            pr: 1456
+            date: 2026-08-14
+        debut: 1022
+        intro: >-
+          Notre fichier de réglage ne dit rien de la façon dont l'erreur est mesurée : villa
+          applique ses valeurs par défaut. Extrait du code de villa (licence MIT), au commit utilisé.
+        texte: |
+                  if raw_terms is None:
+                      term_values: list[Mapping[str, Any]] = [
+                          {
+                              "name": "LabelSmoothedDCAndBCELoss",
+                              "metric_name": "base",
+                              "weight": 1.0,
+                              "weight_dice": float(raw_loss.get("dice_weight", 0.25)),
+                              "weight_ce": float(raw_loss.get("ce_weight", 1.0)),
+        notes:
+          - lignes: 1025
+            genre: architecture
+            titre: "Deux façons de noter l'erreur, additionnées"
+            texte: >-
+              La perte est le nombre que l'entraînement cherche à faire baisser. Ici elle
+              additionne deux notes : une note pixel par pixel (BCE) et une note de recouvrement
+              entre la zone prédite et la zone étiquetée (Dice).
+            fiches: [K-13]
+          - lignes: [1028, 1029]
+            genre: parametrage
+            titre: "Le dosage : 1 pour l'une, 0,25 pour l'autre"
+            texte: >-
+              La note pixel par pixel compte en entier, la note de recouvrement pour un quart.
+              C'est pourquoi la perte affichée n'a pas d'unité parlante : 0,393 n'est pas « 39 %
+              d'erreur ».
+
+      - titre: "Ce que villa décide à notre place : l'optimiseur"
+        origine: "villa @ 2d3fb38 · vesuvius/src/vesuvius/ink_detection/config.py"
+        source: https://github.com/ScrollPrize/villa/blob/2d3fb38d33a18b257230c0bd23986436c3d4722e/vesuvius/src/vesuvius/ink_detection/config.py#L1286-L1294
+        langage: python
+        auteur: ScrollPrize
+        auteurs:              # relevé par scripts/wsl/auteurs-villa.sh sur les lignes citées
+          - github: erdpx
+            nom: "elian rafael"
+            commit: 960d76ac7f32557c2ecf323323288d8f23bb71f1
+            pr: 1456
+            date: 2026-08-14
+        debut: 1286
+        texte: |
+                  return cls(
+                      name=str(authored.get("optimizer", "sgd")),
+                      learning_rate=float(authored.get("learning_rate", 0.01)),
+                      weight_decay=float(authored.get("weight_decay", 3e-5)),
+                      betas=(float(raw_betas[0]), float(raw_betas[1])),
+                      momentum=float(authored.get("optimizer_momentum", 0.99)),
+                      nesterov=bool(authored.get("optimizer_nesterov", True)),
+                      encoder_lr_mult=float(authored.get("encoder_lr_mult", 1.0)),
+                  )
+        notes:
+          - lignes: 1287
+            genre: optimisation
+            titre: "La méthode de correction : SGD"
+            texte: >-
+              L'optimiseur est la règle qui transforme l'erreur mesurée en correction des
+              réglages. `sgd` est la plus simple : avancer d'un petit pas dans le sens qui fait
+              baisser la perte.
+            fiches: [K-13]
+          - lignes: [1291, 1292]
+            genre: optimisation
+            titre: "Avec de l'élan"
+            texte: >-
+              `momentum 0.99` : chaque correction garde 99 % de la direction des précédentes, ce
+              qui lisse le trajet. `nesterov` en est une variante. Ces valeurs sont celles de
+              villa ; nous ne les avons pas fait varier.
+
+    sorties:
+      - genre: mesures
+        titre: "Le déroulé"
+        lignes:
+          - ["Itérations", "20 000", "sans interruption ni erreur"]
+          - ["Durée", "1 h 53 min 51 s", ""]
+          - ["Vitesse moyenne", "2,93 itérations / s", ""]
+          - ["Pic de mémoire vidéo", "4 959 Mo", "sur 8 192"]
+          - ["Blocs d'entraînement", "8 098", "tirés du segment"]
+          - ["Pas sautés", "1", "au pas 0, débordement en 16 bits"]
+          - ["Validation", "aucune", "pas de zone de validation dans ce segment"]
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius/villa/vesuvius/runs/ligne_de_base_128, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "ckpt_001000.pth … ckpt_020000.pth"
+            taille: "20 × 816 Mo"
+            role: "Les points de sauvegarde (K-15). Chacun contient les poids du réseau, l'état de l'optimiseur et du planificateur, la configuration et le numéro du pas."
+          - nom: "flat_ink_patches_…json"
+            taille: "6 Mo"
+            role: "La liste des 8 098 blocs, gardée pour ne pas la recalculer au prochain lancement."
+          - nom: "gradient_health.json"
+            taille: "221 octets"
+            role: "Le relevé du garde-fou : 200 pas contrôlés, un débordement au pas 0."
+          - nom: "train_previews/ · val_previews/"
+            taille: "vides"
+            role: "Les aperçus ne sont écrits qu'au moment d'une validation, et il n'y en a pas eu."
+          - nom: "ligne-de-base-128.log"
+            taille: "1,8 Mo"
+            role: "Le journal complet : d'où viennent la vitesse, la perte et le taux d'apprentissage."
+      - genre: courbe
+        titre: "La perte d'entraînement"
+        x: "itération"
+        y: "perte moyenne sur les 1 000 itérations précédentes"
+        xmin: 0
+        xmax: 20000
+        ymin: 0.35
+        ymax: 0.55
+        points:
+          - [1000, 0.5141]
+          - [2000, 0.4997]
+          - [3000, 0.4925]
+          - [4000, 0.4866]
+          - [5000, 0.4953]
+          - [6000, 0.4752]
+          - [7000, 0.4886]
+          - [8000, 0.4783]
+          - [9000, 0.5015]
+          - [10000, 0.4892]
+          - [11000, 0.4846]
+          - [12000, 0.4663]
+          - [13000, 0.4786]
+          - [14000, 0.4744]
+          - [15000, 0.4683]
+          - [16000, 0.4594]
+          - [17000, 0.4360]
+          - [18000, 0.4146]
+          - [19000, 0.3972]
+          - [20000, 0.3925]
+        note: >-
+          La perte d'un lot isolé saute de 0,06 à plus de 1 : seule la moyenne se lit. Elle reste
+          autour de 0,48 jusqu'à l'itération 15 000, puis descend sur les 5 000 dernières.
+      - genre: courbe
+        titre: "Le taux d'apprentissage"
+        x: "itération"
+        y: "taux d'apprentissage relevé dans le journal"
+        xmin: 0
+        xmax: 20000
+        ymin: 0
+        ymax: 0.01
+        points:
+          - [500, 0.005]
+          - [1000, 0.01]
+          - [2000, 0.00993]
+          - [5000, 0.00895]
+          - [10000, 0.00541]
+          - [15000, 0.00161]
+          - [19000, 0.0000682]
+          - [19999, 0.0000000000683]
+        note: >-
+          Montée en 1 000 itérations, puis descente régulière jusqu'à zéro. La baisse de la perte
+          en fin de course coïncide avec les petits taux d'apprentissage ; nous n'avons pas vérifié
+          que l'un cause l'autre.
+      - genre: journal
+        titre: "Le réseau, tel que villa l'annonce au démarrage"
+        large: true
+        texte: |
+          sampling_audit={"patches": 8098, "strategy": "uniform"}
+          Using 3D convolutions (nn.Conv3d)
+          Using 3D normalization (nn.InstanceNorm3d)
+          Patch size adjusted from (64, 128, 128) to (64, 128, 128) to ensure divisibility by pooling factors [16 32 32]
+          Task 'ink' configured with z-projection mode 'max'
+          NetworkFromConfig initialized with final configuration:
+            basic_encoder_block: BasicBlockD
+            features_per_stage: [32, 64, 128, 256, 320, 320]
+            num_stages: 6
+            n_blocks_per_stage: [1, 3, 4, 6, 6, 6]
+            norm_op: InstanceNorm3d
+            nonlin: LeakyReLU
+            patch_size: (64, 128, 128)
+            batch_size: 2
+            in_channels: 1
+          AMP gradient overflow at step 0: task_heads.ink.weight
+        note: >-
+          Extrait. `num_stages: 6` et `features_per_stage` décrivent les six étages du U (K-11) ;
+          `pooling factors [16 32 32]` dit de combien le bloc est réduit au fond du U : 16 fois en
+          profondeur, 32 fois en largeur et en hauteur.
+
+    limites: |
+      - **La qualité du modèle est inconnue.** Aucune prédiction n'a encore été regardée, et aucune zone de validation n'existe pour ce segment.
+      - Une prédiction sur ce même segment montrera ce que le modèle a retenu, pas ce qu'il sait reconnaître ailleurs.
+      - L'effet des blocs de 128 sur la qualité, par rapport aux blocs de 256 de la recette, n'est pas mesuré.
+      - L'optimiseur, la perte et le planificateur sont ceux de villa par défaut ; aucun n'a été réglé.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Tout le code d'entraînement et de prédiction qui tourne ici : le paquet `vesuvius` de
+          villa, au commit `2d3fb38`. Nous n'avons écrit que les réglages et les scripts de lancement.
+        personnes:            # lignes de training/train.py par personne, au commit 2d3fb38 (git blame)
+          - { github: erdpx, nom: "elian rafael", part: "1 122 lignes de train.py, et toute la fonction de perte (losses.py)" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: >-
+          La recette suivie (fichier de réglage, commandes) et le segment étiqueté
+          `w00_20231016151002`, publiés par l'équipe du défi : https://scrollprize.org/tutorial5
+
+  # ------------------------------------------------------------------------------------------
+  # Page écrite AVANT le lancement (2026-11-15). Les sorties seront ajoutées une fois l'exécution terminée.
+  - id: X-003
+    titre: "Première prédiction d'encre sur le segment du tutoriel"
+    date: 2026-11-15
+    statut: prevue
+    piste: P-310
+    taches: [T-005]
+    resume: >-
+      Faire tourner le modèle entraîné dans X-002 sur tout le segment w00_20231016151002 pour
+      obtenir une image d'encre. Pas encore lancée : elle attend l'accord de Kanemonium.
+
+    bilan:
+      - question: "Le type de résultat attendu"
+        valeur: "Une image d'encre en niveaux de gris"
+        detail: >-
+          Un fichier TIFF de la taille du segment, 32 249 × 51 380 pixels. La clarté de chaque
+          pixel, de 0 à 255, est la probabilité d'encre que le modèle lui donne. C'est la première
+          chose que l'on pourra regarder. Le fichier reste sur la machine : aucune donnée de
+          rouleau ne va dans le dépôt.
+        fiches: [K-08]
+      - question: "La représentativité"
+        valeur: "Un aperçu, pas une preuve"
+        detail: >-
+          Le segment est celui qui a servi à l'entraînement. Là où des étiquettes existaient
+          (environ 2 % de la surface, estimation), le modèle a déjà vu la réponse. Le reste du
+          segment est nouveau pour lui, mais vient de la même feuille : le tutoriel annonce que
+          des lettres peuvent y apparaître. Cela ne dira rien d'un autre rouleau.
+        fiches: [K-16]
+      - question: "Ce qu'on ne sait pas encore"
+        valeur: "La durée et la mémoire vidéo"
+        detail: >-
+          Le tutoriel parle d'environ une heure sur une seule carte graphique pour un segment
+          entier, sans préciser laquelle. Sur notre carte de 8 Go, avec un lot de 4 blocs, ni la
+          durée ni la mémoire vidéo ne sont mesurées : ce sera le premier relevé de cette exécution.
+        fiches: [K-12]
+
+    code:
+      - titre: "La commande de prédiction"
+        fichier: experiments/2026-11-14-ligne-de-base-encre/predire.sh
+        langage: bash
+        extrait: [7, 19]
+        intro: >-
+          C'est la commande d'inférence du tutoriel, passée par notre lanceur pour qu'elle soit
+          suivie en direct dans cette page.
+        notes:
+          - lignes: 9
+            genre: optimisation
+            titre: "La mémoire d'appoint, par précaution"
+            texte: >-
+              L'entraînement avait été tué faute de mémoire vive avant qu'on ajoute 12 Go de
+              fichier d'échange. Nous ne savons pas si la prédiction en a besoin ; elle est
+              réactivée dans le doute.
+          - lignes: 13
+            genre: mesure
+            titre: "Le lanceur qui rend l'exécution suivable"
+            texte: >-
+              `lancer-execution.sh` note l'heure de début, écrit tout ce que le programme affiche
+              dans un journal, relève le pic de mémoire vidéo toutes les deux secondes, puis note
+              la fin et le code de sortie. La barre de progression et le journal de cette page
+              viennent de là. À la fin, le journal est condensé pour être gardé dans le dépôt.
+          - lignes: 15
+            genre: donnees
+            titre: "L'entrée : le volume de surface"
+            texte: >-
+              Le fichier `.zarr` du segment, lu à son niveau le plus fin : 63 Go sur le disque.
+              Contrairement à l'entraînement, qui ne lisait que les zones étiquetées, la
+              prédiction parcourt tout le segment.
+            fiches: [K-07, K-10]
+          - lignes: 16
+            genre: parametrage
+            titre: "Le modèle : le dernier point de sauvegarde"
+            texte: >-
+              `ckpt_020000.pth`, écrit à la fin de X-002. Le tutoriel indique qu'on peut aussi
+              lancer la prédiction sur un point intermédiaire pour voir le modèle progresser.
+            fiches: [K-15]
+          - lignes: 17
+            genre: donnees
+            titre: "La sortie : une image TIFF"
+            texte: >-
+              Écrite dans le dossier de villa, dans Ubuntu, hors du dépôt.
+          - lignes: 18
+            genre: parametrage
+            titre: "Des fenêtres qui se chevauchent"
+            texte: >-
+              Le modèle glisse sur le segment bloc par bloc, chaque bloc recouvrant le précédent
+              de moitié, puis les réponses qui se chevauchent sont fondues ensemble (`hann`). Ce
+              sont les valeurs par défaut de villa, écrites ici pour que la commande reste
+              reproductible.
+            fiches: [K-12]
+          - lignes: 19
+            genre: optimisation
+            titre: "Quatre blocs à la fois"
+            texte: >-
+              La valeur du tutoriel. Non mesurée sur 8 Go : si la mémoire vidéo sature comme dans
+              X-001, il faudra descendre à 2 ou à 1.
+
+    limites: |
+      - Une image où des traits apparaissent n'est pas une lecture : seuls des papyrologues peuvent valider un texte.
+      - Sur les zones étiquetées, le modèle a déjà vu la réponse pendant l'entraînement.
+      - Aucun chiffre de qualité ne sortira de cette exécution : il n'y a toujours pas de zone de validation.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Tout le code d'entraînement et de prédiction qui tourne ici : le paquet `vesuvius` de
+          villa, au commit `2d3fb38`. Nous n'avons écrit que les réglages et les scripts de lancement.
+        personnes:            # lignes de inference/infer.py par personne, au commit 2d3fb38 (git blame)
+          - { github: erdpx, nom: "elian rafael", part: "1 355 lignes de infer.py" }
+          - { github: teddywasserman, nom: "Teddy", part: "269 lignes de infer.py" }
+          - { github: RhudeJJJJ, nom: "RhudeJJJJ", part: "92 lignes de infer.py" }
+          - { github: bnleft, nom: "Bryant Le", part: "22 lignes de infer.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: >-
+          La recette suivie (fichier de réglage, commandes) et le segment étiqueté
+          `w00_20231016151002`, publiés par l'équipe du défi : https://scrollprize.org/tutorial5

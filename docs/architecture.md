@@ -16,13 +16,15 @@ research_vesuvius/
 │   ├── horizon.yaml           livrables projetés, problèmes anticipés, échéances
 │   └── boite.md               messages laissés à Agent C. depuis l'IHM
 │
-├── ihm/                       LE POSTE DE PILOTAGE — lit le carnet et GitHub
+├── ihm/                       LE POSTE DE PILOTAGE, Hephaist'OS — lit le carnet et GitHub
 │   ├── server.mjs             serveur local (127.0.0.1), garde le jeton
 │   ├── lib/                   lecture/validation du carnet, appels GitHub
 │   └── public/                page, styles (design système), une vue par fichier
 │
 ├── src/vesuvius_lab/          LE CODE DE RECHERCHE (Python, vide au premier jour)
 ├── experiments/               une expérience = un dossier daté, reproductible
+│   ├── …/execution.yaml       rendus d'exécution X-… : code annoté et sorties → l'onglet Exécutions
+│   └── …/journaux/            état et journal condensé de chaque exécution (le brut reste local)
 ├── tests/                     tests Node (carnet) et Python (recherche)
 ├── scripts/                   vérification du carnet
 ├── docs/                      défi, architecture, design système
@@ -75,5 +77,6 @@ publication d'une version en lecture seule de la carte sur GitHub Pages.
 - **Le jeton GitHub ne quitte pas le serveur** : la page reçoit des données déjà filtrées.
 - **À jour toute seule** : la page interroge le serveur toutes les trois secondes et se redessine
   dès qu'un fichier du carnet change.
-- **Navigation par adresse** : `#/carte?id=P-310`, `#/taches?id=T-004`, `#/horizon?id=L-02`, `#/doc?id=K-08`.
+- **Navigation par adresse** : `#/carte?id=P-310`, `#/taches?id=T-004`, `#/executions?id=X-002`, `#/horizon?id=L-02`, `#/doc?id=K-08`.
+  L'accueil (`#/cap`) s'ouvre par le logo ; ce n'est pas un onglet.
   Tout identifiant cité dans un texte du carnet devient un lien vers la bonne vue.
