@@ -4,6 +4,7 @@ import { appendFile, readFile, readdir, stat, writeFile } from 'node:fs/promises
 import path from 'node:path';
 import { marked } from 'marked';
 import YAML from 'yaml';
+import { lireReponses } from './reponses.mjs';
 import { chargerAvancees, chargerPrix, fichierPrix, fichiersAvancees } from './avancees.mjs';
 
 export const TYPES_PISTE = ['racine', 'domaine', 'piste', 'decision'];
@@ -160,6 +161,11 @@ export async function chargerEtat(racine) {
     for (const s of x.sorties) if (!GENRES_SORTIE.includes(s.genre)) erreurs.push(`${x.id} : genre de sortie « ${s.genre} » inconnu`);
     // Une image n'est qu'un nom de fichier dans local/apercus/ : jamais un chemin, jamais une donnée versionnée.
     for (const s of x.sorties) if (s.genre === 'image' && !/^[\w.-]+\.(png|jpg)$/.test(s.fichier ?? '')) erreurs.push(`${x.id} : l'image « ${s.titre} » doit nommer un fichier .png ou .jpg de local/apercus/`);
+    {
+      const ids = x.sorties.flatMap((s) => (Array.isArray(s.questions) ? s.questions : [])).map((q) => q.id);
+      for (const id of ids) if (!/^Q\d+$/.test(String(id))) erreurs.push(`${x.id} : identifiant de question invalide « ${id} »`);
+      if (new Set(ids).size !== ids.length) erreurs.push(`${x.id} : deux questions portent le même identifiant`);
+    }
     for (const s of x.sorties) if (s.tuiles !== undefined && !/^[\w-]+$/.test(String(s.tuiles))) erreurs.push(`${x.id} : « tuiles » doit nommer un dossier de local/apercus/tuiles/`);
   }
 
@@ -251,6 +257,8 @@ async function chargerExecutions(racine, erreurs) {
         bilan: liste(brut.bilan).map((b) => ({ question: b.question, valeur: b.valeur, detailHtml: marked.parse(String(b.detail ?? '')), fiches: liste(b.fiches) })),
         code,
         sorties: liste(brut.sorties).map((s) => ({ ...s, noteHtml: s.note ? marked.parse(String(s.note)) : '' })),
+        // Ce que Kanemonium a répondu aux questions posées sous les images.
+        reponses: await lireReponses(racine, { id: brut.id, dossier }),
         limitesHtml: brut.limites ? marked.parse(String(brut.limites)) : '',
         credits: liste(brut.credits).map((c) => ({ github: c.github, nom: c.nom ?? null, lien: c.lien ?? null, licence: c.licence ?? null, quoiHtml: marked.parse(String(c.quoi ?? '')),
           personnes: liste(c.personnes).map((p) => ({ github: p.github, nom: p.nom ?? null, part: p.part ?? '' })) })),

@@ -650,6 +650,11 @@ executions:
         large: true
         fichier: X-003.png
         tuiles: X-003
+        questions:
+          - id: Q1
+            assertion: "Dans la moitié haute de l'image, des formes claires s'alignent en rangées horizontales."
+          - id: Q2
+            assertion: "Dans la moitié basse, on ne distingue presque plus que la trame croisée des fibres."
         alt: "Une feuille de papyrus grise, avec des formes claires alignées en rangées dans la moitié haute"
         legende: >-
           Chaque pixel est la moyenne d'un carré de 16 pixels de l'image d'origine. Plus c'est clair,
@@ -658,6 +663,11 @@ executions:
         titre: "La même image, gris réétalés pour mieux voir"
         large: true
         fichier: X-003-etale.png
+        questions:
+          - id: Q3
+            assertion: "Avec les gris réétalés, les formes claires ressortent mieux que dans l'image du dessus."
+          - id: Q4
+            assertion: "Une colonne de formes du même genre longe le bord gauche de la feuille."
         alt: "La même feuille sur fond presque noir : les formes claires ressortent, la trame des fibres reste visible"
         legende: >-
           Un aide-vue, pas une mesure : tout ce qui est à 129 ou moins devient noir, tout ce qui est
@@ -668,6 +678,9 @@ executions:
       - genre: image
         titre: "Où le modèle avait le corrigé"
         fichier: X-003-zones.png
+        questions:
+          - id: Q5
+            assertion: "Les pavés bleus (là où le modèle a eu le corrigé) ne couvrent que des morceaux de chaque rangée, pas des rangées entières."
         alt: "La même image, avec des zones teintées en bleu et des lettres en orange"
         legende: >-
           En bleu, la zone de supervision : le seul endroit où l'entraînement a vu un corrigé.
@@ -675,6 +688,11 @@ executions:
       - genre: image
         titre: "Ce qu'il dit là où il n'a jamais été corrigé"
         fichier: X-003-hors-etiquettes.png
+        questions:
+          - id: Q6
+            assertion: "Une fois les zones corrigées noircies, on voit encore, autour d'elles, des formes qui ressemblent à des lettres."
+          - id: Q7
+            assertion: "Ces formes sont alignées sur les mêmes rangées que celles des zones corrigées, et de la même taille."
         alt: "La même image, zone de supervision noircie : des formes claires restent visibles autour"
         legende: >-
           La zone de supervision est noircie. Les formes claires qui restent sont sur du papyrus

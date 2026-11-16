@@ -7,6 +7,7 @@ import { carnetExecution } from './lib/carnet.mjs';
 import { lireDiscord } from './lib/discord.mjs';
 import { etatGithub } from './lib/github.mjs';
 import { changerStatutTache, chargerEtat, deposerMessage, empreinte, lireBoite } from './lib/pilotage.mjs';
+import { repondre } from './lib/reponses.mjs';
 import { lireJournal, signalerExecution, suiviExecution } from './lib/suivi.mjs';
 
 const ICI = path.dirname(fileURLToPath(import.meta.url));
@@ -62,6 +63,13 @@ async function api(req, res, url) {
     if (!x) return json(res, 404, { erreur: 'exécution inconnue' });
     await signalerExecution(RACINE, x, (await corpsJson(req)).action);
     return json(res, 200, { ok: true, suivi: await suiviExecution(RACINE, x) });
+  }
+  // Une réponse de Kanemonium à une question posée sous une image d'exécution.
+  const reponse = /^\/api\/executions\/(X-\d{3})\/reponses$/.exec(url.pathname);
+  if (req.method === 'POST' && reponse) {
+    const x = (await chargerEtat(RACINE)).executions.find((e) => e.id === reponse[1]);
+    if (!x) return json(res, 404, { erreur: 'exécution inconnue' });
+    return json(res, 200, { ok: true, reponses: await repondre(RACINE, x, await corpsJson(req)) });
   }
   const journal = /^\/api\/executions\/(X-\d{3})\/journal$/.exec(url.pathname);
   if (req.method === 'GET' && journal) {

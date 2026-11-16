@@ -94,14 +94,14 @@ function courbe(sortie) {
   return h('figure', { classe: 'sortie-courbe' }, h('figcaption', { classe: 'meta' }, sortie.y), svg);
 }
 
-function sortieDe(sortie) {
+function sortieDe(sortie, x) {
   let corps;
   if (sortie.genre === 'mesures') {
     corps = h('table', { classe: 'mesures' }, h('tbody', {}, sortie.lignes.map((l) => h('tr', {}, h('th', { scope: 'row' }, l[0]), h('td', { classe: 'mesure-valeur' }, l[1]), h('td', { classe: 'doux' }, l[2] ?? '')))));
   } else if (sortie.genre === 'courbe') {
     corps = courbe(sortie);
   } else if (sortie.genre === 'image') {
-    corps = figureApercu(sortie);
+    corps = figureApercu(sortie, { execution: x });
   } else if (sortie.genre === 'journal') {
     corps = h('pre', { classe: 'journal', tabindex: 0 }, String(sortie.texte ?? '').replace(/\n$/, ''));
   } else {
@@ -183,7 +183,7 @@ export function vueExecutions(vue, app, params) {
       h('p', { classe: 'legende-genres' }, Object.values(GENRES).map((g) => h('span', {}, h('i', { style: `background:${g.couleur}` }), g.nom))),
       x.code.map(codeAnnote)] : null,
 
-    x.sorties.length ? [section('Les sorties'), h('div', { classe: 'sorties' }, x.sorties.map(sortieDe))] : null,
+    x.sorties.length ? [section('Les sorties'), h('div', { classe: 'sorties' }, x.sorties.map((s) => sortieDe(s, x)))] : null,
 
     x.limitesHtml ? [
       section(finie ? 'Ce que ça ne dit pas' : 'Ce que ça ne dira pas'),

@@ -831,3 +831,22 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .lp-position { margin-left: auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .lp-ouvrir { align-self: flex-start; margin-top: var(--e-2); }
 @media (max-width: 900px) { .lp-choix { min-width: 0; } .lp-pied { flex-wrap: wrap; gap: var(--e-2); } .lp-position { margin-left: 0; } }
+
+/* ---------- Questions sous une image : une assertion à confirmer ou infirmer ---------- */
+.qcm { margin-top: var(--e-4); padding-top: var(--e-3); border-top: 1px dashed var(--structure); }
+.qcm-titre { margin-bottom: var(--e-2); }
+.qcm-question { margin: 0 0 var(--e-3); padding: var(--e-3) var(--e-4); border: 1px solid var(--filet); border-left: 4px solid var(--structure); border-radius: 0 var(--rayon-petit) var(--rayon-petit) 0; background: var(--papier); min-width: 0; }
+.qcm-question[data-choix="confirme"] { border-left-color: var(--valide); }
+.qcm-question[data-choix="infirme"] { border-left-color: var(--alerte); }
+.qcm-question[data-choix="ne-sait-pas"] { border-left-color: var(--cristal); }
+.qcm-question legend { display: flex; align-items: flex-start; gap: var(--e-2); padding: 0; font-weight: 600; line-height: 1.4; float: left; width: 100%; margin-bottom: var(--e-3); }
+.qcm-question legend .numero { width: 22px; height: 22px; font-size: 0.65rem; }
+.qcm-choix { display: flex; flex-wrap: wrap; gap: var(--e-2); clear: both; }
+.qcm-choix button { padding: 6px 14px; border: 1px solid var(--encre-40); border-radius: var(--pilule); background: transparent; color: var(--encre); font: 500 var(--t-petit)/1.3 var(--f-texte); transition: background var(--trans), color var(--trans), border-color var(--trans); }
+.qcm-choix button:hover { border-color: var(--encre); }
+.qcm-choix button[aria-pressed="true"] { background: var(--encre); border-color: var(--encre); color: var(--sur-encre); }
+.qcm-choix button[data-choix="confirme"][aria-pressed="true"] { background: var(--valide); border-color: var(--valide); color: #fff; }
+.qcm-choix button[data-choix="infirme"][aria-pressed="true"] { background: var(--alerte); border-color: var(--alerte); color: #fff; }
+.qcm-pied { display: flex; align-items: center; gap: var(--e-3); margin-top: var(--e-2); }
+.qcm-note { flex: 1; min-width: 0; padding: 6px 10px; font-size: var(--t-petit); }
+.qcm-etat { white-space: nowrap; }
