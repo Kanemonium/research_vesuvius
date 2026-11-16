@@ -63,6 +63,20 @@ const NOUS = {
       technique: 'Exécution X-003 : 5 h 34 min, 346 481 blocs. Réponse médiane de 201 sur 255 sur l’encre étiquetée, de 129 sur le fond étiqueté. Aucune région tenue à l’écart : la mesure sur données jamais vues reste à faire.',
       pistes: ['P-310'], executions: ['X-003'], fiches: ['K-08', 'K-16', 'K-21', 'K-26'],
     },
+    {
+      id: 'A-383', branche: 'nous', date: null, titre: 'Effacer la trame des fibres de la carte d’encre', statut: 'ouvert', nous: true,
+      resume: "Idée de Kanemonium : repérer le quadrillage des fibres dans la carte d'encre et le retirer, pour ne garder que ce qui n'est pas lui.",
+      fonctionnel: "Notre modèle répond « à moitié encre » sur le fond. Si la trame en est la cause, la retirer rendrait les formes plus nettes sans réentraîner. Nous n'avons trouvé personne qui le fasse.",
+      technique: "Première façon à essayer : filtrer la carte en fréquences pour en retirer le motif répété. Rien n'est mesuré.",
+      pistes: ['P-350'], fiches: ['K-27'],
+    },
+    {
+      id: 'A-384', branche: 'nous', date: null, titre: 'Noter la lisibilité d’une carte avec des lettres grecques connues', statut: 'ouvert', nous: true,
+      resume: "Idée de Kanemonium : se servir d'un jeu public de lettres grecques pour dire, après coup, si une zone de carte d'encre ressemble à de l'écriture.",
+      fonctionnel: "Un tri automatique des zones à regarder en premier. Jamais dans le détecteur lui-même : un modèle qui connaît les lettres peut en inventer.",
+      technique: "Jeu AL-PUB v2 : 205 797 lettres des papyrus d'Oxyrhynque, licence Apache 2.0. À lire avant tout essai.",
+      pistes: ['P-360'], fiches: ['K-28', 'K-21'],
+    },
   ],
 };
 const RESUMES = {
