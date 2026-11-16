@@ -13,7 +13,7 @@ COMMUN=(--overlap 0.5 --blend-mode hann --num-workers 1)
 PETITE="7000 9048 25600 27648"
 GRANDE="7000 9048 25600 33792"
 LIMITE=1500
-TOTAL=10
+TOTAL=10; SUFFIXE="${SUFFIXE:-}" # SUFFIXE : une seconde passe garde ses mesures à part (X-006)
 export ETAPES_EXTERNES=1
 mkdir -p "$SORTIE/journaux"
 MESURES="$SORTIE/mesures.tsv"
@@ -49,16 +49,16 @@ K=0
 for reglage in "lot4-compile:--batch-size 4" "lot4-sans-compilation:--batch-size 4 --no-compile" \
   "lot8-sans-compilation:--batch-size 8 --no-compile" \
   "lot8-fils-et-cache:--batch-size 8 --no-compile --loader-threads 8 --chunk-cache-size 64"; do
-  nom="${reglage%%:*}"; read -r -a options <<< "${reglage#*:}"
+  nom="${reglage%%:*}$SUFFIXE"; read -r -a options <<< "${reglage#*:}"
   for taille in petite grande; do K=$((K + 1)); mesurer "$K" "$nom" "$taille" "${options[@]}"; done
 done
 
 etape 9 "les images sont-elles les mêmes d'un réglage à l'autre ?"
 for nom in lot4-sans-compilation lot8-sans-compilation lot8-fils-et-cache; do
   echo "--- lot4-compile contre $nom (grande zone)"
-  [ -f "$SORTIE/$nom-grande/assemblee.tif" ] && [ -f "$SORTIE/lot4-compile-grande/assemblee.tif" ] \
+  [ -f "$SORTIE/$nom$SUFFIXE-grande/assemblee.tif" ] && [ -f "$SORTIE/lot4-compile$SUFFIXE-grande/assemblee.tif" ] \
     && uv run --no-project --with numpy --with tifffile --with imagecodecs python "$OUTILS/bandes.py" comparer \
-      "$SORTIE/lot4-compile-grande/assemblee.tif" "$SORTIE/$nom-grande/assemblee.tif" || echo "comparaison impossible"
+      "$SORTIE/lot4-compile$SUFFIXE-grande/assemblee.tif" "$SORTIE/$nom$SUFFIXE-grande/assemblee.tif" || echo "comparaison impossible"
 done
 
 etape 10 "le tableau"

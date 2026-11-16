@@ -16,9 +16,19 @@ etapes:
     detail: "Dans notre installation de villa : `--batch-size` (1 par défaut), `--no-compile`, `--compile-mode` (`reduce-overhead` par défaut), `--loader-threads`, `--chunk-cache-size`, `--num-workers` (4 par défaut)."
   - date: 2026-11-16
     genre: etape
-    statut: en-cours
+    statut: faite
     titre: "Prédiction : quatre réglages sur une même zone (X-005)"
-    detail: "Deux tailles de zone par réglage, pour séparer le démarrage du calcul. Une limite de 25 minutes par mesure, au cas où un lot de 8 déborderait de la mémoire vidéo."
+    detail: "Deux tailles de zone par réglage, pour séparer le démarrage du calcul. Sur la grande zone, les quatre réglages tiennent en 223,5 à 239,3 s. Le lot de 8 ne déborde pas : 6 707 Mo."
+  - date: 2026-11-16
+    genre: bug
+    statut: contourne
+    titre: "La première mesure a payé seule la première lecture du disque"
+    detail: "Le réglage mesuré en premier, le nôtre, sortait avec un débit de 46,8 blocs par seconde, deux fois celui des autres : un artefact de l'ordre des mesures. Contourné par une seconde passe complète, volume déjà lu (X-006)."
+  - date: 2026-11-16
+    genre: etape
+    statut: faite
+    titre: "Seconde passe (X-006) : aucun réglage ne fait mieux que le nôtre"
+    detail: "Grande zone : 254,5 à 256,1 s pour les quatre. Le réglage compilé calcule plus vite une fois lancé (25,6 blocs par seconde contre 17,7 à 18,5) mais démarre en 85 s contre 8 à 19 s. Décision : garder notre réglage pour les longues prédictions, `--no-compile` pour les petits essais."
   - date: 2026-11-16
     genre: etape
     statut: a-faire

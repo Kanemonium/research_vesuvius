@@ -1,0 +1,11 @@
+{
+  "id": "X-005",
+  "debut": "2026-11-16T20:14:53+01:00",
+  "fin": "2026-11-16T20:36:47+01:00",
+  "code": 0,
+  "pid": null,
+  "pause": null,
+  "reprises": 0,
+  "pic_vram_mo": 6707,
+  "commande": "bash <windows>/Documents/Développement/research_vesuvius/experiments/2026-11-16-reglages-de-prediction/etapes.sh"
+}

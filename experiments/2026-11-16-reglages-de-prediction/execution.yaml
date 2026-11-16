@@ -1,10 +1,10 @@
 # Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
-# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-16).
+# Format : pilotage/README.md. Pages écrites avant le lancement, complétées après (2026-11-16).
 executions:
   - id: X-005
     titre: "Réglages de prédiction : lesquels vont plus vite sur notre carte ?"
     date: 2026-11-16
-    statut: prevue
+    statut: terminee
     piste: P-420
     taches: [T-015]
     resume: >-
@@ -30,7 +30,8 @@ executions:
         valeur: "Le réglage des prochaines prédictions"
         detail: >-
           X-003 a pris 5 h 34 en lot de 4 compilé, à 17,3 blocs par seconde. Si un autre réglage
-          fait mieux ici sans changer l'image, il devient notre réglage par défaut.
+          fait mieux ici sans changer l'image, il devient notre réglage par défaut. Réponse,
+          avec la seconde passe X-006 : aucun ne fait mieux sur la grande zone.
         fiches: [K-12]
 
     code:
@@ -96,7 +97,66 @@ executions:
               n'y a pas de marge d'erreur : un écart de quelques pour cent entre deux réglages ne
               voudra rien dire.
 
+    sorties:
+      - genre: mesures
+        titre: "Les huit mesures, dans l'ordre où elles ont tourné"
+        large: true
+        lignes:
+          - ["Lot de 4, compilé : petite zone, 1 122 blocs", "153,7 s", "première mesure : le volume n'avait jamais été lu"]
+          - ["Lot de 4, compilé : grande zone, 4 386 blocs", "223,5 s", "pic de mémoire vidéo 4 151 Mo"]
+          - ["Lot de 4, sans compilation : petite zone", "86,5 s", ""]
+          - ["Lot de 4, sans compilation : grande zone", "230,1 s", "pic 4 391 Mo"]
+          - ["Lot de 8, sans compilation : petite zone", "70,5 s", ""]
+          - ["Lot de 8, sans compilation : grande zone", "238,1 s", "pic 6 707 Mo, sur 8 192"]
+          - ["Lot de 8, fils de lecture et cache : petite zone", "70,8 s", ""]
+          - ["Lot de 8, fils de lecture et cache : grande zone", "239,3 s", "pic 6 707 Mo"]
+        note: >-
+          Sur la grande zone, les quatre réglages tiennent entre 223,5 et 239,3 s : 7 % d'écart
+          entre le plus rapide et le plus lent, avec une seule passe. Aucun réglage n'a atteint la
+          limite de 25 minutes : le lot de 8 ne déborde pas de la mémoire vidéo.
+      - genre: mesures
+        titre: "Débit et démarrage, calculés entre les deux zones"
+        large: true
+        lignes:
+          - ["Lot de 4, compilé", "46,8 blocs/s, démarrage 130 s", "non fiable : la petite zone a payé la première lecture du volume"]
+          - ["Lot de 4, sans compilation", "22,7 blocs/s, démarrage 37 s", ""]
+          - ["Lot de 8, sans compilation", "19,5 blocs/s, démarrage 13 s", ""]
+          - ["Lot de 8, fils de lecture et cache", "19,4 blocs/s, démarrage 13 s", ""]
+        note: >-
+          La limite annoncée avant de lancer s'est réalisée : le premier réglage mesuré n'est pas
+          comparable aux autres. Son débit de 46,8 blocs par seconde ne doit pas être retenu.
+          X-006 refait les huit mesures une fois le volume déjà lu.
+      - genre: mesures
+        titre: "Les images, comparées à celle du lot de 4 compilé (grande zone, 16 777 216 pixels)"
+        large: true
+        lignes:
+          - ["Lot de 4, sans compilation", "225 162 pixels différents", "1,3 % ; écart maximal de 1 niveau sur 255"]
+          - ["Lot de 8, sans compilation", "225 414 pixels différents", "1,3 % ; écart maximal de 1 niveau sur 255"]
+          - ["Lot de 8, fils de lecture et cache", "225 414 pixels différents", "le même compte que la ligne précédente, tranche par tranche"]
+        note: >-
+          Comme dans X-004 : des écarts d'un seul niveau, répartis sur toute l'image. Les fils de
+          lecture et le cache ne changent pas un pixel par rapport au lot de 8 seul.
+      - genre: journal
+        titre: "Le tableau de fin"
+        large: true
+        texte: |
+          lot4-compile : 1122 blocs en 154 s, 4386 blocs en 224 s ; débit 46.8 blocs/s ; démarrage 130 s ; pic de mémoire vidéo 4151 Mo
+          lot4-sans-compilation : 1122 blocs en 86 s, 4386 blocs en 230 s ; débit 22.7 blocs/s ; démarrage 37 s ; pic de mémoire vidéo 4391 Mo
+          lot8-sans-compilation : 1122 blocs en 70 s, 4386 blocs en 238 s ; débit 19.5 blocs/s ; démarrage 13 s ; pic de mémoire vidéo 6707 Mo
+          lot8-fils-et-cache : 1122 blocs en 71 s, 4386 blocs en 239 s ; débit 19.4 blocs/s ; démarrage 13 s ; pic de mémoire vidéo 6707 Mo
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius/villa/vesuvius/predictions/essai-reglages, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "mesures.tsv"
+            taille: "8 lignes"
+            role: "Réglage, zone, nombre de blocs, secondes, pic de mémoire vidéo, code de sortie."
+          - nom: "<réglage>-<zone>/assemblee.tif"
+            taille: "2 048 × 2 048 ou 2 048 × 8 192"
+            role: "L'image prédite par chaque réglage. Valeur moyenne 142 sur 255 sur la grande zone ; pas regardée."
+
     limites: |
+      - Le premier réglage mesuré, le nôtre, a payé seul la première lecture du volume : son débit et son démarrage ne sont pas comparables aux autres. X-006 corrige cela.
       - Une seule passe par mesure : pas de répétition, donc pas de marge d'erreur. Seuls les grands écarts compteront.
       - Les premières lectures du volume profitent aux suivantes (le système garde les fichiers en mémoire) : le réglage mesuré en premier, le nôtre, est défavorisé sur la lecture.
       - Le pic de mémoire vidéo comprend ce que Windows occupe déjà.
@@ -123,3 +183,115 @@ executions:
         quoi: >-
           L'idée de comparer ces réglages et les chiffres de référence, mesurés sur une RTX 4090
           avec un autre modèle.
+
+  - id: X-006
+    titre: "Réglages de prédiction, seconde passe : le volume déjà lu"
+    date: 2026-11-16
+    statut: terminee
+    piste: P-420
+    taches: [T-015]
+    resume: >-
+      X-005 a mesuré quatre réglages l'un après l'autre. Le premier a payé la première lecture du
+      volume sur le disque, les suivants non : ses chiffres ne sont pas comparables aux autres.
+      Cette seconde passe refait les huit mesures à l'identique, une fois le volume déjà lu.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Les mêmes durées, à armes égales"
+        detail: >-
+          Les huit mesures de X-005, refaites dans le même ordre. Les deux passes côte à côte
+          disent aussi de combien une mesure bouge d'une fois sur l'autre.
+      - question: "La représentativité"
+        valeur: "La même zone, 1 % du segment"
+        detail: >-
+          Une prédiction entière lit surtout du volume jamais lu : la seconde passe mesure le
+          calcul, pas la lecture du disque.
+      - question: "Ce que cela doit décider"
+        valeur: "Rien à changer pour les longues prédictions"
+        detail: >-
+          Sur la grande zone, les quatre réglages finissent en 254,5 à 256,1 s : moins de 1 %
+          d'écart. Le réglage compilé calcule plus vite une fois lancé (25,6 blocs par seconde
+          contre 17,7 à 18,5) mais met 85 s à démarrer contre 8 à 19 s. Nous gardons donc notre
+          réglage pour une prédiction entière, et `--no-compile` pour les petits essais, où il
+          fait gagner environ une minute. Le lot de 8 n'apporte rien et prend 2,6 Go de mémoire
+          vidéo de plus.
+
+    code:
+      - titre: "La seconde passe"
+        fichier: experiments/2026-11-16-reglages-de-prediction/controle.sh
+        langage: bash
+        extrait: [14, 19]
+        notes:
+          - lignes: 14
+            genre: mesure
+            titre: "Les mêmes étapes, rangées à part"
+            texte: >-
+              `etapes.sh` est relancé tel quel. Le suffixe range les mesures et les images de
+              cette passe à côté de celles de la première, sans rien écraser.
+          - lignes: [17, 19]
+            genre: mesure
+            titre: "Deux fois le même réglage : identiques ?"
+            texte: >-
+              X-005 trouve 1,3 % de pixels différents d'un niveau entre deux réglages. Si deux
+              passes du même réglage diffèrent autant, cet écart ne vient pas des réglages.
+            fiches: [K-14]
+
+    sorties:
+      - genre: mesures
+        titre: "Seconde passe : les huit mesures, volume déjà lu"
+        large: true
+        lignes:
+          - ["Lot de 4, compilé", "128,5 s puis 256,1 s", "25,6 blocs/s ; démarrage 85 s ; pic 4 151 Mo"]
+          - ["Lot de 4, sans compilation", "76,8 s puis 254,5 s", "18,4 blocs/s ; démarrage 16 s ; pic 4 500 Mo"]
+          - ["Lot de 8, sans compilation", "70,9 s puis 254,9 s", "17,7 blocs/s ; démarrage 8 s ; pic 6 813 Mo"]
+          - ["Lot de 8, fils de lecture et cache", "79,3 s puis 255,9 s", "18,5 blocs/s ; démarrage 19 s ; pic 6 787 Mo"]
+        note: >-
+          Petite zone (1 122 blocs) puis grande zone (4 386 blocs). Débit et démarrage sont
+          calculés entre les deux, sans marge d'erreur.
+      - genre: mesures
+        titre: "D'une passe à l'autre : de combien une mesure bouge"
+        large: true
+        lignes:
+          - ["Grande zone, lot de 4 compilé", "223,5 s puis 256,1 s", "+15 %"]
+          - ["Grande zone, lot de 4 sans compilation", "230,1 s puis 254,5 s", "+11 %"]
+          - ["Grande zone, lot de 8 sans compilation", "238,1 s puis 254,9 s", "+7 %"]
+          - ["Grande zone, lot de 8, fils et cache", "239,3 s puis 255,9 s", "+7 %"]
+          - ["Même réglage, deux passes : pixels différents", "147 358 sur 16 777 216", "0,9 % ; écart maximal de 1 niveau sur 255"]
+          - ["Deux réglages différents : pixels différents", "225 410 à 225 776", "1,3 % ; écart maximal de 1 niveau sur 255"]
+        note: >-
+          La seconde passe est plus lente que la première, de 7 à 15 %, pour une raison non
+          établie (la machine avait tourné quarante minutes de plus). Une même mesure bouge donc
+          davantage d'une fois sur l'autre que les réglages ne diffèrent entre eux. Et deux
+          passes du même réglage ne rendent pas exactement la même image : l'écart d'un niveau
+          entre réglages est du même ordre.
+      - genre: journal
+        titre: "Le tableau de fin, seconde passe"
+        large: true
+        texte: |
+          lot4-compile-passe2 : 1122 blocs en 128 s, 4386 blocs en 256 s ; débit 25.6 blocs/s ; démarrage 85 s ; pic de mémoire vidéo 4151 Mo
+          lot4-sans-compilation-passe2 : 1122 blocs en 77 s, 4386 blocs en 254 s ; débit 18.4 blocs/s ; démarrage 16 s ; pic de mémoire vidéo 4500 Mo
+          lot8-sans-compilation-passe2 : 1122 blocs en 71 s, 4386 blocs en 255 s ; débit 17.7 blocs/s ; démarrage 8 s ; pic de mémoire vidéo 6813 Mo
+          lot8-fils-et-cache-passe2 : 1122 blocs en 79 s, 4386 blocs en 256 s ; débit 18.5 blocs/s ; démarrage 19 s ; pic de mémoire vidéo 6787 Mo
+          --- lot4-compile, première passe contre seconde passe (grande zone)
+          pixels différents : 147358 sur 16777216 ; écart maximal : 1 sur 255
+
+    limites: |
+      - Le débit du réglage compilé (25,6 blocs par seconde) ne se retrouve pas dans X-003, qui a tenu 17,3 blocs par seconde sur cinq heures avec ce même réglage. Sur un volume jamais lu, la lecture du disque pèse sans doute plus que le calcul : non mesuré.
+      - Les fils de lecture et le cache n'ont été essayés que sur un volume déjà lu, là où ils ont le moins à apporter.
+      - Deux passes ne font pas une statistique : elles donnent un ordre de grandeur du bruit.
+      - Le volume déjà lu n'est pas la situation d'une prédiction entière.
+      - Rien sur l'entraînement ni sur la qualité.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Le programme de prédiction et toutes les options comparées : le paquet `vesuvius` de
+          villa, au commit `2d3fb38`.
+      - github: gomyway
+        nom: "gomyway, proposition villa 2428"
+        lien: https://github.com/ScrollPrize/villa/pull/2428
+        licence: MIT
+        quoi: "Les réglages comparés."
