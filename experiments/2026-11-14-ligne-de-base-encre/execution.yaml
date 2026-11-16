@@ -757,6 +757,7 @@ executions:
       - Les chiffres zone par zone sont mesurés sur le segment d'entraînement : aucun n'est une note de qualité.
       - Le modèle sépare mal l'encre du fond, et l'explication du tutoriel ne vaut pas pour nous. Le tutoriel dit que ses modèles partagés ont un fond qui ne tombe pas à zéro parce que leurs cibles sont adoucies. Vérifié dans notre point de sauvegarde : notre entraînement n'a aucun adoucissement réglé, et la valeur par défaut du code de villa est zéro. Le fond à 129 sur 255 vient donc du modèle lui-même. Le tutoriel prévient que ce point de sauvegarde donne un résultat encore loin d'une bonne lecture.
       - L'image aux gris réétalés est un choix d'affichage : elle ne rend pas le modèle meilleur, et ses deux seuils viennent du segment d'entraînement.
+      - Ce qui se voit sur ces images a été confirmé par Kanemonium, assertion par assertion (questions sous les images). Cela établit ce que deux regards y voient, pas ce que le texte dit.
       - Les images montrées sont réduites seize fois. Elles restent sur la machine, hors du dépôt.
 
     credits:

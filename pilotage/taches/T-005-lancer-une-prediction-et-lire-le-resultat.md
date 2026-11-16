@@ -1,7 +1,7 @@
 ---
 id: T-005
 titre: "Lancer une prédiction et lire le résultat"
-statut: en-cours
+statut: faite
 piste: P-310
 priorite: 2
 responsable: "Kanemonium + Agent C."
@@ -31,9 +31,9 @@ etapes:
     detail: "Une loupe dans Hephaist'OS : l'image réduite quatre fois, découpée en 416 tuiles, en trois vues (telle quelle, gris réétalés, zones corrigées). Zoom, déplacement, et position du pointeur en pixels de l'image d'origine. Les tuiles restent hors du dépôt."
   - date: 2026-11-15
     genre: etape
-    statut: en-cours
+    statut: faite
     titre: Regarder l'image ensemble
-    detail: "Agent C. a regardé un aperçu réduit seize fois : des formes claires alignées en rangées dans la moitié haute. Kanemonium ne l'a pas encore vue. C'est le segment d'entraînement : un premier aperçu, pas une preuve."
+    detail: "Agent C. a écrit sept assertions sous les quatre images de X-003 ; Kanemonium les a toutes confirmées le 2026-11-16, à la loupe. Des formes claires s'alignent en rangées dans la moitié haute et le long du bord gauche ; elles se voient encore hors des zones où le modèle a eu le corrigé, sur les mêmes rangées et à la même taille. C'est un constat de ce qui se voit, pas une lecture ni une mesure de qualité."
   - date: 2026-11-15
     genre: etape
     statut: faite
