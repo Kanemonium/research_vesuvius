@@ -160,6 +160,7 @@ export async function chargerEtat(racine) {
     for (const s of x.sorties) if (!GENRES_SORTIE.includes(s.genre)) erreurs.push(`${x.id} : genre de sortie « ${s.genre} » inconnu`);
     // Une image n'est qu'un nom de fichier dans local/apercus/ : jamais un chemin, jamais une donnée versionnée.
     for (const s of x.sorties) if (s.genre === 'image' && !/^[\w.-]+\.(png|jpg)$/.test(s.fichier ?? '')) erreurs.push(`${x.id} : l'image « ${s.titre} » doit nommer un fichier .png ou .jpg de local/apercus/`);
+    for (const s of x.sorties) if (s.tuiles !== undefined && !/^[\w-]+$/.test(String(s.tuiles))) erreurs.push(`${x.id} : « tuiles » doit nommer un dossier de local/apercus/tuiles/`);
   }
 
   const avancees = await chargerAvancees(racine, erreurs, new Set([...pistes, ...fiches, ...executions].map((e) => e.id)));

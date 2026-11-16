@@ -649,6 +649,7 @@ executions:
         titre: "L'image d'encre, réduite seize fois"
         large: true
         fichier: X-003.png
+        tuiles: X-003
         alt: "Une feuille de papyrus grise, avec des formes claires alignées en rangées dans la moitié haute"
         legende: >-
           Chaque pixel est la moyenne d'un carré de 16 pixels de l'image d'origine. Plus c'est clair,

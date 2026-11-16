@@ -1,6 +1,7 @@
 // Les images d'une exécution. Elles ne sont jamais dans le dépôt (aucune donnée de rouleau n'y entre) :
 // ce sont des aperçus réduits, rangés dans local/apercus/ sur la machine où l'exécution a tourné, et
 // servis par /apercus/<fichier>. Ailleurs, l'image manque : on le dit au lieu de laisser un cadre vide.
+import { ouvrirLoupe } from './loupe.js';
 import { h, lier } from './outils.js';
 
 /** Les sorties de genre « image » d'une exécution. */
@@ -14,7 +15,9 @@ export function figureApercu(s, { compact = false } = {}) {
   const lien = h('a', { classe: 'apercu-cadre', href: adresse, target: '_blank', rel: 'noreferrer', title: 'Ouvrir l’image en grand' }, img);
   img.addEventListener('error', () => { lien.hidden = true; absente.hidden = false; });
   return h('figure', { classe: `apercu ${compact ? 'compact' : ''}` }, lien, absente,
-    h('figcaption', {}, compact ? h('strong', {}, s.titre) : null, s.legende ? lier(h('span', {}, s.legende)) : null));
+    h('figcaption', {}, compact ? h('strong', {}, s.titre) : null, s.legende ? lier(h('span', {}, s.legende)) : null,
+      // Une image découpée en tuiles peut se parcourir de près.
+      s.tuiles && !compact ? h('button', { classe: 'bouton mini lp-ouvrir', type: 'button', onclick: () => ouvrirLoupe(s.tuiles, `${s.tuiles} à la loupe`) }, 'Parcourir à la loupe') : null));
 }
 
 /** Les vignettes de toutes les images de plusieurs exécutions, ou null s'il n'y en a aucune. */

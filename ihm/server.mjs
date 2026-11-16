@@ -105,7 +105,8 @@ async function api(req, res, url) {
 async function statique(res, url) {
   // Les planches des fiches vivent avec les fiches, dans docs/concepts/img/.
   const planche = /^\/concepts\/img\/([\w.-]+\.svg)$/.exec(url.pathname);
-  const apercu = /^\/apercus\/([\w.-]+\.(?:png|jpg))$/.exec(decodeURIComponent(url.pathname));
+  // Un aperçu, ou une tuile de loupe rangée dans un sous-dossier (tuiles/<nom>/<variante>/<l>_<c>.jpg, meta.json).
+  const apercu = /^\/apercus\/((?:[\w-]+\/){0,3}[\w.-]+\.(?:png|jpg|json))$/.exec(decodeURIComponent(url.pathname));
   const base = planche ? path.join(CONCEPTS, 'img') : apercu ? APERCUS : PUBLIC;
   const relatif = planche ? planche[1] : apercu ? apercu[1] : url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname).replace(/^\/+/, '');
   const fichier = path.resolve(base, relatif);

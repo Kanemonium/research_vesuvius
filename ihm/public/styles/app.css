@@ -817,3 +817,17 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .pc-relu::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--valide); }
 /* Un problème ouvert sélectionné garde le fond sombre de la sélection : sinon son texte clair disparaît. */
 .pb-noeud[data-statut="ouvert"] .pb-carte[aria-current="true"] { background: var(--encre); border-top-style: dashed; }
+
+/* ---------- Loupe : parcourir une grande image tuile par tuile ---------- */
+.loupe-fenetre { width: calc(100vw - 24px); height: calc(100vh - 24px); max-width: none; max-height: none; }
+.loupe-fenetre .cn-entete { gap: var(--e-4); }
+.lp-choix { margin: 0; min-width: 380px; }
+.lp-scene { position: relative; flex: 1; min-height: 0; overflow: hidden; background: #0d0c0b; cursor: grab; touch-action: none; user-select: none; outline: none; }
+.lp-scene.glisse { cursor: grabbing; }
+.lp-plan { position: absolute; top: 0; left: 0; transform-origin: 0 0; will-change: transform; }
+.lp-plan img { position: absolute; display: block; max-width: none; pointer-events: none; }
+.lp-pied { display: flex; align-items: center; gap: var(--e-5); padding: var(--e-2) var(--e-5); border-top: 1px solid var(--filet); font-size: var(--t-petit); }
+.lp-aide { color: var(--encre-60); }
+.lp-position { margin-left: auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lp-ouvrir { align-self: flex-start; margin-top: var(--e-2); }
+@media (max-width: 900px) { .lp-choix { min-width: 0; } .lp-pied { flex-wrap: wrap; gap: var(--e-2); } .lp-position { margin-left: 0; } }

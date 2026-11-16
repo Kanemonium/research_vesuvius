@@ -26,6 +26,11 @@ etapes:
     detail: "X-003 : 16 bandes, 5 h 34 min, 346 481 blocs, aucune reprise. Pic de mémoire vidéo : 4 870 Mo."
   - date: 2026-11-15
     genre: etape
+    statut: faite
+    titre: Préparer de quoi regarder l'image de près
+    detail: "Une loupe dans Hephaist'OS : l'image réduite quatre fois, découpée en 416 tuiles, en trois vues (telle quelle, gris réétalés, zones corrigées). Zoom, déplacement, et position du pointeur en pixels de l'image d'origine. Les tuiles restent hors du dépôt."
+  - date: 2026-11-15
+    genre: etape
     statut: en-cours
     titre: Regarder l'image ensemble
     detail: "Agent C. a regardé un aperçu réduit seize fois : des formes claires alignées en rangées dans la moitié haute. Kanemonium ne l'a pas encore vue. C'est le segment d'entraînement : un premier aperçu, pas une preuve."
