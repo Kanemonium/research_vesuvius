@@ -654,6 +654,17 @@ executions:
           Chaque pixel est la moyenne d'un carré de 16 pixels de l'image d'origine. Plus c'est clair,
           plus le modèle estime qu'il y a de l'encre. La trame croisée est celle des fibres du papyrus.
       - genre: image
+        titre: "La même image, gris réétalés pour mieux voir"
+        large: true
+        fichier: X-003-etale.png
+        alt: "La même feuille sur fond presque noir : les formes claires ressortent, la trame des fibres reste visible"
+        legende: >-
+          Un aide-vue, pas une mesure : tout ce qui est à 129 ou moins devient noir, tout ce qui est
+          à 201 ou plus devient blanc, et l'entre-deux est étiré. Ces deux niveaux sont les réponses
+          médianes du modèle sur le fond et sur l'encre étiquetés. Ce n'est pas la formule du
+          tutoriel (de 0,25 et 0,75 vers 0 et 1), qui suppose des cibles adoucies que notre
+          entraînement n'a pas. La moitié de l'image passe au noir ; la trame des fibres reste.
+      - genre: image
         titre: "Où le modèle avait le corrigé"
         fichier: X-003-zones.png
         alt: "La même image, avec des zones teintées en bleu et des lettres en orange"
@@ -726,6 +737,7 @@ executions:
       - Les formes visibles hors de la zone étiquetée sont dans la même feuille que l'entraînement, souvent sur les mêmes rangées : le modèle n'a pas vu leur corrigé, mais ce n'est pas une zone de validation choisie à l'avance.
       - Les chiffres zone par zone sont mesurés sur le segment d'entraînement : aucun n'est une note de qualité.
       - Le modèle sépare mal l'encre du fond, et l'explication du tutoriel ne vaut pas pour nous. Le tutoriel dit que ses modèles partagés ont un fond qui ne tombe pas à zéro parce que leurs cibles sont adoucies. Vérifié dans notre point de sauvegarde : notre entraînement n'a aucun adoucissement réglé, et la valeur par défaut du code de villa est zéro. Le fond à 129 sur 255 vient donc du modèle lui-même. Le tutoriel prévient que ce point de sauvegarde donne un résultat encore loin d'une bonne lecture.
+      - L'image aux gris réétalés est un choix d'affichage : elle ne rend pas le modèle meilleur, et ses deux seuils viennent du segment d'entraînement.
       - Les images montrées sont réduites seize fois. Elles restent sur la machine, hors du dépôt.
 
     credits:
