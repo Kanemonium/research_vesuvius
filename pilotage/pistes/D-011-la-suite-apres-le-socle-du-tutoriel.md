@@ -19,6 +19,7 @@ Le socle du tutoriel d'encre est fait : installation, entraînement à plat, pr�
 - **Kanemonium** (2026-11-16) : le 3D natif ne doit pas être écarté. Il faudra trouver comment s'y essayer, quitte à chercher des astuces d'optimisation, mathématiques ou informatiques, inexplorées ou non appliquées dans ce domaine.
 - **Kanemonium** (2026-11-16) : le téléchargement du jeu complet attendra son nouvel ordinateur, attendu dans la semaine, avec 2 To de disque NVMe.
 - **Kanemonium** (2026-11-16) : deux idées à consigner avant la veille. Effacer les stries du papyrus et additionner détection et effacement (P-350) ; se servir de jeux de données spécialisés hébergés sur Kaggle (P-360). Si personne ne l'a fait, les inscrire dans les étapes à mener.
+- **Agent C.** (2026-11-16) : veille faite, sur trois terrains : le code et les propositions de [ScrollPrize/villa](https://github.com/ScrollPrize/villa), la communauté du défi, la littérature. Synthèse dans `docs/veille-optimisations.md`, avec pour chaque point s'il a été revérifié ou seulement relevé. Rien n'y est mesuré chez nous. Trois constats : plusieurs gains ne coûtent qu'un réglage déjà présent dans notre installation ; un harnais de validation existe pour notre segment exact ([khj1222/vesuvius-challenge](https://github.com/khj1222/vesuvius-challenge)) ; l'outil qui ramène le jeu de 92 Go à 2,4 Go, cherché le premier jour, est la proposition villa 2298 de LynnHenry, encore ouverte.
 
 ## Décision
 
@@ -33,4 +34,4 @@ Hors de cet ordre, à ne pas perdre de vue : le 3D natif, à tenter par l'optimi
 
 ## Suite
 
-T-005 pour le premier point. Les suivants auront leur tâche quand nous y arriverons. Rien n'est mesuré sur la faisabilité du 3D natif dans 8 Go de mémoire vidéo, ni sur ce que demande le rendu à 9 µm.
+T-005 pour le premier point, terminée. La veille du deuxième point propose un ordre d'essai (`docs/veille-optimisations.md`, section 8), à décider par Kanemonium. Les suivants auront leur tâche quand nous y arriverons. Rien n'est mesuré sur la faisabilité du 3D natif dans 8 Go de mémoire vidéo, ni sur ce que demande le rendu à 9 µm.
