@@ -127,7 +127,8 @@ function dessiner() {
   tiroir.replaceChildren(...[
     h('header', { classe: 'dsc-tete' },
       h('span', { classe: 'dsc-logo' }, svg(LOGO, 22)),
-      h('div', {}, h('h2', {}, 'Discord du défi'), h('p', { classe: 'meta', 'data-alerte': d.a_relire ? 'oui' : null }, d.erreur ?? age(d))),
+      h('div', {}, h('h2', {}, 'Discord du défi'), h('p', { classe: 'meta', 'data-alerte': d.a_relire || d.annonces?.nouvelles ? 'oui' : null }, d.erreur ?? age(d),
+        d.annonces?.nouvelles ? ` · ${d.annonces.nouvelles} annonce${d.annonces.nouvelles > 1 ? 's' : ''} à traduire` : '')),
       h('button', { classe: 'pilule', type: 'button', disabled: etat.demande === 'envoi' || etat.demande === 'faite' ? '' : null, onclick: demander },
         etat.demande === 'faite' ? 'Demande déposée' : etat.demande === 'echec' ? 'Échec, réessayer' : 'Demander une lecture'),
       h('button', { classe: 'dsc-fermer', type: 'button', 'aria-label': 'Fermer le tiroir', onclick: () => basculer(false) }, '×')),

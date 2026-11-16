@@ -24,6 +24,9 @@ première occurrence). Le README et les messages destinés à la communauté du 
    Regarder aussi `lu_le` dans `local/discord/lecture.json` : au-delà de huit heures, le dire à
    Kanemonium et proposer une lecture (cadre : D-010 ; deux ou trois lectures par jour au plus,
    jamais en tâche de fond, rien de Discord dans le dépôt, aucun envoi sans son accord).
+   Lancer aussi `node --env-file=.env scripts/discord-annonces.mjs` : un robot officiel relève, sur le
+   serveur de test de Kanemonium, les annonces du défi que Discord y recopie. Traduire les nouvelles
+   dans le tiroir. Ce robot n'a aucun droit d'écriture et n'est pas sur le serveur du défi.
 3. Pendant la séance, **tenir le carnet à jour au fil de l'eau** :
    - une idée, une hypothèse, un obstacle → une piste dans `pilotage/pistes/` ;
    - un échange qui fait bifurquer → une ligne datée dans la section « Réflexions » de la piste,

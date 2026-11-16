@@ -36,9 +36,14 @@ etapes:
     detail: "Kanemonium a utilisé la fonction « Suivre » de Discord : les nouvelles annonces du défi se recopient seules dans un salon de son serveur de test. Vérifié : le salon existe et porte le message de mise en place. Les annonces passées ne sont pas recopiées, et les autres salons du défi ne peuvent pas être suivis."
   - date: 2026-11-16
     genre: etape
-    statut: a-faire
+    statut: faite
     titre: "Un robot sur le serveur de test, pour lire ces annonces"
-    detail: "Sur son propre serveur, Kanemonium peut inviter un robot officiel. Il lirait les annonces recopiées par la voie prévue par Discord, sans passer par son compte. À lui de créer le robot ; son jeton irait dans `.env`."
+    detail: "Kanemonium a créé le robot et l'a invité sur son serveur, avec les seuls droits de voir le salon et de lire l'historique. `scripts/discord-annonces.mjs` lit le salon par l'API officielle : essai réussi, il voit le message de mise en place. Aucune annonce n'est encore arrivée, donc la lecture d'une vraie annonce n'est pas vérifiée. Le tiroir signale les annonces arrivées et pas encore traduites."
+  - date: 2026-11-16
+    genre: bug
+    statut: corrige
+    titre: "Discord refusait le jeton"
+    detail: "La ligne de `.env` gardait un morceau du texte d'exemple. Repéré en regardant seulement la forme de la valeur, sans l'afficher ; corrigé par Kanemonium avec un nouveau jeton."
   - date: 2026-11-15
     genre: etape
     statut: a-faire

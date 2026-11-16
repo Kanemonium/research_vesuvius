@@ -27,9 +27,20 @@ async function regles(racine) {
   }
 }
 
+/** Annonces recopiées sur notre serveur et relevées par le robot (scripts/discord-annonces.mjs) depuis une date. */
+async function annoncesRecues(racine, depuis) {
+  try {
+    const brut = JSON.parse(await readFile(path.join(racine, 'local', 'discord', 'annonces-brut.json'), 'utf8'));
+    const recopiees = liste(brut.messages).filter((m) => m.recopie);
+    return { releve_le: brut.releve_le ?? null, total: recopiees.length, nouvelles: recopiees.filter((m) => !depuis || new Date(m.date) > depuis).length };
+  } catch {
+    return null; // pas de robot, ou pas encore de relevé
+  }
+}
+
 export async function lireDiscord(racine, maintenant = new Date()) {
   const vide = {
-    regles_html: await regles(racine), github_lu_le: null,
+    regles_html: await regles(racine), github_lu_le: null, annonces: await annoncesRecues(racine, null),
     lu_le: null, age_heures: null, a_relire: true, delai_heures: DELAI_HEURES, salons_lus: [], non_lu: '',
     problemes: Object.fromEntries(Object.entries(PROBLEMES).map(([cle, nom]) => [cle, { nom, synthese: [], actu: [] }])),
     pour_moi: [], pour_moi_note: '',
@@ -44,6 +55,7 @@ export async function lireDiscord(racine, maintenant = new Date()) {
   const lu = brut.lu_le ? new Date(brut.lu_le) : null;
   const age = lu && !Number.isNaN(lu.getTime()) ? (maintenant - lu) / 3_600_000 : null;
   return {
+    annonces: await annoncesRecues(racine, lu && !Number.isNaN(lu.getTime()) ? lu : null),
     regles_html: vide.regles_html,
     github_lu_le: brut.github_lu_le ?? null,
     lu_le: brut.lu_le ?? null,
