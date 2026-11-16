@@ -1,0 +1,11 @@
+{
+  "id": "X-008",
+  "debut": "2026-11-16T21:57:38+01:00",
+  "fin": "2026-11-17T00:17:11+01:00",
+  "code": 0,
+  "pid": null,
+  "pause": null,
+  "reprises": 0,
+  "pic_vram_mo": 5852,
+  "commande": "bash <windows>/Documents/Développement/research_vesuvius/experiments/2026-11-16-entrainement-avec-validation/etapes.sh"
+}

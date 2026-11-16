@@ -24,4 +24,12 @@ ceux de [ScrollPrize/villa](https://github.com/ScrollPrize/villa) (licence MIT, 
 
 ## Le résultat
 
-Non mesuré : la page sera complétée à la fin de l'exécution.
+Mesuré le 2026-11-17, en 2 h 19 min sans arrêt (détail dans `execution.yaml`) :
+
+- 6 567 blocs d'entraînement et 4 987 de validation (X-002 : 8 098 et 0).
+- Jusqu'à l'itération 10 000, la justesse équilibrée sur les régions mises de côté reste autour de
+  0,50 ; elle monte ensuite jusqu'à 0,78 à 0,82 sur les cinq dernières notes.
+- villa a gardé l'itération 17 500 : justesse équilibrée 0,816, encre retrouvée 89,8 %, fond reconnu
+  73,5 %.
+- Deux notes voisines diffèrent jusqu'à 0,11 (cinquante lots tirés au hasard chacune) : le choix du
+  point de sauvegarde reste à confirmer sur les régions entières.

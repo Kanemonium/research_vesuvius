@@ -1,0 +1,209 @@
+[21:57:38] ===== étape 1/3 : mettre de côté des régions annotées entières =====
+Installed 13 packages in 80ms
+segment          : w00_20231016151002
+planning level   : 3 (4032x6423, full-res 32249x51380, scale 8x)
+supervised regions: 15  ->  13 groups (merged below 256 full-res px)
+supervised area  : 1,499,018 px @level3, ink density 0.2283
+held out         : single split (target 0.20)
+  groups         : [1, 10, 11, 12]  (regions [2, 13, 14, 15])
+  fraction       : 0.200 of supervised area
+  ink density    : global 0.2283 | train 0.2283 | val 0.2283
+  supervised px  : train 1,199,739 | val 299,279 (@level3)
+writing /home/kanemonium/vesuvius/ink-dataset/phercparis4/w00_20231016151002/w00_20231016151002_validation_mask.tif ...
+  32249x51380, 19,083,344 validation px
+  spec -> /home/kanemonium/vesuvius/ink-dataset/phercparis4/w00_20231016151002/w00_20231016151002_validation_mask.json
+  preview -> <windows>/Documents/Développement/research_vesuvius/experiments/2026-11-16-entrainement-avec-validation/../../local/apercus/X-008-decoupage.png
+next: convert to zarr so the loader picks it up --
+  uv run --project external/villa/ink-detection \
+      python -m koine_machines.preprocessing.create_label_zarrs /home/kanemonium/vesuvius/ink-dataset/phercparis4/w00_20231016151002
+  (and train into a FRESH out_dir: the patch cache is keyed by asset
+   *paths*, so an existing run dir would reuse its stale patch list)
+[21:58:31] ===== étape 2/3 : convertir le masque au format que lit l'entraînement =====
+Converting:   0%|          | 0/3 [00:00<?, ?file/s]
+Converting:  33%|███▎      | 1/3 [00:01<00:02,  1.38s/file]
+Converting: 100%|██████████| 3/3 [06:27<00:00, 143.22s/file]
+Converting: 100%|██████████| 3/3 [06:27<00:00, 129.04s/file]
+Processed 3 image(s): 1 written, 2 skipped, 0 failed.
+[22:05:01] ===== étape 3/3 : entraîner sans les régions mises de côté =====
+sampling_audit={"patches": 6567, "strategy": "uniform"}
+Using dimensionality (3D) from ConfigManager
+Using 3D convolutions (nn.Conv3d)
+Using 3D normalization (nn.InstanceNorm3d)
+--- Full autoconfiguration from config ---
+Patch size adjusted from (64, 128, 128) to (64, 128, 128) to ensure divisibility by pooling factors [16 32 32]
+Task 'ink' configured with z-projection mode 'max'
+Task 'ink' configured with shared decoder + head (1 channels)
+NetworkFromConfig initialized with final configuration:
+  model_name: ink_det
+  basic_encoder_block: BasicBlockD
+  basic_decoder_block: ConvBlock
+  bottleneck_block: BasicBlockD
+  features_per_stage: [32, 64, 128, 256, 320, 320]
+  num_stages: 6
+  n_blocks_per_stage: [1, 3, 4, 6, 6, 6]
+  n_conv_per_stage_decoder: [1, 1, 1, 1, 1]
+  kernel_sizes: [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+  pool_op_kernel_sizes: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  conv_op: Conv3d
+  conv_bias: True
+  norm_op: InstanceNorm3d
+  norm_op_kwargs: {'affine': True, 'eps': 1e-05}
+  dropout_op: None
+  dropout_op_kwargs: None
+  nonlin: LeakyReLU
+  nonlin_kwargs: {'inplace': True, 'negative_slope': 0.01}
+  strides: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  return_skips: True
+  do_stem: True
+  stem_channels: 32
+  bottleneck_channels: None
+  stochastic_depth_p: 0.0
+  squeeze_excitation: False
+  squeeze_excitation_reduction_ratio: 0.0625
+  squeeze_excitation_type: channel
+  squeeze_excitation_add_maxpool: False
+  pool_type: conv
+  upsample_mode: transpconv
+  op_dims: 3
+  patch_size: (64, 128, 128)
+  batch_size: 2
+  in_channels: 1
+  autoconfigure: True
+  targets: {'ink': {'out_channels': 1, 'activation': 'none', 'z_projection_mode': 'max'}}
+  target_z_projection: {'ink': {'mode': 'max'}}
+  separate_decoders: False
+  num_pool_per_axis: [4, 5, 5]
+  must_be_divisible_by: [16 32 32]
+  guide_backbone: None
+  guide_backbone_config_path: None
+  guide_freeze: True
+  guide_patch_grid: None
+  guide_stage_keys: None
+  guide_skip_concat_projector_channels: None
+  guide_feature_gate_alpha: None
+  guide_tokenbook_tokens: None
+  guide_tokenbook_prototype_weighting: mean
+  guide_tokenbook_weight_mlp_hidden: None
+  guide_compile_policy: off
+  guide_fusion_stage: None
+  0%|          | 0/20000 [00:00<?, ?it/s]
+  0%|          | 11/20000 [00:11<2:12:24,  2.52it/s, loss=0.9777, lr=1.10e-04]AMP gradient overflow at step 11: task_heads.ink.weight
+  0%|          | 12/20000 [00:11<2:08:26,  2.59it/s, loss=2.3338, lr=1.20e-04]
+  1%|          | 101/20000 [00:48<2:06:52,  2.61it/s, loss=0.6577, lr=1.01e-03]
+  2%|▏         | 300/20000 [02:08<1:58:57,  2.76it/s, loss=0.3049, lr=3.00e-03]
+  3%|▎         | 501/20000 [03:29<15:30:26,  2.86s/it, loss=0.4074, lr=5.01e-03]
+  4%|▎         | 700/20000 [04:44<1:51:03,  2.90it/s, loss=0.3075, lr=7.00e-03, val_loss=0.8676]
+  5%|▍         | 901/20000 [05:59<1:47:23,  2.96it/s, loss=0.6865, lr=9.01e-03, val_loss=0.8676]
+  6%|▌         | 1100/20000 [07:31<1:45:47,  2.98it/s, loss=0.6433, lr=1.00e-02, val_loss=1.3587]
+  7%|▋         | 1301/20000 [08:45<1:47:09,  2.91it/s, loss=0.1998, lr=9.99e-03, val_loss=1.3587]
+  8%|▊         | 1500/20000 [10:00<1:47:25,  2.87it/s, loss=0.3487, lr=9.98e-03, val_loss=1.3587]
+  9%|▊         | 1701/20000 [11:21<1:47:07,  2.85it/s, loss=1.0686, lr=9.97e-03, val_loss=1.3952]
+ 10%|▉         | 1900/20000 [12:39<3:15:06,  1.55it/s, loss=0.2226, lr=9.94e-03, val_loss=1.3952]
+ 11%|█         | 2101/20000 [14:05<1:41:11,  2.95it/s, loss=0.2730, lr=9.92e-03, val_loss=0.7831]
+ 12%|█▏        | 2300/20000 [15:21<1:43:32,  2.85it/s, loss=0.2186, lr=9.88e-03, val_loss=0.7831]
+ 13%|█▎        | 2501/20000 [16:46<14:19:26,  2.95s/it, loss=0.3223, lr=9.85e-03, val_loss=0.7831]
+ 14%|█▎        | 2700/20000 [18:00<1:40:33,  2.87it/s, loss=0.5248, lr=9.80e-03, val_loss=1.0909]
+ 15%|█▍        | 2901/20000 [19:16<1:40:34,  2.83it/s, loss=0.3077, lr=9.76e-03, val_loss=1.0909]
+ 16%|█▌        | 3100/20000 [20:42<1:38:32,  2.86it/s, loss=0.2539, lr=9.70e-03, val_loss=0.7678]
+ 17%|█▋        | 3301/20000 [22:02<2:36:37,  1.78it/s, loss=1.1014, lr=9.64e-03, val_loss=0.7678]
+ 18%|█▊        | 3500/20000 [23:19<1:39:21,  2.77it/s, loss=0.2847, lr=9.58e-03, val_loss=0.7678]
+ 19%|█▊        | 3701/20000 [24:44<1:37:30,  2.79it/s, loss=0.6732, lr=9.51e-03, val_loss=0.7977]
+ 20%|█▉        | 3900/20000 [26:00<1:33:06,  2.88it/s, loss=0.6228, lr=9.44e-03, val_loss=0.7977]
+ 21%|██        | 4101/20000 [27:29<1:33:30,  2.83it/s, loss=0.2776, lr=9.36e-03, val_loss=0.9782]
+ 22%|██▏       | 4300/20000 [28:46<1:32:50,  2.82it/s, loss=0.8027, lr=9.27e-03, val_loss=0.9782]
+ 23%|██▎       | 4501/20000 [30:10<9:10:54,  2.13s/it, loss=0.1099, lr=9.19e-03, val_loss=0.9782]
+ 24%|██▎       | 4700/20000 [31:27<1:29:13,  2.86it/s, loss=0.8662, lr=9.09e-03, val_loss=0.9995]
+ 25%|██▍       | 4901/20000 [32:49<1:31:07,  2.76it/s, loss=0.4942, lr=9.00e-03, val_loss=0.9995]
+ 26%|██▌       | 5100/20000 [34:13<1:27:36,  2.83it/s, loss=1.5030, lr=8.89e-03, val_loss=1.0960] 
+ 27%|██▋       | 5301/20000 [35:31<1:26:24,  2.84it/s, loss=0.6634, lr=8.79e-03, val_loss=1.0960]
+ 28%|██▊       | 5500/20000 [36:48<1:25:41,  2.82it/s, loss=0.7776, lr=8.68e-03, val_loss=1.0960]
+ 29%|██▊       | 5701/20000 [38:15<1:23:59,  2.84it/s, loss=0.4556, lr=8.56e-03, val_loss=0.9456]
+ 30%|██▉       | 5900/20000 [39:32<1:22:55,  2.83it/s, loss=0.7759, lr=8.45e-03, val_loss=0.9456]
+ 31%|███       | 6101/20000 [40:57<1:20:27,  2.88it/s, loss=0.3620, lr=8.32e-03, val_loss=0.8319]
+ 32%|███▏      | 6300/20000 [42:18<2:02:17,  1.87it/s, loss=0.2146, lr=8.20e-03, val_loss=0.8319]
+ 33%|███▎      | 6501/20000 [43:41<7:44:51,  2.07s/it, loss=0.6063, lr=8.07e-03, val_loss=0.8319]
+ 34%|███▎      | 6700/20000 [44:58<1:18:18,  2.83it/s, loss=0.5000, lr=7.94e-03, val_loss=0.9878]
+ 35%|███▍      | 6901/20000 [46:16<1:15:58,  2.87it/s, loss=0.2727, lr=7.80e-03, val_loss=0.9878]
+ 36%|███▌      | 7100/20000 [47:42<1:22:24,  2.61it/s, loss=0.7101, lr=7.67e-03, val_loss=1.0396]
+ 37%|███▋      | 7301/20000 [49:00<1:13:59,  2.86it/s, loss=0.2211, lr=7.52e-03, val_loss=1.0396]
+ 38%|███▊      | 7500/20000 [50:18<1:12:15,  2.88it/s, loss=0.2651, lr=7.38e-03, val_loss=1.0396]
+ 39%|███▊      | 7701/20000 [51:41<1:12:24,  2.83it/s, loss=0.1592, lr=7.23e-03, val_loss=0.9197]
+ 40%|███▉      | 7900/20000 [53:02<2:24:13,  1.40it/s, loss=0.4090, lr=7.08e-03, val_loss=0.9197]
+ 41%|████      | 8101/20000 [54:28<1:04:49,  3.06it/s, loss=0.5820, lr=6.93e-03, val_loss=0.9266]
+ 42%|████▏     | 8300/20000 [55:41<1:04:19,  3.03it/s, loss=0.5750, lr=6.78e-03, val_loss=0.9266]
+ 43%|████▎     | 8501/20000 [57:00<6:09:22,  1.93s/it, loss=0.1391, lr=6.62e-03, val_loss=0.9266]
+ 44%|████▎     | 8700/20000 [58:13<1:02:08,  3.03it/s, loss=0.2233, lr=6.47e-03, val_loss=1.1204]
+ 45%|████▍     | 8901/20000 [59:27<1:00:56,  3.04it/s, loss=0.5994, lr=6.31e-03, val_loss=1.1204]
+ 46%|████▌     | 9100/20000 [1:00:52<59:59,  3.03it/s, loss=0.8214, lr=6.15e-03, val_loss=0.9830]  
+ 47%|████▋     | 9301/20000 [1:02:06<58:45,  3.04it/s, loss=0.2908, lr=5.98e-03, val_loss=0.9830]
+ 48%|████▊     | 9500/20000 [1:03:19<57:37,  3.04it/s, loss=1.1300, lr=5.82e-03, val_loss=0.9830]
+ 49%|████▊     | 9701/20000 [1:04:38<56:29,  3.04it/s, loss=0.2250, lr=5.66e-03, val_loss=1.0152]
+ 50%|████▉     | 9900/20000 [1:05:51<54:59,  3.06it/s, loss=0.9080, lr=5.50e-03, val_loss=1.0152]
+ 51%|█████     | 10101/20000 [1:07:11<54:14,  3.04it/s, loss=0.2887, lr=5.33e-03, val_loss=0.9064]
+ 52%|█████▏    | 10300/20000 [1:08:24<56:40,  2.85it/s, loss=0.1427, lr=5.17e-03, val_loss=0.9064]
+ 53%|█████▎    | 10501/20000 [1:09:47<8:57:20,  3.39s/it, loss=0.4598, lr=5.00e-03, val_loss=0.9064]
+ 54%|█████▎    | 10700/20000 [1:11:00<52:33,  2.95it/s, loss=0.1991, lr=4.83e-03, val_loss=0.8960]
+ 55%|█████▍    | 10900/20000 [1:12:13<50:26,  3.01it/s, loss=0.3855, lr=4.67e-03, val_loss=0.8960]
+ 56%|█████▌    | 11100/20000 [1:13:32<48:42,  3.05it/s, loss=0.3119, lr=4.50e-03, val_loss=0.9996]
+ 57%|█████▋    | 11301/20000 [1:14:46<48:11,  3.01it/s, loss=0.2553, lr=4.34e-03, val_loss=0.9996]
+ 58%|█████▊    | 11501/20000 [1:16:05<5:20:30,  2.26s/it, loss=0.4228, lr=4.18e-03, val_loss=0.9996]
+ 59%|█████▊    | 11701/20000 [1:17:20<45:42,  3.03it/s, loss=0.4829, lr=4.01e-03, val_loss=0.6889]
+ 60%|█████▉    | 11900/20000 [1:18:32<44:12,  3.05it/s, loss=0.4040, lr=3.85e-03, val_loss=0.6889]
+ 61%|██████    | 12101/20000 [1:19:57<49:11,  2.68it/s, loss=0.6789, lr=3.69e-03, val_loss=0.8476]
+ 62%|██████▏   | 12300/20000 [1:21:09<44:22,  2.89it/s, loss=0.1773, lr=3.53e-03, val_loss=0.8476]
+ 63%|██████▎   | 12501/20000 [1:22:29<4:46:43,  2.29s/it, loss=0.3900, lr=3.38e-03, val_loss=0.8476]
+ 64%|██████▎   | 12700/20000 [1:23:43<39:55,  3.05it/s, loss=0.5217, lr=3.22e-03, val_loss=0.6991]
+ 65%|██████▍   | 12901/20000 [1:24:56<40:55,  2.89it/s, loss=0.7770, lr=3.07e-03, val_loss=0.6991]
+ 66%|██████▌   | 13100/20000 [1:26:16<37:59,  3.03it/s, loss=0.4489, lr=2.92e-03, val_loss=0.5979]
+ 67%|██████▋   | 13301/20000 [1:27:29<36:49,  3.03it/s, loss=0.5123, lr=2.77e-03, val_loss=0.5979]
+ 68%|██████▊   | 13500/20000 [1:28:42<35:56,  3.01it/s, loss=0.3799, lr=2.62e-03, val_loss=0.5979]
+ 69%|██████▊   | 13701/20000 [1:30:05<47:40,  2.20it/s, loss=0.3990, lr=2.48e-03, val_loss=0.8476]
+ 70%|██████▉   | 13900/20000 [1:31:18<36:31,  2.78it/s, loss=0.2263, lr=2.33e-03, val_loss=0.8476] 
+ 71%|███████   | 14101/20000 [1:32:38<32:42,  3.01it/s, loss=0.4025, lr=2.20e-03, val_loss=0.6682]
+ 72%|███████▏  | 14300/20000 [1:33:51<31:36,  3.01it/s, loss=0.4647, lr=2.06e-03, val_loss=0.6682]
+ 73%|███████▎  | 14501/20000 [1:35:10<2:57:58,  1.94s/it, loss=-0.1032, lr=1.93e-03, val_loss=0.6682]
+ 74%|███████▎  | 14700/20000 [1:36:23<29:06,  3.03it/s, loss=-0.0789, lr=1.80e-03, val_loss=0.8844]
+ 75%|███████▍  | 14901/20000 [1:37:36<28:10,  3.02it/s, loss=0.7338, lr=1.67e-03, val_loss=0.8844]
+ 76%|███████▌  | 15100/20000 [1:39:04<27:43,  2.95it/s, loss=0.4296, lr=1.55e-03, val_loss=0.7470] 
+ 77%|███████▋  | 15301/20000 [1:40:17<26:00,  3.01it/s, loss=0.2661, lr=1.43e-03, val_loss=0.7470]
+ 78%|███████▊  | 15500/20000 [1:41:30<24:43,  3.03it/s, loss=0.5150, lr=1.32e-03, val_loss=0.7470]
+ 79%|███████▊  | 15701/20000 [1:42:51<23:43,  3.02it/s, loss=0.3325, lr=1.21e-03, val_loss=0.6444]
+ 80%|███████▉  | 15900/20000 [1:44:04<22:24,  3.05it/s, loss=0.5214, lr=1.11e-03, val_loss=0.6444]
+ 81%|████████  | 16101/20000 [1:45:31<20:35,  3.15it/s, loss=0.5187, lr=1.00e-03, val_loss=0.5557]
+ 82%|████████▏ | 16300/20000 [1:46:47<52:43,  1.17it/s, loss=0.2585, lr=9.07e-04, val_loss=0.5557]  
+ 83%|████████▎ | 16501/20000 [1:48:05<1:57:42,  2.02s/it, loss=0.3407, lr=8.14e-04, val_loss=0.5557]
+ 84%|████████▎ | 16700/20000 [1:49:18<18:16,  3.01it/s, loss=0.3590, lr=7.26e-04, val_loss=0.8085]
+ 85%|████████▍ | 16901/20000 [1:50:32<16:56,  3.05it/s, loss=0.1917, lr=6.42e-04, val_loss=0.8085]
+ 86%|████████▌ | 17100/20000 [1:51:57<15:24,  3.14it/s, loss=-0.0916, lr=5.64e-04, val_loss=0.5658]
+ 87%|████████▋ | 17301/20000 [1:53:10<14:56,  3.01it/s, loss=0.4507, lr=4.90e-04, val_loss=0.5658]
+ 88%|████████▊ | 17500/20000 [1:54:23<13:50,  3.01it/s, loss=-0.0217, lr=4.21e-04, val_loss=0.5658]
+ 89%|████████▊ | 17701/20000 [1:55:46<17:26,  2.20it/s, loss=0.4467, lr=3.57e-04, val_loss=0.5400]
+ 90%|████████▉ | 17900/20000 [1:56:58<13:54,  2.52it/s, loss=0.1319, lr=2.98e-04, val_loss=0.5400]
+ 91%|█████████ | 18101/20000 [1:58:19<10:23,  3.04it/s, loss=0.3038, lr=2.44e-04, val_loss=0.5846]
+ 92%|█████████▏| 18300/20000 [1:59:31<09:21,  3.03it/s, loss=0.2629, lr=1.96e-04, val_loss=0.5846]
+ 93%|█████████▎| 18501/20000 [2:00:50<48:13,  1.93s/it, loss=0.1459, lr=1.53e-04, val_loss=0.5846]
+ 94%|█████████▎| 18700/20000 [2:02:02<07:12,  3.01it/s, loss=0.3895, lr=1.15e-04, val_loss=0.5382]
+ 95%|█████████▍| 18901/20000 [2:03:16<06:00,  3.05it/s, loss=0.0915, lr=8.23e-05, val_loss=0.5382]
+ 96%|█████████▌| 19100/20000 [2:04:36<07:07,  2.10it/s, loss=0.4565, lr=5.53e-05, val_loss=0.5859]
+ 97%|█████████▋| 19301/20000 [2:05:49<03:49,  3.05it/s, loss=0.5982, lr=3.34e-05, val_loss=0.5859]
+ 98%|█████████▊| 19500/20000 [2:07:05<08:59,  1.08s/it, loss=0.2520, lr=1.71e-05, val_loss=0.5859] 
+ 99%|█████████▊| 19701/20000 [2:08:23<01:38,  3.05it/s, loss=0.6355, lr=6.11e-06, val_loss=0.5766]
+100%|█████████▉| 19900/20000 [2:09:36<00:32,  3.06it/s, loss=0.0788, lr=6.83e-07, val_loss=0.5766] 
+100%|██████████| 20000/20000 [2:10:13<00:00,  2.56it/s, loss=0.0700, lr=0.00e+00, val_loss=0.5766]
+[00:17:11] ===== fin de l'entraînement =====
+total 16738936
+drwxr-xr-x  4 kanemonium kanemonium      4096 Nov 17 00:16 .
+drwxr-xr-x 11 kanemonium kanemonium      4096 Nov 16 22:05 ..
+-rw-r--r--  1 kanemonium kanemonium       138 Nov 17 00:01 best_checkpoint.json
+-rw-r--r--  1 kanemonium kanemonium 815758385 Nov 17 00:01 best_val_balanced_accuracy.pth
+-rw-r--r--  1 kanemonium kanemonium   9761482 Nov 16 22:06 flat_ink_patches_dm-labeled_pf-labeled-default-v7-po-0.5-mlc-0.05-pfs-_ps-64x128x128_labels-auto.json
+-rw-r--r--  1 kanemonium kanemonium       222 Nov 16 22:08 gradient_health.json
+drwxr-xr-x  2 kanemonium kanemonium      4096 Nov 17 00:13 train_previews
+drwxr-xr-x  2 kanemonium kanemonium      4096 Nov 17 00:13 val_previews
+-rw-r--r--  1 kanemonium kanemonium     10480 Nov 17 00:13 validation_metrics.jsonl
+{
+  "checkpoint": "best_val_balanced_accuracy.pth",
+  "metric": "val_balanced_accuracy",
+  "step": 17500,
+  "value": 0.8164564986813554
+}

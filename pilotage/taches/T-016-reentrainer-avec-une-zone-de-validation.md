@@ -21,10 +21,15 @@ etapes:
     detail: "15 régions annotées, 13 groupes. Régions mises de côté : 2, 13, 14 et 15, soit 20,0 % de la surface annotée, densité d'encre 0,2283 des deux côtés. C'est le découpage que documente l'auteur."
   - date: 2026-11-16
     genre: etape
-    statut: en-cours
+    statut: faite
     titre: "Entraîner sans les régions mises de côté (X-008)"
-    detail: "Réglage de X-002, plus la notation sur cinquante lots toutes les 500 itérations et le choix du meilleur point de sauvegarde."
-  - date: 2026-11-16
+    detail: "Réglage de X-002, plus la notation sur cinquante lots toutes les 500 itérations et le choix du meilleur point de sauvegarde. 2 h 19 min sans arrêt. villa garde l'itération 17 500 (justesse équilibrée 0,816) ; la note reste à 0,50 jusqu'à l'itération 10 000."
+  - date: 2026-11-17
+    genre: bug
+    statut: ouvert
+    titre: "La note de villa est trop bruitée pour choisir un point de sauvegarde"
+    detail: "Deux notes voisines diffèrent jusqu'à 0,11 : chacune porte sur cinquante lots tirés au hasard, pas les mêmes d'une fois à l'autre. L'étape suivante note sur les régions entières."
+  - date: 2026-11-17
     genre: etape
     statut: a-faire
     titre: "Noter chaque point de sauvegarde sur les régions entières"
