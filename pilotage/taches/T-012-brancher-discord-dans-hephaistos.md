@@ -26,9 +26,9 @@ etapes:
     detail: "Quatrième onglet « Règles » : le résumé français de `docs/contribuer-a-villa.md`. `scripts/villa-actu.mjs` relève les issues et demandes de fusion récentes de villa ; elles entrent, traduites, dans Synthèse et Actu. Une pastille Discord ou GitHub dit d'où vient chaque message."
   - date: 2026-11-15
     genre: etape
-    statut: a-faire
+    statut: en-cours
     titre: "Lire l'intérieur des fils du forum d'encre"
-    detail: "La première lecture s'est arrêtée au premier message de chaque fil. Deux fils ont plus de cent réponses."
+    detail: "Chaque fil a sa propre adresse : on peut l'ouvrir et le lire. Fait le 2026-11-16 pour deux fils courts, en entier. Les deux fils de plus de cent réponses ne livrent que leur début : il faut remonter l'historique, ce qui n'est pas encore fait."
   - date: 2026-11-15
     genre: etape
     statut: a-faire
