@@ -21,6 +21,8 @@ Le serveur ne nous appartient pas. Un robot officiel ne peut y entrer que sur in
 - **Agent C.** (2026-11-15) : trois voies. Un robot en lecture seule, à demander à l'équipe. L'automatisation du compte, écartée. La lecture à la demande, dans le navigateur de la séance où Kanemonium est connecté.
 - **Kanemonium** (2026-11-15) : d'accord pour la lecture à la demande ; il doute que l'équipe accepte un robot, la recherche en cours ayant des enjeux. Rythme voulu : deux ou trois lectures par jour au plus, une demande laissée dans la boîte du carnet, ses retours une fois par jour ; au-delà de huit heures sans lecture, l'IHM le signale.
 - **Agent C.** (2026-11-15) : la connexion à Discord reste l'affaire de Kanemonium. Si elle expire, c'est lui qui se reconnecte ; Agent C. ne saisit jamais de mot de passe.
+- **Kanemonium** (2026-11-16) : remarque que les salons d'annonces proposent « Suivre », et l'active vers son serveur de test.
+- **Agent C.** (2026-11-16) : c'est une voie officielle, mais elle ne vaut que pour le salon des annonces ; le forum d'encre et le salon de déroulement ne peuvent pas être suivis. Elle ouvre une possibilité : un robot invité sur le serveur de test lirait ces annonces sans passer par le compte de Kanemonium.
 
 ## Décision
 

@@ -29,6 +29,16 @@ etapes:
     statut: en-cours
     titre: "Lire l'intérieur des fils du forum d'encre"
     detail: "Chaque fil a sa propre adresse : on peut l'ouvrir et le lire. Fait le 2026-11-16 pour deux fils courts, en entier. Les deux fils de plus de cent réponses ne livrent que leur début : il faut remonter l'historique, ce qui n'est pas encore fait."
+  - date: 2026-11-16
+    genre: etape
+    statut: faite
+    titre: "Suivre le salon des annonces depuis le serveur de test"
+    detail: "Kanemonium a utilisé la fonction « Suivre » de Discord : les nouvelles annonces du défi se recopient seules dans un salon de son serveur de test. Vérifié : le salon existe et porte le message de mise en place. Les annonces passées ne sont pas recopiées, et les autres salons du défi ne peuvent pas être suivis."
+  - date: 2026-11-16
+    genre: etape
+    statut: a-faire
+    titre: "Un robot sur le serveur de test, pour lire ces annonces"
+    detail: "Sur son propre serveur, Kanemonium peut inviter un robot officiel. Il lirait les annonces recopiées par la voie prévue par Discord, sans passer par son compte. À lui de créer le robot ; son jeton irait dans `.env`."
   - date: 2026-11-15
     genre: etape
     statut: a-faire
