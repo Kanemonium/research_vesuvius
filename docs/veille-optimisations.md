@@ -35,6 +35,8 @@ Ces options existent déjà dans notre installation de villa (commit `2d3fb38`).
 tiennent pas sur notre carte : sur une zone de 4 386 blocs, lot de 4 compilé, lot de 8 sans compilation
 et lot de 8 avec fils et cache finissent tous en 254,5 à 256,1 s. Seul gain : sans compilation, le
 démarrage passe de 85 s à moins de 20 s, ce qui sert aux petits essais.
+À l'entraînement (X-007), une itération prend 0,34 à 0,37 s avec 1, 2 ou 4 processus de chargement, dont
+un millième de seconde à attendre les données : en ajouter n'apporte rien, le temps part dans le calcul.
 
 Absents du paquet d'encre : `channels_last`, la compilation à l'entraînement, l'export vers un moteur plus
 rapide, la moyenne de points de sauvegarde. **[vérifié]** pour `channels_last`.

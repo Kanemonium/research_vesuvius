@@ -20,4 +20,19 @@ mesure intégrée de [ScrollPrize/villa](https://github.com/ScrollPrize/villa) (
 
 ## Le résultat
 
-Non mesuré : la page sera complétée à la fin de l'exécution.
+| Processus de chargement | Temps par itération | Dont attente des données |
+|---|---|---|
+| 1 | 0,373 s | 0,001 s |
+| 2 | 0,342 s | 0,001 s |
+| 4 | 0,369 s | 0,001 s |
+| 1, seconde passe | 0,364 s | 0,001 s |
+
+L'entraînement n'attend pas ses données : le temps part dans le calcul. Ajouter des processus de
+chargement n'apporte rien de sûr ; nous restons à un. Pic de mémoire vidéo alloué : 3 621 Mo.
+
+## Ce que ça ne dit pas
+
+- Deux processus sortent 6 à 8 % plus vite sur une seule passe, quand deux passes identiques
+  diffèrent de 2,5 % : trop peu pour conclure.
+- Le pic de mémoire vive pendant les passes n'a pas été relevé.
+- Rien sur un entraînement de deux heures, ni sur la qualité du modèle.

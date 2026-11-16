@@ -1,0 +1,682 @@
+[21:41:11] ===== étape 1/5 : 1 processus de chargement (un) =====
+sampling_audit={"patches": 8098, "strategy": "uniform"}
+Using dimensionality (3D) from ConfigManager
+Using 3D convolutions (nn.Conv3d)
+Using 3D normalization (nn.InstanceNorm3d)
+--- Full autoconfiguration from config ---
+Patch size adjusted from (64, 128, 128) to (64, 128, 128) to ensure divisibility by pooling factors [16 32 32]
+Task 'ink' configured with z-projection mode 'max'
+Task 'ink' configured with shared decoder + head (1 channels)
+NetworkFromConfig initialized with final configuration:
+  model_name: ink_det
+  basic_encoder_block: BasicBlockD
+  basic_decoder_block: ConvBlock
+  bottleneck_block: BasicBlockD
+  features_per_stage: [32, 64, 128, 256, 320, 320]
+  num_stages: 6
+  n_blocks_per_stage: [1, 3, 4, 6, 6, 6]
+  n_conv_per_stage_decoder: [1, 1, 1, 1, 1]
+  kernel_sizes: [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+  pool_op_kernel_sizes: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  conv_op: Conv3d
+  conv_bias: True
+  norm_op: InstanceNorm3d
+  norm_op_kwargs: {'affine': True, 'eps': 1e-05}
+  dropout_op: None
+  dropout_op_kwargs: None
+  nonlin: LeakyReLU
+  nonlin_kwargs: {'inplace': True, 'negative_slope': 0.01}
+  strides: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  return_skips: True
+  do_stem: True
+  stem_channels: 32
+  bottleneck_channels: None
+  stochastic_depth_p: 0.0
+  squeeze_excitation: False
+  squeeze_excitation_reduction_ratio: 0.0625
+  squeeze_excitation_type: channel
+  squeeze_excitation_add_maxpool: False
+  pool_type: conv
+  upsample_mode: transpconv
+  op_dims: 3
+  patch_size: (64, 128, 128)
+  batch_size: 2
+  in_channels: 1
+  autoconfigure: True
+  targets: {'ink': {'out_channels': 1, 'activation': 'none', 'z_projection_mode': 'max'}}
+  target_z_projection: {'ink': {'mode': 'max'}}
+  separate_decoders: False
+  num_pool_per_axis: [4, 5, 5]
+  must_be_divisible_by: [16 32 32]
+  guide_backbone: None
+  guide_backbone_config_path: None
+  guide_freeze: True
+  guide_patch_grid: None
+  guide_stage_keys: None
+  guide_skip_concat_projector_channels: None
+  guide_feature_gate_alpha: None
+  guide_tokenbook_tokens: None
+  guide_tokenbook_prototype_weighting: mean
+  guide_tokenbook_weight_mlp_hidden: None
+  guide_compile_policy: off
+  guide_fusion_stage: None
+  0%|          | 0/350 [00:00<?, ?it/s]AMP gradient overflow at step 0: task_heads.ink.weight
+/home/kanemonium/vesuvius/villa/vesuvius/src/vesuvius/ink_detection/training/train.py:882: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+  0%|          | 0/350 [00:03<?, ?it/s, loss=2.0589, lr=1.00e-05]
+  1%|          | 3/350 [00:04<01:22,  4.23it/s, loss=1.2850, lr=3.00e-05]
+  2%|▏         | 6/350 [00:04<01:24,  4.05it/s, loss=-0.1775, lr=5.00e-05]
+  3%|▎         | 9/350 [00:06<02:12,  2.57it/s, loss=0.8686, lr=9.00e-05] 
+  4%|▎         | 13/350 [00:07<02:02,  2.75it/s, loss=0.6041, lr=1.30e-04]
+  5%|▍         | 16/350 [00:08<01:53,  2.93it/s, loss=1.0180, lr=1.60e-04] 
+  6%|▌         | 20/350 [00:10<01:56,  2.84it/s, loss=0.9286, lr=2.00e-04] 
+  7%|▋         | 23/350 [00:11<01:50,  2.97it/s, loss=0.5515, lr=2.30e-04]
+  8%|▊         | 27/350 [00:12<01:46,  3.02it/s, loss=1.0922, lr=2.70e-04]
+  9%|▊         | 30/350 [00:13<01:45,  3.03it/s, loss=-0.0721, lr=3.00e-04]
+ 10%|▉         | 34/350 [00:15<02:16,  2.31it/s, loss=0.0263, lr=3.40e-04] 
+ 11%|█         | 37/350 [00:16<01:53,  2.75it/s, loss=0.1267, lr=3.70e-04]
+ 12%|█▏        | 41/350 [00:17<01:48,  2.86it/s, loss=0.3945, lr=4.10e-04]
+ 13%|█▎        | 44/350 [00:18<01:54,  2.67it/s, loss=0.4072, lr=4.40e-04]
+ 14%|█▎        | 48/350 [00:20<02:10,  2.31it/s, loss=0.7319, lr=4.80e-04]
+ 15%|█▍        | 51/350 [00:22<02:11,  2.28it/s, loss=1.0289, lr=5.10e-04]
+ 16%|█▌        | 55/350 [00:23<01:58,  2.48it/s, loss=0.7931, lr=5.50e-04]
+ 17%|█▋        | 58/350 [00:24<01:55,  2.53it/s, loss=0.0812, lr=5.80e-04]
+ 18%|█▊        | 62/350 [00:26<01:52,  2.56it/s, loss=0.8715, lr=6.20e-04]
+ 19%|█▊        | 65/350 [00:27<01:52,  2.53it/s, loss=0.7723, lr=6.50e-04]
+ 20%|█▉        | 69/350 [00:29<01:53,  2.48it/s, loss=0.2940, lr=6.90e-04]
+ 21%|██        | 72/350 [00:30<01:51,  2.49it/s, loss=0.5679, lr=7.20e-04]
+ 22%|██▏       | 76/350 [00:31<01:49,  2.51it/s, loss=0.4279, lr=7.60e-04]
+ 23%|██▎       | 79/350 [00:33<01:47,  2.52it/s, loss=0.6056, lr=7.90e-04]
+ 24%|██▎       | 83/350 [00:34<01:45,  2.53it/s, loss=0.5404, lr=8.30e-04]
+ 25%|██▍       | 86/350 [00:35<01:45,  2.51it/s, loss=0.5049, lr=8.60e-04]
+ 26%|██▌       | 90/350 [00:37<01:43,  2.51it/s, loss=0.6470, lr=9.00e-04]
+ 27%|██▋       | 93/350 [00:38<01:42,  2.51it/s, loss=0.5228, lr=9.30e-04]
+ 28%|██▊       | 97/350 [00:40<01:41,  2.49it/s, loss=0.6410, lr=9.70e-04]
+ 29%|██▊       | 100/350 [00:41<01:39,  2.51it/s, loss=0.4209, lr=1.00e-03]
+ 30%|██▉       | 104/350 [00:43<01:38,  2.50it/s, loss=0.5658, lr=1.04e-03]
+ 31%|███       | 107/350 [00:44<01:37,  2.49it/s, loss=0.4086, lr=1.07e-03]
+ 32%|███▏      | 111/350 [00:45<01:36,  2.48it/s, loss=0.6120, lr=1.11e-03]
+ 33%|███▎      | 114/350 [00:50<05:02,  1.28s/it, loss=0.6155, lr=1.14e-03]
+ 34%|███▎      | 118/350 [00:51<02:23,  1.62it/s, loss=0.5246, lr=1.18e-03]
+ 35%|███▍      | 121/350 [00:52<01:48,  2.12it/s, loss=0.8150, lr=1.21e-03]
+ 36%|███▌      | 125/350 [00:54<01:33,  2.40it/s, loss=0.2853, lr=1.25e-03]
+ 37%|███▋      | 128/350 [00:55<01:30,  2.46it/s, loss=0.3727, lr=1.28e-03]
+ 38%|███▊      | 132/350 [00:57<01:27,  2.49it/s, loss=0.1983, lr=1.32e-03]
+ 39%|███▊      | 135/350 [00:58<01:27,  2.47it/s, loss=0.7972, lr=1.35e-03]
+ 40%|███▉      | 139/350 [01:00<01:25,  2.47it/s, loss=0.4270, lr=1.39e-03]
+ 41%|████      | 142/350 [01:01<01:23,  2.49it/s, loss=0.5930, lr=1.42e-03]
+ 42%|████▏     | 146/350 [01:02<01:22,  2.49it/s, loss=0.4204, lr=1.46e-03]
+ 43%|████▎     | 149/350 [01:04<01:21,  2.46it/s, loss=0.6879, lr=1.49e-03]
+ 44%|████▎     | 153/350 [01:05<01:19,  2.47it/s, loss=0.5169, lr=1.53e-03]
+ 45%|████▍     | 156/350 [01:06<01:17,  2.49it/s, loss=0.5835, lr=1.56e-03]
+ 46%|████▌     | 160/350 [01:08<01:18,  2.43it/s, loss=0.3872, lr=1.60e-03]
+ 47%|████▋     | 163/350 [01:09<01:16,  2.45it/s, loss=0.5862, lr=1.63e-03]
+ 48%|████▊     | 167/350 [01:11<01:14,  2.45it/s, loss=0.6113, lr=1.67e-03]
+ 49%|████▊     | 170/350 [01:12<01:14,  2.43it/s, loss=0.3103, lr=1.70e-03]
+ 50%|████▉     | 174/350 [01:14<01:12,  2.43it/s, loss=0.4983, lr=1.74e-03]
+ 51%|█████     | 177/350 [01:15<01:10,  2.45it/s, loss=0.5091, lr=1.77e-03]
+ 52%|█████▏    | 181/350 [01:17<01:09,  2.44it/s, loss=0.3130, lr=1.81e-03]
+ 53%|█████▎    | 184/350 [01:18<01:12,  2.29it/s, loss=0.6631, lr=1.84e-03]
+ 54%|█████▎    | 188/350 [01:20<01:06,  2.43it/s, loss=0.1618, lr=1.88e-03]
+ 55%|█████▍    | 191/350 [01:21<01:04,  2.46it/s, loss=0.4867, lr=1.91e-03]
+ 56%|█████▌    | 195/350 [01:25<02:10,  1.18it/s, loss=0.0993, lr=1.95e-03]
+ 57%|█████▋    | 198/350 [01:27<01:24,  1.80it/s, loss=0.5824, lr=1.98e-03]
+ 58%|█████▊    | 202/350 [01:28<01:01,  2.40it/s, loss=0.6806, lr=2.02e-03]
+ 59%|█████▊    | 205/350 [01:29<00:55,  2.60it/s, loss=0.0392, lr=2.05e-03]
+ 60%|█████▉    | 209/350 [01:31<00:52,  2.68it/s, loss=0.7206, lr=2.09e-03]
+ 61%|██████    | 212/350 [01:32<00:50,  2.74it/s, loss=0.9228, lr=2.12e-03]
+ 62%|██████▏   | 216/350 [01:33<00:48,  2.76it/s, loss=0.6140, lr=2.16e-03]
+ 63%|██████▎   | 219/350 [01:34<00:48,  2.73it/s, loss=0.5399, lr=2.19e-03]
+ 64%|██████▎   | 223/350 [01:36<00:45,  2.82it/s, loss=0.2390, lr=2.23e-03]
+ 65%|██████▍   | 226/350 [01:37<00:43,  2.84it/s, loss=0.3417, lr=2.26e-03]
+ 66%|██████▌   | 230/350 [01:38<00:42,  2.85it/s, loss=0.7472, lr=2.30e-03]
+ 67%|██████▋   | 233/350 [01:39<00:41,  2.85it/s, loss=0.3111, lr=2.33e-03]
+ 68%|██████▊   | 237/350 [01:41<00:39,  2.86it/s, loss=0.6002, lr=2.37e-03]
+ 69%|██████▊   | 240/350 [01:42<00:38,  2.84it/s, loss=0.7182, lr=2.40e-03]
+ 70%|██████▉   | 244/350 [01:43<00:37,  2.85it/s, loss=0.3658, lr=2.44e-03]
+ 71%|███████   | 247/350 [01:44<00:36,  2.85it/s, loss=0.4321, lr=2.47e-03]
+ 72%|███████▏  | 251/350 [01:46<00:34,  2.87it/s, loss=0.5389, lr=2.51e-03]
+ 73%|███████▎  | 254/350 [01:47<00:33,  2.87it/s, loss=0.7852, lr=2.54e-03]
+ 74%|███████▎  | 258/350 [01:48<00:32,  2.83it/s, loss=0.6173, lr=2.58e-03]
+ 75%|███████▍  | 261/350 [01:49<00:31,  2.85it/s, loss=0.5866, lr=2.61e-03]
+ 76%|███████▌  | 265/350 [01:51<00:29,  2.89it/s, loss=0.6026, lr=2.65e-03]
+ 77%|███████▋  | 268/350 [01:52<00:29,  2.83it/s, loss=0.6029, lr=2.68e-03]
+ 78%|███████▊  | 272/350 [01:53<00:27,  2.89it/s, loss=0.2295, lr=2.72e-03]
+ 79%|███████▊  | 275/350 [01:54<00:25,  2.91it/s, loss=0.6641, lr=2.75e-03]
+ 80%|███████▉  | 279/350 [01:55<00:24,  2.90it/s, loss=0.4337, lr=2.79e-03]
+ 81%|████████  | 282/350 [01:56<00:23,  2.91it/s, loss=0.1700, lr=2.82e-03]
+ 82%|████████▏ | 286/350 [02:01<00:41,  1.55it/s, loss=0.2986, lr=2.86e-03]
+ 83%|████████▎ | 289/350 [02:02<00:27,  2.24it/s, loss=0.3833, lr=2.89e-03]
+ 84%|████████▎ | 293/350 [02:03<00:21,  2.68it/s, loss=0.7006, lr=2.93e-03]
+ 85%|████████▍ | 296/350 [02:04<00:19,  2.82it/s, loss=0.0955, lr=2.96e-03]
+ 86%|████████▌ | 300/350 [02:06<00:17,  2.89it/s, loss=0.3579, lr=3.00e-03]
+ 87%|████████▋ | 303/350 [02:07<00:16,  2.89it/s, loss=0.5274, lr=3.03e-03]
+ 88%|████████▊ | 307/350 [02:08<00:14,  2.91it/s, loss=1.2780, lr=3.07e-03]
+ 89%|████████▊ | 310/350 [02:09<00:13,  2.91it/s, loss=1.0267, lr=3.10e-03]
+ 90%|████████▉ | 314/350 [02:10<00:12,  2.87it/s, loss=0.3324, lr=3.14e-03]
+ 91%|█████████ | 317/350 [02:11<00:11,  2.88it/s, loss=0.3905, lr=3.17e-03]
+ 92%|█████████▏| 321/350 [02:13<00:10,  2.85it/s, loss=0.7677, lr=3.21e-03]
+ 93%|█████████▎| 324/350 [02:14<00:09,  2.82it/s, loss=0.5873, lr=3.24e-03]
+ 94%|█████████▎| 328/350 [02:15<00:07,  3.01it/s, loss=0.5334, lr=3.28e-03]
+ 95%|█████████▍| 331/350 [02:16<00:05,  3.22it/s, loss=0.4602, lr=3.31e-03]
+ 96%|█████████▌| 335/350 [02:17<00:04,  3.23it/s, loss=0.6148, lr=3.35e-03]
+ 97%|█████████▋| 338/350 [02:18<00:03,  3.26it/s, loss=0.4263, lr=3.38e-03]
+ 98%|█████████▊| 342/350 [02:19<00:02,  3.26it/s, loss=0.6406, lr=3.42e-03]
+ 99%|█████████▊| 345/350 [02:20<00:01,  3.27it/s, loss=0.4851, lr=3.45e-03]
+100%|█████████▉| 349/350 [02:22<00:00,  3.28it/s, loss=0.6091, lr=3.49e-03]
+100%|██████████| 350/350 [02:22<00:00,  2.46it/s, loss=0.7280, lr=3.50e-03]
+benchmark_summary=runs/essai_chargement_un/benchmark_summary.json
+[21:43:44] un : code 0, 153 s en tout ; mémoire vive : 684 Mo utilisés, échange 0 Mo
+[21:43:44] ===== étape 2/5 : 2 processus de chargement (deux) =====
+sampling_audit={"patches": 8098, "strategy": "uniform"}
+Using dimensionality (3D) from ConfigManager
+Using 3D convolutions (nn.Conv3d)
+Using 3D normalization (nn.InstanceNorm3d)
+--- Full autoconfiguration from config ---
+Patch size adjusted from (64, 128, 128) to (64, 128, 128) to ensure divisibility by pooling factors [16 32 32]
+Task 'ink' configured with z-projection mode 'max'
+Task 'ink' configured with shared decoder + head (1 channels)
+NetworkFromConfig initialized with final configuration:
+  model_name: ink_det
+  basic_encoder_block: BasicBlockD
+  basic_decoder_block: ConvBlock
+  bottleneck_block: BasicBlockD
+  features_per_stage: [32, 64, 128, 256, 320, 320]
+  num_stages: 6
+  n_blocks_per_stage: [1, 3, 4, 6, 6, 6]
+  n_conv_per_stage_decoder: [1, 1, 1, 1, 1]
+  kernel_sizes: [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+  pool_op_kernel_sizes: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  conv_op: Conv3d
+  conv_bias: True
+  norm_op: InstanceNorm3d
+  norm_op_kwargs: {'affine': True, 'eps': 1e-05}
+  dropout_op: None
+  dropout_op_kwargs: None
+  nonlin: LeakyReLU
+  nonlin_kwargs: {'inplace': True, 'negative_slope': 0.01}
+  strides: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  return_skips: True
+  do_stem: True
+  stem_channels: 32
+  bottleneck_channels: None
+  stochastic_depth_p: 0.0
+  squeeze_excitation: False
+  squeeze_excitation_reduction_ratio: 0.0625
+  squeeze_excitation_type: channel
+  squeeze_excitation_add_maxpool: False
+  pool_type: conv
+  upsample_mode: transpconv
+  op_dims: 3
+  patch_size: (64, 128, 128)
+  batch_size: 2
+  in_channels: 1
+  autoconfigure: True
+  targets: {'ink': {'out_channels': 1, 'activation': 'none', 'z_projection_mode': 'max'}}
+  target_z_projection: {'ink': {'mode': 'max'}}
+  separate_decoders: False
+  num_pool_per_axis: [4, 5, 5]
+  must_be_divisible_by: [16 32 32]
+  guide_backbone: None
+  guide_backbone_config_path: None
+  guide_freeze: True
+  guide_patch_grid: None
+  guide_stage_keys: None
+  guide_skip_concat_projector_channels: None
+  guide_feature_gate_alpha: None
+  guide_tokenbook_tokens: None
+  guide_tokenbook_prototype_weighting: mean
+  guide_tokenbook_weight_mlp_hidden: None
+  guide_compile_policy: off
+  guide_fusion_stage: None
+  0%|          | 0/350 [00:00<?, ?it/s]AMP gradient overflow at step 0: task_heads.ink.weight
+/home/kanemonium/vesuvius/villa/vesuvius/src/vesuvius/ink_detection/training/train.py:882: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+  0%|          | 0/350 [00:07<?, ?it/s, loss=2.0589, lr=1.00e-05]
+  1%|          | 3/350 [00:08<01:25,  4.06it/s, loss=1.2653, lr=3.00e-05]
+  2%|▏         | 6/350 [00:08<01:29,  3.83it/s, loss=-0.1768, lr=5.00e-05]
+  3%|▎         | 9/350 [00:10<02:19,  2.45it/s, loss=0.8680, lr=9.00e-05] 
+  4%|▎         | 13/350 [00:11<02:09,  2.61it/s, loss=0.6426, lr=1.30e-04]
+  5%|▍         | 16/350 [00:12<02:05,  2.66it/s, loss=1.1454, lr=1.60e-04] 
+  6%|▌         | 20/350 [00:14<02:03,  2.67it/s, loss=0.9493, lr=2.00e-04] 
+  7%|▋         | 23/350 [00:15<02:02,  2.67it/s, loss=0.5195, lr=2.30e-04]
+  8%|▊         | 27/350 [00:17<02:00,  2.67it/s, loss=1.0470, lr=2.70e-04]
+  9%|▊         | 30/350 [00:18<02:01,  2.63it/s, loss=-0.0689, lr=3.00e-04]
+ 10%|▉         | 34/350 [00:19<02:01,  2.60it/s, loss=0.0223, lr=3.40e-04] 
+ 11%|█         | 37/350 [00:20<02:00,  2.60it/s, loss=0.1129, lr=3.70e-04]
+ 12%|█▏        | 41/350 [00:22<01:58,  2.61it/s, loss=0.3947, lr=4.10e-04]
+ 13%|█▎        | 44/350 [00:23<01:58,  2.58it/s, loss=0.4157, lr=4.40e-04]
+ 14%|█▎        | 48/350 [00:25<01:58,  2.55it/s, loss=0.5057, lr=4.80e-04]
+ 15%|█▍        | 51/350 [00:26<01:54,  2.60it/s, loss=1.0115, lr=5.10e-04]
+ 16%|█▌        | 55/350 [00:27<01:52,  2.62it/s, loss=0.7785, lr=5.50e-04]
+ 17%|█▋        | 58/350 [00:28<01:52,  2.60it/s, loss=0.1037, lr=5.80e-04]
+ 18%|█▊        | 62/350 [00:30<01:52,  2.57it/s, loss=0.7711, lr=6.20e-04]
+ 19%|█▊        | 65/350 [00:31<01:50,  2.59it/s, loss=0.6760, lr=6.50e-04]
+ 20%|█▉        | 69/350 [00:33<01:42,  2.74it/s, loss=0.1802, lr=6.90e-04]
+ 21%|██        | 72/350 [00:34<01:38,  2.83it/s, loss=0.5806, lr=7.20e-04]
+ 22%|██▏       | 76/350 [00:35<01:34,  2.91it/s, loss=0.4194, lr=7.60e-04]
+ 23%|██▎       | 79/350 [00:36<01:32,  2.94it/s, loss=0.6189, lr=7.90e-04]
+ 24%|██▎       | 83/350 [00:37<01:30,  2.96it/s, loss=0.5377, lr=8.30e-04]
+ 25%|██▍       | 86/350 [00:41<03:23,  1.30it/s, loss=0.5061, lr=8.60e-04]
+ 26%|██▌       | 90/350 [00:43<01:54,  2.27it/s, loss=0.5902, lr=9.00e-04]
+ 27%|██▋       | 93/350 [00:44<01:37,  2.64it/s, loss=0.5365, lr=9.30e-04]
+ 28%|██▊       | 97/350 [00:45<01:30,  2.81it/s, loss=0.6407, lr=9.70e-04]
+ 29%|██▊       | 100/350 [00:46<01:26,  2.90it/s, loss=0.4351, lr=1.00e-03]
+ 30%|██▉       | 104/350 [00:48<01:23,  2.95it/s, loss=0.5596, lr=1.04e-03]
+ 31%|███       | 107/350 [00:49<01:22,  2.96it/s, loss=0.4455, lr=1.07e-03]
+ 32%|███▏      | 111/350 [00:50<01:21,  2.94it/s, loss=0.5825, lr=1.11e-03]
+ 33%|███▎      | 114/350 [00:51<01:19,  2.95it/s, loss=0.5957, lr=1.14e-03]
+ 34%|███▎      | 118/350 [00:52<01:18,  2.95it/s, loss=0.5350, lr=1.18e-03]
+ 35%|███▍      | 121/350 [00:53<01:17,  2.96it/s, loss=0.8765, lr=1.21e-03]
+ 36%|███▌      | 125/350 [00:55<01:16,  2.96it/s, loss=0.2178, lr=1.25e-03]
+ 37%|███▋      | 128/350 [00:56<01:15,  2.94it/s, loss=0.3516, lr=1.28e-03]
+ 38%|███▊      | 132/350 [00:57<01:13,  2.95it/s, loss=0.1810, lr=1.32e-03]
+ 39%|███▊      | 135/350 [00:58<01:13,  2.94it/s, loss=0.7519, lr=1.35e-03]
+ 40%|███▉      | 139/350 [00:59<01:11,  2.93it/s, loss=0.4411, lr=1.39e-03]
+ 41%|████      | 142/350 [01:00<01:10,  2.94it/s, loss=0.5736, lr=1.42e-03]
+ 42%|████▏     | 146/350 [01:02<01:09,  2.93it/s, loss=0.4479, lr=1.46e-03]
+ 43%|████▎     | 149/350 [01:03<01:08,  2.94it/s, loss=0.6778, lr=1.49e-03]
+ 44%|████▎     | 153/350 [01:04<01:06,  2.95it/s, loss=0.5516, lr=1.53e-03]
+ 45%|████▍     | 156/350 [01:05<01:05,  2.95it/s, loss=0.5929, lr=1.56e-03]
+ 46%|████▌     | 160/350 [01:07<01:04,  2.96it/s, loss=0.4005, lr=1.60e-03]
+ 47%|████▋     | 163/350 [01:08<01:03,  2.96it/s, loss=0.5787, lr=1.63e-03]
+ 48%|████▊     | 167/350 [01:09<01:01,  2.96it/s, loss=0.5651, lr=1.67e-03]
+ 49%|████▊     | 170/350 [01:10<01:00,  2.97it/s, loss=0.3146, lr=1.70e-03]
+ 50%|████▉     | 174/350 [01:11<00:59,  2.97it/s, loss=0.4586, lr=1.74e-03]
+ 51%|█████     | 177/350 [01:12<00:59,  2.93it/s, loss=0.5378, lr=1.77e-03]
+ 52%|█████▏    | 181/350 [01:17<02:09,  1.30it/s, loss=0.3139, lr=1.81e-03]
+ 53%|█████▎    | 184/350 [01:18<01:22,  2.02it/s, loss=0.6807, lr=1.84e-03]
+ 54%|█████▎    | 188/350 [01:19<01:09,  2.33it/s, loss=0.1432, lr=1.88e-03]
+ 55%|█████▍    | 191/350 [01:21<01:07,  2.35it/s, loss=0.5368, lr=1.91e-03]
+ 56%|█████▌    | 195/350 [01:22<01:04,  2.42it/s, loss=0.0799, lr=1.95e-03]
+ 57%|█████▋    | 198/350 [01:23<01:03,  2.41it/s, loss=0.5092, lr=1.98e-03]
+ 58%|█████▊    | 202/350 [01:25<01:01,  2.42it/s, loss=0.6396, lr=2.02e-03]
+ 59%|█████▊    | 205/350 [01:26<00:55,  2.62it/s, loss=0.0081, lr=2.05e-03]
+ 60%|█████▉    | 209/350 [01:28<00:54,  2.57it/s, loss=0.6893, lr=2.09e-03]
+ 61%|██████    | 212/350 [01:29<00:51,  2.68it/s, loss=0.8664, lr=2.12e-03]
+ 62%|██████▏   | 216/350 [01:30<00:49,  2.71it/s, loss=0.5961, lr=2.16e-03]
+ 63%|██████▎   | 219/350 [01:31<00:48,  2.72it/s, loss=0.4994, lr=2.19e-03]
+ 64%|██████▎   | 223/350 [01:33<00:46,  2.74it/s, loss=0.2776, lr=2.23e-03]
+ 65%|██████▍   | 226/350 [01:34<00:45,  2.76it/s, loss=0.3780, lr=2.26e-03]
+ 66%|██████▌   | 230/350 [01:35<00:43,  2.78it/s, loss=0.7168, lr=2.30e-03]
+ 67%|██████▋   | 233/350 [01:36<00:42,  2.73it/s, loss=0.3351, lr=2.33e-03]
+ 68%|██████▊   | 237/350 [01:38<00:40,  2.76it/s, loss=0.5808, lr=2.37e-03]
+ 69%|██████▊   | 240/350 [01:39<00:39,  2.78it/s, loss=0.7333, lr=2.40e-03]
+ 70%|██████▉   | 244/350 [01:40<00:37,  2.79it/s, loss=0.3598, lr=2.44e-03]
+ 71%|███████   | 247/350 [01:42<00:37,  2.76it/s, loss=0.4141, lr=2.47e-03]
+ 72%|███████▏  | 251/350 [01:43<00:36,  2.71it/s, loss=0.5520, lr=2.51e-03]
+ 73%|███████▎  | 254/350 [01:44<00:35,  2.71it/s, loss=0.7925, lr=2.54e-03]
+ 74%|███████▎  | 258/350 [01:46<00:33,  2.71it/s, loss=0.6115, lr=2.58e-03]
+ 75%|███████▍  | 261/350 [01:47<00:32,  2.73it/s, loss=0.5668, lr=2.61e-03]
+ 76%|███████▌  | 265/350 [01:48<00:28,  3.03it/s, loss=0.5901, lr=2.65e-03]
+ 77%|███████▋  | 268/350 [01:52<01:01,  1.34it/s, loss=0.5805, lr=2.68e-03]
+ 78%|███████▊  | 272/350 [01:53<00:32,  2.44it/s, loss=0.2216, lr=2.72e-03]
+ 79%|███████▊  | 275/350 [01:54<00:25,  2.93it/s, loss=0.6785, lr=2.75e-03]
+ 80%|███████▉  | 279/350 [01:55<00:22,  3.20it/s, loss=0.4342, lr=2.79e-03]
+ 81%|████████  | 282/350 [01:56<00:20,  3.26it/s, loss=0.1598, lr=2.82e-03]
+ 82%|████████▏ | 286/350 [01:57<00:19,  3.27it/s, loss=0.2753, lr=2.86e-03]
+ 83%|████████▎ | 289/350 [01:58<00:18,  3.27it/s, loss=0.3949, lr=2.89e-03]
+ 84%|████████▎ | 293/350 [01:59<00:17,  3.28it/s, loss=0.7202, lr=2.93e-03]
+ 85%|████████▍ | 296/350 [02:00<00:16,  3.30it/s, loss=0.0641, lr=2.96e-03]
+ 86%|████████▌ | 300/350 [02:02<00:15,  3.30it/s, loss=0.3030, lr=3.00e-03]
+ 87%|████████▋ | 303/350 [02:02<00:14,  3.31it/s, loss=0.5313, lr=3.03e-03]
+ 88%|████████▊ | 307/350 [02:04<00:12,  3.31it/s, loss=1.2314, lr=3.07e-03]
+ 89%|████████▊ | 310/350 [02:05<00:12,  3.28it/s, loss=0.9677, lr=3.10e-03]
+ 90%|████████▉ | 314/350 [02:06<00:11,  3.27it/s, loss=0.3369, lr=3.14e-03]
+ 91%|█████████ | 317/350 [02:07<00:10,  3.27it/s, loss=0.3935, lr=3.17e-03]
+ 92%|█████████▏| 321/350 [02:08<00:08,  3.28it/s, loss=0.7854, lr=3.21e-03]
+ 93%|█████████▎| 324/350 [02:09<00:07,  3.28it/s, loss=0.6004, lr=3.24e-03]
+ 94%|█████████▎| 328/350 [02:10<00:06,  3.28it/s, loss=0.5485, lr=3.28e-03]
+ 95%|█████████▍| 331/350 [02:11<00:05,  3.27it/s, loss=0.4409, lr=3.31e-03]
+ 96%|█████████▌| 335/350 [02:12<00:04,  3.31it/s, loss=0.6176, lr=3.35e-03]
+ 97%|█████████▋| 338/350 [02:13<00:03,  3.30it/s, loss=0.4335, lr=3.38e-03]
+ 98%|█████████▊| 342/350 [02:14<00:02,  3.30it/s, loss=0.6372, lr=3.42e-03]
+ 99%|█████████▊| 345/350 [02:15<00:01,  3.29it/s, loss=0.4891, lr=3.45e-03]
+100%|█████████▉| 349/350 [02:16<00:00,  3.29it/s, loss=0.6057, lr=3.49e-03]
+100%|██████████| 350/350 [02:17<00:00,  2.55it/s, loss=0.7107, lr=3.50e-03]
+benchmark_summary=runs/essai_chargement_deux/benchmark_summary.json
+[21:46:08] deux : code 0, 144 s en tout ; mémoire vive : 688 Mo utilisés, échange 0 Mo
+[21:46:08] ===== étape 3/5 : 4 processus de chargement (quatre) =====
+sampling_audit={"patches": 8098, "strategy": "uniform"}
+Using dimensionality (3D) from ConfigManager
+Using 3D convolutions (nn.Conv3d)
+Using 3D normalization (nn.InstanceNorm3d)
+--- Full autoconfiguration from config ---
+Patch size adjusted from (64, 128, 128) to (64, 128, 128) to ensure divisibility by pooling factors [16 32 32]
+Task 'ink' configured with z-projection mode 'max'
+Task 'ink' configured with shared decoder + head (1 channels)
+NetworkFromConfig initialized with final configuration:
+  model_name: ink_det
+  basic_encoder_block: BasicBlockD
+  basic_decoder_block: ConvBlock
+  bottleneck_block: BasicBlockD
+  features_per_stage: [32, 64, 128, 256, 320, 320]
+  num_stages: 6
+  n_blocks_per_stage: [1, 3, 4, 6, 6, 6]
+  n_conv_per_stage_decoder: [1, 1, 1, 1, 1]
+  kernel_sizes: [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+  pool_op_kernel_sizes: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  conv_op: Conv3d
+  conv_bias: True
+  norm_op: InstanceNorm3d
+  norm_op_kwargs: {'affine': True, 'eps': 1e-05}
+  dropout_op: None
+  dropout_op_kwargs: None
+  nonlin: LeakyReLU
+  nonlin_kwargs: {'inplace': True, 'negative_slope': 0.01}
+  strides: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  return_skips: True
+  do_stem: True
+  stem_channels: 32
+  bottleneck_channels: None
+  stochastic_depth_p: 0.0
+  squeeze_excitation: False
+  squeeze_excitation_reduction_ratio: 0.0625
+  squeeze_excitation_type: channel
+  squeeze_excitation_add_maxpool: False
+  pool_type: conv
+  upsample_mode: transpconv
+  op_dims: 3
+  patch_size: (64, 128, 128)
+  batch_size: 2
+  in_channels: 1
+  autoconfigure: True
+  targets: {'ink': {'out_channels': 1, 'activation': 'none', 'z_projection_mode': 'max'}}
+  target_z_projection: {'ink': {'mode': 'max'}}
+  separate_decoders: False
+  num_pool_per_axis: [4, 5, 5]
+  must_be_divisible_by: [16 32 32]
+  guide_backbone: None
+  guide_backbone_config_path: None
+  guide_freeze: True
+  guide_patch_grid: None
+  guide_stage_keys: None
+  guide_skip_concat_projector_channels: None
+  guide_feature_gate_alpha: None
+  guide_tokenbook_tokens: None
+  guide_tokenbook_prototype_weighting: mean
+  guide_tokenbook_weight_mlp_hidden: None
+  guide_compile_policy: off
+  guide_fusion_stage: None
+  0%|          | 0/350 [00:00<?, ?it/s]AMP gradient overflow at step 0: task_heads.ink.weight
+/home/kanemonium/vesuvius/villa/vesuvius/src/vesuvius/ink_detection/training/train.py:882: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+  0%|          | 0/350 [00:10<?, ?it/s, loss=2.0589, lr=1.00e-05]
+  1%|          | 3/350 [00:10<01:18,  4.40it/s, loss=1.2851, lr=3.00e-05]
+  2%|▏         | 6/350 [00:11<01:21,  4.24it/s, loss=-0.1724, lr=5.00e-05]
+  3%|▎         | 9/350 [00:12<02:05,  2.71it/s, loss=0.8804, lr=9.00e-05] 
+  4%|▎         | 13/350 [00:14<01:56,  2.89it/s, loss=0.6229, lr=1.30e-04]
+  5%|▍         | 16/350 [00:15<01:53,  2.95it/s, loss=1.0386, lr=1.60e-04] 
+  6%|▌         | 20/350 [00:16<01:51,  2.96it/s, loss=0.9717, lr=2.00e-04] 
+  7%|▋         | 23/350 [00:17<01:51,  2.94it/s, loss=0.4931, lr=2.30e-04]
+  8%|▊         | 27/350 [00:18<01:50,  2.94it/s, loss=1.0499, lr=2.70e-04]
+  9%|▊         | 30/350 [00:20<01:54,  2.81it/s, loss=-0.0763, lr=3.00e-04]
+ 10%|▉         | 34/350 [00:21<01:48,  2.91it/s, loss=0.0196, lr=3.40e-04] 
+ 11%|█         | 37/350 [00:22<01:46,  2.95it/s, loss=0.1153, lr=3.70e-04]
+ 12%|█▏        | 41/350 [00:23<01:44,  2.96it/s, loss=0.3745, lr=4.10e-04]
+ 13%|█▎        | 44/350 [00:24<01:43,  2.95it/s, loss=0.4219, lr=4.40e-04]
+ 14%|█▎        | 48/350 [00:26<01:44,  2.90it/s, loss=0.5169, lr=4.80e-04]
+ 15%|█▍        | 51/350 [00:27<01:42,  2.91it/s, loss=1.0498, lr=5.10e-04]
+ 16%|█▌        | 55/350 [00:28<01:39,  2.96it/s, loss=0.7418, lr=5.50e-04]
+ 17%|█▋        | 58/350 [00:29<01:38,  2.95it/s, loss=0.0951, lr=5.80e-04]
+ 18%|█▊        | 62/350 [00:30<01:40,  2.88it/s, loss=0.7927, lr=6.20e-04]
+ 19%|█▊        | 65/350 [00:32<01:37,  2.91it/s, loss=0.7039, lr=6.50e-04]
+ 20%|█▉        | 69/350 [00:33<01:36,  2.91it/s, loss=0.2330, lr=6.90e-04]
+ 21%|██        | 72/350 [00:34<01:34,  2.95it/s, loss=0.6301, lr=7.20e-04]
+ 22%|██▏       | 76/350 [00:38<04:29,  1.02it/s, loss=0.4111, lr=7.60e-04]
+ 23%|██▎       | 79/350 [00:39<02:42,  1.67it/s, loss=0.6276, lr=7.90e-04]
+ 24%|██▎       | 83/350 [00:41<01:58,  2.25it/s, loss=0.5449, lr=8.30e-04]
+ 25%|██▍       | 86/350 [00:42<01:49,  2.42it/s, loss=0.4950, lr=8.60e-04]
+ 26%|██▌       | 90/350 [00:44<01:46,  2.45it/s, loss=0.5708, lr=9.00e-04]
+ 27%|██▋       | 93/350 [00:45<01:42,  2.50it/s, loss=0.5449, lr=9.30e-04]
+ 28%|██▊       | 97/350 [00:47<01:41,  2.49it/s, loss=0.6415, lr=9.70e-04]
+ 29%|██▊       | 100/350 [00:48<01:40,  2.49it/s, loss=0.4230, lr=1.00e-03]
+ 30%|██▉       | 104/350 [00:49<01:39,  2.48it/s, loss=0.5690, lr=1.04e-03]
+ 31%|███       | 107/350 [00:51<01:38,  2.46it/s, loss=0.4298, lr=1.07e-03]
+ 32%|███▏      | 111/350 [00:52<01:36,  2.47it/s, loss=0.6341, lr=1.11e-03]
+ 33%|███▎      | 114/350 [00:54<01:35,  2.47it/s, loss=0.5744, lr=1.14e-03]
+ 34%|███▎      | 118/350 [00:55<01:34,  2.46it/s, loss=0.5133, lr=1.18e-03]
+ 35%|███▍      | 121/350 [00:56<01:36,  2.38it/s, loss=0.8506, lr=1.21e-03]
+ 36%|███▌      | 125/350 [00:58<01:32,  2.42it/s, loss=0.2938, lr=1.25e-03]
+ 37%|███▋      | 128/350 [00:59<01:26,  2.55it/s, loss=0.3883, lr=1.28e-03]
+ 38%|███▊      | 132/350 [01:01<01:23,  2.61it/s, loss=0.2054, lr=1.32e-03]
+ 39%|███▊      | 135/350 [01:02<01:21,  2.63it/s, loss=0.7582, lr=1.35e-03]
+ 40%|███▉      | 139/350 [01:03<01:20,  2.62it/s, loss=0.4430, lr=1.39e-03]
+ 41%|████      | 142/350 [01:05<01:19,  2.61it/s, loss=0.5612, lr=1.42e-03]
+ 42%|████▏     | 146/350 [01:06<01:17,  2.64it/s, loss=0.4013, lr=1.46e-03]
+ 43%|████▎     | 149/350 [01:07<01:18,  2.57it/s, loss=0.7241, lr=1.49e-03]
+ 44%|████▎     | 153/350 [01:09<01:15,  2.60it/s, loss=0.4969, lr=1.53e-03]
+ 45%|████▍     | 156/350 [01:13<04:13,  1.31s/it, loss=0.6022, lr=1.56e-03]
+ 46%|████▌     | 160/350 [01:15<02:01,  1.57it/s, loss=0.3823, lr=1.60e-03]
+ 47%|████▋     | 163/350 [01:16<01:33,  2.01it/s, loss=0.5868, lr=1.63e-03]
+ 48%|████▊     | 167/350 [01:18<01:22,  2.21it/s, loss=0.5948, lr=1.67e-03]
+ 49%|████▊     | 170/350 [01:19<01:18,  2.30it/s, loss=0.2549, lr=1.70e-03]
+ 50%|████▉     | 174/350 [01:21<01:18,  2.23it/s, loss=0.4846, lr=1.74e-03]
+ 51%|█████     | 177/350 [01:22<01:17,  2.23it/s, loss=0.4716, lr=1.77e-03]
+ 52%|█████▏    | 181/350 [01:24<01:14,  2.26it/s, loss=0.2845, lr=1.81e-03]
+ 53%|█████▎    | 184/350 [01:25<01:07,  2.45it/s, loss=0.6734, lr=1.84e-03]
+ 54%|█████▎    | 188/350 [01:27<01:04,  2.53it/s, loss=0.1408, lr=1.88e-03]
+ 55%|█████▍    | 191/350 [01:28<01:03,  2.51it/s, loss=0.4980, lr=1.91e-03]
+ 56%|█████▌    | 195/350 [01:30<01:00,  2.55it/s, loss=0.0850, lr=1.95e-03]
+ 57%|█████▋    | 198/350 [01:31<00:58,  2.61it/s, loss=0.5660, lr=1.98e-03]
+ 58%|█████▊    | 202/350 [01:32<00:57,  2.57it/s, loss=0.6648, lr=2.02e-03]
+ 59%|█████▊    | 205/350 [01:33<00:53,  2.73it/s, loss=0.0555, lr=2.05e-03]
+ 60%|█████▉    | 209/350 [01:35<00:48,  2.90it/s, loss=0.6566, lr=2.09e-03]
+ 61%|██████    | 212/350 [01:36<00:46,  2.95it/s, loss=0.9762, lr=2.12e-03]
+ 62%|██████▏   | 216/350 [01:37<00:48,  2.76it/s, loss=0.6426, lr=2.16e-03]
+ 63%|██████▎   | 219/350 [01:38<00:46,  2.84it/s, loss=0.5203, lr=2.19e-03]
+ 64%|██████▎   | 223/350 [01:39<00:42,  2.96it/s, loss=0.2519, lr=2.23e-03]
+ 65%|██████▍   | 226/350 [01:40<00:41,  2.97it/s, loss=0.3538, lr=2.26e-03]
+ 66%|██████▌   | 230/350 [01:42<00:40,  2.93it/s, loss=0.7207, lr=2.30e-03]
+ 67%|██████▋   | 233/350 [01:43<00:39,  2.97it/s, loss=0.3185, lr=2.33e-03]
+ 68%|██████▊   | 237/350 [01:44<00:38,  2.96it/s, loss=0.5613, lr=2.37e-03]
+ 69%|██████▊   | 240/350 [01:45<00:37,  2.95it/s, loss=0.7404, lr=2.40e-03]
+ 70%|██████▉   | 244/350 [01:50<01:07,  1.57it/s, loss=0.4015, lr=2.44e-03]
+ 71%|███████   | 247/350 [01:51<00:45,  2.27it/s, loss=0.4308, lr=2.47e-03]
+ 72%|███████▏  | 251/350 [01:52<00:35,  2.76it/s, loss=0.5791, lr=2.51e-03]
+ 73%|███████▎  | 254/350 [01:53<00:33,  2.87it/s, loss=0.7915, lr=2.54e-03]
+ 74%|███████▎  | 258/350 [01:54<00:31,  2.93it/s, loss=0.6034, lr=2.58e-03]
+ 75%|███████▍  | 261/350 [01:55<00:30,  2.96it/s, loss=0.5730, lr=2.61e-03]
+ 76%|███████▌  | 265/350 [01:57<00:28,  2.96it/s, loss=0.5941, lr=2.65e-03]
+ 77%|███████▋  | 268/350 [01:58<00:27,  2.94it/s, loss=0.6003, lr=2.68e-03]
+ 78%|███████▊  | 272/350 [01:59<00:26,  2.95it/s, loss=0.2329, lr=2.72e-03]
+ 79%|███████▊  | 275/350 [02:00<00:25,  2.97it/s, loss=0.6865, lr=2.75e-03]
+ 80%|███████▉  | 279/350 [02:01<00:24,  2.95it/s, loss=0.4573, lr=2.79e-03]
+ 81%|████████  | 282/350 [02:02<00:22,  2.97it/s, loss=0.1476, lr=2.82e-03]
+ 82%|████████▏ | 286/350 [02:04<00:21,  2.98it/s, loss=0.2959, lr=2.86e-03]
+ 83%|████████▎ | 289/350 [02:05<00:20,  2.97it/s, loss=0.4016, lr=2.89e-03]
+ 84%|████████▎ | 293/350 [02:06<00:19,  2.97it/s, loss=0.7187, lr=2.93e-03]
+ 85%|████████▍ | 296/350 [02:07<00:18,  2.93it/s, loss=0.0554, lr=2.96e-03]
+ 86%|████████▌ | 300/350 [02:08<00:17,  2.93it/s, loss=0.3782, lr=3.00e-03]
+ 87%|████████▋ | 303/350 [02:09<00:16,  2.92it/s, loss=0.5416, lr=3.03e-03]
+ 88%|████████▊ | 307/350 [02:11<00:14,  2.91it/s, loss=1.2536, lr=3.07e-03]
+ 89%|████████▊ | 310/350 [02:12<00:13,  2.93it/s, loss=1.0952, lr=3.10e-03]
+ 90%|████████▉ | 314/350 [02:13<00:12,  2.96it/s, loss=0.3164, lr=3.14e-03]
+ 91%|█████████ | 317/350 [02:14<00:11,  2.78it/s, loss=0.3995, lr=3.17e-03]
+ 92%|█████████▏| 321/350 [02:16<00:10,  2.82it/s, loss=0.7692, lr=3.21e-03]
+ 93%|█████████▎| 324/350 [02:17<00:09,  2.74it/s, loss=0.6321, lr=3.24e-03]
+ 94%|█████████▎| 328/350 [02:18<00:07,  2.88it/s, loss=0.5399, lr=3.28e-03]
+ 95%|█████████▍| 331/350 [02:19<00:06,  2.92it/s, loss=0.4272, lr=3.31e-03]
+ 96%|█████████▌| 335/350 [02:24<00:18,  1.22s/it, loss=0.6239, lr=3.35e-03]
+ 97%|█████████▋| 338/350 [02:25<00:07,  1.56it/s, loss=0.4442, lr=3.38e-03]
+ 98%|█████████▊| 342/350 [02:26<00:03,  2.42it/s, loss=0.6342, lr=3.42e-03]
+ 99%|█████████▊| 345/350 [02:27<00:01,  2.73it/s, loss=0.4971, lr=3.45e-03]
+100%|█████████▉| 349/350 [02:28<00:00,  2.63it/s, loss=0.6036, lr=3.49e-03]
+100%|██████████| 350/350 [02:29<00:00,  2.34it/s, loss=0.7079, lr=3.50e-03]
+benchmark_summary=runs/essai_chargement_quatre/benchmark_summary.json
+[21:48:44] quatre : code 0, 156 s en tout ; mémoire vive : 680 Mo utilisés, échange 0 Mo
+[21:48:44] ===== étape 4/5 : 1 processus de chargement (un-bis) =====
+sampling_audit={"patches": 8098, "strategy": "uniform"}
+Using dimensionality (3D) from ConfigManager
+Using 3D convolutions (nn.Conv3d)
+Using 3D normalization (nn.InstanceNorm3d)
+--- Full autoconfiguration from config ---
+Patch size adjusted from (64, 128, 128) to (64, 128, 128) to ensure divisibility by pooling factors [16 32 32]
+Task 'ink' configured with z-projection mode 'max'
+Task 'ink' configured with shared decoder + head (1 channels)
+NetworkFromConfig initialized with final configuration:
+  model_name: ink_det
+  basic_encoder_block: BasicBlockD
+  basic_decoder_block: ConvBlock
+  bottleneck_block: BasicBlockD
+  features_per_stage: [32, 64, 128, 256, 320, 320]
+  num_stages: 6
+  n_blocks_per_stage: [1, 3, 4, 6, 6, 6]
+  n_conv_per_stage_decoder: [1, 1, 1, 1, 1]
+  kernel_sizes: [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+  pool_op_kernel_sizes: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  conv_op: Conv3d
+  conv_bias: True
+  norm_op: InstanceNorm3d
+  norm_op_kwargs: {'affine': True, 'eps': 1e-05}
+  dropout_op: None
+  dropout_op_kwargs: None
+  nonlin: LeakyReLU
+  nonlin_kwargs: {'inplace': True, 'negative_slope': 0.01}
+  strides: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  return_skips: True
+  do_stem: True
+  stem_channels: 32
+  bottleneck_channels: None
+  stochastic_depth_p: 0.0
+  squeeze_excitation: False
+  squeeze_excitation_reduction_ratio: 0.0625
+  squeeze_excitation_type: channel
+  squeeze_excitation_add_maxpool: False
+  pool_type: conv
+  upsample_mode: transpconv
+  op_dims: 3
+  patch_size: (64, 128, 128)
+  batch_size: 2
+  in_channels: 1
+  autoconfigure: True
+  targets: {'ink': {'out_channels': 1, 'activation': 'none', 'z_projection_mode': 'max'}}
+  target_z_projection: {'ink': {'mode': 'max'}}
+  separate_decoders: False
+  num_pool_per_axis: [4, 5, 5]
+  must_be_divisible_by: [16 32 32]
+  guide_backbone: None
+  guide_backbone_config_path: None
+  guide_freeze: True
+  guide_patch_grid: None
+  guide_stage_keys: None
+  guide_skip_concat_projector_channels: None
+  guide_feature_gate_alpha: None
+  guide_tokenbook_tokens: None
+  guide_tokenbook_prototype_weighting: mean
+  guide_tokenbook_weight_mlp_hidden: None
+  guide_compile_policy: off
+  guide_fusion_stage: None
+  0%|          | 0/350 [00:00<?, ?it/s]AMP gradient overflow at step 0: task_heads.ink.weight
+/home/kanemonium/vesuvius/villa/vesuvius/src/vesuvius/ink_detection/training/train.py:882: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+  0%|          | 0/350 [00:02<?, ?it/s, loss=2.0589, lr=1.00e-05]
+  1%|          | 3/350 [00:03<01:25,  4.07it/s, loss=1.2850, lr=3.00e-05]
+  2%|▏         | 6/350 [00:04<01:28,  3.89it/s, loss=-0.1775, lr=5.00e-05]
+  3%|▎         | 9/350 [00:05<02:20,  2.43it/s, loss=0.8686, lr=9.00e-05] 
+  4%|▎         | 13/350 [00:07<02:10,  2.58it/s, loss=0.6041, lr=1.30e-04]
+  5%|▍         | 16/350 [00:08<02:07,  2.61it/s, loss=1.0180, lr=1.60e-04] 
+  6%|▌         | 20/350 [00:09<02:07,  2.59it/s, loss=0.9286, lr=2.00e-04] 
+  7%|▋         | 23/350 [00:11<02:06,  2.59it/s, loss=0.5515, lr=2.30e-04]
+  8%|▊         | 27/350 [00:12<02:05,  2.58it/s, loss=1.0922, lr=2.70e-04]
+  9%|▊         | 30/350 [00:13<02:03,  2.59it/s, loss=-0.0721, lr=3.00e-04]
+ 10%|▉         | 34/350 [00:15<02:03,  2.55it/s, loss=0.0263, lr=3.40e-04] 
+ 11%|█         | 37/350 [00:16<02:00,  2.60it/s, loss=0.1267, lr=3.70e-04]
+ 12%|█▏        | 41/350 [00:21<06:28,  1.26s/it, loss=0.3945, lr=4.10e-04]
+ 13%|█▎        | 44/350 [00:22<03:27,  1.47it/s, loss=0.4072, lr=4.40e-04]
+ 14%|█▎        | 48/350 [00:23<02:16,  2.21it/s, loss=0.7319, lr=4.80e-04]
+ 15%|█▍        | 51/350 [00:24<02:00,  2.49it/s, loss=1.0289, lr=5.10e-04]
+ 16%|█▌        | 55/350 [00:26<01:54,  2.57it/s, loss=0.7931, lr=5.50e-04]
+ 17%|█▋        | 58/350 [00:27<01:51,  2.62it/s, loss=0.0812, lr=5.80e-04]
+ 18%|█▊        | 62/350 [00:28<01:48,  2.65it/s, loss=0.8715, lr=6.20e-04]
+ 19%|█▊        | 65/350 [00:30<01:47,  2.64it/s, loss=0.7723, lr=6.50e-04]
+ 20%|█▉        | 69/350 [00:31<01:46,  2.65it/s, loss=0.2940, lr=6.90e-04]
+ 21%|██        | 72/350 [00:32<01:45,  2.63it/s, loss=0.5679, lr=7.20e-04]
+ 22%|██▏       | 76/350 [00:34<01:43,  2.64it/s, loss=0.4279, lr=7.60e-04]
+ 23%|██▎       | 79/350 [00:35<01:42,  2.64it/s, loss=0.6056, lr=7.90e-04]
+ 24%|██▎       | 83/350 [00:36<01:41,  2.64it/s, loss=0.5404, lr=8.30e-04]
+ 25%|██▍       | 86/350 [00:38<01:39,  2.64it/s, loss=0.5049, lr=8.60e-04]
+ 26%|██▌       | 90/350 [00:39<01:39,  2.62it/s, loss=0.6470, lr=9.00e-04]
+ 27%|██▋       | 93/350 [00:40<01:37,  2.63it/s, loss=0.5228, lr=9.30e-04]
+ 28%|██▊       | 97/350 [00:42<01:35,  2.64it/s, loss=0.6410, lr=9.70e-04]
+ 29%|██▊       | 100/350 [00:43<01:34,  2.64it/s, loss=0.4209, lr=1.00e-03]
+ 30%|██▉       | 104/350 [00:44<01:33,  2.62it/s, loss=0.5658, lr=1.04e-03]
+ 31%|███       | 107/350 [00:46<01:33,  2.59it/s, loss=0.4086, lr=1.07e-03]
+ 32%|███▏      | 111/350 [00:47<01:32,  2.58it/s, loss=0.6120, lr=1.11e-03]
+ 33%|███▎      | 114/350 [00:48<01:30,  2.61it/s, loss=0.6155, lr=1.14e-03]
+ 34%|███▎      | 118/350 [00:50<01:37,  2.38it/s, loss=0.5246, lr=1.18e-03]
+ 35%|███▍      | 121/350 [00:51<01:30,  2.53it/s, loss=0.8150, lr=1.21e-03]
+ 36%|███▌      | 125/350 [00:53<01:25,  2.62it/s, loss=0.2853, lr=1.25e-03]
+ 37%|███▋      | 128/350 [00:57<03:00,  1.23it/s, loss=0.3727, lr=1.28e-03]
+ 38%|███▊      | 132/350 [00:58<01:45,  2.07it/s, loss=0.1983, lr=1.32e-03]
+ 39%|███▊      | 135/350 [00:59<01:28,  2.42it/s, loss=0.7972, lr=1.35e-03]
+ 40%|███▉      | 139/350 [01:01<01:26,  2.43it/s, loss=0.4270, lr=1.39e-03]
+ 41%|████      | 142/350 [01:02<01:21,  2.55it/s, loss=0.5930, lr=1.42e-03]
+ 42%|████▏     | 146/350 [01:04<01:18,  2.61it/s, loss=0.4204, lr=1.46e-03]
+ 43%|████▎     | 149/350 [01:05<01:17,  2.60it/s, loss=0.6879, lr=1.49e-03]
+ 44%|████▎     | 153/350 [01:06<01:15,  2.61it/s, loss=0.5169, lr=1.53e-03]
+ 45%|████▍     | 156/350 [01:07<01:14,  2.61it/s, loss=0.5835, lr=1.56e-03]
+ 46%|████▌     | 160/350 [01:09<01:12,  2.61it/s, loss=0.3872, lr=1.60e-03]
+ 47%|████▋     | 163/350 [01:10<01:11,  2.61it/s, loss=0.5862, lr=1.63e-03]
+ 48%|████▊     | 167/350 [01:12<01:09,  2.63it/s, loss=0.6113, lr=1.67e-03]
+ 49%|████▊     | 170/350 [01:13<01:08,  2.62it/s, loss=0.3103, lr=1.70e-03]
+ 50%|████▉     | 174/350 [01:14<01:08,  2.58it/s, loss=0.4983, lr=1.74e-03]
+ 51%|█████     | 177/350 [01:16<01:06,  2.59it/s, loss=0.5091, lr=1.77e-03]
+ 52%|█████▏    | 181/350 [01:17<01:05,  2.59it/s, loss=0.3130, lr=1.81e-03]
+ 53%|█████▎    | 184/350 [01:18<01:04,  2.58it/s, loss=0.6631, lr=1.84e-03]
+ 54%|█████▎    | 188/350 [01:20<01:02,  2.60it/s, loss=0.1618, lr=1.88e-03]
+ 55%|█████▍    | 191/350 [01:21<01:01,  2.58it/s, loss=0.4867, lr=1.91e-03]
+ 56%|█████▌    | 195/350 [01:22<00:59,  2.59it/s, loss=0.0993, lr=1.95e-03]
+ 57%|█████▋    | 198/350 [01:24<00:59,  2.56it/s, loss=0.5824, lr=1.98e-03]
+ 58%|█████▊    | 202/350 [01:25<00:53,  2.77it/s, loss=0.6806, lr=2.02e-03]
+ 59%|█████▊    | 205/350 [01:26<00:50,  2.87it/s, loss=0.0392, lr=2.05e-03]
+ 60%|█████▉    | 209/350 [01:27<00:48,  2.92it/s, loss=0.7206, lr=2.09e-03]
+ 61%|██████    | 212/350 [01:31<02:11,  1.05it/s, loss=0.9228, lr=2.12e-03]
+ 62%|██████▏   | 216/350 [01:33<01:05,  2.04it/s, loss=0.6140, lr=2.16e-03]
+ 63%|██████▎   | 219/350 [01:34<00:51,  2.54it/s, loss=0.5399, lr=2.19e-03]
+ 64%|██████▎   | 223/350 [01:35<00:45,  2.82it/s, loss=0.2390, lr=2.23e-03]
+ 65%|██████▍   | 226/350 [01:36<00:43,  2.87it/s, loss=0.3417, lr=2.26e-03]
+ 66%|██████▌   | 230/350 [01:38<00:41,  2.92it/s, loss=0.7472, lr=2.30e-03]
+ 67%|██████▋   | 233/350 [01:39<00:40,  2.92it/s, loss=0.3111, lr=2.33e-03]
+ 68%|██████▊   | 237/350 [01:40<00:38,  2.93it/s, loss=0.6002, lr=2.37e-03]
+ 69%|██████▊   | 240/350 [01:41<00:37,  2.93it/s, loss=0.7182, lr=2.40e-03]
+ 70%|██████▉   | 244/350 [01:42<00:36,  2.94it/s, loss=0.3658, lr=2.44e-03]
+ 71%|███████   | 247/350 [01:43<00:35,  2.92it/s, loss=0.4321, lr=2.47e-03]
+ 72%|███████▏  | 251/350 [01:45<00:33,  2.92it/s, loss=0.5389, lr=2.51e-03]
+ 73%|███████▎  | 254/350 [01:46<00:32,  2.91it/s, loss=0.7852, lr=2.54e-03]
+ 74%|███████▎  | 258/350 [01:47<00:31,  2.93it/s, loss=0.6173, lr=2.58e-03]
+ 75%|███████▍  | 261/350 [01:48<00:30,  2.92it/s, loss=0.5866, lr=2.61e-03]
+ 76%|███████▌  | 265/350 [01:50<00:29,  2.92it/s, loss=0.6026, lr=2.65e-03]
+ 77%|███████▋  | 268/350 [01:51<00:27,  2.94it/s, loss=0.6029, lr=2.68e-03]
+ 78%|███████▊  | 272/350 [01:52<00:27,  2.84it/s, loss=0.2295, lr=2.72e-03]
+ 79%|███████▊  | 275/350 [01:53<00:26,  2.86it/s, loss=0.6641, lr=2.75e-03]
+ 80%|███████▉  | 279/350 [01:54<00:24,  2.88it/s, loss=0.4337, lr=2.79e-03]
+ 81%|████████  | 282/350 [01:55<00:24,  2.82it/s, loss=0.1700, lr=2.82e-03]
+ 82%|████████▏ | 286/350 [01:57<00:22,  2.90it/s, loss=0.2986, lr=2.86e-03]
+ 83%|████████▎ | 289/350 [01:58<00:20,  2.92it/s, loss=0.3833, lr=2.89e-03]
+ 84%|████████▎ | 293/350 [01:59<00:19,  2.91it/s, loss=0.7006, lr=2.93e-03]
+ 85%|████████▍ | 296/350 [02:00<00:18,  2.89it/s, loss=0.0955, lr=2.96e-03]
+ 86%|████████▌ | 300/350 [02:02<00:17,  2.87it/s, loss=0.3579, lr=3.00e-03]
+ 87%|████████▋ | 303/350 [02:03<00:16,  2.90it/s, loss=0.5274, lr=3.03e-03]
+ 88%|████████▊ | 307/350 [02:07<00:33,  1.29it/s, loss=1.2780, lr=3.07e-03]
+ 89%|████████▊ | 310/350 [02:08<00:19,  2.03it/s, loss=1.0267, lr=3.10e-03]
+ 90%|████████▉ | 314/350 [02:09<00:13,  2.64it/s, loss=0.3324, lr=3.14e-03]
+ 91%|█████████ | 317/350 [02:10<00:11,  2.81it/s, loss=0.3905, lr=3.17e-03]
+ 92%|█████████▏| 321/350 [02:12<00:10,  2.89it/s, loss=0.7677, lr=3.21e-03]
+ 93%|█████████▎| 324/350 [02:13<00:08,  2.91it/s, loss=0.5873, lr=3.24e-03]
+ 94%|█████████▎| 328/350 [02:14<00:07,  2.90it/s, loss=0.5334, lr=3.28e-03]
+ 95%|█████████▍| 331/350 [02:15<00:06,  2.91it/s, loss=0.4602, lr=3.31e-03]
+ 96%|█████████▌| 335/350 [02:17<00:05,  2.92it/s, loss=0.6148, lr=3.35e-03]
+ 97%|█████████▋| 338/350 [02:18<00:04,  2.90it/s, loss=0.4263, lr=3.38e-03]
+ 98%|█████████▊| 342/350 [02:19<00:02,  2.89it/s, loss=0.6406, lr=3.42e-03]
+ 99%|█████████▊| 345/350 [02:20<00:01,  2.91it/s, loss=0.4851, lr=3.45e-03]
+100%|█████████▉| 349/350 [02:21<00:00,  2.93it/s, loss=0.6091, lr=3.49e-03]
+100%|██████████| 350/350 [02:22<00:00,  2.46it/s, loss=0.7280, lr=3.50e-03]
+benchmark_summary=runs/essai_chargement_un-bis/benchmark_summary.json
+[21:51:14] un-bis : code 0, 150 s en tout ; mémoire vive : 678 Mo utilisés, échange 0 Mo
+[21:51:14] ===== étape 5/5 : le tableau =====
+un (1 processus) : 300 itérations mesurées ; 0.373 s par itération, dont 0.001 s à attendre les données (0 %) ; pic alloué 3621 Mo, réservé 4244 Mo
+deux (2 processus) : 300 itérations mesurées ; 0.342 s par itération, dont 0.001 s à attendre les données (0 %) ; pic alloué 3621 Mo, réservé 4244 Mo
+quatre (4 processus) : 300 itérations mesurées ; 0.369 s par itération, dont 0.001 s à attendre les données (0 %) ; pic alloué 3621 Mo, réservé 4244 Mo
+un-bis (1 processus) : 300 itérations mesurées ; 0.364 s par itération, dont 0.001 s à attendre les données (0 %) ; pic alloué 3621 Mo, réservé 4244 Mo
+[21:51:14] ===== fin de l'essai =====

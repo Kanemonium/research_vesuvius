@@ -1,10 +1,10 @@
 # Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
-# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-16).
+# Format : pilotage/README.md. Page écrite avant le lancement, complétée après (2026-11-16).
 executions:
   - id: X-007
     titre: "Entraînement : plus de processus de chargement, est-ce plus rapide ?"
     date: 2026-11-16
-    statut: prevue
+    statut: terminee
     piste: P-420
     taches: [T-015]
     resume: >-
@@ -29,7 +29,9 @@ executions:
         detail: >-
           Si l'attente des données est déjà proche de zéro avec un processus, en ajouter ne peut
           rien apporter, et le temps part dans le calcul. Sinon, la variante la plus rapide qui
-          tient dans nos 6,8 Go de mémoire vive devient le réglage.
+          tient dans nos 6,8 Go de mémoire vive devient le réglage. Réponse mesurée : l'attente
+          est d'un millième de seconde par itération dans les quatre passes. Le temps part dans
+          le calcul ; nous restons à un processus.
         fiches: [K-10]
 
     code:
@@ -82,7 +84,44 @@ executions:
               Quatre processus chargent chacun leurs données : la mémoire vive peut manquer. La
               limite et le code de sortie disent si une variante n'a pas tenu.
 
+    sorties:
+      - genre: mesures
+        titre: "Les quatre passes, dans l'ordre où elles ont tourné"
+        large: true
+        lignes:
+          - ["1 processus", "0,373 s par itération", "dont 0,001 s à attendre les données ; 153 s en tout"]
+          - ["2 processus", "0,342 s par itération", "dont 0,001 s à attendre les données ; 144 s en tout"]
+          - ["4 processus", "0,369 s par itération", "dont 0,001 s à attendre les données ; 156 s en tout"]
+          - ["1 processus, seconde passe", "0,364 s par itération", "dont 0,001 s à attendre les données ; 150 s en tout"]
+        note: >-
+          300 itérations mesurées par passe, après 50 d'échauffement. Les deux passes à un
+          processus diffèrent de 2,5 %. Deux processus sortent 6 à 8 % plus vite, sur une seule
+          passe : trop peu pour conclure, et l'attente des données, déjà nulle, ne peut pas
+          l'expliquer.
+      - genre: mesures
+        titre: "Mémoire"
+        lignes:
+          - ["Mémoire vidéo allouée par l'entraînement, pic", "3 621 Mo", "le même dans les quatre passes ; 4 244 Mo réservés"]
+          - ["Mémoire vidéo de la carte, pic relevé par le lanceur", "6 049 Mo", "sur 8 192, avec ce que Windows occupe"]
+          - ["Mémoire vive après chaque passe", "678 à 688 Mo utilisés", "aucune mémoire d'appoint utilisée ; quatre processus ont tenu"]
+      - genre: journal
+        titre: "Le tableau de fin"
+        large: true
+        texte: |
+          un (1 processus) : 300 itérations mesurées ; 0.373 s par itération, dont 0.001 s à attendre les données (0 %) ; pic alloué 3621 Mo, réservé 4244 Mo
+          deux (2 processus) : 300 itérations mesurées ; 0.342 s par itération, dont 0.001 s à attendre les données (0 %) ; pic alloué 3621 Mo, réservé 4244 Mo
+          quatre (4 processus) : 300 itérations mesurées ; 0.369 s par itération, dont 0.001 s à attendre les données (0 %) ; pic alloué 3621 Mo, réservé 4244 Mo
+          un-bis (1 processus) : 300 itérations mesurées ; 0.364 s par itération, dont 0.001 s à attendre les données (0 %) ; pic alloué 3621 Mo, réservé 4244 Mo
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius/villa/vesuvius/runs, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "essai_chargement_<variante>/benchmark_summary.json"
+            taille: "4 fichiers"
+            role: "Le résumé écrit par la mesure intégrée de villa. Aucun point de sauvegarde n'est gardé."
+
     limites: |
+      - La mémoire vive n'a été relevée qu'après chaque passe, pas pendant : son pic avec quatre processus n'est pas connu.
       - 300 itérations mesurées par variante, une seule passe sauf pour un processus.
       - Rien sur la qualité du modèle, ni sur un entraînement de deux heures : la mémoire vive peut grossir avec le temps.
       - Le pic de mémoire vidéo relevé par villa ne compte que ce que l'entraînement alloue, pas ce que Windows occupe.

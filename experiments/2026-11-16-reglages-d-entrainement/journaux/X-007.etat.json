@@ -1,0 +1,11 @@
+{
+  "id": "X-007",
+  "debut": "2026-11-16T21:41:11+01:00",
+  "fin": "2026-11-16T21:51:14+01:00",
+  "code": 0,
+  "pid": null,
+  "pause": null,
+  "reprises": 0,
+  "pic_vram_mo": 6049,
+  "commande": "bash <windows>/Documents/Développement/research_vesuvius/experiments/2026-11-16-reglages-d-entrainement/etapes.sh"
+}

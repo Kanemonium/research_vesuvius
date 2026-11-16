@@ -1,7 +1,7 @@
 ---
 id: T-015
 titre: "Mesurer les réglages gratuits relevés par la veille"
-statut: en-cours
+statut: faite
 piste: P-420
 priorite: 1
 responsable: "Agent C."
@@ -31,9 +31,9 @@ etapes:
     detail: "Grande zone : 254,5 à 256,1 s pour les quatre. Le réglage compilé calcule plus vite une fois lancé (25,6 blocs par seconde contre 17,7 à 18,5) mais démarre en 85 s contre 8 à 19 s. Décision : garder notre réglage pour les longues prédictions, `--no-compile` pour les petits essais."
   - date: 2026-11-16
     genre: etape
-    statut: en-cours
+    statut: faite
     titre: "Entraînement : processus de chargement et mesure intégrée (X-007)"
-    detail: "`dataloader_workers` à 1, 2, 4 puis de nouveau 1, avec `benchmark` activé, sur 350 itérations."
+    detail: "`dataloader_workers` à 1, 2, 4 puis de nouveau 1, avec `benchmark` activé, sur 350 itérations. 0,342 à 0,373 s par itération, dont 0,001 s à attendre les données dans les quatre passes : le temps part dans le calcul. Nous restons à un processus."
 ---
 
 Fait quand nous savons, chiffres mesurés sur notre machine, quels réglages garder pour la prédiction et pour l'entraînement, sans changer le résultat. Premier point de l'ordre d'essai de `docs/veille-optimisations.md`, accepté par Kanemonium le 2026-11-16.
