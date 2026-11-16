@@ -8,6 +8,7 @@ import { lireDiscord } from './lib/discord.mjs';
 import { etatGithub } from './lib/github.mjs';
 import { changerStatutTache, chargerEtat, deposerMessage, empreinte, lireBoite } from './lib/pilotage.mjs';
 import { repondre } from './lib/reponses.mjs';
+import { lireStockage } from './lib/stockage.mjs';
 import { lireJournal, signalerExecution, suiviExecution } from './lib/suivi.mjs';
 
 const ICI = path.dirname(fileURLToPath(import.meta.url));
@@ -92,6 +93,9 @@ async function api(req, res, url) {
   // Le tiroir Discord : un fichier local, jamais un appel à Discord (ihm/lib/discord.mjs).
   if (req.method === 'GET' && url.pathname === '/api/discord') {
     return json(res, 200, await lireDiscord(RACINE));
+  }
+  if (req.method === 'GET' && url.pathname === '/api/stockage') {
+    return json(res, 200, await lireStockage(RACINE));
   }
   if (req.method === 'GET' && url.pathname === '/api/github') {
     return json(res, 200, await etatGithub(RACINE));

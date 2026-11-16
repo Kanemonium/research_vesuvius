@@ -19,6 +19,8 @@ Un bouton à droite du titre d'une exécution ouvre son « carnet » : une copie
 - **Agent C.** (2026-11-15) : limite. Le programme de [ScrollPrize/villa](https://github.com/ScrollPrize/villa) n'écrit presque rien pendant une bande : « en direct » veut dire bande par bande. Une cellule très longue ne montre que son début et sa fin.
 - **Kanemonium** (2026-11-15) : derrière chaque domaine de la carte, un graphe vertical des avancées, pour « agréger ma vision avec le sujet tout entier » : celles du défi pour le scan, le dépliage et l'encre, les nôtres pour le pilotage et les outils. Chaque nœud cliquable, avec le détail fonctionnel et technique et le prix associé.
 - **Agent C.** (2026-11-15) : 61 avancées. Les 43 du défi viennent des pages de scrollprize.org gardées dans [ScrollPrize/villa](https://github.com/ScrollPrize/villa) ; 219 citations revérifiées mot pour mot avant écriture. Sept fiches nouvelles, K-18 à K-24. Limites : les prix mensuels n'ont pas tous été lus, et plusieurs dates sont absentes des sources.
+- **Kanemonium** (2026-11-16) : un suivi du stockage (pris, restant, part occupée) à la place de la date dans la barre du haut, et deux pictos, carbone et papyrus, à la place des noms de thème, pour gagner de la place.
+- **Agent C.** (2026-11-16) : fait. Mesuré à la mise en service : 431 Go pris, 43 Go restants, 91 % du disque C: occupés. Le disque virtuel de WSL, qui porte le jeu de données et l'image de X-003, y pèse 122 Go.
 
 ## Suite
 

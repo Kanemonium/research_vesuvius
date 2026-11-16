@@ -1,7 +1,8 @@
 // Point d'entrée : état, navigation par ancre (#/vue?id=…), thème.
 import { installerDiscord } from './discord.js';
 import { embleme } from './emblemes.js';
-import { cacherBulle, dateLongue, h, joursAvant } from './outils.js';
+import { cacherBulle, h, joursAvant, s } from './outils.js';
+import { installerStockage } from './stockage.js';
 import { vueCap } from './vues/cap.js';
 import { vueCarte } from './vues/carte.js';
 import { vueDoc } from './vues/doc.js';
@@ -72,12 +73,30 @@ function rendre() {
 }
 
 function horloge() {
-  document.getElementById('horloge').textContent = `${dateLongue(new Date())} · J-${joursAvant(GRAND_PRIX)}`;
+  // La date a laissé sa place au suivi du stockage ; il reste le compte à rebours du grand prix.
+  document.getElementById('horloge').textContent = `J-${joursAvant(GRAND_PRIX)}`;
 }
 
 const bouton = document.getElementById('theme');
+const trait = { fill: 'none', stroke: 'currentColor', 'stroke-width': 1.3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+// Deux pictos pour les deux thèmes : un cycle de carbone, une feuille de papyrus aux fibres croisées.
+const PICTOS = {
+  carbone: () => [
+    s('path', { ...trait, d: 'M12 3.2 19.6 7.6v8.8L12 20.8 4.4 16.4V7.6Z' }),
+    s('path', { ...trait, d: 'M12 6.6 16.7 9.3M16.7 14.7 12 17.4M7.3 14.7V9.3' }),
+  ],
+  papier: () => [
+    s('path', { ...trait, d: 'M5.5 3.5h13v17h-13Z' }),
+    s('path', { ...trait, 'stroke-dasharray': '2 3', d: 'M9.8 3.5v17M14.2 3.5v17' }),
+    s('path', { ...trait, d: 'M5.5 8h13M5.5 12h13M5.5 16h13' }),
+  ],
+};
 function libelleTheme() {
-  bouton.textContent = document.documentElement.dataset.theme === 'carbone' ? 'Papier' : 'Carbone';
+  const cible = document.documentElement.dataset.theme === 'carbone' ? 'papier' : 'carbone';
+  const nom = cible === 'papier' ? 'Papier' : 'Carbone';
+  bouton.replaceChildren(s('svg', { viewBox: '0 0 24 24', width: 22, height: 22, 'aria-hidden': 'true' }, ...PICTOS[cible]()));
+  bouton.setAttribute('aria-label', `Passer au thème ${nom}`);
+  bouton.title = `Thème ${nom}`;
 }
 bouton.addEventListener('click', () => {
   const suivant = document.documentElement.dataset.theme === 'carbone' ? '' : 'carbone';
@@ -115,6 +134,7 @@ setInterval(async () => {
 libelleTheme();
 horloge();
 installerDiscord();
+installerStockage();
 app.recharger().catch((e) => {
   document.getElementById('vue').replaceChildren(h('div', { classe: 'bandeau', role: 'alert' }, `Impossible de lire le carnet : ${e.message}`));
 });

@@ -48,6 +48,17 @@ code { font-family: var(--f-mono); font-size: 0.88em; background: var(--papier-c
 .nav a .embleme { transition: transform var(--trans); }
 .nav a:hover .embleme { transform: rotate(-8deg) scale(1.08); }
 .entete-fin { display: flex; align-items: center; gap: var(--e-4); }
+/* Suivi du stockage : pris, restant, jauge, part occupée. */
+.stk { display: inline-flex; align-items: center; gap: 8px; font: 500 var(--t-meta)/1.3 var(--f-mono); letter-spacing: 0.04em; color: var(--encre-60); white-space: nowrap; }
+.stk:empty { display: none; }
+.stk b { font-weight: 600; color: var(--encre); }
+.stk-jauge { width: 54px; height: 6px; border-radius: 3px; background: var(--filet); overflow: hidden; }
+.stk-jauge span { display: block; height: 100%; border-radius: 3px; background: var(--valide); }
+.stk[data-niveau="tendu"] .stk-jauge span { background: var(--cristal); }
+.stk[data-niveau="alerte"] .stk-jauge span { background: var(--alerte); }
+.stk-ratio { font-weight: 600; color: var(--encre); }
+.bouton-theme { display: inline-grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 1px solid var(--filet); border-radius: 50%; background: none; color: var(--encre); cursor: pointer; }
+.bouton-theme:hover { border-color: var(--encre); background: var(--papier-creux); }
 .page { max-width: 1360px; margin: 0 auto; padding: var(--e-6) var(--e-6) var(--e-8); }
 .vue-tete { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--e-5); margin-bottom: var(--e-6); }
 .vue-tete p { max-width: 46ch; }
@@ -515,7 +526,7 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 @media (max-width: 900px) {
   .entete { flex-wrap: wrap; row-gap: var(--e-2); }
   .entete-fin { margin-left: auto; }
-  #horloge { display: none; }
+  #horloge, .stk-chiffres { display: none; }
   .nav { order: 3; width: 100%; margin: 0; flex-wrap: nowrap; overflow-x: auto; }
   .nav a { flex: none; }
 }
