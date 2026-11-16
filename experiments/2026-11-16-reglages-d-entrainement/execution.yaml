@@ -1,0 +1,107 @@
+# Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-16).
+executions:
+  - id: X-007
+    titre: "Entraînement : plus de processus de chargement, est-ce plus rapide ?"
+    date: 2026-11-16
+    statut: prevue
+    piste: P-420
+    taches: [T-015]
+    resume: >-
+      Second volet du premier point de l'ordre d'essai. Le même court entraînement, 350
+      itérations, avec 1, 2 puis 4 processus de chargement des données, et la mesure intégrée de
+      villa pour savoir quelle part de chaque itération se passe à attendre les données.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Un temps par itération, et la part d'attente des données"
+        detail: >-
+          Pour chaque variante : la durée d'une itération, mesurée sur 300 itérations après 50
+          d'échauffement, et ce que le programme a passé à attendre ses blocs. Aucun modèle utile
+          n'en sort : 350 itérations sur 20 000.
+      - question: "La représentativité"
+        valeur: "Le réglage de X-002, sur moins de 2 % de sa durée"
+        detail: >-
+          Mêmes blocs de 128, même lot de 2, même segment. X-002 a tenu 20 000 itérations en
+          1 h 53, soit 0,34 s par itération avec un seul processus.
+      - question: "Ce que cela doit décider"
+        valeur: "Le nombre de processus du prochain entraînement"
+        detail: >-
+          Si l'attente des données est déjà proche de zéro avec un processus, en ajouter ne peut
+          rien apporter, et le temps part dans le calcul. Sinon, la variante la plus rapide qui
+          tient dans nos 6,8 Go de mémoire vive devient le réglage.
+        fiches: [K-10]
+
+    code:
+      - titre: "Le réglage, identique à X-002 sauf trois lignes"
+        fichier: experiments/2026-11-16-reglages-d-entrainement/essai-chargement.json
+        langage: json
+        extrait: [15, 20]
+        notes:
+          - lignes: 16
+            genre: mesure
+            titre: "350 itérations"
+            texte: "Assez pour une moyenne, pas pour apprendre quoi que ce soit."
+          - lignes: 19
+            genre: optimisation
+            titre: "Le levier essayé"
+            texte: >-
+              Le nombre de processus qui préparent les blocs pendant que la carte graphique
+              calcule. Le script le remplace par 1, 2 ou 4.
+            fiches: [K-10]
+          - lignes: 20
+            genre: mesure
+            titre: "La mesure intégrée de villa"
+            texte: >-
+              Activée, elle laisse passer 50 itérations d'échauffement puis chronomètre les
+              suivantes, en comptant à part le temps passé à attendre les données. Le résultat
+              est écrit dans `benchmark_summary.json`.
+
+      - titre: "Les quatre passes"
+        fichier: experiments/2026-11-16-reglages-d-entrainement/etapes.sh
+        langage: bash
+        extrait: [10, 32]
+        notes:
+          - lignes: 11
+            genre: mesure
+            titre: "Un processus, deux fois"
+            texte: >-
+              La première variante est refaite à la fin. X-005 nous l'a appris : la mesure faite
+              en premier paie la première lecture du disque. L'écart entre les deux passes à un
+              processus dit de combien une mesure bouge, et donc quels écarts comptent.
+          - lignes: [23, 24]
+            genre: donnees
+            titre: "La liste des blocs, reprise de X-002"
+            texte: >-
+              Repérer les blocs étiquetés prend du temps et de la mémoire au démarrage. La liste
+              est la même que pour X-002 : on la recopie.
+          - lignes: [28, 30]
+            genre: parametrage
+            titre: "La commande d'entraînement du tutoriel, sous une limite de 25 minutes"
+            texte: >-
+              Quatre processus chargent chacun leurs données : la mémoire vive peut manquer. La
+              limite et le code de sortie disent si une variante n'a pas tenu.
+
+    limites: |
+      - 300 itérations mesurées par variante, une seule passe sauf pour un processus.
+      - Rien sur la qualité du modèle, ni sur un entraînement de deux heures : la mémoire vive peut grossir avec le temps.
+      - Le pic de mémoire vidéo relevé par villa ne compte que ce que l'entraînement alloue, pas ce que Windows occupe.
+      - Les blocs de 256 et l'accumulation de gradient sont un autre essai (point 3 de l'ordre).
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Le programme d'entraînement et sa mesure intégrée (`benchmark`) : le paquet `vesuvius`
+          de villa, au commit `2d3fb38`. Nous n'avons écrit que l'enchaînement des variantes et
+          la mise en tableau.
+        personnes:            # lignes par personne au commit 2d3fb38 (scripts/wsl/auteurs-villa.sh)
+          - { github: erdpx, nom: "elian rafael", part: "1 122 lignes de train.py" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: "Le segment étiqueté `w00_20231016151002` et la recette d'entraînement : https://scrollprize.org/tutorial5"

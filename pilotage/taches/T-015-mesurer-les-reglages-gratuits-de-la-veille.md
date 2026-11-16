@@ -31,9 +31,9 @@ etapes:
     detail: "Grande zone : 254,5 à 256,1 s pour les quatre. Le réglage compilé calcule plus vite une fois lancé (25,6 blocs par seconde contre 17,7 à 18,5) mais démarre en 85 s contre 8 à 19 s. Décision : garder notre réglage pour les longues prédictions, `--no-compile` pour les petits essais."
   - date: 2026-11-16
     genre: etape
-    statut: a-faire
-    titre: "Entraînement : processus de chargement et mesure intégrée"
-    detail: "`dataloader_workers` de 1 à 4, avec `benchmark` activé, sur quelques centaines d'itérations. Page d'exécution à écrire avant de lancer."
+    statut: en-cours
+    titre: "Entraînement : processus de chargement et mesure intégrée (X-007)"
+    detail: "`dataloader_workers` à 1, 2, 4 puis de nouveau 1, avec `benchmark` activé, sur 350 itérations."
 ---
 
 Fait quand nous savons, chiffres mesurés sur notre machine, quels réglages garder pour la prédiction et pour l'entraînement, sans changer le résultat. Premier point de l'ordre d'essai de `docs/veille-optimisations.md`, accepté par Kanemonium le 2026-11-16.
