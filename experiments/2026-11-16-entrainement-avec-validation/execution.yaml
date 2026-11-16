@@ -1,0 +1,125 @@
+# Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-16).
+executions:
+  - id: X-008
+    titre: "Réentraîner la ligne de base avec une zone de validation"
+    date: 2026-11-16
+    statut: prevue
+    piste: P-310
+    taches: [T-016]
+    resume: >-
+      Deuxième point de l'ordre d'essai. Le même entraînement que X-002, mais quatre régions
+      annotées sont mises de côté : le modèle ne les voit jamais, et villa s'en sert pour le noter
+      toutes les 500 itérations et garder le meilleur point de sauvegarde.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Un modèle, et pour la première fois une note qui ne triche pas"
+        detail: >-
+          Vingt points de sauvegarde, un meilleur point choisi par villa sur les régions mises de
+          côté, et la courbe de cette note au fil de l'entraînement. X-003 mesurait un Dice de
+          0,50 sur des régions que le modèle avait vues : ce chiffre ne départageait rien.
+        fiches: [K-16, K-15]
+      - question: "La représentativité"
+        valeur: "Quatre régions sur quinze, 20 % de la surface annotée"
+        detail: >-
+          Les régions mises de côté viennent du même segment que l'entraînement : la note dit
+          comment le modèle se comporte sur des lettres jamais vues de ce segment, pas sur un
+          autre rouleau. Selon l'auteur du découpage, un écart de moins de 0,03 de F1 sur ce
+          segment est du bruit.
+        fiches: [K-20]
+      - question: "Ce que cela doit décider"
+        valeur: "Le point de comparaison de tout ce qui suit"
+        detail: >-
+          Les points 3 à 5 de l'ordre d'essai (blocs de 256, fond propre, trame) seront jugés
+          contre ce modèle, sur ces mêmes régions.
+
+    code:
+      - titre: "Le réglage : celui de X-002, plus trois lignes"
+        fichier: experiments/2026-11-16-entrainement-avec-validation/validation-128.json
+        langage: json
+        extrait: [15, 24]
+        notes:
+          - lignes: 21
+            genre: mesure
+            titre: "Noter toutes les 500 itérations"
+            texte: >-
+              Déjà présent dans X-002, mais sans effet : faute de régions mises de côté, la
+              validation tournait à vide.
+            fiches: [K-16]
+          - lignes: 22
+            genre: mesure
+            titre: "Cinquante lots par notation"
+            texte: >-
+              Par défaut villa n'en regarde que dix. Cinquante lots de deux blocs, tirés au
+              hasard parmi les blocs de validation.
+          - lignes: 24
+            genre: optimisation
+            titre: "Garder le meilleur, pas le dernier"
+            texte: >-
+              villa recopie à part le point de sauvegarde dont la justesse équilibrée (moyenne du
+              taux d'encre retrouvée et du taux de fond reconnu) est la plus haute sur les régions
+              mises de côté.
+            fiches: [K-15]
+
+      - titre: "Les trois étapes"
+        fichier: experiments/2026-11-16-entrainement-avec-validation/etapes.sh
+        langage: bash
+        extrait: [19, 38]
+        notes:
+          - lignes: [22, 23]
+            genre: donnees
+            titre: "Le découpage de khj1222, lancé tel quel"
+            texte: >-
+              L'outil de [khj1222](https://github.com/khj1222/vesuvius-challenge) regroupe les
+              quinze régions annotées en treize groupes (deux régions trop proches restent
+              ensemble) et met de côté quatre régions entières, 20 % de la surface, avec la même
+              densité d'encre que le reste (0,2283). Aucun tirage au sort : tout le monde obtient
+              le même découpage. Vérifié à blanc sur notre segment avant d'écrire cette page.
+            fiches: [K-16]
+          - lignes: 28
+            genre: donnees
+            titre: "Le convertisseur de villa"
+            texte: >-
+              Il écrit le masque au format que lit l'entraînement, et ne touche pas aux
+              étiquettes déjà converties.
+            fiches: [K-10]
+          - lignes: [33, 37]
+            genre: parametrage
+            titre: "Reprendre plutôt que recommencer"
+            texte: >-
+              S'il existe déjà un point de sauvegarde, l'entraînement repart de là : un arrêt fait
+              perdre au plus mille itérations.
+            fiches: [K-15]
+
+    limites: |
+      - Le modèle apprend sur 20 % d'étiquettes en moins que X-002 : il n'est pas attendu meilleur, il est attendu mesurable.
+      - La note que villa calcule pendant l'entraînement porte sur cinquante lots tirés au hasard ; noter chaque point de sauvegarde sur les régions entières est une étape suivante.
+      - Un seul découpage, une seule graine : pas de marge d'erreur mesurée chez nous.
+      - Les images des régions mises de côté restent visibles par les blocs voisins ; seules leurs étiquettes sont retirées.
+      - Vingt points de sauvegarde occupent environ 16 Go, sur un disque où il en reste 43.
+
+    credits:
+      - github: khj1222
+        nom: "Hyojun Kwon, harnais de validation"
+        lien: https://github.com/khj1222/vesuvius-challenge/tree/c876e018944f6d6546b11daab8f9d00f48bddbbd
+        licence: MIT
+        quoi: >-
+          L'idée, la méthode et l'outil `tools/make_validation_mask.py`, lancé tel quel depuis une
+          copie gardée hors du dépôt. Sa documentation (`docs/09_validation_harness.md`) donne
+          aussi le seuil de bruit de 0,03 de F1 sur ce segment.
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Le convertisseur d'étiquettes, le programme d'entraînement, la validation et le choix du
+          meilleur point de sauvegarde : le paquet `vesuvius` de villa, au commit `2d3fb38`.
+        personnes:            # lignes par personne au commit 2d3fb38 (scripts/wsl/auteurs-villa.sh)
+          - { github: erdpx, nom: "elian rafael", part: "1 122 lignes de train.py" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: "Le segment étiqueté `w00_20231016151002` et la recette d'entraînement : https://scrollprize.org/tutorial5"
