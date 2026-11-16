@@ -6,9 +6,9 @@ Trois jeux de tuiles JPEG de 512 pixels sont écrits dans <sortie>/<variante>/<l
   brut    la prédiction telle qu'elle est ;
   etale   les gris réétalés entre le niveau du fond et celui de l'encre (un aide-vue) ;
   zones   la prédiction teintée là où le modèle a eu le corrigé (bleu : fond, orange : encre).
-La réduction (« pas », 4 par défaut) moyenne des carrés de pixels : à 4, une lettre reste bien lisible et le
-jeu complet pèse quelques dizaines de Mo. <sortie> doit rester hors du dépôt. Lecture seule sur les
-trois images d'entrée, lues par tranches pour ne jamais les tenir en mémoire.
+La réduction (« pas », 4 par défaut) moyenne des carrés de pixels : à 4, une lettre reste bien
+lisible et le jeu complet pèse quelques dizaines de Mo. <sortie> doit rester hors du dépôt.
+Lecture seule sur les trois images d'entrée, lues par tranches pour ne jamais les tenir en mémoire.
 """
 
 import json

@@ -1,0 +1,125 @@
+# Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-16).
+executions:
+  - id: X-005
+    titre: "Réglages de prédiction : lesquels vont plus vite sur notre carte ?"
+    date: 2026-11-16
+    statut: prevue
+    piste: P-420
+    taches: [T-015]
+    resume: >-
+      Premier point de l'ordre d'essai issu de la veille. Quatre réglages de prédiction, tous déjà
+      présents dans notre installation de villa, sont comparés sur une même zone du segment : le
+      nôtre (lot de 4, modèle compilé), puis sans compilation, puis en lot de 8, puis avec des fils
+      de lecture et un cache.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Des durées, un débit, un pic de mémoire vidéo"
+        detail: >-
+          Pour chaque réglage : le temps pris par une petite zone et par une zone quatre fois plus
+          large, d'où un débit en blocs par seconde hors démarrage, et ce que coûte le démarrage.
+          Les images sont ensuite comparées pixel à pixel à celle du réglage actuel. Aucun modèle
+          n'est entraîné, aucune image nouvelle à regarder.
+      - question: "La représentativité"
+        valeur: "1 % du segment, autour d'une rangée de formes"
+        detail: >-
+          La grande zone fait 2 048 × 8 192 pixels, sur une image de 32 249 × 51 380. C'est assez
+          pour un débit, pas pour dire comment la mémoire vive se comporte sur des heures.
+      - question: "Ce que cela doit décider"
+        valeur: "Le réglage des prochaines prédictions"
+        detail: >-
+          X-003 a pris 5 h 34 en lot de 4 compilé, à 17,3 blocs par seconde. Si un autre réglage
+          fait mieux ici sans changer l'image, il devient notre réglage par défaut.
+        fiches: [K-12]
+
+    code:
+      - titre: "Les quatre réglages et leur mesure"
+        fichier: experiments/2026-11-16-reglages-de-prediction/etapes.sh
+        langage: bash
+        extrait: [12, 54]
+        notes:
+          - lignes: [13, 14]
+            genre: mesure
+            titre: "Deux zones, pour séparer le démarrage du calcul"
+            texte: >-
+              Les mêmes lignes (7 000 à 9 048, là où X-003 montre une rangée de formes), sur 2 048
+              puis 8 192 colonnes. Le démarrage coûte le même temps dans les deux cas : la
+              différence de durée entre les deux ne vient que des blocs en plus. Sans cela, un
+              réglage qui compile le modèle au départ paraîtrait lent sur une petite zone, alors
+              que ce coût disparaît sur une prédiction de plusieurs heures.
+          - lignes: 15
+            genre: parametrage
+            titre: "Une limite de 25 minutes par mesure"
+            texte: >-
+              Sous WSL2, manquer de mémoire vidéo ne produit pas d'erreur mais un ralentissement
+              d'environ 25 fois, selon la proposition villa 2298. Un lot de 8 peut déborder de nos
+              8 Go : la limite évite d'y passer des heures, et la mesure est alors notée comme
+              non terminée.
+            fiches: [K-14]
+          - lignes: [31, 35]
+            genre: mesure
+            titre: "Le pic de mémoire vidéo, réglage par réglage"
+            texte: >-
+              Relevé chaque seconde pendant la mesure. Il comprend ce que Windows occupe déjà sur
+              la carte, environ 1,4 Go au moment d'écrire cette page.
+          - lignes: [37, 38]
+            genre: parametrage
+            titre: "La même commande que X-003, sur un rectangle"
+            texte: >-
+              `predire-par-bandes.sh` avec une seule bande de 2 048 lignes. Seules les options
+              ajoutées à la fin changent d'un réglage à l'autre.
+            fiches: [K-12]
+          - lignes: [49, 51]
+            genre: optimisation
+            titre: "Les quatre réglages"
+            texte: >-
+              Le nôtre d'abord. `--no-compile` renonce à la compilation du modèle au démarrage.
+              `--batch-size 8` passe huit blocs à la fois au lieu de quatre. `--loader-threads 8`
+              lit les blocs par des fils plutôt que par un processus à part, et
+              `--chunk-cache-size 64` garde en mémoire les morceaux du volume déjà décodés, que
+              des blocs qui se chevauchent redemandent. Sur une RTX 4090 et un autre modèle,
+              [gomyway](https://github.com/gomyway) mesure 61,6 s pour le lot de 4 compilé, 11,6 à
+              11,9 s pour le lot de 8 sans compilation, 10,1 s avec les fils et le cache.
+
+      - titre: "Le calcul du débit"
+        fichier: experiments/2026-11-16-reglages-de-prediction/tableau.py
+        langage: python
+        extrait: [22, 34]
+        notes:
+          - lignes: [28, 29]
+            genre: mesure
+            titre: "Une pente entre deux points"
+            texte: >-
+              Débit : blocs en plus divisés par secondes en plus. Démarrage : ce qui reste de la
+              petite zone une fois ses blocs retirés à ce débit. Avec deux points seulement, il
+              n'y a pas de marge d'erreur : un écart de quelques pour cent entre deux réglages ne
+              voudra rien dire.
+
+    limites: |
+      - Une seule passe par mesure : pas de répétition, donc pas de marge d'erreur. Seuls les grands écarts compteront.
+      - Les premières lectures du volume profitent aux suivantes (le système garde les fichiers en mémoire) : le réglage mesuré en premier, le nôtre, est défavorisé sur la lecture.
+      - Le pic de mémoire vidéo comprend ce que Windows occupe déjà.
+      - Rien sur l'entraînement : les processus de chargement et la mesure intégrée viendront dans une autre exécution.
+      - Rien sur la qualité : les quatre réglages doivent rendre la même image, c'est ce que vérifie la comparaison.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Le programme de prédiction et toutes les options comparées ici : le paquet `vesuvius` de
+          villa, au commit `2d3fb38`. Nous n'avons écrit que la mesure.
+        personnes:            # lignes par personne au commit 2d3fb38 (scripts/wsl/auteurs-villa.sh)
+          - { github: erdpx, nom: "elian rafael", part: "1 355 lignes de infer.py" }
+          - { github: teddywasserman, nom: "Teddy", part: "269 lignes de infer.py" }
+          - { github: RhudeJJJJ, nom: "RhudeJJJJ", part: "92 lignes de infer.py" }
+          - { github: bnleft, nom: "Bryant Le", part: "22 lignes de infer.py" }
+      - github: gomyway
+        nom: "gomyway, proposition villa 2428"
+        lien: https://github.com/ScrollPrize/villa/pull/2428
+        licence: MIT
+        quoi: >-
+          L'idée de comparer ces réglages et les chiffres de référence, mesurés sur une RTX 4090
+          avec un autre modèle.
