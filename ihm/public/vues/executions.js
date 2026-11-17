@@ -198,5 +198,8 @@ export function vueExecutions(vue, app, params) {
     h('p', { classe: 'meta', style: 'margin-top:28px;text-transform:none;letter-spacing:0' }, x.fichier));
 
   vue.append(h('div', { classe: 'exe-vue' }, sommaire, article));
+  // La colonne défile pour elle-même : y amener la carte ouverte, sans faire bouger la page.
+  const ouverte = sommaire.querySelector('[aria-current="page"]');
+  if (ouverte) sommaire.scrollTop = Math.max(0, ouverte.offsetTop - sommaire.offsetTop - (sommaire.clientHeight - ouverte.offsetHeight) / 2);
   suivreEnDirect(executions);
 }

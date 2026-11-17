@@ -217,6 +217,7 @@ executions:
           - [19500, 0.5766]
       - genre: mesures
         titre: "Durée et mémoire"
+        large: true
         lignes:
           - ["Durée totale", "2 h 19 min 33 s", "de 21 h 57 à 0 h 17, sans arrêt ni reprise"]
           - ["Découpage", "53 s", "15 régions, 13 groupes, 4 régions mises de côté"]

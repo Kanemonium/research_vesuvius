@@ -274,7 +274,13 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 
 /* ---------- Vue Exécutions ---------- */
 .exe-vue { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: var(--e-7); align-items: start; }
-.exe-liste { position: sticky; top: 108px; display: flex; flex-direction: column; gap: var(--e-3); }
+/* La colonne des cartes défile pour elle-même : la page ne défile que le détail de l'exécution. */
+.exe-liste {
+  position: sticky; top: 108px; display: flex; flex-direction: column; gap: var(--e-3);
+  max-height: calc(100vh - 108px - var(--e-4)); overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: thin; padding: 2px var(--e-2) 2px 2px; margin: -2px calc(-1 * var(--e-2)) -2px -2px;
+}
+.exe-liste > * { flex: none; }
 .exe-carte { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: var(--e-3) var(--e-4); text-decoration: none; transition: transform var(--trans); }
 .exe-carte:hover { transform: translateX(3px); }
 .exe-carte[aria-current="page"] { background: var(--encre); color: var(--sur-encre); border-color: var(--encre); border-left-color: var(--lisere); }
@@ -382,6 +388,11 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 .mesures td { padding: 8px 0 8px 12px; vertical-align: baseline; font-size: var(--t-petit); }
 .mesures tr + tr > * { border-top: 1px solid var(--filet); }
 .mesures .mesure-valeur { font: 600 0.95rem/1.3 var(--f-mono); white-space: nowrap; text-align: right; color: var(--encre); }
+/* Dans une carte d'une demi-largeur, trois colonnes ne tiennent pas : la remarque passe sous sa ligne. */
+.sortie:not(.large) .mesures tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto); }
+.sortie:not(.large) .mesures .mesure-valeur { white-space: normal; overflow-wrap: anywhere; }
+.sortie:not(.large) .mesures td.doux { grid-column: 1 / -1; padding: 0 0 8px; border-top: 0 !important; }
+.sortie:not(.large) .mesures td.doux:empty { display: none; }
 .sortie-courbe { margin: 0; }
 .courbe { display: block; width: 100%; height: auto; overflow: visible; }
 .g-grille { stroke: var(--filet); stroke-width: 1; }
@@ -507,6 +518,7 @@ a.pilule:hover, button.pilule:hover { border-color: var(--encre); background: va
 @media (max-width: 1080px) {
   .carte-vue, .doc-vue, .exe-vue, .detail-grille, .code-grille { grid-template-columns: minmax(0, 1fr); }
   .exe-liste, .detail-cote, .code-bloc { position: static; }
+  .exe-liste { max-height: none; overflow: visible; }
   .sorties { grid-template-columns: 1fr; }
   .page.plein { height: auto; overflow: visible; }
   .carte-plein { display: flex; flex-direction: column; height: auto; overflow: visible; }

@@ -22,6 +22,8 @@ Un bouton à droite du titre d'une exécution ouvre son « carnet » : une copie
 - **Kanemonium** (2026-11-16) : un suivi du stockage (pris, restant, part occupée) à la place de la date dans la barre du haut, et deux pictos, carbone et papyrus, à la place des noms de thème, pour gagner de la place.
 - **Agent C.** (2026-11-16) : fait. Mesuré à la mise en service : 431 Go pris, 43 Go restants, 91 % du disque C: occupés. Le disque virtuel de WSL, qui porte le jeu de données et l'image de X-003, y pèse 122 Go.
 - **Kanemonium** (2026-11-17) : valide la V1.3 et la V1.4.
+- **Kanemonium** (2026-11-17) : dans les exécutions, la colonne des cartes et le détail doivent défiler chacun pour soi ; et un tableau de mesures de X-008 débordait de sa carte.
+- **Agent C.** (2026-11-17) : corrigé. La colonne a son propre défilement et s'ouvre sur la carte affichée. Dans une carte d'une demi-largeur, la remarque d'une mesure passe sous sa ligne au lieu de pousser le tableau hors du cadre.
 
 ## Suite
 
