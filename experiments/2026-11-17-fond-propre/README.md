@@ -25,4 +25,12 @@ La suite suit la démarche décrite par [ScrollPrize/villa](https://github.com/S
 
 ## Le résultat
 
-Non mesuré : l'essai n'est pas lancé.
+Mesuré le 2026-11-17, en une à deux minutes.
+
+- 957 carrés de 1 024 pixels sur 1 550 sont sans zone vide et à plus de 512 pixels d'une annotation.
+- Sur ces carrés, le modèle de X-002 répond en moyenne 141 sur 255 : aucun n'est franchement sombre.
+- Seize sont proposés : huit où il voit le moins d'encre (0,9 à 2,3 % de pixels très clairs), huit
+  d'un gris moyen et uniforme (10,1 à 15,8 %). Presque tous tombent en bas et à droite du segment.
+- Les carrés 9, 11 et 14 touchent le bord du segment.
+
+Le choix des carrés vierges reste à faire par Kanemonium ; rien n'est décidé ici.

@@ -1,20 +1,21 @@
 # Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
-# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-17).
+# Format : pilotage/README.md. Page écrite avant le lancement, complétée à la fin (2026-11-17).
 executions:
   - id: X-011
     titre: "Où prendre du fond propre ? Seize carrés à faire juger"
     date: 2026-11-17
-    statut: prevue
+    statut: terminee
     piste: P-310
     taches: [T-020]
     resume: >-
       Première étape du quatrième point de l'ordre d'essai. Avant d'apprendre au modèle ce
       qu'est du papyrus vierge, il faut en désigner. Ce script propose seize carrés loin de toute
       annotation ; c'est Kanemonium qui dira lesquels sont vierges.
+      Résultat : les seize carrés sont proposés, le choix reste à faire.
 
     bilan:
       - question: "Le type de résultat"
-        valeur: "Une planche de seize carrés, une carte d'ensemble, une liste"
+        valeur: "Seize carrés proposés sur 957 possibles"
         detail: >-
           Pour chaque carré de 1 024 pixels : le papyrus tel que le scan le montre, à côté de ce
           que le modèle de X-002 y répond (la carte de X-003). Aucun entraînement, aucune
@@ -65,11 +66,88 @@ executions:
               Moyenne entre 120 et 160, et le plus faible écart-type. Deux carrés retenus sont
               toujours séparés d'au moins trois carrés, pour couvrir le segment.
 
+    sorties:
+      - genre: image
+        titre: "La carte d'ensemble"
+        large: true
+        fichier: X-011-carte.png
+        alt: "La carte d'encre du segment entier en gris, les zones annotées en bleu, et seize petits carrés numérotés, surtout en bas et à droite"
+        legende: >-
+          La carte de X-003 réduite trente-deux fois. En bleu, la zone de supervision du tutoriel.
+          En orange, la famille A (1 à 8) ; en jaune, la famille B (9 à 16). Presque tous les
+          carrés tombent dans la bande du bas et sur le bord droit, là où cette carte ne montre
+          pas de formes claires alignées. C'est une observation d'Agent C. à l'œil, pas un jugement.
+      - genre: image
+        titre: "Les seize carrés"
+        large: true
+        fichier: X-011-candidats.png
+        alt: "Seize paires d'images grises : à gauche de chaque paire le papyrus, avec ses fibres et des plages sombres, à droite la carte d'encre du même carré"
+        legende: >-
+          Pour chaque carré : à gauche la couche du milieu du scan, à droite ce que le modèle de
+          X-002 y répond (clair : encre probable). Réduit quatre fois. Les carrés 9, 11 et 14
+          touchent le bord du segment.
+      - genre: mesures
+        titre: "Ce que le tri a trouvé"
+        large: true
+        lignes:
+          - ["Carrés de 1 024 pixels dans le segment", "1 550", ""]
+          - ["Sans zone vide et à plus de 512 px d'une annotation", "957", "62 % des carrés"]
+          - ["Sur ces 957, réponse moyenne du modèle", "141 sur 255", "médiane des carrés ; 11,1 % de pixels très clairs"]
+          - ["Famille A, les huit retenus", "0,9 à 2,3 % de pixels très clairs", "moyenne de 103 à 118"]
+          - ["Famille B, les huit retenus", "10,1 à 15,8 % de pixels très clairs", "moyenne de 150 à 160"]
+          - ["Part annotée du segment", "5,88 %", "X-003 donnait 5,8 %"]
+          - ["Durée", "1 min 16 s", "seconde passe ; la première a duré 1 min 52 s"]
+        note: >-
+          Très clair veut dire 192 ou plus sur 255. Même dans la famille A, le modèle répond en
+          moyenne plus de 100 sur 255 : aucun carré n'est franchement sombre.
+      - genre: mesures
+        titre: "Les seize carrés, un par un"
+        large: true
+        lignes:
+          - ["Carré 1 (famille A)", "moyenne 105 · très clair 0,9 %", "ligne 28 672, colonne 39 936 · à 13 993 px d'une annotation"]
+          - ["Carré 2 (famille A)", "moyenne 103 · très clair 0,9 %", "ligne 17 408, colonne 41 984 · à 8 019 px d'une annotation"]
+          - ["Carré 3 (famille A)", "moyenne 110 · très clair 1,1 %", "ligne 9 216, colonne 41 984 · à 3 490 px d'une annotation"]
+          - ["Carré 4 (famille A)", "moyenne 109 · très clair 1,8 %", "ligne 15 360, colonne 36 864 · à 2 512 px d'une annotation"]
+          - ["Carré 5 (famille A)", "moyenne 118 · très clair 1,9 %", "ligne 28 672, colonne 26 624 · à 11 522 px d'une annotation"]
+          - ["Carré 6 (famille A)", "moyenne 110 · très clair 2,0 %", "ligne 20 480, colonne 44 032 · à 11 285 px d'une annotation"]
+          - ["Carré 7 (famille A)", "moyenne 118 · très clair 2,0 %", "ligne 4 096, colonne 43 008 · à 5 132 px d'une annotation"]
+          - ["Carré 8 (famille A)", "moyenne 108 · très clair 2,3 %", "ligne 21 504, colonne 35 840 · à 5 901 px d'une annotation"]
+          - ["Carré 9 (famille B)", "moyenne 160 · très clair 15,8 %", "ligne 2 048, colonne 46 080 · à 8 760 px d'une annotation"]
+          - ["Carré 10 (famille B)", "moyenne 154 · très clair 12,8 %", "ligne 29 696, colonne 20 480 · à 14 412 px d'une annotation"]
+          - ["Carré 11 (famille B)", "moyenne 155 · très clair 13,3 %", "ligne 30 720, colonne 1 024 · à 9 513 px d'une annotation"]
+          - ["Carré 12 (famille B)", "moyenne 157 · très clair 15,4 %", "ligne 24 576, colonne 27 648 · à 7 309 px d'une annotation"]
+          - ["Carré 13 (famille B)", "moyenne 150 · très clair 10,1 %", "ligne 23 552, colonne 38 912 · à 9 546 px d'une annotation"]
+          - ["Carré 14 (famille B)", "moyenne 158 · très clair 15,8 %", "ligne 1 024, colonne 28 672 · à 1 610 px d'une annotation"]
+          - ["Carré 15 (famille B)", "moyenne 154 · très clair 12,1 %", "ligne 26 624, colonne 15 360 · à 8 441 px d'une annotation"]
+          - ["Carré 16 (famille B)", "moyenne 150 · très clair 10,1 %", "ligne 25 600, colonne 23 552 · à 10 125 px d'une annotation"]
+        note: "Coordonnées du coin haut gauche, en pixels du segment. La liste complète est dans candidats.json."
+      - genre: journal
+        titre: "Ce que le script annonce"
+        large: true
+        texte: |
+          prédiction (32249, 51380) ; masque (32249, 51380) ; surface niveau 2 (65, 8063, 12845)
+          part annotée : 5.88 % ; part vide : 15.50 %
+          carrés de 1024 : 1550 en tout, 957 sans vide et à plus de 512 px d'une annotation
+          sur ces carrés : moyenne médiane 141 sur 255 ; part très claire médiane 11.1 %
+          planche (2144, 1168), carte (1605, 992), 16 carrés écrits dans candidats.json
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "dans le dépôt et dans local/apercus, ignoré par git"
+        elements:
+          - nom: "experiments/2026-11-17-fond-propre/candidats.json"
+            taille: "4 ko"
+            role: "Les seize carrés et leurs mesures. Des coordonnées, aucune donnée de rouleau."
+          - nom: "local/apercus/X-011-candidats.png et X-011-carte.png"
+            taille: "1,4 et 1,6 Mo"
+            role: "La planche et la carte d'ensemble."
+
     limites: |
       - Le script ne reconnaît pas l'écriture : il ne fait que trier. Le jugement est humain, et Kanemonium n'est pas papyrologue : un carré douteux est écarté.
       - Le tri s'appuie sur la carte de X-003, donc sur le modèle de X-002 : il hérite de ses erreurs.
       - La planche montre une seule couche du scan, celle du milieu, réduite quatre fois.
       - Seize carrés font 1,0 % du segment : rien ne dit que ce soit assez pour changer le modèle.
+      - Le script a été lancé deux fois : la seconde seulement pour grossir les numéros de la carte d'ensemble. Les seize carrés sont les mêmes.
+      - Les carrés 9, 11 et 14 touchent le bord du segment : le contrôle des zones vides ne les a pas écartés.
       - Rien n'est mesuré sur l'effet : c'est l'objet de l'entraînement qui suivra.
 
     credits:

@@ -19,7 +19,7 @@ from pathlib import Path
 import numpy as np
 import tifffile
 import zarr
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 from scipy import ndimage
 
 COTE = 1024      # côté d'un carré, en pixels du segment
@@ -109,6 +109,7 @@ def main() -> None:
     ensemble[reduire(annote, 4) > 0] = ensemble[reduire(annote, 4) > 0] * 0.4 + np.array([40, 110, 200]) * 0.6
     carte = Image.fromarray(ensemble.round().astype(np.uint8))
     trait_carte = ImageDraw.Draw(carte)
+    grand = ImageFont.load_default(size=30)
     for i, (famille, k) in enumerate(retenus, start=1):
         l, c = cases[k]
         y, x = l * COTE, c * COTE
@@ -124,7 +125,7 @@ def main() -> None:
         planche.paste(Image.fromarray(carte_encre), (x0 + cellule + blanc, y0 + 28))
         couleur = (240, 140, 40) if famille == "A" else (250, 220, 60)
         trait_carte.rectangle((x // reduit, y // reduit, (x + COTE) // reduit, (y + COTE) // reduit), outline=couleur, width=3)
-        trait_carte.text((x // reduit + 6, y // reduit + 4), str(i), fill=couleur)
+        trait_carte.text(((x + COTE) // reduit + 5, y // reduit - 4), str(i), fill=couleur, font=grand, stroke_width=3, stroke_fill=(0, 0, 0))
         print(f"{i:2d} {famille} ligne {y:5d} colonne {x:5d} : moyenne {m[k, 0]:5.1f}, très clair {100 * m[k, 1]:4.1f} %, "
               f"écart-type {m[k, 2]:4.1f}, à {m[k, 3]:.0f} px d'une annotation")
     apercus.mkdir(parents=True, exist_ok=True)

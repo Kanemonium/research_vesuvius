@@ -16,9 +16,9 @@ etapes:
     detail: "Un fichier `_supervision_mask_v2` à côté du premier, et `label_version` dans le réglage : rien n'est écrasé, et les entraînements passés restent rejouables en `v1`. Sans `label_version`, villa prend seule la version la plus haute : à fixer dans chaque réglage."
   - date: 2026-11-17
     genre: etape
-    statut: a-faire
+    statut: faite
     titre: "Proposer seize carrés candidats (X-011)"
-    detail: "Page écrite. Le script trie, il ne juge pas."
+    detail: "957 carrés possibles sur 1 550 ; seize proposés, presque tous en bas et à droite du segment. Le modèle y répond 103 à 160 sur 255 en moyenne. Les carrés 9, 11 et 14 touchent le bord du segment."
   - date: 2026-11-17
     genre: etape
     statut: a-faire

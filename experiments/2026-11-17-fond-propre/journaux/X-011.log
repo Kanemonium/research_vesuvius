@@ -1,0 +1,23 @@
+[18:41:40] ===== étape 1/1 : chercher des carrés loin de toute annotation =====
+prédiction (32249, 51380) ; masque (32249, 51380) ; surface niveau 2 (65, 8063, 12845)
+part annotée : 5.88 % ; part vide : 15.50 %
+carrés de 1024 : 1550 en tout, 957 sans vide et à plus de 512 px d'une annotation
+sur ces carrés : moyenne médiane 141 sur 255 ; part très claire médiane 11.1 %
+ 1 A ligne 28672 colonne 39936 : moyenne 105.1, très clair  0.9 %, écart-type 28.8, à 13993 px d'une annotation
+ 2 A ligne 17408 colonne 41984 : moyenne 103.3, très clair  0.9 %, écart-type 28.5, à 8019 px d'une annotation
+ 3 A ligne  9216 colonne 41984 : moyenne 109.7, très clair  1.1 %, écart-type 29.3, à 3490 px d'une annotation
+ 4 A ligne 15360 colonne 36864 : moyenne 109.4, très clair  1.8 %, écart-type 31.5, à 2512 px d'une annotation
+ 5 A ligne 28672 colonne 26624 : moyenne 117.9, très clair  1.9 %, écart-type 30.7, à 11522 px d'une annotation
+ 6 A ligne 20480 colonne 44032 : moyenne 110.4, très clair  2.0 %, écart-type 31.6, à 11285 px d'une annotation
+ 7 A ligne  4096 colonne 43008 : moyenne 117.7, très clair  2.0 %, écart-type 30.7, à 5132 px d'une annotation
+ 8 A ligne 21504 colonne 35840 : moyenne 108.0, très clair  2.3 %, écart-type 33.1, à 5901 px d'une annotation
+ 9 B ligne  2048 colonne 46080 : moyenne 159.8, très clair 15.8 %, écart-type 27.3, à 8760 px d'une annotation
+10 B ligne 29696 colonne 20480 : moyenne 154.4, très clair 12.8 %, écart-type 27.6, à 14412 px d'une annotation
+11 B ligne 30720 colonne  1024 : moyenne 155.3, très clair 13.3 %, écart-type 28.5, à 9513 px d'une annotation
+12 B ligne 24576 colonne 27648 : moyenne 157.2, très clair 15.4 %, écart-type 28.5, à 7309 px d'une annotation
+13 B ligne 23552 colonne 38912 : moyenne 150.2, très clair 10.1 %, écart-type 28.7, à 9546 px d'une annotation
+14 B ligne  1024 colonne 28672 : moyenne 157.6, très clair 15.8 %, écart-type 29.1, à 1610 px d'une annotation
+15 B ligne 26624 colonne 15360 : moyenne 154.1, très clair 12.1 %, écart-type 29.1, à 8441 px d'une annotation
+16 B ligne 25600 colonne 23552 : moyenne 150.2, très clair 10.1 %, écart-type 29.3, à 10125 px d'une annotation
+planche (2144, 1168), carte (1605, 992), 16 carrés écrits dans candidats.json
+[18:42:56] ===== fin =====

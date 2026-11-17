@@ -1,0 +1,182 @@
+{
+  "cote": 1024,
+  "marge": 512,
+  "carres": [
+    {
+      "numero": 1,
+      "famille": "A",
+      "ligne": 28672,
+      "colonne": 39936,
+      "cote": 1024,
+      "moyenne": 105.1,
+      "part_tres_claire": 0.0085,
+      "ecart_type": 28.8,
+      "distance_annotation": 13993
+    },
+    {
+      "numero": 2,
+      "famille": "A",
+      "ligne": 17408,
+      "colonne": 41984,
+      "cote": 1024,
+      "moyenne": 103.3,
+      "part_tres_claire": 0.009,
+      "ecart_type": 28.5,
+      "distance_annotation": 8019
+    },
+    {
+      "numero": 3,
+      "famille": "A",
+      "ligne": 9216,
+      "colonne": 41984,
+      "cote": 1024,
+      "moyenne": 109.7,
+      "part_tres_claire": 0.0112,
+      "ecart_type": 29.3,
+      "distance_annotation": 3490
+    },
+    {
+      "numero": 4,
+      "famille": "A",
+      "ligne": 15360,
+      "colonne": 36864,
+      "cote": 1024,
+      "moyenne": 109.4,
+      "part_tres_claire": 0.0179,
+      "ecart_type": 31.5,
+      "distance_annotation": 2512
+    },
+    {
+      "numero": 5,
+      "famille": "A",
+      "ligne": 28672,
+      "colonne": 26624,
+      "cote": 1024,
+      "moyenne": 117.9,
+      "part_tres_claire": 0.0191,
+      "ecart_type": 30.7,
+      "distance_annotation": 11522
+    },
+    {
+      "numero": 6,
+      "famille": "A",
+      "ligne": 20480,
+      "colonne": 44032,
+      "cote": 1024,
+      "moyenne": 110.4,
+      "part_tres_claire": 0.0198,
+      "ecart_type": 31.6,
+      "distance_annotation": 11285
+    },
+    {
+      "numero": 7,
+      "famille": "A",
+      "ligne": 4096,
+      "colonne": 43008,
+      "cote": 1024,
+      "moyenne": 117.7,
+      "part_tres_claire": 0.0204,
+      "ecart_type": 30.7,
+      "distance_annotation": 5132
+    },
+    {
+      "numero": 8,
+      "famille": "A",
+      "ligne": 21504,
+      "colonne": 35840,
+      "cote": 1024,
+      "moyenne": 108.0,
+      "part_tres_claire": 0.0228,
+      "ecart_type": 33.1,
+      "distance_annotation": 5901
+    },
+    {
+      "numero": 9,
+      "famille": "B",
+      "ligne": 2048,
+      "colonne": 46080,
+      "cote": 1024,
+      "moyenne": 159.8,
+      "part_tres_claire": 0.1585,
+      "ecart_type": 27.3,
+      "distance_annotation": 8760
+    },
+    {
+      "numero": 10,
+      "famille": "B",
+      "ligne": 29696,
+      "colonne": 20480,
+      "cote": 1024,
+      "moyenne": 154.4,
+      "part_tres_claire": 0.1277,
+      "ecart_type": 27.6,
+      "distance_annotation": 14412
+    },
+    {
+      "numero": 11,
+      "famille": "B",
+      "ligne": 30720,
+      "colonne": 1024,
+      "cote": 1024,
+      "moyenne": 155.3,
+      "part_tres_claire": 0.1331,
+      "ecart_type": 28.5,
+      "distance_annotation": 9513
+    },
+    {
+      "numero": 12,
+      "famille": "B",
+      "ligne": 24576,
+      "colonne": 27648,
+      "cote": 1024,
+      "moyenne": 157.2,
+      "part_tres_claire": 0.154,
+      "ecart_type": 28.5,
+      "distance_annotation": 7309
+    },
+    {
+      "numero": 13,
+      "famille": "B",
+      "ligne": 23552,
+      "colonne": 38912,
+      "cote": 1024,
+      "moyenne": 150.2,
+      "part_tres_claire": 0.1008,
+      "ecart_type": 28.7,
+      "distance_annotation": 9546
+    },
+    {
+      "numero": 14,
+      "famille": "B",
+      "ligne": 1024,
+      "colonne": 28672,
+      "cote": 1024,
+      "moyenne": 157.6,
+      "part_tres_claire": 0.1583,
+      "ecart_type": 29.1,
+      "distance_annotation": 1610
+    },
+    {
+      "numero": 15,
+      "famille": "B",
+      "ligne": 26624,
+      "colonne": 15360,
+      "cote": 1024,
+      "moyenne": 154.1,
+      "part_tres_claire": 0.1213,
+      "ecart_type": 29.1,
+      "distance_annotation": 8441
+    },
+    {
+      "numero": 16,
+      "famille": "B",
+      "ligne": 25600,
+      "colonne": 23552,
+      "cote": 1024,
+      "moyenne": 150.2,
+      "part_tres_claire": 0.1007,
+      "ecart_type": 29.3,
+      "distance_annotation": 10125
+    }
+  ]
+}
