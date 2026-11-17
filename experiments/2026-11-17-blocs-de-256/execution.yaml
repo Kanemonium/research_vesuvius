@@ -1,0 +1,117 @@
+# Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-17).
+executions:
+  - id: X-010
+    titre: "Des blocs de 256 tiennent-ils dans nos 8 Go ?"
+    date: 2026-11-17
+    statut: prevue
+    piste: P-310
+    taches: [T-019]
+    resume: >-
+      Troisième point de l'ordre d'essai. La recette du tutoriel entraîne sur des blocs de 256 ;
+      nous sommes passés à 128 parce qu'en lot de 2 la mémoire vidéo débordait (X-001). Ici, le
+      même court entraînement en lot de 1, pour voir si la carte tient et à quelle vitesse.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Un temps par itération et un pic de mémoire vidéo"
+        detail: >-
+          Sur 300 itérations mesurées après 50 d'échauffement, par la mesure intégrée de villa.
+          Aucun modèle utile n'en sort, et aucun point de sauvegarde n'est écrit : l'essai ne
+          prend pas de place sur le disque.
+        fiches: [K-12]
+      - question: "La représentativité"
+        valeur: "Le réglage de X-008, avec des blocs quatre fois plus grands"
+        detail: >-
+          Même segment, mêmes régions mises de côté. Deux blocs sont cumulés avant chaque
+          correction du modèle, pour qu'une correction repose sur autant de blocs que dans la
+          recette. X-001 avait mesuré 7 996 Mo et 21,7 s par itération en lot de 2 ; sur une
+          carte de 10 Go, un autre participant mesure 0,37 s en lot de 1.
+        fiches: [K-12, K-14]
+      - question: "Ce que cela doit décider"
+        valeur: "Lancer ou non un entraînement complet en blocs de 256"
+        detail: >-
+          Si la carte tient sans déborder, un entraînement de 20 000 itérations devient possible,
+          à juger contre le F1 de 0,776 de X-009. Il écrirait environ 16 Go de points de
+          sauvegarde : la place sur le disque est à régler avant, avec Kanemonium.
+        fiches: [K-16]
+
+    code:
+      - titre: "Le réglage : celui de X-008, moins la notation, plus trois lignes"
+        fichier: experiments/2026-11-17-blocs-de-256/blocs-256.json
+        langage: json
+        extrait: [11, 24]
+        notes:
+          - lignes: 11
+            genre: parametrage
+            titre: "Des blocs de 256"
+            texte: >-
+              Soixante-quatre couches de profondeur, 256 pixels de côté : quatre fois la surface
+              des blocs de 128. Le modèle voit plus de contexte autour de chaque trait.
+            fiches: [K-12, K-21]
+          - lignes: [15, 16]
+            genre: optimisation
+            titre: "Un bloc à la fois, deux blocs par correction"
+            texte: >-
+              Le réglage que décrit LynnHenry dans une proposition à
+              [ScrollPrize/villa](https://github.com/ScrollPrize/villa/pull/2298) : la mémoire
+              ne porte qu'un bloc, et le modèle n'est corrigé qu'un bloc sur deux.
+            fiches: [K-13]
+          - lignes: 21
+            genre: mesure
+            titre: "La mesure intégrée de villa"
+            texte: >-
+              Elle relève le temps par itération, l'attente des données et le pic de mémoire
+              vidéo, après cinquante itérations d'échauffement.
+          - lignes: [23, 24]
+            genre: parametrage
+            titre: "Ni notation ni sauvegarde"
+            texte: "L'essai ne mesure que la vitesse et la mémoire."
+            fiches: [K-15]
+
+      - titre: "Les deux étapes"
+        fichier: experiments/2026-11-17-blocs-de-256/etapes.sh
+        langage: bash
+        extrait: [14, 25]
+        notes:
+          - lignes: 15
+            genre: parametrage
+            titre: "Reprendre plutôt que recommencer"
+            texte: "Si la mesure est déjà écrite, l'étape est sautée."
+          - lignes: [20, 23]
+            genre: mesure
+            titre: "Une limite de quarante minutes"
+            texte: >-
+              Quand la mémoire vidéo déborde sous Windows, le pilote ne s'arrête pas : il
+              continue en mémoire partagée, environ vingt-cinq fois plus lentement selon la même
+              proposition. La limite coupe court ; le journal dira alors le rythme observé.
+
+    limites: |
+      - Trois cent cinquante itérations ne disent rien de la qualité : seulement la vitesse et la mémoire.
+      - La mémoire vidéo que Windows occupe déjà varie (1 684 Mo relevés le 2026-11-17 en préparant l'essai) : le résultat vaut pour l'état de la machine ce jour-là.
+      - Le temps de préparation de la liste des blocs de 256 n'est pas connu d'avance.
+      - Cumuler deux blocs n'est pas exactement un lot de 2 : l'effet sur l'apprentissage n'est pas mesuré ici.
+
+    credits:
+      - github: LynnHenry
+        nom: "LynnHenry, proposition villa 2298"
+        lien: https://github.com/ScrollPrize/villa/pull/2298
+        quoi: >-
+          Le réglage essayé (blocs de 256, lot de 1, deux lots cumulés) et le chiffre de
+          comparaison sur une RTX 3080 de 10 Go sous WSL2. Seule la description de la proposition
+          sert ici ; son code n'est pas repris.
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Le programme d'entraînement et sa mesure intégrée (`benchmark`) : le paquet `vesuvius`
+          de villa, au commit `2d3fb38`.
+        personnes:            # lignes par personne au commit 2d3fb38 (scripts/wsl/auteurs-villa.sh)
+          - { github: erdpx, nom: "elian rafael", part: "1 122 lignes de train.py" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: "Le segment étiqueté `w00_20231016151002` et la recette d'entraînement : https://scrollprize.org/tutorial5"
