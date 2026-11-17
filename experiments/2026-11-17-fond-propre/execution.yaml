@@ -1,0 +1,89 @@
+# Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-17).
+executions:
+  - id: X-011
+    titre: "Où prendre du fond propre ? Seize carrés à faire juger"
+    date: 2026-11-17
+    statut: prevue
+    piste: P-310
+    taches: [T-020]
+    resume: >-
+      Première étape du quatrième point de l'ordre d'essai. Avant d'apprendre au modèle ce
+      qu'est du papyrus vierge, il faut en désigner. Ce script propose seize carrés loin de toute
+      annotation ; c'est Kanemonium qui dira lesquels sont vierges.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Une planche de seize carrés, une carte d'ensemble, une liste"
+        detail: >-
+          Pour chaque carré de 1 024 pixels : le papyrus tel que le scan le montre, à côté de ce
+          que le modèle de X-002 y répond (la carte de X-003). Aucun entraînement, aucune
+          prédiction : le script relit ce qui existe.
+        fiches: [K-07, K-08]
+      - question: "La représentativité"
+        valeur: "Un tri automatique, qui ne sait pas reconnaître une lettre"
+        detail: >-
+          Deux familles. A : les carrés où le modèle voit le moins d'encre, donc les plus
+          probablement vierges, mais aussi ceux qui lui apprendront le moins. B : les carrés
+          d'un gris moyen et uniforme, le « fond gris » que l'on veut corriger, mais où une
+          encre pâle pourrait se cacher.
+        fiches: [K-21]
+      - question: "Ce que cela doit décider"
+        valeur: "Quels carrés entrent dans la zone de supervision comme fond"
+        detail: >-
+          Un carré déclaré vierge à tort apprendrait au modèle à effacer de l'encre : dans le
+          doute, un carré est écarté. Deux ou trois carrés jugés vierges seront gardés hors de
+          l'entraînement, comme contrôle.
+        fiches: [K-16, K-09]
+
+    code:
+      - titre: "Le tri des carrés"
+        fichier: experiments/2026-11-17-fond-propre/candidats.py
+        langage: python
+        extrait: [74, 98]
+        notes:
+          - lignes: 74
+            genre: mesure
+            titre: "La distance à l'annotation la plus proche"
+            texte: "Calculée sur l'image réduite huit fois, puis ramenée en pixels du segment."
+          - lignes: 82
+            genre: donnees
+            titre: "Deux raisons d'écarter un carré"
+            texte: >-
+              Il touche une zone vide du segment, ou il est à moins de 512 pixels d'une
+              annotation : assez loin pour ne pas mordre sur une lettre déjà étiquetée ni sur
+              les régions mises de côté.
+            fiches: [K-16]
+          - lignes: 96
+            genre: parametrage
+            titre: "Famille A : le moins de pixels très clairs"
+            texte: "Très clair veut dire 192 ou plus sur 255 dans la carte de X-003."
+          - lignes: [97, 98]
+            genre: parametrage
+            titre: "Famille B : gris moyen, uniforme"
+            texte: >-
+              Moyenne entre 120 et 160, et le plus faible écart-type. Deux carrés retenus sont
+              toujours séparés d'au moins trois carrés, pour couvrir le segment.
+
+    limites: |
+      - Le script ne reconnaît pas l'écriture : il ne fait que trier. Le jugement est humain, et Kanemonium n'est pas papyrologue : un carré douteux est écarté.
+      - Le tri s'appuie sur la carte de X-003, donc sur le modèle de X-002 : il hérite de ses erreurs.
+      - La planche montre une seule couche du scan, celle du milieu, réduite quatre fois.
+      - Seize carrés font 1,0 % du segment : rien ne dit que ce soit assez pour changer le modèle.
+      - Rien n'est mesuré sur l'effet : c'est l'objet de l'entraînement qui suivra.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          La carte d'encre relue ici a été calculée par le programme de prédiction du paquet
+          `vesuvius`, au commit `2d3fb38`. Sa documentation décrit la démarche suivie : étendre le
+          masque de supervision, puis réentraîner sous une nouvelle version d'étiquettes.
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: >-
+          Le segment `w00_20231016151002`, ses étiquettes et son masque de supervision, et la
+          remarque que le fond compte autant que l'encre : https://scrollprize.org/tutorial5
