@@ -165,3 +165,140 @@ executions:
         quoi: >-
           Le segment `w00_20231016151002`, ses étiquettes et son masque de supervision, et la
           remarque que le fond compte autant que l'encre : https://scrollprize.org/tutorial5
+
+  - id: X-012
+    titre: "Réentraîner avec du fond propre"
+    date: 2026-11-17
+    statut: prevue
+    piste: P-310
+    taches: [T-020]
+    resume: >-
+      Suite de X-011. Neuf carrés jugés vierges entrent dans la zone de supervision comme fond,
+      deux autres restent à l'écart comme contrôle. Le modèle est réentraîné comme X-008, puis
+      noté de deux façons : comme X-009 sur les régions mises de côté, et sur les carrés.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Deux chiffres, chacun avant et après"
+        detail: >-
+          Le F1 sur les quatre régions mises de côté, pour les quatre derniers points de
+          sauvegarde, à comparer au 0,776 de X-009. Et la part des carrés vierges que le modèle
+          marque comme encre : celle du modèle de X-008 d'abord, puis celle du nouveau.
+        fiches: [K-16, K-26]
+      - question: "La représentativité"
+        valeur: "Le réglage de X-008, une seule chose changée"
+        detail: >-
+          Même segment, mêmes régions mises de côté, même graine, mêmes 20 000 itérations. Seule
+          la zone de supervision change : neuf carrés de 1 024 pixels en plus, tous du fond, soit
+          environ 10 % de surface supervisée en plus (calculé, à confirmer par le script).
+        fiches: [K-12]
+      - question: "Ce que cela doit décider"
+        valeur: "Garder ou non le fond propre dans la suite"
+        detail: >-
+          Deux carrés de contrôle, c'est peu : ils diront une tendance, pas une preuve. Les neuf
+          carrés « fond » auront été vus à l'entraînement ; seul le contrôle compte comme jamais
+          vu. Sur le F1, un écart de moins de 0,03 reste du bruit.
+        fiches: [K-16, K-09]
+
+    code:
+      - titre: "Le réglage : celui de X-008, plus une ligne"
+        fichier: experiments/2026-11-17-fond-propre/fond-propre-128.json
+        langage: json
+        extrait: [9, 15]
+        notes:
+          - lignes: 11
+            genre: donnees
+            titre: "Les étiquettes en version 2"
+            texte: >-
+              villa prend alors les fichiers dont le nom finit par `_v2`, et exige que les
+              étiquettes d'encre et le masque de supervision existent tous deux à cette version.
+              Les fichiers du tutoriel ne sont pas touchés.
+            fiches: [K-17]
+
+      - titre: "Écrire les étiquettes en version 2"
+        fichier: experiments/2026-11-17-fond-propre/masques.py
+        langage: python
+        extrait: [36, 59]
+        notes:
+          - lignes: 42
+            genre: donnees
+            titre: "Un garde-fou"
+            texte: "Si un carré touche une annotation ou de l'encre étiquetée, le script s'arrête sans rien écrire."
+          - lignes: 54
+            genre: donnees
+            titre: "Seuls les carrés « fond » entrent dans le masque"
+            texte: >-
+              Les étiquettes d'encre y sont noires : dans la zone de supervision, noir veut dire
+              « pas d'encre ». Les carrés de contrôle n'y entrent pas.
+            fiches: [K-08]
+          - lignes: 58
+            genre: parametrage
+            titre: "Deux copies à la même version"
+            texte: "Les étiquettes d'encre et les régions mises de côté, inchangées, sous le nom que villa attend."
+
+      - titre: "Les six étapes"
+        fichier: experiments/2026-11-17-fond-propre/etapes-entrainement.sh
+        langage: bash
+        extrait: [28, 71]
+        notes:
+          - lignes: [38, 40]
+            genre: mesure
+            titre: "Le chiffre d'avant"
+            texte: >-
+              Le point de référence, l'itération 19 000 de X-008, prédit les onze carrés. La part
+              marquée encre est comptée à son seuil, 176 sur 255.
+            fiches: [K-16]
+          - lignes: [42, 51]
+            genre: parametrage
+            titre: "Reprendre plutôt que recommencer"
+            texte: "S'il existe un point de sauvegarde, l'entraînement repart de là."
+            fiches: [K-15]
+          - lignes: [54, 58]
+            genre: mesure
+            titre: "Noter comme X-009, sur quatre points"
+            texte: >-
+              Les outils de [khj1222](https://github.com/khj1222/vesuvius-challenge), sur les
+              itérations 17 000 à 20 000 : X-009 a montré que les premiers points ne valent rien,
+              et quatre prédictions prennent une demi-heure au lieu de deux heures et demie.
+            fiches: [K-26]
+          - lignes: [60, 71]
+            genre: mesure
+            titre: "Le chiffre d'après"
+            texte: >-
+              Le point au meilleur F1 prédit les mêmes carrés. La part marquée encre est comptée
+              à son propre seuil, puis au seuil 176 pour comparer à l'identique.
+
+    limites: |
+      - Les carrés ont été jugés vierges à l'œil, par deux personnes qui ne sont pas papyrologues, sur une couche du scan et la carte d'un modèle : une erreur apprendrait au modèle à effacer de l'encre.
+      - Deux carrés de contrôle seulement, choisis dans la même bande du segment que les carrés d'entraînement.
+      - Un seul découpage, une seule graine ; le seuil de bruit de 0,03 de F1 est celui de l'auteur des outils.
+      - Le F1 ne regarde que le voisinage des lettres : il peut ne pas bouger alors que le fond change, ou l'inverse.
+      - Durée estimée, non mesurée : environ trois heures et quart (conversion, deux heures vingt d'entraînement, une demi-heure de notation).
+      - Environ 16 Go de points de sauvegarde écrits ; 46,7 Go libres avant de lancer.
+      - Après cet essai, un réglage sans `label_version` prendra seul la version 2 : les anciens réglages sont à relancer avec `"label_version": "v1"`.
+
+    credits:
+      - github: khj1222
+        nom: "Hyojun Kwon, harnais de validation"
+        lien: https://github.com/khj1222/vesuvius-challenge/tree/c876e018944f6d6546b11daab8f9d00f48bddbbd
+        licence: MIT
+        quoi: >-
+          Les outils `tools/sweep_checkpoints.py` et `tools/eval_validation.py`, lancés depuis la
+          copie de X-009 où seul le nom du paquet de villa est remplacé, et le découpage des
+          régions mises de côté.
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          Le convertisseur d'étiquettes, l'entraînement et la prédiction du paquet `vesuvius`, au
+          commit `2d3fb38`. Sa documentation décrit la démarche suivie : étendre le masque de
+          supervision, puis réentraîner sous une nouvelle version d'étiquettes.
+        personnes:            # lignes par personne au commit 2d3fb38 (scripts/wsl/auteurs-villa.sh)
+          - { github: erdpx, nom: "elian rafael", part: "1 122 lignes de train.py" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: "Le segment étiqueté `w00_20231016151002`, ses étiquettes et la recette d'entraînement : https://scrollprize.org/tutorial5"

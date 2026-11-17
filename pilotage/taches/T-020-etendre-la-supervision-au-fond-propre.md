@@ -21,19 +21,19 @@ etapes:
     detail: "957 carrés possibles sur 1 550 ; seize proposés, presque tous en bas et à droite du segment. Le modèle y répond 103 à 160 sur 255 en moyenne. Les carrés 9, 11 et 14 touchent le bord du segment."
   - date: 2026-11-17
     genre: etape
-    statut: a-faire
+    statut: faite
     titre: "Kanemonium dit quels carrés sont vierges"
-    detail: "Dans le doute, un carré est écarté. Deux ou trois carrés vierges sont gardés hors de l'entraînement, comme contrôle."
+    detail: "Il retient la proposition d'Agent C. : neuf carrés comme fond (1, 2, 5, 6, 8, 10, 12, 13, 15), deux comme contrôle (4, 16), cinq écartés (3 et 7, douteux ; 9, 11 et 14, au bord du segment). Jugement à l'œil, par deux non-papyrologues."
   - date: 2026-11-17
     genre: etape
     statut: a-faire
     titre: "Mesurer le modèle actuel sur les carrés de contrôle"
-    detail: "Le point 19 000 de X-008 : quelle part d'un carré vierge il marque comme encre, au seuil 176. C'est le chiffre d'avant."
+    detail: "Le point 19 000 de X-008 : quelle part d'un carré vierge il marque comme encre, au seuil 176. C'est le chiffre d'avant. Prévu comme troisième étape de X-012."
   - date: 2026-11-17
     genre: etape
     statut: a-faire
     titre: "Écrire le masque en version 2 et réentraîner"
-    detail: "Mêmes régions mises de côté que X-008. Environ 16 Go de points de sauvegarde. La place est réglée le 2026-11-17 : 46,7 Go libres après le tri et le compactage du disque virtuel."
+    detail: "Page X-012 écrite. Mêmes régions mises de côté que X-008. Environ 16 Go de points de sauvegarde. La place est réglée le 2026-11-17 : 46,7 Go libres après le tri et le compactage du disque virtuel."
   - date: 2026-11-17
     genre: etape
     statut: a-faire

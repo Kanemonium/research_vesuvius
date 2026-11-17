@@ -33,4 +33,20 @@ Mesuré le 2026-11-17, en une à deux minutes.
   d'un gris moyen et uniforme (10,1 à 15,8 %). Presque tous tombent en bas et à droite du segment.
 - Les carrés 9, 11 et 14 touchent le bord du segment.
 
-Le choix des carrés vierges reste à faire par Kanemonium ; rien n'est décidé ici.
+Choix fait le 2026-11-17 par Kanemonium, sur proposition d'Agent C. (`choix.json`) : neuf carrés
+comme fond (1, 2, 5, 6, 8, 10, 12, 13, 15), deux comme contrôle (4, 16), cinq écartés (3, 7 : douteux ;
+9, 11, 14 : au bord du segment).
+
+## La suite : réentraîner (X-012)
+
+```bash
+bash experiments/2026-11-17-fond-propre/entrainer.sh
+```
+
+Six étapes (`etapes-entrainement.sh`) : écrire les étiquettes en version 2 (`masques.py`), les
+convertir, mesurer le modèle de X-008 sur les carrés (`mesurer_carres.py`), entraîner
+(`fond-propre-128.json`), noter les quatre derniers points de sauvegarde avec les outils de Hyojun
+Kwon ([khj1222/vesuvius-challenge](https://github.com/khj1222/vesuvius-challenge), licence MIT),
+puis mesurer le meilleur sur les carrés. Relancer après un arrêt reprend.
+
+Non mesuré : l'entraînement n'est pas lancé.
