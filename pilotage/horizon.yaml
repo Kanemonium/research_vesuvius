@@ -35,9 +35,13 @@ problemes:
     titre: "Étiquettes approximatives"
     detail: "Les étiquettes viennent de prédictions relues à la main : un modèle peut apprendre nos erreurs."
     piste: P-250
+  - id: F-07
+    titre: "L'encre et le papyrus sont du même carbone"
+    detail: "Aux rayons X, l'encre et le papyrus carbonisé se distinguent à peine. Nous ne savons pas dire quelle grandeur mesurable les sépare : c'est ce que P-370 et P-380 cherchent."
+    piste: P-380
   - id: F-06
     titre: "Place sur le disque"
-    detail: "Le segment du tutoriel pèse environ 25 Go. Le disque n'avait que 43,5 Go libres ; après ménage le 2026-11-14, 167 Go. Levé pour le tutoriel, à surveiller pour la suite."
+    detail: "Le segment du tutoriel pèse environ 25 Go. Le disque n'avait que 43,5 Go libres ; après ménage le 2026-11-14, 167 Go. Levé pour le tutoriel, mais de nouveau serré : 27 Go libres le 2026-11-17, après deux entraînements de 16 Go de points de sauvegarde chacun."
     piste: P-420
 
 livrables:
@@ -98,4 +102,14 @@ livrables:
     fenetre: 2027-03-31
     confiance: faible
     hypothese: "La ligne de base tourne et le banc d'essai montre où le signal existe."
+    statut: a-venir
+  - id: L-07
+    titre: "Ce que des mesures simples disent de l'encre"
+    detail: "Note chiffrée : combien l'encre et le fond se recouvrent, dimension par dimension, et ce que vaut un classifieur simple sur les régions mises de côté, face au modèle (T-017). Un résultat négatif compte aussi."
+    piste: P-380
+    repond_a: [F-07]
+    prix: []
+    fenetre: 2026-12-15
+    confiance: moyenne
+    hypothese: "Estimation d'Agent C. au 2026-11-17 : le calcul tient sur le processeur, avec les étiquettes et le découpage de X-008."
     statut: a-venir

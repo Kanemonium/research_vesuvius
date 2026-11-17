@@ -34,6 +34,11 @@ Short illustrated notes on the ideas this project runs into: what each one is, h
 | K-26 | [The Dice score](K-26-dice-score.en.md) | [Le score Dice](K-26-dice-score.fr.md) |
 | K-27 | [The papyrus weave, and how to remove it](K-27-papyrus-weave-removal.en.md) | [La trame du papyrus, et comment l’effacer](K-27-papyrus-weave-removal.fr.md) |
 | K-28 | [Greek letter datasets](K-28-greek-letter-datasets.en.md) | [Les jeux de lettres grecques](K-28-greek-letter-datasets.fr.md) |
+| K-29 | [Two numbers per material: absorb and shift](K-29-refractive-index.en.md) | [Deux nombres par matière : absorber et décaler](K-29-refractive-index.fr.md) |
+| K-30 | [Phase retrieval: a filter is enough](K-30-phase-retrieval.en.md) | [Retrouver la phase : un filtre suffit](K-30-phase-retrieval.fr.md) |
+| K-31 | [From projections to the volume](K-31-projections-and-reconstruction.en.md) | [Des projections au volume](K-31-projections-and-reconstruction.fr.md) |
+| K-32 | [Blur is a convolution](K-32-blur-and-deconvolution.en.md) | [Le flou est une convolution](K-32-blur-and-deconvolution.fr.md) |
+| K-33 | [One vector per pixel](K-33-feature-vector-per-pixel.en.md) | [Un vecteur par pixel](K-33-feature-vector-per-pixel.fr.md) |
 
 Facts come from the [Vesuvius Challenge](https://scrollprize.org) site as read on 2026-11-14; each note links its source.
 Notes K-11 to K-16 cover the training code: they also rely on the `ScrollPrize/villa` source at commit `2d3fb38` and on our own measured runs (`experiments/`).
@@ -41,3 +46,4 @@ The same notes are shown in the cockpit under the "Doc" tab (`npm run ihm`).
 Notes K-18 to K-24 cover what the community has achieved on ink detection and what remains open: they rely on the scrollprize.org pages kept in `ScrollPrize/villa` (`scrollprize.org/docs/`) at commit `2d3fb38`, read on 2026-11-15.
 Notes K-25 and K-26 go back to the original sources: the TimeSformer paper (arXiv:2102.05095) and the code of `ScrollPrize/villa` that uses it (`deprecated/ink-detection/`), and the Dice score as used in villa's ink loss.
 Notes K-27 and K-28 describe two untested ideas of ours (removing the papyrus weave from an ink map; using Greek letter datasets downstream of ink detection). K-27 also relies on the Wikipedia article "Image noise" for periodic noise and notch filtering, K-28 on the AL-PUB v2 dataset page (Apache 2.0).
+Notes K-29 to K-33 come from two ideas of Kanemonium on 2026-11-17 (simulating the physics of the scan; one vector per pixel). Their sources were read on that day: the CXRO optical constants pages, the Beltran, Paganin and Pelliccia paper (arXiv:1711.04227), the 2026 preprint on the complete unwrapping of a Herculaneum papyrus (arXiv:2606.29085), the `ScrollPrize/open-data` README, the ilastik documentation, and Wikipedia for the general definitions. Nothing in them has been measured by us.
