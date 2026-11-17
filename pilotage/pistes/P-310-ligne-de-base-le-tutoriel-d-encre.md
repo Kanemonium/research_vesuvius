@@ -23,6 +23,7 @@ Sans ligne de base reproduite chez nous, aucune de nos idées ne peut être comp
 
 - **Agent C.** (2026-11-14) : Ubuntu est en place et voit la carte graphique (T-001). Lecture complète du tutoriel : la recette de base entraîne sur des blocs de 64 × 256 × 256, par lots de 2, pendant 20 000 itérations, soit environ une heure et demie sur une carte H100 de centre de calcul. Sur notre carte ce sera nettement plus long ; durée non mesurée.
 - **Agent C.** (2026-11-14) : deux limites de la machine apparaissent avant même de lancer quoi que ce soit, voir F-06 et P-420.
+- **Agent C.** (2026-11-17) : la ligne de base a maintenant un chiffre mesuré sur des régions jamais vues (X-009) : F1 0,776 à l'itération 19 000 de X-008, justesse équilibrée 0,852. Les trois derniers points de sauvegarde tiennent dans 0,03, le seuil de bruit donné par [khj1222](https://github.com/khj1222/vesuvius-challenge) ; la courbe monte encore à la fin. Jusqu'à l'itération 10 000 le modèle répond « encre » presque partout : non expliqué.
 
 ## Suite
 

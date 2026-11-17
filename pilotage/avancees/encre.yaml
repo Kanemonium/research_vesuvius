@@ -707,3 +707,26 @@ avancees:
     fiches:
       - K-28
       - K-21
+  - id: A-385
+    branche: nous
+    date: 2026-11-17
+    titre: Une première note sur des régions jamais vues
+    statut: acquis
+    nous: true
+    resume: "Sur quatre régions tenues à l'écart de l'entraînement, notre modèle retrouve l'encre annotée avec un
+      F1 de 0,776. C'est le chiffre contre lequel les essais suivants seront jugés."
+    fonctionnel: "Nous savons enfin dire si un changement améliore le modèle : même découpage, mêmes pixels, même
+      mesure. Un essai ne compte comme meilleur qu'au-delà de 0,03 d'écart. Ce n'est pas une lecture : la note
+      compare une prédiction à des étiquettes."
+    technique: "Exécutions X-008 (entraînement sans les régions 2, 13, 14 et 15) et X-009 (21 points de sauvegarde
+      notés sur 19 083 252 pixels). Meilleur F1 à l'itération 19 000, seuil 176 sur 255, précision 78,9 %, rappel
+      76,4 %, justesse équilibrée 0,852. Méthode et outils de [khj1222](https://github.com/khj1222/vesuvius-challenge).
+      Un seul découpage, une seule graine."
+    pistes:
+      - P-310
+    executions:
+      - X-008
+      - X-009
+    fiches:
+      - K-16
+      - K-26

@@ -24,4 +24,13 @@ remplacé. La prédiction est celle de [ScrollPrize/villa](https://github.com/Sc
 
 ## Le résultat
 
-Non mesuré : la page sera complétée à la fin de l'exécution.
+Mesuré le 2026-11-17, en 2 h 38 min, sur 19 083 252 pixels étiquetés des quatre régions mises de côté.
+
+- Meilleur F1 : 0,776 à l'itération 19 000 (seuil 176 sur 255, précision 78,9 %, rappel 76,4 %,
+  justesse équilibrée 0,852). C'est le point de sauvegarde gardé et le chiffre à battre.
+- Les itérations 18 000 (0,755) et 20 000 (0,768) et le point gardé par villa (17 500 : 0,755) sont à
+  moins de 0,03, le seuil de bruit donné par l'auteur des outils.
+- Jusqu'à l'itération 10 000, le F1 reste vers 0,40 : à peine mieux que répondre « encre » partout (0,373).
+- Aucun arrêt de la prédiction avec `--mask-path` sur notre volume.
+
+Le tableau complet, les courbes et deux aperçus sont dans `execution.yaml` (onglet « Exécutions » de l'IHM).

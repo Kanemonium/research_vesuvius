@@ -1,24 +1,26 @@
 # Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
-# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-17).
+# Format : pilotage/README.md. Page écrite avant le lancement, complétée à la fin (2026-11-17).
 executions:
   - id: X-009
     titre: "Noter chaque point de sauvegarde sur les régions entières"
     date: 2026-11-17
-    statut: prevue
+    statut: terminee
     piste: P-310
     taches: [T-016]
     resume: >-
       Dernière étape de T-016. La note que villa calcule pendant l'entraînement est trop bruitée
       pour choisir un point de sauvegarde (X-008). Ici, chaque point de sauvegarde prédit les quatre
       régions mises de côté en entier, et sa prédiction est comparée aux étiquettes à tous les seuils.
+      Résultat : le meilleur F1 est 0,776, à l'itération 19 000. C'est le chiffre à battre.
 
     bilan:
       - question: "Le type de résultat"
-        valeur: "Une note par point de sauvegarde, sur les mêmes pixels à chaque fois"
+        valeur: "Vingt et une notes, sur les mêmes 19 083 252 pixels"
         detail: >-
           Pour chacun des vingt points de sauvegarde, et pour celui que villa a gardé à part
           (itération 17 500) : le meilleur F1, le seuil qui le donne, la précision, le rappel et
-          la justesse équilibrée. Une courbe de ces notes au fil de l'entraînement.
+          la justesse équilibrée. La courbe est lisse là où celle de X-008 sautait de 0,11 : elle
+          reste au niveau de « tout est encre » jusqu'à l'itération 10 000, puis monte jusqu'à 19 000.
         fiches: [K-16, K-15, K-26]
       - question: "La représentativité"
         valeur: "Les quatre régions mises de côté, en entier"
@@ -29,10 +31,12 @@ executions:
           0,03 de F1 sur ce segment est du bruit.
         fiches: [K-16]
       - question: "Ce que cela doit décider"
-        valeur: "Le point de sauvegarde à garder, et le chiffre à battre"
+        valeur: "Garder l'itération 19 000 ; à battre : F1 0,776"
         detail: >-
           Les essais suivants (blocs de 256, fond propre, trame, vecteur par pixel) seront jugés
-          contre ce chiffre, sur ces mêmes régions.
+          contre ce chiffre, sur ces mêmes régions. Un essai ne compte comme meilleur qu'au-delà de
+          0,03 d'écart, soit un F1 d'au moins 0,81. Les itérations 18 000 et 20 000 et le point
+          gardé par villa sont à moins de 0,03 : 19 000 est une convention, pas une preuve.
 
     code:
       - titre: "Les deux étapes"
@@ -78,12 +82,197 @@ executions:
               Une prédiction déjà écrite est gardée : après un arrêt, seuls les points de
               sauvegarde manquants sont prédits.
 
+    sorties:
+      - genre: mesures
+        titre: "Le point de sauvegarde à garder"
+        large: true
+        lignes:
+          - ["Meilleur F1", "0,776, à l'itération 19 000", "seuil 176 sur 255 ; précision 78,9 %, rappel 76,4 %"]
+          - ["Justesse équilibrée, même point", "0,852", "encre retrouvée 76,4 %, fond reconnu 93,9 %"]
+          - ["Recouvrement (IoU), même point", "0,634", "3 337 959 pixels d'encre bien placés ; 893 407 en trop, 1 031 201 manqués"]
+          - ["Écart avec l'itération 20 000", "0,008 de F1", "sous le seuil de bruit de 0,03 donné par l'auteur des outils"]
+          - ["Écart avec le point gardé par villa (17 500)", "0,022 de F1", "sous ce même seuil : le choix de villa n'était pas mauvais, mais pas le meilleur"]
+          - ["Répondre « encre » partout", "F1 0,373", "calculé : 22,9 % des pixels notés sont de l'encre. C'est le niveau des dix premiers points de sauvegarde."]
+        note: >-
+          Notes sur 19 083 252 pixels étiquetés, les mêmes pour chaque point de sauvegarde. Le
+          seuil est celui qui donne le meilleur F1 pour ce point ; la prédiction va de 0 à 255.
+      - genre: courbe
+        titre: "Le F1 sur les régions mises de côté, en entier"
+        x: "itération"
+        y: "meilleur F1 (0,373 : répondre « encre » partout)"
+        xmin: 0
+        xmax: 20000
+        ymin: 0.35
+        ymax: 0.8
+        points:
+          - [1000, 0.4066]
+          - [2000, 0.4018]
+          - [3000, 0.4094]
+          - [4000, 0.4084]
+          - [5000, 0.3792]
+          - [6000, 0.4001]
+          - [7000, 0.374]
+          - [8000, 0.4022]
+          - [9000, 0.4349]
+          - [10000, 0.3928]
+          - [11000, 0.4557]
+          - [12000, 0.5497]
+          - [13000, 0.6166]
+          - [14000, 0.6132]
+          - [15000, 0.6786]
+          - [16000, 0.695]
+          - [17000, 0.7296]
+          - [17500, 0.7547]
+          - [18000, 0.7548]
+          - [19000, 0.7762]
+          - [20000, 0.7683]
+      - genre: courbe
+        titre: "La justesse équilibrée, au seuil du meilleur F1"
+        x: "itération"
+        y: "justesse équilibrée (0,5 : pas mieux que répondre toujours la même chose)"
+        xmin: 0
+        xmax: 20000
+        ymin: 0.45
+        ymax: 0.9
+        points:
+          - [1000, 0.5811]
+          - [2000, 0.5695]
+          - [3000, 0.5826]
+          - [4000, 0.5834]
+          - [5000, 0.5192]
+          - [6000, 0.5623]
+          - [7000, 0.5051]
+          - [8000, 0.5818]
+          - [9000, 0.625]
+          - [10000, 0.5674]
+          - [11000, 0.6465]
+          - [12000, 0.7141]
+          - [13000, 0.7446]
+          - [14000, 0.7516]
+          - [15000, 0.7921]
+          - [16000, 0.7989]
+          - [17000, 0.8175]
+          - [17500, 0.8379]
+          - [18000, 0.8379]
+          - [19000, 0.8516]
+          - [20000, 0.8453]
+      - genre: mesures
+        titre: "Les vingt et un points de sauvegarde"
+        large: true
+        lignes:
+          - ["Itération 20 000", "F1 0,768", "seuil 188 sur 255 · précision 78,6 % · rappel 75,1 % · justesse équilibrée 0,845"]
+          - ["Itération 19 000", "F1 0,776", "seuil 176 sur 255 · précision 78,9 % · rappel 76,4 % · justesse équilibrée 0,852"]
+          - ["Itération 18 000", "F1 0,755", "seuil 191 sur 255 · précision 76,7 % · rappel 74,3 % · justesse équilibrée 0,838"]
+          - ["Itération 17 500 (gardée par villa)", "F1 0,755", "seuil 167 sur 255 · précision 76,7 % · rappel 74,3 % · justesse équilibrée 0,838"]
+          - ["Itération 17 000", "F1 0,730", "seuil 186 sur 255 · précision 76,2 % · rappel 70,0 % · justesse équilibrée 0,817"]
+          - ["Itération 16 000", "F1 0,695", "seuil 175 sur 255 · précision 71,1 % · rappel 68,0 % · justesse équilibrée 0,799"]
+          - ["Itération 15 000", "F1 0,679", "seuil 202 sur 255 · précision 67,6 % · rappel 68,1 % · justesse équilibrée 0,792"]
+          - ["Itération 14 000", "F1 0,613", "seuil 168 sur 255 · précision 59,9 % · rappel 62,8 % · justesse équilibrée 0,752"]
+          - ["Itération 13 000", "F1 0,617", "seuil 114 sur 255 · précision 66,4 % · rappel 57,6 % · justesse équilibrée 0,745"]
+          - ["Itération 12 000", "F1 0,550", "seuil 175 sur 255 · précision 50,3 % · rappel 60,6 % · justesse équilibrée 0,714"]
+          - ["Itération 11 000", "F1 0,456", "seuil 180 sur 255 · précision 35,2 % · rappel 64,7 % · justesse équilibrée 0,646"]
+          - ["Itération 10 000", "F1 0,393", "seuil 164 sur 255 · précision 26,6 % · rappel 75,4 % · justesse équilibrée 0,567"]
+          - ["Itération 9 000", "F1 0,435", "seuil 191 sur 255 · précision 31,9 % · rappel 68,1 % · justesse équilibrée 0,625"]
+          - ["Itération 8 000", "F1 0,402", "seuil 168 sur 255 · précision 27,6 % · rappel 74,2 % · justesse équilibrée 0,582"]
+          - ["Itération 7 000", "F1 0,374", "seuil 158 sur 255 · précision 23,1 % · rappel 98,6 % · justesse équilibrée 0,505"]
+          - ["Itération 6 000", "F1 0,400", "seuil 153 sur 255 · précision 25,6 % · rappel 91,9 % · justesse équilibrée 0,562"]
+          - ["Itération 5 000", "F1 0,379", "seuil 182 sur 255 · précision 23,6 % · rappel 96,0 % · justesse équilibrée 0,519"]
+          - ["Itération 4 000", "F1 0,408", "seuil 184 sur 255 · précision 27,1 % · rappel 82,7 % · justesse équilibrée 0,583"]
+          - ["Itération 3 000", "F1 0,409", "seuil 161 sur 255 · précision 26,9 % · rappel 85,8 % · justesse équilibrée 0,583"]
+          - ["Itération 2 000", "F1 0,402", "seuil 156 sur 255 · précision 26,1 % · rappel 87,3 % · justesse équilibrée 0,569"]
+          - ["Itération 1 000", "F1 0,407", "seuil 216 sur 255 · précision 27,0 % · rappel 82,4 % · justesse équilibrée 0,581"]
+        note: >-
+          Le fichier summary.csv des outils de khj1222, du plus récent au plus ancien. L'itération
+          17 500 est le fichier que villa a gardé à part ; ses notes sont celles de l'itération
+          18 000 à 0,0001 près, avec un autre seuil. Nous ne savons pas pourquoi.
+      - genre: mesures
+        titre: "Région par région, à l'itération 19 000"
+        large: true
+        lignes:
+          - ["Région 1", "F1 0,776", "5 467 600 pixels, 26,9 % d'encre · précision 86,7 % · rappel 70,2 %"]
+          - ["Région 2", "F1 0,800", "1 991 836 pixels, 33,3 % d'encre · précision 84,6 % · rappel 75,8 %"]
+          - ["Région 3", "F1 0,828", "2 446 912 pixels, 11,4 % d'encre · précision 82,6 % · rappel 82,9 %"]
+          - ["Région 4", "F1 0,763", "9 176 904 pixels, 21,3 % d'encre · précision 72,6 % · rappel 80,4 %"]
+        note: >-
+          Numéros de l'outil de notation, pas ceux du découpage (2, 13, 14 et 15). Toutes au
+          seuil 176. La plus grande région est aussi la moins bien notée.
+      - genre: image
+        titre: "La région 4 : prédiction et étiquette"
+        fichier: X-009-region-4.png
+        alt: "À gauche, des taches claires sur un fond gris tramé, dans le contour de la région ; à droite, deux tracés blancs épais sur fond noir"
+        legende: >-
+          À gauche, ce que le modèle de l'itération 19 000 répond dans la région (clair : encre
+          probable). À droite, l'étiquette du tutoriel, que ce modèle n'a jamais vue. Réduit
+          quatre fois. Les taches suivent les tracés, avec des débords, des points isolés et la
+          trame du papyrus. C'est une comparaison à une étiquette, pas une lecture.
+      - genre: image
+        titre: "La région 3 : prédiction et étiquette"
+        fichier: X-009-region-3.png
+        alt: "En haut, une tache claire verticale sur un fond gris tramé ; en bas, un tracé blanc vertical sur fond noir"
+        legende: >-
+          Même modèle, même réduction : la prédiction en haut, l'étiquette en bas. Le bas de la
+          région n'a pas d'encre annotée ; le modèle y laisse un fond gris et quelques points.
+      - genre: image
+        titre: "La courbe tracée par l'outil"
+        fichier: X-009-courbe.png
+        alt: "Trois courbes qui restent plates jusqu'à l'itération 10 000 puis montent jusqu'à 19 000"
+        legende: >-
+          Le fichier curve.png de sweep_checkpoints.py : F1 en bleu, recouvrement en orange,
+          justesse équilibrée en vert, de l'itération 1 000 à 20 000.
+      - genre: mesures
+        titre: "Durée et mémoire"
+        large: true
+        lignes:
+          - ["Durée totale", "2 h 38 min 32 s", "de 12 h 49 à 15 h 28, sans arrêt ni reprise"]
+          - ["Essai sur un point de sauvegarde", "7 min 49 s", "aucun arrêt avec --mask-path sur notre volume"]
+          - ["Les vingt autres", "2 h 30 min 42 s", "de 397 à 488 s par point ; le vingt et unième reprend la prédiction de l'essai en 11 s"]
+          - ["Blocs prédits par point", "5 307", "blocs de 128, pas de 64, lots de 4"]
+          - ["Mémoire vidéo de la carte, pic", "4 873 Mo", "sur 8 192, avec ce que Windows occupe"]
+          - ["Disque", "662 Mo écrits", "il reste 17 Go libres sur C: (97 % occupé)"]
+      - genre: journal
+        titre: "La note du meilleur point, telle que l'outil l'annonce"
+        large: true
+        texte: |
+          prediction   : val_019000.tif
+          scored region: 4 region(s) from validation_mask
+          scored px    : 19,083,252  (ink 4,369,160 = 22.90%)
+          best F1      : 0.7762 @ threshold 176  (precision 0.7889, recall 0.7640)
+          IoU          : 0.6343
+          balanced acc : 0.8516
+          counts       : tp 3,337,959  fp 893,407  fn 1,031,201  tn 13,820,685
+          per region (threshold 176):
+            region          px    ink%       F1    prec     rec
+                 1   5,467,600   26.9%   0.7755  0.8666  0.7018
+                 2   1,991,836   33.3%   0.7995  0.8460  0.7577
+                 3   2,446,912   11.4%   0.8277  0.8264  0.8290
+                 4   9,176,904   21.3%   0.7626  0.7257  0.8035
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "villa/vesuvius/runs/validation_128_notes/val_001000.tif à val_020000.tif"
+            taille: "21 fichiers, 23 à 37 Mo"
+            role: "La prédiction de chaque point de sauvegarde, limitée aux régions mises de côté."
+          - nom: "villa/vesuvius/runs/validation_128_notes/val_*.json"
+            taille: "21 × 5 ko"
+            role: "La note de chaque point, à tous les seuils et région par région."
+          - nom: "villa/vesuvius/runs/validation_128_notes/summary.csv et curve.png"
+            taille: "1 ko et 14 ko"
+            role: "Le tableau et la courbe repris sur cette page."
+          - nom: "khj1222-adapte/tools/"
+            taille: "2 fichiers"
+            role: "La copie des outils où seul le nom du paquet de villa est remplacé."
+
     limites: |
-      - Un seul découpage, une seule graine : pas de marge d'erreur mesurée chez nous.
+      - Un seul découpage, une seule graine : pas de marge d'erreur mesurée chez nous. Le seuil de bruit de 0,03 est celui de l'auteur des outils, pas le nôtre.
+      - Les trois derniers points (18 000, 19 000, 20 000) et celui de villa tiennent dans ce seuil : 19 000 est gardé par convention, pas parce qu'il est prouvé meilleur.
+      - La courbe monte encore à la fin : l'entraînement n'a peut-être pas donné tout ce qu'il pouvait en 20 000 itérations. Non vérifié.
       - Le seuil qui donne le meilleur F1 est choisi sur les régions mêmes qui servent à noter : le chiffre est un peu flatteur.
       - Rien sur ce que le modèle répond hors des régions étiquetées.
       - Aucune comparaison avec X-002, qui a vu ces régions pendant son entraînement.
-      - La durée n'est pas connue d'avance : le premier essai la dira.
+      - Pourquoi le fichier gardé par villa (17 500) note comme l'itération 18 000 à 0,0001 près : non expliqué. Les deux fichiers sont différents.
+      - Pourquoi le modèle répond « encre » presque partout jusqu'à l'itération 10 000 : toujours non expliqué.
+      - Les deux aperçus sont regardés à l'œil, sur deux régions et un seul point de sauvegarde.
 
     credits:
       - github: khj1222
