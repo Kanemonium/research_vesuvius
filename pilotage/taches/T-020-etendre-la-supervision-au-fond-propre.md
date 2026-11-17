@@ -33,7 +33,7 @@ etapes:
     genre: etape
     statut: a-faire
     titre: "Écrire le masque en version 2 et réentraîner"
-    detail: "Mêmes régions mises de côté que X-008. Environ 16 Go de points de sauvegarde : la place sur le disque est à régler d'abord avec Kanemonium."
+    detail: "Mêmes régions mises de côté que X-008. Environ 16 Go de points de sauvegarde. La place est réglée le 2026-11-17 : 46,7 Go libres après le tri et le compactage du disque virtuel."
   - date: 2026-11-17
     genre: etape
     statut: a-faire
