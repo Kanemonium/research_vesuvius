@@ -1,0 +1,11 @@
+{
+  "id": "X-010",
+  "debut": "2026-11-17T17:20:10+01:00",
+  "fin": "2026-11-17T18:03:40+01:00",
+  "code": 0,
+  "pid": null,
+  "pause": null,
+  "reprises": 0,
+  "pic_vram_mo": 7993,
+  "commande": "bash <windows>/Documents/Développement/research_vesuvius/experiments/2026-11-17-blocs-de-256/etapes.sh"
+}

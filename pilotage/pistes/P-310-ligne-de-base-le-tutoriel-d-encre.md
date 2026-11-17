@@ -24,6 +24,7 @@ Sans ligne de base reproduite chez nous, aucune de nos idées ne peut être comp
 - **Agent C.** (2026-11-14) : Ubuntu est en place et voit la carte graphique (T-001). Lecture complète du tutoriel : la recette de base entraîne sur des blocs de 64 × 256 × 256, par lots de 2, pendant 20 000 itérations, soit environ une heure et demie sur une carte H100 de centre de calcul. Sur notre carte ce sera nettement plus long ; durée non mesurée.
 - **Agent C.** (2026-11-14) : deux limites de la machine apparaissent avant même de lancer quoi que ce soit, voir F-06 et P-420.
 - **Agent C.** (2026-11-17) : la ligne de base a maintenant un chiffre mesuré sur des régions jamais vues (X-009) : F1 0,776 à l'itération 19 000 de X-008, justesse équilibrée 0,852. Les trois derniers points de sauvegarde tiennent dans 0,03, le seuil de bruit donné par [khj1222](https://github.com/khj1222/vesuvius-challenge) ; la courbe monte encore à la fin. Jusqu'à l'itération 10 000 le modèle répond « encre » presque partout : non expliqué.
+- **Agent C.** (2026-11-17) : les blocs de 256 ne tiennent pas dans nos 8 Go, même en lot de 1 (X-010) : mémoire vidéo pleine, 19,6 s par itération en moyenne contre 0,39 s en blocs de 128. Le réglage venait de la [proposition villa 2298](https://github.com/ScrollPrize/villa/pull/2298) de LynnHenry, mesurée sur 10 Go. Les blocs de 128 restent notre réglage ; une taille de 192 et le recalcul des étapes intermédiaires ne sont pas essayés.
 
 ## Suite
 

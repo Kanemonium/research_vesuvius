@@ -22,4 +22,14 @@ minutes arrête l'essai si la mémoire déborde.
 
 ## Le résultat
 
-Non mesuré : l'essai n'est pas lancé.
+Mesuré le 2026-11-17 : la carte ne tient pas.
+
+- Mémoire vidéo pleine : 7 993 Mo au pic, sur 8 192 (Windows en occupait 1 800 avant de lancer).
+- 125 itérations sur 350 en 40 min 54 s, puis arrêt par la limite : 19,6 s par itération en moyenne,
+  le plus souvent 26 à 34 s, avec un passage de cinq minutes à 3,5 s que nous n'expliquons pas.
+- Blocs de 128 en lot de 2, pour comparaison : 0,39 s par itération (X-008).
+- À ce rythme, 20 000 itérations prendraient environ 109 h (calculé, pas mesuré).
+
+La mesure intégrée de villa n'a rien écrit, faute d'aller au bout : les chiffres viennent de la barre
+de progression du journal. Pas d'entraînement complet en blocs de 256 avec ce réglage. Non essayé :
+une taille de 192, la machine avec le reste fermé, le recalcul des étapes intermédiaires.

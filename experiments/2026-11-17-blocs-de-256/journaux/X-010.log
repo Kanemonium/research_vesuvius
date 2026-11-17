@@ -1,0 +1,109 @@
+[17:20:10] ===== étape 1/2 : 350 itérations en blocs de 256, lot de 1 =====
+mémoire vidéo occupée avant de lancer : 1800 MiB
+sampling_audit={"patches": 2240, "strategy": "uniform"}
+Using dimensionality (3D) from ConfigManager
+Using 3D convolutions (nn.Conv3d)
+Using 3D normalization (nn.InstanceNorm3d)
+--- Full autoconfiguration from config ---
+Patch size adjusted from (64, 256, 256) to (64, 256, 256) to ensure divisibility by pooling factors [16 64 64]
+Task 'ink' configured with z-projection mode 'max'
+Task 'ink' configured with shared decoder + head (1 channels)
+NetworkFromConfig initialized with final configuration:
+  model_name: ink_det
+  basic_encoder_block: BasicBlockD
+  basic_decoder_block: ConvBlock
+  bottleneck_block: BasicBlockD
+  features_per_stage: [32, 64, 128, 256, 320, 320, 320]
+  num_stages: 7
+  n_blocks_per_stage: [1, 3, 4, 6, 6, 6, 6]
+  n_conv_per_stage_decoder: [1, 1, 1, 1, 1, 1]
+  kernel_sizes: [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+  pool_op_kernel_sizes: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2], [1, 2, 2]]
+  conv_op: Conv3d
+  conv_bias: True
+  norm_op: InstanceNorm3d
+  norm_op_kwargs: {'affine': True, 'eps': 1e-05}
+  dropout_op: None
+  dropout_op_kwargs: None
+  nonlin: LeakyReLU
+  nonlin_kwargs: {'inplace': True, 'negative_slope': 0.01}
+  strides: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2], [1, 2, 2]]
+  return_skips: True
+  do_stem: True
+  stem_channels: 32
+  bottleneck_channels: None
+  stochastic_depth_p: 0.0
+  squeeze_excitation: False
+  squeeze_excitation_reduction_ratio: 0.0625
+  squeeze_excitation_type: channel
+  squeeze_excitation_add_maxpool: False
+  pool_type: conv
+  upsample_mode: transpconv
+  op_dims: 3
+  patch_size: (64, 256, 256)
+  batch_size: 1
+  in_channels: 1
+  autoconfigure: True
+  targets: {'ink': {'out_channels': 1, 'activation': 'none', 'z_projection_mode': 'max'}}
+  target_z_projection: {'ink': {'mode': 'max'}}
+  separate_decoders: False
+  num_pool_per_axis: [4, 6, 6]
+  must_be_divisible_by: [16 64 64]
+  guide_backbone: None
+  guide_backbone_config_path: None
+  guide_freeze: True
+  guide_patch_grid: None
+  guide_stage_keys: None
+  guide_skip_concat_projector_channels: None
+  guide_feature_gate_alpha: None
+  guide_tokenbook_tokens: None
+  guide_tokenbook_prototype_weighting: mean
+  guide_tokenbook_weight_mlp_hidden: None
+  guide_compile_policy: off
+  guide_fusion_stage: None
+  0%|          | 0/350 [00:00<?, ?it/s]
+  1%|          | 3/350 [03:11<4:24:38, 45.76s/it, loss=1.2633, lr=1.00e-05]
+  2%|▏         | 6/350 [06:48<5:56:48, 62.23s/it, loss=0.2336, lr=2.00e-05] 
+  3%|▎         | 9/350 [10:14<5:22:47, 56.80s/it, loss=1.3742, lr=4.00e-05]
+  4%|▎         | 13/350 [11:17<2:24:22, 25.70s/it, loss=2.2042, lr=6.00e-05]
+  5%|▍         | 16/350 [12:34<2:25:22, 26.12s/it, loss=1.6766, lr=8.00e-05]
+  6%|▌         | 20/350 [14:17<2:29:54, 27.26s/it, loss=1.7175, lr=1.00e-04]
+  7%|▋         | 23/350 [15:35<2:22:41, 26.18s/it, loss=0.8588, lr=1.10e-04]
+  8%|▊         | 27/350 [17:29<2:27:45, 27.45s/it, loss=0.9089, lr=1.30e-04]
+  9%|▊         | 30/350 [19:03<2:43:53, 30.73s/it, loss=1.7058, lr=1.50e-04]
+ 10%|▉         | 34/350 [21:13<2:50:18, 32.34s/it, loss=0.1273, lr=1.70e-04]
+ 11%|█         | 37/350 [22:25<2:21:33, 27.14s/it, loss=-0.0625, lr=1.80e-04]
+ 12%|█▏        | 41/350 [24:19<2:19:10, 27.02s/it, loss=1.2990, lr=2.00e-04]
+ 13%|█▎        | 44/350 [26:09<2:50:57, 33.52s/it, loss=1.4488, lr=2.20e-04]
+ 14%|█▎        | 48/350 [27:35<2:14:29, 26.72s/it, loss=0.3572, lr=2.40e-04]
+ 15%|█▍        | 51/350 [29:12<2:30:54, 30.28s/it, loss=1.1187, lr=2.50e-04]
+ 16%|█▌        | 55/350 [30:08<1:27:47, 17.86s/it, loss=0.0124, lr=2.70e-04]
+ 17%|█▋        | 58/350 [30:26<46:34,  9.57s/it, loss=0.7201, lr=2.90e-04]
+ 18%|█▊        | 62/350 [30:43<25:47,  5.37s/it, loss=0.9669, lr=3.10e-04]
+ 19%|█▊        | 65/350 [30:53<18:56,  3.99s/it, loss=0.5673, lr=3.20e-04]
+ 20%|█▉        | 69/350 [31:11<23:06,  4.93s/it, loss=1.3868, lr=3.40e-04]
+ 21%|██        | 72/350 [31:22<19:16,  4.16s/it, loss=0.2506, lr=3.60e-04]
+ 22%|██▏       | 76/350 [31:36<16:38,  3.64s/it, loss=1.1356, lr=3.80e-04]
+ 23%|██▎       | 79/350 [31:48<18:55,  4.19s/it, loss=0.9882, lr=3.90e-04]
+ 24%|██▎       | 83/350 [32:02<15:59,  3.59s/it, loss=0.3075, lr=4.10e-04]
+ 25%|██▍       | 86/350 [32:14<17:10,  3.90s/it, loss=0.9048, lr=4.30e-04]
+ 26%|██▌       | 90/350 [32:31<17:37,  4.07s/it, loss=0.5610, lr=4.50e-04]
+ 27%|██▋       | 93/350 [32:41<14:56,  3.49s/it, loss=0.6626, lr=4.60e-04]
+ 28%|██▊       | 97/350 [32:58<17:52,  4.24s/it, loss=0.4399, lr=4.80e-04]
+ 29%|██▊       | 100/350 [33:08<16:00,  3.84s/it, loss=0.8496, lr=5.00e-04]
+ 30%|██▉       | 104/350 [33:22<14:43,  3.59s/it, loss=0.8259, lr=5.20e-04]
+ 31%|███       | 107/350 [33:46<27:23,  6.76s/it, loss=0.4910, lr=5.30e-04]
+ 32%|███▏      | 111/350 [34:24<34:47,  8.74s/it, loss=0.5528, lr=5.50e-04]
+ 33%|███▎      | 114/350 [34:59<41:24, 10.53s/it, loss=0.5091, lr=5.70e-04]
+ 34%|███▎      | 118/350 [37:27<1:56:35, 30.15s/it, loss=0.7677, lr=5.90e-04]
+ 35%|███▍      | 121/350 [38:49<1:46:21, 27.87s/it, loss=0.5754, lr=6.00e-04]
+ 36%|███▌      | 125/350 [40:54<1:49:11, 29.12s/it, loss=0.5949, lr=6.20e-04]/home/kanemonium/.local/share/uv/python/cpython-3.14.10-linux-x86_64-gnu/lib/python3.14/multiprocessing/resource_tracker.py:475: UserWarning: resource_tracker: There appear to be 12 leaked semaphore objects to clean up at shutdown: {'/mp-ye150eoo', '/mp-zel9qt1g', '/mp-ib4rxk_m', '/mp-lv1uwlfs', '/mp-_leemd01', '/mp-30z84p7o', '/mp-tm_g0_ys', '/mp-fwqg1mh4', '/mp-os8veobo', '/mp-qu1iv7zz', '/mp-ohiknnkl', '/mp-whsgoc7y'}
+  warnings.warn(
+[18:03:40] code 124, 2610 s en tout ; mémoire vive : 659 Mo utilisés, échange 41 Mo
+[18:03:40] ===== étape 2/2 : ce que villa a mesuré =====
+pas de mesure : l'entraînement n'est pas allé au bout
+flat_ink_patches_dm-labeled_pf-labeled-default-v7-po-0.5-mlc-0.05-pfs-_ps-64x256x256_labels-auto.json
+gradient_health.json
+train_previews
+val_previews
+[18:03:40] ===== fin de l'essai =====

@@ -1,39 +1,44 @@
 # Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
-# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-17).
+# Format : pilotage/README.md. Page écrite avant le lancement, complétée à la fin (2026-11-17).
 executions:
   - id: X-010
     titre: "Des blocs de 256 tiennent-ils dans nos 8 Go ?"
     date: 2026-11-17
-    statut: prevue
+    statut: terminee
     piste: P-310
     taches: [T-019]
     resume: >-
       Troisième point de l'ordre d'essai. La recette du tutoriel entraîne sur des blocs de 256 ;
       nous sommes passés à 128 parce qu'en lot de 2 la mémoire vidéo débordait (X-001). Ici, le
       même court entraînement en lot de 1, pour voir si la carte tient et à quelle vitesse.
+      Résultat : elle ne tient pas. La mémoire vidéo est pleine et l'essai s'arrête à la limite
+      de quarante minutes, après 125 itérations sur 350.
 
     bilan:
       - question: "Le type de résultat"
-        valeur: "Un temps par itération et un pic de mémoire vidéo"
+        valeur: "Mémoire pleine (7 993 Mo), 19,6 s par itération en moyenne"
         detail: >-
-          Sur 300 itérations mesurées après 50 d'échauffement, par la mesure intégrée de villa.
-          Aucun modèle utile n'en sort, et aucun point de sauvegarde n'est écrit : l'essai ne
-          prend pas de place sur le disque.
+          Le rythme reste le plus souvent entre 26 et 34 s par itération : le signe d'un
+          débordement en mémoire partagée, pas d'une erreur. La mesure intégrée de villa n'a rien
+          rendu, faute d'aller au bout ; les chiffres viennent de la barre de progression.
+          Aucun point de sauvegarde n'est écrit.
         fiches: [K-12]
       - question: "La représentativité"
         valeur: "Le réglage de X-008, avec des blocs quatre fois plus grands"
         detail: >-
           Même segment, mêmes régions mises de côté. Deux blocs sont cumulés avant chaque
           correction du modèle, pour qu'une correction repose sur autant de blocs que dans la
-          recette. X-001 avait mesuré 7 996 Mo et 21,7 s par itération en lot de 2 ; sur une
-          carte de 10 Go, un autre participant mesure 0,37 s en lot de 1.
+          recette. X-001 avait mesuré 7 996 Mo et 21,7 s par itération en lot de 2 : passer en
+          lot de 1 ne change presque rien chez nous. Sur une carte de 10 Go, un autre participant
+          mesure 0,37 s en lot de 1 ; les 2 Go d'écart font toute la différence.
         fiches: [K-12, K-14]
       - question: "Ce que cela doit décider"
-        valeur: "Lancer ou non un entraînement complet en blocs de 256"
+        valeur: "Pas d'entraînement complet en blocs de 256 avec ce réglage"
         detail: >-
-          Si la carte tient sans déborder, un entraînement de 20 000 itérations devient possible,
-          à juger contre le F1 de 0,776 de X-009. Il écrirait environ 16 Go de points de
-          sauvegarde : la place sur le disque est à régler avant, avec Kanemonium.
+          Au rythme moyen, 20 000 itérations prendraient environ 109 heures (calculé). Les blocs
+          de 128 restent notre réglage. Trois portes restent ouvertes, non essayées : une taille
+          intermédiaire de 192, libérer la mémoire vidéo que Windows occupe, ou faire recalculer
+          au modèle ses étapes intermédiaires au lieu de les garder.
         fiches: [K-16]
 
     code:
@@ -86,11 +91,47 @@ executions:
               continue en mémoire partagée, environ vingt-cinq fois plus lentement selon la même
               proposition. La limite coupe court ; le journal dira alors le rythme observé.
 
+    sorties:
+      - genre: mesures
+        titre: "La carte ne tient pas"
+        large: true
+        lignes:
+          - ["Itérations faites", "125 sur 350", "arrêté par la limite de quarante minutes ; aucune erreur"]
+          - ["Mémoire vidéo de la carte, pic", "7 993 Mo", "sur 8 192 : pleine. Windows en occupait 1 800 avant de lancer."]
+          - ["Rythme le plus fréquent", "26 à 34 s par itération", "itérations 13 à 51, puis de nouveau après la 118e"]
+          - ["Rythme moyen", "19,6 s par itération", "125 itérations en 40 min 54 s"]
+          - ["Meilleur passage", "3,5 à 4,2 s par itération", "itérations 72 à 104, environ cinq minutes ; cause non identifiée"]
+          - ["Pour comparaison, blocs de 128 en lot de 2", "0,39 s par itération", "X-008, 5 852 Mo au pic"]
+          - ["20 000 itérations au rythme moyen", "environ 109 h", "calculé, pas mesuré ; environ 21 h au rythme du meilleur passage"]
+          - ["Blocs de 256 disponibles", "2 240", "hors régions mises de côté"]
+          - ["Durée totale", "43 min 30 s", "de 17 h 20 à 18 h 03"]
+          - ["Disque", "2,9 Mo écrits", "la liste des blocs et des aperçus ; aucun point de sauvegarde"]
+        note: >-
+          La mesure intégrée de villa n'a rien écrit : elle ne rend son résumé qu'à la fin des
+          350 itérations. Les rythmes viennent de la barre de progression du journal, le pic de
+          mémoire du relevé de l'IHM.
+      - genre: journal
+        titre: "Le rythme, tel que le journal le montre"
+        large: true
+        texte: |
+          1%|          | 3/350 [03:11<4:24:38, 45.76s/it, loss=1.2633, lr=1.00e-05]
+          4%|▎         | 13/350 [11:17<2:24:22, 25.70s/it, loss=2.2042, lr=6.00e-05]
+          10%|▉         | 34/350 [21:13<2:50:18, 32.34s/it, loss=0.1273, lr=1.70e-04]
+          15%|▍         | 51/350 [29:12<2:30:54, 30.28s/it, loss=1.1187, lr=2.50e-04]
+          21%|██        | 72/350 [31:22<19:16,  4.16s/it, loss=0.2506, lr=3.60e-04]
+          27%|██▋       | 93/350 [32:41<14:56,  3.49s/it, loss=0.6626, lr=4.60e-04]
+          30%|██▉       | 104/350 [33:22<14:43,  3.59s/it, loss=0.8259, lr=5.20e-04]
+          33%|███▎      | 114/350 [34:59<41:24, 10.53s/it, loss=0.5091, lr=5.70e-04]
+          36%|███▌      | 125/350 [40:54<1:49:11, 29.12s/it, loss=0.5949, lr=6.20e-04]
+          [18:03:40] code 124, 2610 s en tout ; mémoire vive : 659 Mo utilisés, échange 41 Mo
+
     limites: |
-      - Trois cent cinquante itérations ne disent rien de la qualité : seulement la vitesse et la mémoire.
-      - La mémoire vidéo que Windows occupe déjà varie (1 684 Mo relevés le 2026-11-17 en préparant l'essai) : le résultat vaut pour l'état de la machine ce jour-là.
-      - Le temps de préparation de la liste des blocs de 256 n'est pas connu d'avance.
-      - Cumuler deux blocs n'est pas exactement un lot de 2 : l'effet sur l'apprentissage n'est pas mesuré ici.
+      - Un seul essai, un seul état de la machine : Windows occupait 1 800 Mo de mémoire vidéo au départ, et nous n'avons pas relevé cette part pendant l'essai.
+      - Pourquoi le rythme tombe à 3,5 s pendant cinq minutes puis remonte : non expliqué. Peut-être de la mémoire vidéo libérée puis reprise côté Windows ; non vérifié.
+      - Même à 3,5 s par itération, c'est neuf fois plus lent que les blocs de 128, et dix fois plus que les 0,37 s mesurées par LynnHenry sur 10 Go.
+      - Pas de mesure propre de villa (temps de calcul, attente des données, mémoire allouée) : l'essai n'est pas allé au bout.
+      - Rien sur la qualité : 125 itérations.
+      - Pas essayé : une taille intermédiaire (192), ni le recalcul des étapes intermédiaires (sixième point de l'ordre d'essai), ni la machine avec tout le reste fermé.
 
     credits:
       - github: LynnHenry
