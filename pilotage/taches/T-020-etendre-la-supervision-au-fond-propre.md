@@ -41,6 +41,11 @@ etapes:
     detail: "villa ne garde un bloc que si l'encre étiquetée y couvre au moins `patch_min_labeled_coverage` du bloc (0,05 dans notre réglage, repris de X-008). Un carré sans encre ne donne aucun bloc : 11 554 blocs avant comme après. Ce n'est pas un défaut de villa, c'est notre réglage. Nous ne l'avons pas vu avant de lancer : il aurait suffi de compter les blocs."
   - date: 2026-11-17
     genre: etape
+    statut: faite
+    titre: "Relire ce que le tutoriel dit de cette étape"
+    detail: "Question de Kanemonium. Le [tutoriel d'encre](https://scrollprize.org/tutorial5), section « Improving the model: iterative labeling », étend les étiquettes là où des traits de lettres sont bien visibles : il peint les traits et étend le masque de supervision autour, traits et papyrus propre ensemble. Notre essai s'en écarte : il ajoute du papyrus sans aucune encre, loin des lettres. Le tutoriel ne décrit pas ce cas, et le réglage qui écarte les blocs sans encre va dans le même sens. Le tutoriel propose aussi de repartir du dernier point de sauvegarde (`checkpoint` et `weights_only`) plutôt que de zéro : non essayé."
+  - date: 2026-11-17
+    genre: etape
     statut: a-faire
     titre: "Compter les blocs avec un réglage qui admet les blocs sans encre"
     detail: "Sans carte graphique, en une minute : combien de blocs viennent des neuf carrés, et combien de blocs nouveaux apparaissent dans l'ancienne zone de supervision si `patch_min_labeled_coverage` passe à 0. Si l'ancienne zone change aussi, l'essai ne change plus une seule chose : à dire avant de relancer."

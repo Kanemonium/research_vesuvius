@@ -41,7 +41,7 @@ problemes:
     piste: P-380
   - id: F-06
     titre: "Place sur le disque"
-    detail: "Le segment du tutoriel pèse environ 25 Go. Le disque n'avait que 43,5 Go libres ; après ménage le 2026-11-14, 167 Go. Levé pour le tutoriel, mais de nouveau serré : 17 Go libres le 2026-11-17 après X-009 (97 % occupé). Le même jour, 37 points de sauvegarde sur 41 sont supprimés (29 Go dans Ubuntu), puis le disque virtuel de WSL est compacté par Kanemonium (144,7 Go ramenés à 114,2) : 46,7 Go libres. Un entraînement complet écrit environ 16 Go : il y a la place pour un, pas pour trois sans nouveau tri. Après X-012 le soir même : 25 Go libres (valeur arrondie) ; ses 16 Go de points de sauvegarde valent ceux de X-008 et sont à trier avant le prochain entraînement."
+    detail: "Le segment du tutoriel pèse environ 25 Go. Le disque n'avait que 43,5 Go libres ; après ménage le 2026-11-14, 167 Go. Levé pour le tutoriel, mais de nouveau serré : 17 Go libres le 2026-11-17 après X-009 (97 % occupé). Le même jour, 37 points de sauvegarde sur 41 sont supprimés (29 Go dans Ubuntu), puis le disque virtuel de WSL est compacté par Kanemonium (144,7 Go ramenés à 114,2) : 46,7 Go libres. Un entraînement complet écrit environ 16 Go : il y a la place pour un, pas pour trois sans nouveau tri. Après X-012 le soir même : 25 Go libres (valeur arrondie) ; ses 16 Go de points de sauvegarde, qui valaient ceux de X-008, sont supprimés dans Ubuntu avec l'accord de Kanemonium. La place ne revient sur C: qu'après un nouveau compactage du disque virtuel : non fait."
     piste: P-420
 
 livrables:
