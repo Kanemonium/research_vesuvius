@@ -405,3 +405,136 @@ executions:
         nom: "Vesuvius Challenge, tutoriel d'encre"
         lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
         quoi: "Le segment étiqueté `w00_20231016151002`, ses étiquettes et la recette d'entraînement : https://scrollprize.org/tutorial5"
+
+  - id: X-013
+    titre: "Compter les blocs si les blocs sans encre sont admis"
+    date: 2026-11-17
+    statut: terminee
+    piste: P-310
+    taches: [T-020]
+    resume: >-
+      Suite de X-012, dont l'entraînement n'avait tiré aucun bloc dans les carrés de fond. Avec
+      `patch_min_labeled_coverage` à 0, villa tirerait 22 475 blocs d'entraînement au lieu de
+      6 567 : 2 304 dans les neuf carrés, et 13 604 autres dans l'ancienne zone de supervision.
+      Passer ce réglage à 0 changerait donc bien plus que le fond propre. Rien n'est entraîné.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Un compte : 6 567 blocs deviennent 22 475"
+        detail: >-
+          Les 6 567 blocs d'avant sont tous gardés. S'y ajoutent 256 blocs par carré de fond,
+          soit 2 304, et 13 604 blocs dans la zone de supervision du tutoriel, là où l'encre
+          étiquetée couvre moins de 5 % du bloc. Les blocs de validation ne changent pas.
+        fiches: [K-12]
+      - question: "La représentativité"
+        valeur: "La liste même qu'un entraînement utiliserait"
+        detail: >-
+          Le script appelle la recherche de blocs de villa par les fonctions de l'entraînement,
+          avec le réglage de X-012 où seule cette valeur change. La liste d'avant est celle que
+          X-012 a écrite.
+        fiches: [K-12]
+      - question: "Ce que cela décide"
+        valeur: "Mettre le réglage à 0 ne suffit pas"
+        detail: >-
+          Les carrés ne feraient que 10,3 % des blocs, contre 60,5 % de blocs nouveaux venus de
+          l'ancienne zone : un réentraînement ainsi réglé mesurerait surtout ces derniers. Il
+          faut soit deux entraînements pour séparer les deux effets, soit une liste de blocs
+          limitée aux anciens blocs et aux carrés.
+        fiches: [K-09]
+
+    code:
+      - titre: "Le réglage : celui de X-012, une valeur changée"
+        fichier: experiments/2026-11-17-fond-propre/compte-blocs.json
+        langage: json
+        extrait: [11, 15]
+        notes:
+          - lignes: 15
+            genre: parametrage
+            titre: "Les blocs sans encre sont admis"
+            texte: >-
+              À 0,05, villa écarte tout bloc où l'encre étiquetée couvre moins de 5 % du bloc. À 0,
+              tout bloc qui touche la zone de supervision est gardé.
+            fiches: [K-12]
+
+      - titre: "Compter, avec les fonctions de l'entraînement"
+        fichier: experiments/2026-11-17-fond-propre/compter_blocs.py
+        langage: python
+        extrait: [15, 74]
+        notes:
+          - lignes: 18
+            genre: donnees
+            titre: "La recherche de blocs de villa"
+            texte: >-
+              Le même appel que dans l'entraînement de
+              [ScrollPrize/villa](https://github.com/ScrollPrize/villa) : la liste est celle
+              qu'il tirerait. Rien n'est chargé sur la carte graphique.
+          - lignes: 55
+            genre: mesure
+            titre: "Les blocs nouveaux"
+            texte: "Ceux qui n'étaient pas dans la liste de X-012, rangés selon qu'ils touchent un carré de fond ou non."
+          - lignes: 69
+            genre: mesure
+            titre: "Un contrôle"
+            texte: "Aucun bloc ne doit toucher un carré de contrôle : ils restent hors de l'entraînement."
+
+    sorties:
+      - genre: mesures
+        titre: "Les blocs d'entraînement, avant et après"
+        large: true
+        lignes:
+          - ["Avant (réglage à 0,05, X-012)", "6 567 blocs", "tous encore présents après"]
+          - ["Après (réglage à 0)", "22 475 blocs", "3,4 fois plus"]
+          - ["Dans les neuf carrés de fond", "2 304 blocs", "256 par carré ; 10,3 % des blocs d'après"]
+          - ["Nouveaux, dans l'ancienne zone de supervision", "13 604 blocs", "60,5 % des blocs d'après"]
+          - ["Anciens blocs", "6 567 blocs", "29,2 % des blocs d'après"]
+          - ["Blocs de validation", "4 987, les mêmes", "les régions mises de côté ne bougent pas"]
+          - ["Blocs touchant un carré de contrôle", "0", "les deux carrés de contrôle restent hors de l'entraînement"]
+        note: >-
+          Un bloc est écarté à 0,05 quand le rectangle qui entoure son encre étiquetée couvre
+          moins de 5 % du bloc. Les 13 604 blocs nouveaux de l'ancienne zone sont donc des blocs
+          de la zone du tutoriel avec très peu d'encre ou pas du tout : nous n'avons pas compté
+          combien n'en ont aucune.
+      - genre: mesures
+        titre: "Durée"
+        lignes:
+          - ["Du début à la fin", "1 min 39 s", "de 23 h 10 min 06 s à 23 h 11 min 45 s"]
+          - ["Carte graphique", "non utilisée", "670 Mo relevés : ce que Windows occupe déjà"]
+      - genre: journal
+        titre: "Le compte, tel que le script l'annonce"
+        large: true
+        texte: |
+          entraînement : 6567 blocs avant, 22475 après
+          validation   : 4987 blocs avant, 4987 après ; identiques : True
+          blocs d'entraînement d'avant encore là : 6567 sur 6567
+          blocs nouveaux : 15908
+            dans les neuf carrés de fond : 2304 blocs
+            ailleurs, dans l'ancienne zone de supervision : 13604 blocs
+          blocs touchant un carré de contrôle (doit être 0) : 0
+          part des blocs d'entraînement : carrés 10.3 %, nouveaux ailleurs 60.5 %, anciens 29.2 %
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "villa/vesuvius/runs/fond_propre_128_compte/flat_ink_patches_*.json"
+            taille: "une liste de 27 462 blocs"
+            role: "La liste écrite par villa pour le réglage à 0 : 22 475 blocs d'entraînement et 4 987 de validation."
+
+    limites: |
+      - Un compte de blocs ne dit rien de l'effet sur le modèle.
+      - Un bloc est rangé « carré » dès qu'il touche un carré de fond, même s'il déborde.
+      - Le tirage des blocs pendant l'entraînement est uniforme : la part des blocs donne la part des tirages, pas le poids dans la perte.
+      - Nous n'avons pas compté, parmi les 13 604 blocs nouveaux de l'ancienne zone, ceux qui n'ont aucune encre.
+      - Le réglage à 0,05 vient de la recette du tutoriel : nous ne savons pas pourquoi cette valeur a été choisie.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          La recherche des blocs d'entraînement du paquet `vesuvius`
+          (`ink_detection/data/patch_finding_default.py`), appelée telle quelle, au commit `2d3fb38`.
+        personnes:            # lignes 65 à 152 par personne au commit 2d3fb38 (scripts/wsl/auteurs-villa.sh)
+          - { github: erdpx, nom: "elian rafael", part: "76 lignes de patch_finding_default.py" }
+          - { github: evilaliv3, nom: "Giovanni Pellerano", part: "10 lignes de patch_finding_default.py" }
+          - { github: tencur, nom: "tencur", part: "2 lignes de patch_finding_default.py" }

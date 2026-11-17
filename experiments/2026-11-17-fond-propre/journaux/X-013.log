@@ -1,0 +1,20 @@
+[23:10:06] ===== étape 1/1 : compter les blocs, blocs sans encre admis =====
+premier bloc : [0, 3328, 24448, 64, 3456, 24576]
+entraînement : 6567 blocs avant, 22475 après
+validation   : 4987 blocs avant, 4987 après ; identiques : True
+blocs d'entraînement d'avant encore là : 6567 sur 6567
+blocs nouveaux : 15908
+  carré  1 (fond) : 256 blocs
+  carré  2 (fond) : 256 blocs
+  carré  5 (fond) : 256 blocs
+  carré  6 (fond) : 256 blocs
+  carré  8 (fond) : 256 blocs
+  carré 10 (fond) : 256 blocs
+  carré 12 (fond) : 256 blocs
+  carré 13 (fond) : 256 blocs
+  carré 15 (fond) : 256 blocs
+  dans les neuf carrés de fond : 2304 blocs
+  ailleurs, dans l'ancienne zone de supervision : 13604 blocs
+blocs touchant un carré de contrôle (doit être 0) : 0
+part des blocs d'entraînement : carrés 10.3 %, nouveaux ailleurs 60.5 %, anciens 29.2 %
+[23:11:45] ===== fin =====

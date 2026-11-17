@@ -46,9 +46,14 @@ etapes:
     detail: "Question de Kanemonium. Le [tutoriel d'encre](https://scrollprize.org/tutorial5), section « Improving the model: iterative labeling », étend les étiquettes là où des traits de lettres sont bien visibles : il peint les traits et étend le masque de supervision autour, traits et papyrus propre ensemble. Notre essai s'en écarte : il ajoute du papyrus sans aucune encre, loin des lettres. Le tutoriel ne décrit pas ce cas, et le réglage qui écarte les blocs sans encre va dans le même sens. Le tutoriel propose aussi de repartir du dernier point de sauvegarde (`checkpoint` et `weights_only`) plutôt que de zéro : non essayé."
   - date: 2026-11-17
     genre: etape
-    statut: a-faire
+    statut: faite
     titre: "Compter les blocs avec un réglage qui admet les blocs sans encre"
-    detail: "Sans carte graphique, en une minute : combien de blocs viennent des neuf carrés, et combien de blocs nouveaux apparaissent dans l'ancienne zone de supervision si `patch_min_labeled_coverage` passe à 0. Si l'ancienne zone change aussi, l'essai ne change plus une seule chose : à dire avant de relancer."
+    detail: "X-013, 1 min 39 s, sans carte graphique. Avec `patch_min_labeled_coverage` à 0 : 22 475 blocs d'entraînement au lieu de 6 567. Les neuf carrés en donnent 2 304 (10,3 %), l'ancienne zone de supervision 13 604 de plus (60,5 %). Un réentraînement ainsi réglé mêlerait deux effets, et le fond propre serait le plus petit."
+  - date: 2026-11-17
+    genre: etape
+    statut: a-faire
+    titre: "Kanemonium choisit comment séparer les deux effets"
+    detail: "Deux voies. Deux entraînements à 0, l'un avec les étiquettes du tutoriel, l'autre avec la version 2 : environ 4 h 40 et 32 Go. Ou un seul entraînement sur une liste de blocs faite des 6 567 anciens et des 2 304 des carrés, si villa accepte une liste fournie (option `patch_cache_filename` vue dans son code, non essayée)."
   - date: 2026-11-17
     genre: etape
     statut: a-faire

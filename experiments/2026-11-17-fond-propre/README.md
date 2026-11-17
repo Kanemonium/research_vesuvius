@@ -57,4 +57,16 @@ comme après, et un modèle qui note exactement comme celui de X-008 (F1 0,7762 
 Ce qui est acquis : le chiffre d'avant. Au seuil 176, le modèle de X-008 marque comme encre 2,65 %
 des neuf carrés « fond » et 3,30 % des deux carrés de contrôle.
 
-À faire avant de relancer : compter les blocs que donne un réglage admettant les blocs sans encre.
+## Le compte des blocs (X-013)
+
+```bash
+bash experiments/2026-11-17-fond-propre/compter.sh
+```
+
+`compter_blocs.py` appelle la recherche de blocs de
+[ScrollPrize/villa](https://github.com/ScrollPrize/villa) (licence MIT) avec le réglage
+`compte-blocs.json`, où `patch_min_labeled_coverage` vaut 0. Rien n'est entraîné ; 1 min 39 s.
+
+Résultat : 22 475 blocs d'entraînement au lieu de 6 567. Les neuf carrés en donnent 2 304 (256
+chacun), l'ancienne zone de supervision 13 604 de plus. Mettre le réglage à 0 changerait donc
+surtout autre chose que le fond propre : la suite reste à choisir par Kanemonium.
