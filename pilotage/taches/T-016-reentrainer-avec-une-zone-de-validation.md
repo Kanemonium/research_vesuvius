@@ -33,7 +33,7 @@ etapes:
     genre: etape
     statut: a-faire
     titre: "Noter chaque point de sauvegarde sur les régions entières"
-    detail: "Prédire dans les seules régions mises de côté (`--mask-path`, `--no-compile`) et mesurer F1 à tous les seuils, à la manière de `sweep_checkpoints.py` et `eval_validation.py`. Leurs appels visent un ancien nom du paquet de villa : à adapter, en citant l'auteur."
+    detail: "Prédire dans les seules régions mises de côté (`--mask-path`, `--no-compile`) et mesurer F1 à tous les seuils, à la manière de `sweep_checkpoints.py` et `eval_validation.py`. Leurs appels visent un ancien nom du paquet de villa : à adapter, en citant l'auteur. À surveiller au premier essai : une demande de fusion de villa (PR 2382, fermée sans être fusionnée le 2026-11-17) décrit un arrêt de la prédiction avec `--mask-path` sur certains volumes."
 ---
 
 Fait quand nous avons un modèle entraîné sans les régions mises de côté, sa note sur ces régions, et le point de sauvegarde à garder. Deuxième point de l'ordre d'essai de `docs/veille-optimisations.md`, accepté par Kanemonium le 2026-11-16.
