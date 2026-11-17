@@ -251,7 +251,7 @@ executions:
         elements:
           - nom: "villa/vesuvius/runs/validation_128/ckpt_001000.pth à ckpt_020000.pth"
             taille: "20 × 815 Mo"
-            role: "Un point de sauvegarde toutes les 1 000 itérations."
+            role: "Un point de sauvegarde toutes les 1 000 itérations. Depuis le tri du 2026-11-17, décidé par Kanemonium, il en reste deux : l'itération 19 000, notre référence (X-009), et la 20 000. Les dix-huit autres sont supprimés ; leurs notes et leurs prédictions sont gardées par X-009."
           - nom: "villa/vesuvius/runs/validation_128/best_val_balanced_accuracy.pth"
             taille: "815 Mo"
             role: "Le modèle à l'itération 17 500, gardé à part par villa."

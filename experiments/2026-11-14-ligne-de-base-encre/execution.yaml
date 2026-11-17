@@ -381,7 +381,7 @@ executions:
         elements:
           - nom: "ckpt_001000.pth … ckpt_020000.pth"
             taille: "20 × 816 Mo"
-            role: "Les points de sauvegarde (K-15). Chacun contient les poids du réseau, l'état de l'optimiseur et du planificateur, la configuration et le numéro du pas."
+            role: "Les points de sauvegarde (K-15). Chacun contient les poids du réseau, l'état de l'optimiseur et du planificateur, la configuration et le numéro du pas. Depuis le tri du 2026-11-17, décidé par Kanemonium, seul le dernier reste (ckpt_020000.pth, le modèle de la carte X-003) ; les dix-neuf autres sont supprimés."
           - nom: "flat_ink_patches_…json"
             taille: "6 Mo"
             role: "La liste des 8 098 blocs, gardée pour ne pas la recalculer au prochain lancement."
