@@ -3,7 +3,7 @@ id: P-514
 titre: "V1.4 : le carnet d'exécution et les parcours par domaine"
 type: piste
 domaine: pilotage
-statut: en-cours
+statut: validee
 parent: P-510
 date: 2026-11-15
 ---
@@ -21,7 +21,8 @@ Un bouton à droite du titre d'une exécution ouvre son « carnet » : une copie
 - **Agent C.** (2026-11-15) : 61 avancées. Les 43 du défi viennent des pages de scrollprize.org gardées dans [ScrollPrize/villa](https://github.com/ScrollPrize/villa) ; 219 citations revérifiées mot pour mot avant écriture. Sept fiches nouvelles, K-18 à K-24. Limites : les prix mensuels n'ont pas tous été lus, et plusieurs dates sont absentes des sources.
 - **Kanemonium** (2026-11-16) : un suivi du stockage (pris, restant, part occupée) à la place de la date dans la barre du haut, et deux pictos, carbone et papyrus, à la place des noms de thème, pour gagner de la place.
 - **Agent C.** (2026-11-16) : fait. Mesuré à la mise en service : 431 Go pris, 43 Go restants, 91 % du disque C: occupés. Le disque virtuel de WSL, qui porte le jeu de données et l'image de X-003, y pèse 122 Go.
+- **Kanemonium** (2026-11-17) : valide la V1.3 et la V1.4.
 
 ## Suite
 
-Découpage dans `ihm/lib/carnet.mjs`, vérifié par cinq tests ; vu à l'écran sur X-003 pendant qu'elle tourne. Livrée avec deux retouches : la colonne « Bloquée » à droite de « Faite », et les panneaux GitHub à hauteur d'écran. À valider par Kanemonium.
+Découpage dans `ihm/lib/carnet.mjs`, vérifié par cinq tests ; vu à l'écran sur X-003 pendant qu'elle tourne. Livrée avec deux retouches : la colonne « Bloquée » à droite de « Faite », et les panneaux GitHub à hauteur d'écran. Le suivi du stockage et les pictos de thème sont livrés dans le commit `fd04cf1`. Validée par Kanemonium le 2026-11-17.

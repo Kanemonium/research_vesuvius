@@ -28,4 +28,4 @@ Une interface locale qui réunit le mouvement GitHub, les tâches, la carte des 
 
 Base posée le 2026-11-14, validée par Kanemonium le 2026-11-15 (T-008) : c'est la V1.
 
-Chaque évolution majeure de l'IHM ouvre un nœud au-dessus de celui-ci : P-511 (V1.1), P-512 (V1.2), P-513 (V1.3), P-514 (V1.4), et ainsi de suite.
+Chaque évolution majeure de l'IHM ouvre un nœud au-dessus de celui-ci : P-511 (V1.1), P-512 (V1.2), P-513 (V1.3), P-514 (V1.4), et ainsi de suite. Les quatre sont validées (V1.3 et V1.4 le 2026-11-17).

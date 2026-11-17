@@ -67,9 +67,9 @@ avancees:
     branche: communaute
     date: "2026-11-15"
     titre: "V1.3 : suivre le Discord et GitHub du défi en français"
-    statut: en-cours
+    statut: acquis
     resume: "Un tiroir avec la synthèse, les mentions, l'actualité et les règles de contribution de villa."
-    fonctionnel: "Les échanges anglais de la communauté deviennent lisibles ; l'envoi de réponses relues reste à roder."
+    fonctionnel: "Les échanges anglais de la communauté deviennent lisibles. Validée par Kanemonium le 2026-11-17 ; l'envoi de réponses est une autre avancée (A-510)."
     technique: "Lecture à la demande, rangée hors dépôt ; l'actualité publique de GitHub relevée par `scripts/villa-actu.mjs`."
     pistes: [P-513, D-010]
   - id: A-508
@@ -87,7 +87,7 @@ avancees:
     branche: ihm
     date: "2026-11-15"
     titre: "V1.4 : le carnet d'exécution et les parcours par domaine"
-    statut: en-cours
+    statut: acquis
     resume: "Une exécution se lit comme un notebook ; chaque domaine de la carte ouvre le graphe de ses avancées."
     fonctionnel: "Notre vision s'agrège à celle du défi tout entier : ce que la communauté a franchi, et où nous en sommes."
     technique: "Journal découpé en cellules (`ihm/lib/carnet.mjs`) ; avancées par domaine dans `pilotage/avancees/`."

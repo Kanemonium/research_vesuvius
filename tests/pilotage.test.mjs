@@ -63,9 +63,10 @@ test("changer le statut d'une tâche ne modifie que cette ligne", async () => {
 test('un message déposé se retrouve dans la boîte, sous « À lire »', async () => {
   await deposerMessage(copie, 'Regarder P-320\navant jeudi', new Date('2026-11-14T10:30:00Z'));
   const messages = await lireBoite(copie);
-  assert.equal(messages.length, 1);
-  assert.match(messages[0], /2026-11-14 10:30/);
-  assert.match(messages[0], /Regarder P-320/);
+  // La copie part de la vraie boîte, qui peut déjà contenir des messages à lire.
+  const deposes = messages.filter((m) => /Regarder P-320/.test(m));
+  assert.equal(deposes.length, 1);
+  assert.match(deposes[0], /2026-11-14 10:30/);
   const contenu = await readFile(path.join(copie, 'pilotage', 'boite.md'), 'utf8');
   assert.ok(contenu.indexOf('Regarder') < contenu.indexOf('## Traités'));
   await assert.rejects(deposerMessage(copie, '   '), /vide/);
