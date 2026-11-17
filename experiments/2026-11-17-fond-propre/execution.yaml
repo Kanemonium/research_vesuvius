@@ -169,35 +169,37 @@ executions:
   - id: X-012
     titre: "Réentraîner avec du fond propre"
     date: 2026-11-17
-    statut: prevue
+    statut: terminee
     piste: P-310
     taches: [T-020]
     resume: >-
-      Suite de X-011. Neuf carrés jugés vierges entrent dans la zone de supervision comme fond,
-      deux autres restent à l'écart comme contrôle. Le modèle est réentraîné comme X-008, puis
-      noté de deux façons : comme X-009 sur les régions mises de côté, et sur les carrés.
+      Suite de X-011. Neuf carrés jugés vierges sont entrés dans la zone de supervision comme fond.
+      L'exécution est allée au bout, mais l'entraînement n'a tiré aucun bloc dans ces carrés : villa
+      ne garde un bloc que s'il contient de l'encre étiquetée. Le modèle obtenu est celui de X-008,
+      au chiffre près. La question du fond propre reste donc entière.
 
     bilan:
       - question: "Le type de résultat"
-        valeur: "Deux chiffres, chacun avant et après"
+        valeur: "Un essai nul, et sa cause"
         detail: >-
-          Le F1 sur les quatre régions mises de côté, pour les quatre derniers points de
-          sauvegarde, à comparer au 0,776 de X-009. Et la part des carrés vierges que le modèle
-          marque comme encre : celle du modèle de X-008 d'abord, puis celle du nouveau.
+          Les notes de validation, le F1 des quatre derniers points et la réponse sur les carrés
+          sont identiques à ceux de X-008 et X-009. La liste des blocs compte 11 554 blocs dans
+          les deux entraînements. Le chiffre d'avant, lui, est acquis : le modèle de X-008 marque
+          comme encre 2,65 % des carrés « fond » et 3,30 % des carrés de contrôle.
         fiches: [K-16, K-26]
       - question: "La représentativité"
-        valeur: "Le réglage de X-008, une seule chose changée"
+        valeur: "Le réglage de X-008, rejoué à l'identique"
         detail: >-
-          Même segment, mêmes régions mises de côté, même graine, mêmes 20 000 itérations. Seule
-          la zone de supervision change : neuf carrés de 1 024 pixels en plus, tous du fond, soit
-          environ 10 % de surface supervisée en plus (calculé, à confirmer par le script).
+          La zone de supervision a bien grandi de 9,8 % dans les fichiers, mais le réglage
+          `patch_min_labeled_coverage` à 0,05 écarte tout bloc où l'encre étiquetée couvre moins
+          de 5 % du bloc. Un carré sans encre ne donne donc aucun bloc.
         fiches: [K-12]
-      - question: "Ce que cela doit décider"
-        valeur: "Garder ou non le fond propre dans la suite"
+      - question: "Ce que cela décide"
+        valeur: "Rien sur le fond propre"
         detail: >-
-          Deux carrés de contrôle, c'est peu : ils diront une tendance, pas une preuve. Les neuf
-          carrés « fond » auront été vus à l'entraînement ; seul le contrôle compte comme jamais
-          vu. Sur le F1, un écart de moins de 0,03 reste du bruit.
+          Il faut relancer avec un réglage qui admet les blocs sans encre. En passant, cet essai
+          montre qu'un entraînement rejoué avec la même graine redonne exactement les mêmes
+          notes : l'écart entre deux essais ne viendra pas du hasard de la machine.
         fiches: [K-16, K-09]
 
     code:
@@ -214,6 +216,15 @@ executions:
               étiquettes d'encre et le masque de supervision existent tous deux à cette version.
               Les fichiers du tutoriel ne sont pas touchés.
             fiches: [K-17]
+          - lignes: 15
+            genre: parametrage
+            titre: "La ligne qui a rendu l'essai nul"
+            texte: >-
+              villa ne garde un bloc pour l'entraînement que si l'encre étiquetée y couvre au
+              moins cette part du bloc (`data/patch_finding_default.py`, lignes 143 à 148 au commit
+              `2d3fb38`). Dans un carré de fond, il n'y a pas d'encre : aucun bloc n'y est tiré.
+              Repris tel quel de X-008, sans que nous l'ayons vu avant de lancer.
+            fiches: [K-12]
 
       - titre: "Écrire les étiquettes en version 2"
         fichier: experiments/2026-11-17-fond-propre/masques.py
@@ -268,13 +279,105 @@ executions:
               Le point au meilleur F1 prédit les mêmes carrés. La part marquée encre est comptée
               à son propre seuil, puis au seuil 176 pour comparer à l'identique.
 
+    sorties:
+      - genre: mesures
+        titre: "Le nouvel entraînement est celui de X-008"
+        large: true
+        lignes:
+          - ["Blocs trouvés par villa", "11 554, comme pour X-008", "dont 6 567 pour l'entraînement ; la liste change de nom (`labels-v2`), pas de taille"]
+          - ["Notes de validation pendant l'entraînement", "identiques", "le fichier `validation_metrics.jsonl` est le même, octet pour octet, que celui de X-008"]
+          - ["F1, itération 17 000", "0,7296", "X-009 : 0,7296"]
+          - ["F1, itération 18 000", "0,7548", "X-009 : 0,7548"]
+          - ["F1, itération 19 000", "0,7762, seuil 176", "X-009 : 0,7762, seuil 176 ; précision 78,9 %, rappel 76,4 % dans les deux cas"]
+          - ["F1, itération 20 000", "0,7683", "X-009 : 0,7683"]
+          - ["Point gardé par villa", "itération 17 500, justesse équilibrée 0,816", "comme pour X-008"]
+        note: >-
+          Les fichiers des points de sauvegarde n'ont pas la même empreinte que ceux de X-008,
+          mais tout ce qui a été mesuré avec eux est identique. Nous n'avons pas comparé les
+          poids un à un.
+      - genre: mesures
+        titre: "Le chiffre d'avant : le modèle de X-008 sur du papyrus jugé vierge"
+        large: true
+        lignes:
+          - ["Carré 1 (fond)", "4,80 %", "réponse moyenne 69,5 sur 255"]
+          - ["Carré 2 (fond)", "0,59 %", "réponse moyenne 59,5"]
+          - ["Carré 5 (fond)", "2,37 %", "réponse moyenne 73,2"]
+          - ["Carré 6 (fond)", "2,20 %", "réponse moyenne 66,7"]
+          - ["Carré 8 (fond)", "0,95 %", "réponse moyenne 62,0"]
+          - ["Carré 10 (fond)", "1,49 %", "réponse moyenne 84,2"]
+          - ["Carré 12 (fond)", "3,21 %", "réponse moyenne 94,1"]
+          - ["Carré 13 (fond)", "2,32 %", "réponse moyenne 84,0"]
+          - ["Carré 15 (fond)", "5,87 %", "réponse moyenne 99,6"]
+          - ["Les neuf carrés « fond »", "2,65 %", "réponse moyenne 77,0"]
+          - ["Carré 4 (contrôle)", "1,69 %", "réponse moyenne 66,6"]
+          - ["Carré 16 (contrôle)", "4,92 %", "réponse moyenne 94,4"]
+          - ["Les deux carrés de contrôle", "3,30 %", "réponse moyenne 80,5"]
+        note: >-
+          Part des pixels du carré que l'itération 19 000 de X-008 marque comme encre, au seuil
+          176 sur 255. Le chiffre d'après, mesuré avec l'itération 19 000 du nouvel entraînement,
+          est le même à la décimale près pour chaque carré : ce n'est pas un résultat, c'est le
+          même modèle. Ces carrés ont été jugés vierges à l'œil, sans papyrologue.
+      - genre: mesures
+        titre: "Les étiquettes en version 2"
+        lignes:
+          - ["Zone de supervision avant", "95 935 984 pixels", "5,88 % de l'image"]
+          - ["Zone de supervision après", "105 373 168 pixels", "6,36 % de l'image, soit 9,8 % de plus"]
+          - ["Conversion", "3 fichiers écrits, 3 sautés", "9 min 08 s ; aucun échec"]
+      - genre: mesures
+        titre: "Durée et machine"
+        lignes:
+          - ["Du début à la fin", "3 h 05 min 51 s", "de 19 h 09 min 48 s à 22 h 15 min 39 s, sans reprise"]
+          - ["Étiquettes et conversion", "9 min 29 s", "étapes 1 et 2"]
+          - ["Chiffre d'avant", "5 min 09 s", "étape 3"]
+          - ["Entraînement", "2 h 20 min 48 s", "étape 4 ; 20 000 itérations en 2 h 18 min 48 s d'après la barre de villa"]
+          - ["Notation de quatre points", "26 min 13 s", "étape 5 ; 387 à 396 s par point"]
+          - ["Chiffre d'après", "4 min 12 s", "étape 6"]
+          - ["Pic de mémoire vidéo", "5 892 Mo", "sur 8 192, Windows compris"]
+          - ["Place libre sur C: à la fin", "25 Go", "valeur arrondie par `df` ; 46,7 Go avant de lancer"]
+      - genre: journal
+        titre: "Les lignes qui comptent"
+        large: true
+        texte: |
+          zone de supervision : 95935984 pixels avant, 105373168 après (+9.8 %), soit 6.36 % de l'image
+          Processed 6 image(s): 3 written, 3 skipped, 0 failed.
+          avant (X-008, itération 19 000) : part des pixels à 176 ou plus sur 255
+            fond, 9 carrés : moyenne  77.0 ; marqué encre  2.65 %
+            controle, 2 carrés : moyenne  80.5 ; marqué encre  3.30 %
+          sampling_audit={"patches": 6567, "strategy": "uniform"}
+          step,threshold,f1,precision,recall,iou,balanced_accuracy,drd,pseudo_fmeasure,seconds
+          17000,186,0.729575,0.761882,0.699897,0.574276,0.817472,,,395.7
+          18000,191,0.754767,0.767011,0.742907,0.606124,0.837949,,,394.2
+          19000,176,0.776222,0.788861,0.763982,0.634283,0.851632,,,394.6
+          20000,188,0.768252,0.785803,0.751468,0.623709,0.845322,,,387.0
+          après (itération 019000, au seuil de X-008) : part des pixels à 176 ou plus sur 255
+            fond, 9 carrés : moyenne  77.0 ; marqué encre  2.65 %
+            controle, 2 carrés : moyenne  80.5 ; marqué encre  3.30 %
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "ink-dataset/phercparis4/w00_20231016151002/*_v2.tif et *_v2.zarr"
+            taille: "3 fichiers et 3 dossiers"
+            role: "Les étiquettes en version 2. Seul le masque de supervision diffère de la version 1."
+          - nom: "villa/vesuvius/runs/fond_propre_128/"
+            taille: "16 Go"
+            role: "Vingt points de sauvegarde et le meilleur selon villa. Ils valent ceux de X-008 : à trier, avec l'accord de Kanemonium."
+          - nom: "villa/vesuvius/runs/fond_propre_128_notes/"
+            taille: "136 Mo"
+            role: "Les prédictions et les notes des itérations 17 000 à 20 000, et `summary.csv`."
+          - nom: "villa/vesuvius/runs/fond_propre_128_carres/"
+            taille: "59 Mo"
+            role: "Le masque des onze carrés, et les prédictions d'avant et d'après."
+
     limites: |
       - Les carrés ont été jugés vierges à l'œil, par deux personnes qui ne sont pas papyrologues, sur une couche du scan et la carte d'un modèle : une erreur apprendrait au modèle à effacer de l'encre.
       - Deux carrés de contrôle seulement, choisis dans la même bande du segment que les carrés d'entraînement.
       - Un seul découpage, une seule graine ; le seuil de bruit de 0,03 de F1 est celui de l'auteur des outils.
       - Le F1 ne regarde que le voisinage des lettres : il peut ne pas bouger alors que le fond change, ou l'inverse.
-      - Durée estimée, non mesurée : environ trois heures et quart (conversion, deux heures vingt d'entraînement, une demi-heure de notation).
-      - Environ 16 Go de points de sauvegarde écrits ; 46,7 Go libres avant de lancer.
+      - L'essai ne dit rien de l'effet du fond propre : aucun bloc n'a été tiré dans les carrés.
+      - Nous n'avons pas vérifié, avant de lancer, que les carrés donnaient des blocs. Compter les blocs avant et après aurait suffi, en une minute, sans carte graphique.
+      - « Même modèle » est déduit de mesures identiques, pas d'une comparaison des poids.
+      - Admettre les blocs sans encre (`patch_min_labeled_coverage` à 0) changera peut-être aussi les blocs tirés dans l'ancienne zone de supervision : non mesuré, à compter avant de relancer.
       - Après cet essai, un réglage sans `label_version` prendra seul la version 2 : les anciens réglages sont à relancer avec `"label_version": "v1"`.
 
     credits:

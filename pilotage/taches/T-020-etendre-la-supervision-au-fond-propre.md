@@ -26,14 +26,29 @@ etapes:
     detail: "Il retient la proposition d'Agent C. : neuf carrés comme fond (1, 2, 5, 6, 8, 10, 12, 13, 15), deux comme contrôle (4, 16), cinq écartés (3 et 7, douteux ; 9, 11 et 14, au bord du segment). Jugement à l'œil, par deux non-papyrologues."
   - date: 2026-11-17
     genre: etape
-    statut: a-faire
+    statut: faite
     titre: "Mesurer le modèle actuel sur les carrés de contrôle"
-    detail: "Le point 19 000 de X-008 : quelle part d'un carré vierge il marque comme encre, au seuil 176. C'est le chiffre d'avant. Prévu comme troisième étape de X-012."
+    detail: "X-012, étape 3. Au seuil 176, le point 19 000 de X-008 marque comme encre 3,30 % des deux carrés de contrôle (1,69 % et 4,92 %) et 2,65 % des neuf carrés « fond » (de 0,59 % à 5,87 %)."
+  - date: 2026-11-17
+    genre: etape
+    statut: faite
+    titre: "Écrire le masque en version 2 et réentraîner"
+    detail: "X-012, 3 h 05 min 51 s. La zone de supervision passe de 95 935 984 à 105 373 168 pixels (9,8 % de plus). L'entraînement va au bout, mais redonne le modèle de X-008 : mêmes notes de validation octet pour octet, même F1 (0,7762 à l'itération 19 000), même réponse sur les carrés."
+  - date: 2026-11-17
+    genre: bug
+    statut: ouvert
+    titre: "Aucun bloc d'entraînement n'est tiré dans les carrés de fond"
+    detail: "villa ne garde un bloc que si l'encre étiquetée y couvre au moins `patch_min_labeled_coverage` du bloc (0,05 dans notre réglage, repris de X-008). Un carré sans encre ne donne aucun bloc : 11 554 blocs avant comme après. Ce n'est pas un défaut de villa, c'est notre réglage. Nous ne l'avons pas vu avant de lancer : il aurait suffi de compter les blocs."
   - date: 2026-11-17
     genre: etape
     statut: a-faire
-    titre: "Écrire le masque en version 2 et réentraîner"
-    detail: "Page X-012 écrite. Mêmes régions mises de côté que X-008. Environ 16 Go de points de sauvegarde. La place est réglée le 2026-11-17 : 46,7 Go libres après le tri et le compactage du disque virtuel."
+    titre: "Compter les blocs avec un réglage qui admet les blocs sans encre"
+    detail: "Sans carte graphique, en une minute : combien de blocs viennent des neuf carrés, et combien de blocs nouveaux apparaissent dans l'ancienne zone de supervision si `patch_min_labeled_coverage` passe à 0. Si l'ancienne zone change aussi, l'essai ne change plus une seule chose : à dire avant de relancer."
+  - date: 2026-11-17
+    genre: etape
+    statut: a-faire
+    titre: "Réentraîner pour de bon avec le fond propre"
+    detail: "Environ 2 h 20 d'entraînement et 16 Go. Les étiquettes en version 2 et le chiffre d'avant sont déjà là."
   - date: 2026-11-17
     genre: etape
     statut: a-faire

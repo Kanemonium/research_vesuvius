@@ -49,4 +49,12 @@ convertir, mesurer le modèle de X-008 sur les carrés (`mesurer_carres.py`), en
 Kwon ([khj1222/vesuvius-challenge](https://github.com/khj1222/vesuvius-challenge), licence MIT),
 puis mesurer le meilleur sur les carrés. Relancer après un arrêt reprend.
 
-Non mesuré : l'entraînement n'est pas lancé.
+Résultat (2026-11-17, 3 h 05 min 51 s) : essai nul. L'exécution est allée au bout, mais villa ne
+garde un bloc d'entraînement que si l'encre étiquetée y couvre au moins 5 % du bloc
+(`patch_min_labeled_coverage`). Les carrés de fond n'ont donc donné aucun bloc : 11 554 blocs avant
+comme après, et un modèle qui note exactement comme celui de X-008 (F1 0,7762 à l'itération 19 000).
+
+Ce qui est acquis : le chiffre d'avant. Au seuil 176, le modèle de X-008 marque comme encre 2,65 %
+des neuf carrés « fond » et 3,30 % des deux carrés de contrôle.
+
+À faire avant de relancer : compter les blocs que donne un réglage admettant les blocs sans encre.
