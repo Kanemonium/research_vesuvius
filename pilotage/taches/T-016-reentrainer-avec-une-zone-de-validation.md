@@ -31,8 +31,8 @@ etapes:
     detail: "Deux notes voisines diffèrent jusqu'à 0,11 : chacune porte sur cinquante lots tirés au hasard, pas les mêmes d'une fois à l'autre. L'étape suivante note sur les régions entières."
   - date: 2026-11-17
     genre: etape
-    statut: a-faire
-    titre: "Noter chaque point de sauvegarde sur les régions entières"
+    statut: en-cours
+    titre: "Noter chaque point de sauvegarde sur les régions entières (X-009)"
     detail: "Prédire dans les seules régions mises de côté (`--mask-path`, `--no-compile`) et mesurer F1 à tous les seuils, à la manière de `sweep_checkpoints.py` et `eval_validation.py`. Leurs appels visent un ancien nom du paquet de villa : à adapter, en citant l'auteur. À surveiller au premier essai : une demande de fusion de villa (PR 2382, fermée sans être fusionnée le 2026-11-17) décrit un arrêt de la prédiction avec `--mask-path` sur certains volumes."
 ---
 

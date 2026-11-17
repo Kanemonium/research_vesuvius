@@ -1,0 +1,105 @@
+# Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Page écrite avant le lancement (2026-11-17).
+executions:
+  - id: X-009
+    titre: "Noter chaque point de sauvegarde sur les régions entières"
+    date: 2026-11-17
+    statut: prevue
+    piste: P-310
+    taches: [T-016]
+    resume: >-
+      Dernière étape de T-016. La note que villa calcule pendant l'entraînement est trop bruitée
+      pour choisir un point de sauvegarde (X-008). Ici, chaque point de sauvegarde prédit les quatre
+      régions mises de côté en entier, et sa prédiction est comparée aux étiquettes à tous les seuils.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Une note par point de sauvegarde, sur les mêmes pixels à chaque fois"
+        detail: >-
+          Pour chacun des vingt points de sauvegarde, et pour celui que villa a gardé à part
+          (itération 17 500) : le meilleur F1, le seuil qui le donne, la précision, le rappel et
+          la justesse équilibrée. Une courbe de ces notes au fil de l'entraînement.
+        fiches: [K-16, K-15, K-26]
+      - question: "La représentativité"
+        valeur: "Les quatre régions mises de côté, en entier"
+        detail: >-
+          Tous les pixels étiquetés de ces régions comptent, et ce sont les mêmes pour chaque
+          point de sauvegarde : le bruit du tirage au sort de X-008 disparaît. Il reste celui d'un
+          seul découpage et d'une seule graine. Selon l'auteur des outils, un écart de moins de
+          0,03 de F1 sur ce segment est du bruit.
+        fiches: [K-16]
+      - question: "Ce que cela doit décider"
+        valeur: "Le point de sauvegarde à garder, et le chiffre à battre"
+        detail: >-
+          Les essais suivants (blocs de 256, fond propre, trame, vecteur par pixel) seront jugés
+          contre ce chiffre, sur ces mêmes régions.
+
+    code:
+      - titre: "Les deux étapes"
+        fichier: experiments/2026-11-17-noter-les-points-de-sauvegarde/etapes.sh
+        langage: bash
+        extrait: [16, 37]
+        notes:
+          - lignes: [16, 20]
+            genre: mesure
+            titre: "Les outils de khj1222"
+            texte: >-
+              `sweep_checkpoints.py` lance, pour chaque point de sauvegarde, une prédiction limitée
+              aux régions mises de côté, puis `eval_validation.py` la compare aux étiquettes à tous
+              les seuils. Outils de [khj1222](https://github.com/khj1222/vesuvius-challenge). Les
+              deux mesures d'image qu'ils proposent en plus (DRD, pseudo-F) sont laissées de côté.
+            fiches: [K-16, K-26]
+          - lignes: [23, 25]
+            genre: parametrage
+            titre: "Un seul changement : le nom du paquet"
+            texte: >-
+              Les outils appellent le paquet de villa sous un ancien nom. Une copie, gardée hors
+              du dépôt, reçoit ce seul remplacement ; rien d'autre n'est touché.
+            fiches: [K-17]
+          - lignes: [26, 28]
+            genre: donnees
+            titre: "Vingt et un points de sauvegarde"
+            texte: >-
+              Les vingt de X-008, plus celui que villa a gardé à part, présenté sous le numéro de
+              son itération, 17 500.
+            fiches: [K-15]
+          - lignes: [30, 33]
+            genre: mesure
+            titre: "D'abord un seul"
+            texte: >-
+              Un essai sur le dernier point de sauvegarde. Une demande de fusion de
+              [ScrollPrize/villa](https://github.com/ScrollPrize/villa/pull/2382), fermée sans être
+              fusionnée, décrit un arrêt de la prédiction avec `--mask-path` sur certains volumes :
+              si le nôtre est touché, on le saura ici, en quelques minutes.
+          - lignes: [36, 37]
+            genre: parametrage
+            titre: "Reprendre plutôt que recommencer"
+            texte: >-
+              Une prédiction déjà écrite est gardée : après un arrêt, seuls les points de
+              sauvegarde manquants sont prédits.
+
+    limites: |
+      - Un seul découpage, une seule graine : pas de marge d'erreur mesurée chez nous.
+      - Le seuil qui donne le meilleur F1 est choisi sur les régions mêmes qui servent à noter : le chiffre est un peu flatteur.
+      - Rien sur ce que le modèle répond hors des régions étiquetées.
+      - Aucune comparaison avec X-002, qui a vu ces régions pendant son entraînement.
+      - La durée n'est pas connue d'avance : le premier essai la dira.
+
+    credits:
+      - github: khj1222
+        nom: "Hyojun Kwon, harnais de validation"
+        lien: https://github.com/khj1222/vesuvius-challenge/tree/c876e018944f6d6546b11daab8f9d00f48bddbbd
+        licence: MIT
+        quoi: >-
+          Les outils `tools/sweep_checkpoints.py` et `tools/eval_validation.py`, lancés depuis une
+          copie gardée hors du dépôt où seul le nom du paquet de villa est remplacé. La méthode
+          (prédire dans les seules régions mises de côté, balayer tous les seuils) est la sienne.
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: "Le programme de prédiction d'encre du paquet `vesuvius`, au commit `2d3fb38`."
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: "Le segment étiqueté `w00_20231016151002` : https://scrollprize.org/tutorial5"
