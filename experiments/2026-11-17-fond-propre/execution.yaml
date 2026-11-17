@@ -538,3 +538,152 @@ executions:
           - { github: erdpx, nom: "elian rafael", part: "76 lignes de patch_finding_default.py" }
           - { github: evilaliv3, nom: "Giovanni Pellerano", part: "10 lignes de patch_finding_default.py" }
           - { github: tencur, nom: "tencur", part: "2 lignes de patch_finding_default.py" }
+
+  - id: X-014
+    titre: "Réentraîner sur les anciens blocs et ceux des carrés de fond"
+    date: 2026-11-17
+    statut: prevue
+    piste: P-310
+    taches: [T-020]
+    resume: >-
+      Suite de X-012 et X-013. Pour que le fond propre soit la seule chose changée, villa reçoit
+      une liste de blocs faite à la main : les 6 567 blocs de X-008 et les 2 304 blocs des neuf
+      carrés de fond, sans les 13 604 blocs peu encrés de la zone du tutoriel. Le modèle est
+      réentraîné, puis noté comme X-009 et sur les carrés.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Deux chiffres, chacun avant et après"
+        detail: >-
+          Le F1 sur les quatre régions mises de côté, pour les quatre derniers points de
+          sauvegarde, à comparer au 0,776 de X-009. Et la part des carrés vierges marquée comme
+          encre au seuil 176, à comparer aux 2,65 % (fond) et 3,30 % (contrôle) mesurés par X-012.
+        fiches: [K-16, K-26]
+      - question: "La représentativité"
+        valeur: "Le réglage de X-008, plus 2 304 blocs de fond"
+        detail: >-
+          Même segment, mêmes régions mises de côté, même graine, mêmes 20 000 itérations. Les
+          carrés pèsent 26 % des 8 871 blocs d'entraînement, alors qu'ils n'ajoutent que 9,8 % de
+          surface supervisée : la recette du tutoriel n'emploie qu'une partie de sa propre zone.
+          Le tirage des blocs change avec la liste : ce n'est plus le même ordre que X-008.
+        fiches: [K-12]
+      - question: "Ce que cela doit décider"
+        valeur: "Garder ou non le fond propre dans la suite"
+        detail: >-
+          Deux carrés de contrôle, c'est peu : ils diront une tendance, pas une preuve. Les neuf
+          carrés « fond » auront été vus à l'entraînement ; seul le contrôle compte comme jamais
+          vu. Sur le F1, un écart de moins de 0,03 reste du bruit.
+        fiches: [K-16, K-09]
+
+    code:
+      - titre: "Le réglage : celui de X-012, deux lignes changées"
+        fichier: experiments/2026-11-17-fond-propre/fond-propre-liste-128.json
+        langage: json
+        extrait: [11, 16]
+        notes:
+          - lignes: 15
+            genre: parametrage
+            titre: "Les blocs sans encre sont admis"
+            texte: "Sans quoi villa jugerait périmée une liste qui en contient, et la referait."
+            fiches: [K-12]
+          - lignes: 16
+            genre: donnees
+            titre: "La liste de blocs est fournie"
+            texte: >-
+              Une option de [ScrollPrize/villa](https://github.com/ScrollPrize/villa), décrite dans
+              sa documentation : il lit cette liste au lieu de chercher les blocs lui-même.
+            fiches: [K-12]
+
+      - titre: "Écrire la liste"
+        fichier: experiments/2026-11-17-fond-propre/liste_blocs.py
+        langage: python
+        extrait: [27, 46]
+        notes:
+          - lignes: [29, 39]
+            genre: donnees
+            titre: "Trois genres de blocs gardés"
+            texte: >-
+              Les blocs de validation, les blocs d'entraînement de X-008, et ceux qui touchent un
+              carré de fond. Chaque ligne est recopiée de la liste écrite par villa pour X-013 :
+              aucun bloc n'est inventé.
+          - lignes: 42
+            genre: donnees
+            titre: "Un garde-fou"
+            texte: "S'il manque un seul des anciens blocs, rien n'est écrit."
+
+      - titre: "Vérifier avant d'entraîner"
+        fichier: experiments/2026-11-17-fond-propre/verifier_blocs.py
+        langage: python
+        extrait: [17, 33]
+        notes:
+          - lignes: 23
+            genre: mesure
+            titre: "Ouvrir le jeu de données comme le fera l'entraînement"
+            texte: "Sans carte graphique, en une minute et demie."
+          - lignes: [29, 32]
+            genre: mesure
+            titre: "La leçon de X-012"
+            texte: >-
+              Si villa a réécrit la liste, ou si ses blocs ne sont pas ceux de la liste, tout
+              s'arrête avant l'entraînement. Essayé à blanc le 2026-11-17 : 8 871 blocs
+              d'entraînement et 4 987 de validation, la liste est prise telle quelle.
+
+      - titre: "Les quatre étapes"
+        fichier: experiments/2026-11-17-fond-propre/etapes-liste.sh
+        langage: bash
+        extrait: [23, 67]
+        notes:
+          - lignes: [34, 41]
+            genre: parametrage
+            titre: "Reprendre plutôt que recommencer"
+            texte: "S'il existe un point de sauvegarde, l'entraînement repart de là."
+            fiches: [K-15]
+          - lignes: [44, 48]
+            genre: mesure
+            titre: "Noter comme X-009, sur quatre points"
+            texte: "Les outils de [khj1222](https://github.com/khj1222/vesuvius-challenge), sur les itérations 17 000 à 20 000."
+            fiches: [K-26]
+          - lignes: [63, 65]
+            genre: mesure
+            titre: "Avant et après, côte à côte"
+            texte: >-
+              La prédiction d'avant est celle de X-012, relue. Celle d'après est comptée au seuil
+              176 pour comparer à l'identique, puis au seuil propre du nouveau modèle.
+            fiches: [K-16]
+
+    limites: |
+      - Les carrés ont été jugés vierges à l'œil, par deux personnes qui ne sont pas papyrologues, sur une couche du scan et la carte d'un modèle : une erreur apprendrait au modèle à effacer de l'encre.
+      - Cet essai s'écarte du tutoriel, qui étend les étiquettes autour de traits visibles et non sur du papyrus sans encre.
+      - Une liste de blocs faite à la main n'est pas un réglage que villa produit seul : à redire dans tout résultat qui en sort.
+      - Les carrés font 26 % des blocs tirés : c'est beaucoup de fond d'un coup. Un effet sur le F1 pourra venir de cette proportion autant que du fond lui-même.
+      - Deux carrés de contrôle seulement, choisis dans la même bande du segment que les carrés d'entraînement.
+      - Un seul découpage, une seule graine ; le seuil de bruit de 0,03 de F1 est celui de l'auteur des outils.
+      - Durée estimée, non mesurée : environ 2 h 55 (2 h 20 d'entraînement d'après X-012, 26 minutes de notation, 5 minutes sur les carrés).
+      - Environ 16 Go de points de sauvegarde écrits. 25 Go libres sur C: (valeur arrondie) ; les 16 Go supprimés après X-012 sont restés alloués au disque virtuel d'Ubuntu, qui ne devrait donc guère grossir : non vérifié.
+
+    credits:
+      - github: khj1222
+        nom: "Hyojun Kwon, harnais de validation"
+        lien: https://github.com/khj1222/vesuvius-challenge/tree/c876e018944f6d6546b11daab8f9d00f48bddbbd
+        licence: MIT
+        quoi: >-
+          Les outils `tools/sweep_checkpoints.py` et `tools/eval_validation.py`, lancés depuis la
+          copie de X-009 où seul le nom du paquet de villa est remplacé, et le découpage des
+          régions mises de côté.
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e
+        licence: MIT
+        quoi: >-
+          L'entraînement, la prédiction et la recherche de blocs du paquet `vesuvius`, au commit
+          `2d3fb38`, et l'option `patch_cache_filename` de sa documentation.
+        personnes:            # lignes par personne au commit 2d3fb38 (scripts/wsl/auteurs-villa.sh)
+          - { github: erdpx, nom: "elian rafael", part: "1 122 lignes de train.py, 76 de patch_finding_default.py" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+          - { github: evilaliv3, nom: "Giovanni Pellerano", part: "10 lignes de patch_finding_default.py" }
+          - { github: tencur, nom: "tencur", part: "2 lignes de patch_finding_default.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/2d3fb38d33a18b257230c0bd23986436c3d4722e/scrollprize.org
+        quoi: "Le segment étiqueté `w00_20231016151002`, ses étiquettes et la recette d'entraînement : https://scrollprize.org/tutorial5"

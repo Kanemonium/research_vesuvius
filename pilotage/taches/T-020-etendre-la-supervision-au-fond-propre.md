@@ -51,14 +51,19 @@ etapes:
     detail: "X-013, 1 min 39 s, sans carte graphique. Avec `patch_min_labeled_coverage` à 0 : 22 475 blocs d'entraînement au lieu de 6 567. Les neuf carrés en donnent 2 304 (10,3 %), l'ancienne zone de supervision 13 604 de plus (60,5 %). Un réentraînement ainsi réglé mêlerait deux effets, et le fond propre serait le plus petit."
   - date: 2026-11-17
     genre: etape
-    statut: a-faire
+    statut: faite
     titre: "Kanemonium choisit comment séparer les deux effets"
-    detail: "Deux voies. Deux entraînements à 0, l'un avec les étiquettes du tutoriel, l'autre avec la version 2 : environ 4 h 40 et 32 Go. Ou un seul entraînement sur une liste de blocs faite des 6 567 anciens et des 2 304 des carrés, si villa accepte une liste fournie (option `patch_cache_filename` vue dans son code, non essayée)."
+    detail: "Choix : la liste de blocs. Les deux voies étaient les suivantes. Deux entraînements à 0, l'un avec les étiquettes du tutoriel, l'autre avec la version 2 : environ 4 h 40 et 32 Go. Ou un seul entraînement sur une liste de blocs faite des 6 567 anciens et des 2 304 des carrés, si villa accepte une liste fournie (option `patch_cache_filename` vue dans son code, non essayée)."
+  - date: 2026-11-17
+    genre: etape
+    statut: faite
+    titre: "Écrire la liste de blocs et vérifier que villa la prend"
+    detail: "L'option `patch_cache_filename` est dans la documentation de villa. Essai à blanc sans carte graphique, dans un dossier d'essai (`runs/essai_liste`) : la liste compte 6 567 anciens blocs, 2 304 dans les carrés et 4 987 de validation, et villa la prend telle quelle. Le contrôle est repris comme première étape de X-014 : il arrête tout avant l'entraînement si villa refait la liste."
   - date: 2026-11-17
     genre: etape
     statut: a-faire
     titre: "Réentraîner pour de bon avec le fond propre"
-    detail: "Environ 2 h 20 d'entraînement et 16 Go. Les étiquettes en version 2 et le chiffre d'avant sont déjà là."
+    detail: "Page X-014 écrite. Environ 2 h 55 en tout (estimation) et 16 Go. Les étiquettes en version 2 et le chiffre d'avant sont déjà là."
   - date: 2026-11-17
     genre: etape
     statut: a-faire

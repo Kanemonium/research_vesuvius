@@ -69,4 +69,20 @@ bash experiments/2026-11-17-fond-propre/compter.sh
 
 Résultat : 22 475 blocs d'entraînement au lieu de 6 567. Les neuf carrés en donnent 2 304 (256
 chacun), l'ancienne zone de supervision 13 604 de plus. Mettre le réglage à 0 changerait donc
-surtout autre chose que le fond propre : la suite reste à choisir par Kanemonium.
+surtout autre chose que le fond propre.
+
+## Réentraîner sur une liste de blocs (X-014)
+
+```bash
+bash experiments/2026-11-17-fond-propre/entrainer-liste.sh
+```
+
+Choix de Kanemonium, le 2026-11-17 : une liste de blocs faite des 6 567 blocs de X-008 et des 2 304
+des carrés de fond (`liste_blocs.py`), que villa lit grâce à son option `patch_cache_filename`
+(`fond-propre-liste-128.json`). Avant d'entraîner, `verifier_blocs.py` s'assure que villa prend la
+liste telle quelle ; essayé à blanc, il annonce 8 871 blocs d'entraînement et 4 987 de validation.
+Puis entraînement, notation avec les outils de Hyojun Kwon
+([khj1222/vesuvius-challenge](https://github.com/khj1222/vesuvius-challenge), licence MIT) et
+mesure sur les carrés. Relancer après un arrêt reprend.
+
+Non mesuré : l'entraînement n'est pas lancé.
