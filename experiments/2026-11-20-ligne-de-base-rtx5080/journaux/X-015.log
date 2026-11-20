@@ -1,0 +1,177 @@
+[16:29:50] ===== étape 1/2 : la machine et le code =====
+NVIDIA GeForce RTX 5080, 16303 MiB, 617.42
+16
+Mem:           22017         826       20623           4         810       21191
+Swap:          16384           0       16384
+0bddf27
+torch 2.12.1+cu130 13.0
+[16:29:54] ===== étape 2/2 : entraîner 20 000 itérations =====
+sampling_audit={"patches": 8098, "strategy": "uniform"}
+Using dimensionality (3D) from ConfigManager
+Using 3D convolutions (nn.Conv3d)
+Using 3D normalization (nn.InstanceNorm3d)
+--- Full autoconfiguration from config ---
+Patch size adjusted from (64, 128, 128) to (64, 128, 128) to ensure divisibility by pooling factors [16 32 32]
+Task 'ink' configured with z-projection mode 'max'
+Task 'ink' configured with shared decoder + head (1 channels)
+NetworkFromConfig initialized with final configuration:
+  model_name: ink_det
+  basic_encoder_block: BasicBlockD
+  basic_decoder_block: ConvBlock
+  bottleneck_block: BasicBlockD
+  features_per_stage: [32, 64, 128, 256, 320, 320]
+  num_stages: 6
+  n_blocks_per_stage: [1, 3, 4, 6, 6, 6]
+  n_conv_per_stage_decoder: [1, 1, 1, 1, 1]
+  kernel_sizes: [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+  pool_op_kernel_sizes: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  conv_op: Conv3d
+  conv_bias: True
+  norm_op: InstanceNorm3d
+  norm_op_kwargs: {'affine': True, 'eps': 1e-05}
+  dropout_op: None
+  dropout_op_kwargs: None
+  nonlin: LeakyReLU
+  nonlin_kwargs: {'inplace': True, 'negative_slope': 0.01}
+  strides: [[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 2, 2]]
+  return_skips: True
+  do_stem: True
+  stem_channels: 32
+  bottleneck_channels: None
+  stochastic_depth_p: 0.0
+  squeeze_excitation: False
+  squeeze_excitation_reduction_ratio: 0.0625
+  squeeze_excitation_type: channel
+  squeeze_excitation_add_maxpool: False
+  pool_type: conv
+  upsample_mode: transpconv
+  op_dims: 3
+  patch_size: (64, 128, 128)
+  batch_size: 2
+  in_channels: 1
+  autoconfigure: True
+  targets: {'ink': {'out_channels': 1, 'activation': 'none', 'z_projection_mode': 'max'}}
+  target_z_projection: {'ink': {'mode': 'max'}}
+  separate_decoders: False
+  num_pool_per_axis: [4, 5, 5]
+  must_be_divisible_by: [16 32 32]
+  guide_backbone: None
+  guide_backbone_config_path: None
+  guide_freeze: True
+  guide_patch_grid: None
+  guide_stage_keys: None
+  guide_skip_concat_projector_channels: None
+  guide_feature_gate_alpha: None
+  guide_tokenbook_tokens: None
+  guide_tokenbook_prototype_weighting: mean
+  guide_tokenbook_weight_mlp_hidden: None
+  guide_compile_policy: off
+  guide_fusion_stage: None
+  0%|          | 0/20000 [00:00<?, ?it/s]AMP gradient overflow at step 0: task_heads.ink.weight
+/home/kanemonium/vesuvius/villa/vesuvius/src/vesuvius/ink_detection/training/train.py:882: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scheduler.step()
+  0%|          | 0/20000 [00:17<?, ?it/s, loss=2.0589, lr=1.00e-05]
+  1%|          | 101/20000 [00:32<53:09,  6.24it/s, loss=0.5437, lr=1.01e-03]
+  2%|▏         | 300/20000 [00:59<45:10,  7.27it/s, loss=0.3578, lr=3.00e-03]
+  3%|▎         | 501/20000 [01:25<44:03,  7.38it/s, loss=0.7448, lr=5.01e-03]
+  4%|▎         | 700/20000 [01:50<42:41,  7.54it/s, loss=0.3133, lr=7.00e-03]
+  5%|▍         | 901/20000 [02:16<41:38,  7.64it/s, loss=0.1480, lr=9.01e-03]
+  6%|▌         | 1100/20000 [02:42<40:53,  7.70it/s, loss=0.3588, lr=1.00e-02]
+  7%|▋         | 1301/20000 [03:08<40:33,  7.68it/s, loss=0.4949, lr=9.99e-03]
+  8%|▊         | 1500/20000 [03:33<39:38,  7.78it/s, loss=0.0316, lr=9.98e-03]
+  9%|▊         | 1701/20000 [03:58<40:46,  7.48it/s, loss=0.5255, lr=9.97e-03]
+ 10%|▉         | 1900/20000 [04:23<37:39,  8.01it/s, loss=0.1035, lr=9.94e-03]
+ 11%|█         | 2101/20000 [04:51<40:01,  7.45it/s, loss=0.5998, lr=9.92e-03]
+ 12%|█▏        | 2300/20000 [05:16<39:25,  7.48it/s, loss=0.5322, lr=9.88e-03]
+ 13%|█▎        | 2501/20000 [05:41<38:01,  7.67it/s, loss=0.1440, lr=9.85e-03]
+ 14%|█▎        | 2700/20000 [06:06<36:43,  7.85it/s, loss=0.4098, lr=9.80e-03]
+ 15%|█▍        | 2901/20000 [06:31<37:54,  7.52it/s, loss=0.5645, lr=9.76e-03]
+ 16%|█▌        | 3100/20000 [06:57<21:33, 13.07it/s, loss=0.4106, lr=9.70e-03]
+ 17%|█▋        | 3301/20000 [07:24<37:35,  7.40it/s, loss=0.3753, lr=9.64e-03]
+ 18%|█▊        | 3500/20000 [07:49<34:54,  7.88it/s, loss=0.3151, lr=9.58e-03]
+ 19%|█▊        | 3701/20000 [08:15<36:49,  7.38it/s, loss=0.1406, lr=9.51e-03]
+ 20%|█▉        | 3900/20000 [08:40<34:58,  7.67it/s, loss=0.3562, lr=9.44e-03]
+ 21%|██        | 4101/20000 [09:06<34:44,  7.63it/s, loss=0.2120, lr=9.36e-03]
+ 22%|██▏       | 4307/20000 [09:32<09:04, 28.83it/s, loss=0.8078, lr=9.27e-03]
+ 23%|██▎       | 4501/20000 [09:57<34:10,  7.56it/s, loss=0.5555, lr=9.19e-03]
+ 24%|██▎       | 4700/20000 [10:23<33:23,  7.64it/s, loss=-0.0043, lr=9.09e-03]
+ 25%|██▍       | 4901/20000 [10:48<33:31,  7.51it/s, loss=0.4916, lr=9.00e-03]
+ 26%|██▌       | 5100/20000 [11:14<33:45,  7.36it/s, loss=0.2176, lr=8.89e-03]
+ 27%|██▋       | 5301/20000 [11:39<31:19,  7.82it/s, loss=0.1161, lr=8.79e-03]
+ 28%|██▊       | 5500/20000 [12:05<31:40,  7.63it/s, loss=0.4809, lr=8.68e-03]
+ 29%|██▊       | 5701/20000 [12:31<31:21,  7.60it/s, loss=0.2316, lr=8.56e-03]
+ 30%|██▉       | 5900/20000 [12:56<31:06,  7.55it/s, loss=0.4415, lr=8.45e-03]
+ 31%|███       | 6101/20000 [13:22<30:44,  7.54it/s, loss=0.4000, lr=8.32e-03]
+ 32%|███▏      | 6300/20000 [13:47<29:59,  7.61it/s, loss=0.3012, lr=8.20e-03]
+ 33%|███▎      | 6502/20000 [14:12<26:13,  8.58it/s, loss=0.3573, lr=8.07e-03]
+ 34%|███▎      | 6700/20000 [14:39<29:10,  7.60it/s, loss=0.4131, lr=7.94e-03]
+ 35%|███▍      | 6901/20000 [15:04<28:50,  7.57it/s, loss=0.5427, lr=7.80e-03]
+ 36%|███▌      | 7100/20000 [15:30<29:09,  7.37it/s, loss=0.6615, lr=7.67e-03] 
+ 37%|███▋      | 7301/20000 [15:55<28:04,  7.54it/s, loss=0.4838, lr=7.52e-03]
+ 38%|███▊      | 7500/20000 [16:21<27:44,  7.51it/s, loss=0.5219, lr=7.38e-03]
+ 39%|███▊      | 7701/20000 [16:47<24:21,  8.41it/s, loss=0.1228, lr=7.23e-03]
+ 40%|███▉      | 7900/20000 [17:13<26:31,  7.60it/s, loss=0.7640, lr=7.08e-03]
+ 41%|████      | 8101/20000 [17:39<31:01,  6.39it/s, loss=0.2710, lr=6.93e-03]
+ 42%|████▏     | 8300/20000 [18:04<26:11,  7.45it/s, loss=0.5049, lr=6.78e-03]
+ 43%|████▎     | 8501/20000 [18:30<25:29,  7.52it/s, loss=0.3345, lr=6.62e-03]
+ 44%|████▎     | 8700/20000 [18:55<24:55,  7.56it/s, loss=0.6859, lr=6.47e-03]
+ 45%|████▍     | 8902/20000 [19:20<19:33,  9.46it/s, loss=0.2027, lr=6.31e-03]
+ 46%|████▌     | 9100/20000 [19:48<23:47,  7.63it/s, loss=0.7495, lr=6.15e-03]
+ 47%|████▋     | 9301/20000 [20:13<23:26,  7.61it/s, loss=0.2747, lr=5.98e-03]
+ 48%|████▊     | 9500/20000 [20:38<23:31,  7.44it/s, loss=0.8498, lr=5.82e-03]
+ 49%|████▊     | 9701/20000 [21:03<23:25,  7.33it/s, loss=0.1588, lr=5.66e-03]
+ 50%|████▉     | 9900/20000 [21:28<22:21,  7.53it/s, loss=0.2420, lr=5.50e-03]
+ 51%|█████     | 10101/20000 [21:55<18:20,  9.00it/s, loss=0.4636, lr=5.33e-03]
+ 52%|█████▏    | 10300/20000 [22:22<22:06,  7.31it/s, loss=0.5421, lr=5.17e-03]
+ 53%|█████▎    | 10501/20000 [22:48<21:21,  7.41it/s, loss=0.2601, lr=5.00e-03]
+ 54%|█████▎    | 10700/20000 [23:14<21:53,  7.08it/s, loss=0.7934, lr=4.83e-03]
+ 55%|█████▍    | 10900/20000 [23:40<20:03,  7.56it/s, loss=0.1568, lr=4.67e-03]
+ 56%|█████▌    | 11100/20000 [24:06<19:45,  7.51it/s, loss=0.3553, lr=4.50e-03]
+ 57%|█████▋    | 11301/20000 [24:31<19:18,  7.51it/s, loss=0.4258, lr=4.34e-03]
+ 58%|█████▊    | 11508/20000 [24:57<03:48, 37.14it/s, loss=0.2557, lr=4.17e-03]
+ 59%|█████▊    | 11701/20000 [25:23<18:42,  7.40it/s, loss=1.0895, lr=4.01e-03]
+ 60%|█████▉    | 11900/20000 [25:48<19:27,  6.94it/s, loss=0.4418, lr=3.85e-03]
+ 61%|██████    | 12101/20000 [26:15<17:43,  7.43it/s, loss=0.0587, lr=3.69e-03]
+ 62%|██████▏   | 12300/20000 [26:40<17:04,  7.52it/s, loss=0.5848, lr=3.53e-03]
+ 63%|██████▎   | 12501/20000 [27:05<16:43,  7.47it/s, loss=0.3623, lr=3.38e-03]
+ 64%|██████▎   | 12704/20000 [27:31<04:03, 29.94it/s, loss=0.2842, lr=3.22e-03]
+ 65%|██████▍   | 12901/20000 [27:58<15:47,  7.49it/s, loss=0.4063, lr=3.07e-03]
+ 66%|██████▌   | 13100/20000 [28:23<15:19,  7.50it/s, loss=0.7122, lr=2.92e-03]
+ 67%|██████▋   | 13301/20000 [28:49<14:57,  7.46it/s, loss=0.5693, lr=2.77e-03]
+ 68%|██████▊   | 13500/20000 [29:14<14:39,  7.39it/s, loss=0.2225, lr=2.62e-03]
+ 69%|██████▊   | 13701/20000 [29:39<13:54,  7.55it/s, loss=0.2336, lr=2.48e-03]
+ 70%|██████▉   | 13905/20000 [30:05<02:44, 37.05it/s, loss=0.3353, lr=2.33e-03]
+ 71%|███████   | 14101/20000 [30:32<13:07,  7.49it/s, loss=0.4973, lr=2.20e-03]
+ 72%|███████▏  | 14300/20000 [30:57<12:35,  7.54it/s, loss=0.4560, lr=2.06e-03]
+ 73%|███████▎  | 14501/20000 [31:22<12:20,  7.42it/s, loss=0.0096, lr=1.93e-03]
+ 74%|███████▎  | 14700/20000 [31:47<12:01,  7.35it/s, loss=0.7456, lr=1.80e-03]
+ 75%|███████▍  | 14901/20000 [32:13<11:21,  7.48it/s, loss=0.3464, lr=1.67e-03]
+ 76%|███████▌  | 15101/20000 [32:39<04:34, 17.88it/s, loss=0.4785, lr=1.55e-03]
+ 77%|███████▋  | 15301/20000 [33:05<10:29,  7.47it/s, loss=0.7596, lr=1.43e-03]
+ 78%|███████▊  | 15500/20000 [33:31<09:59,  7.50it/s, loss=0.4387, lr=1.32e-03]
+ 79%|███████▊  | 15701/20000 [33:56<09:38,  7.42it/s, loss=0.3025, lr=1.21e-03]
+ 80%|███████▉  | 15900/20000 [34:21<09:17,  7.36it/s, loss=1.0610, lr=1.11e-03] 
+ 81%|████████  | 16101/20000 [34:47<08:38,  7.52it/s, loss=0.0088, lr=1.00e-03]
+ 82%|████████▏ | 16300/20000 [35:12<04:19, 14.28it/s, loss=0.5738, lr=9.07e-04]
+ 83%|████████▎ | 16501/20000 [35:39<07:50,  7.43it/s, loss=0.3441, lr=8.14e-04]
+ 84%|████████▎ | 16700/20000 [36:04<07:21,  7.47it/s, loss=0.4651, lr=7.26e-04]
+ 85%|████████▍ | 16901/20000 [36:30<06:57,  7.43it/s, loss=0.1466, lr=6.42e-04]
+ 86%|████████▌ | 17100/20000 [36:56<06:32,  7.38it/s, loss=0.3810, lr=5.64e-04] 
+ 87%|████████▋ | 17301/20000 [37:22<06:03,  7.42it/s, loss=0.3831, lr=4.90e-04]
+ 88%|████████▊ | 17501/20000 [37:47<04:35,  9.07it/s, loss=0.0699, lr=4.21e-04]
+ 89%|████████▊ | 17701/20000 [38:14<05:08,  7.45it/s, loss=-0.0754, lr=3.57e-04]
+ 90%|████████▉ | 17900/20000 [38:39<04:39,  7.50it/s, loss=0.1996, lr=2.98e-04]
+ 91%|█████████ | 18101/20000 [39:09<04:13,  7.50it/s, loss=0.0826, lr=2.44e-04]
+ 92%|█████████▏| 18300/20000 [39:34<03:49,  7.41it/s, loss=0.5730, lr=1.96e-04] 
+ 93%|█████████▎| 18501/20000 [39:59<03:24,  7.32it/s, loss=-0.0761, lr=1.53e-04]
+ 94%|█████████▎| 18700/20000 [40:24<02:54,  7.46it/s, loss=0.2614, lr=1.15e-04]
+ 95%|█████████▍| 18903/20000 [40:50<01:19, 13.84it/s, loss=0.6182, lr=8.20e-05]
+ 96%|█████████▌| 19107/20000 [41:19<00:45, 19.68it/s, loss=0.1729, lr=5.44e-05]
+ 97%|█████████▋| 19301/20000 [41:45<01:33,  7.49it/s, loss=0.4460, lr=3.34e-05]
+ 98%|█████████▊| 19500/20000 [42:10<01:07,  7.46it/s, loss=0.4593, lr=1.71e-05]
+ 99%|█████████▊| 19701/20000 [42:36<00:40,  7.45it/s, loss=0.1391, lr=6.11e-06]
+100%|█████████▉| 19900/20000 [43:01<00:13,  7.41it/s, loss=0.1969, lr=6.83e-07]
+100%|██████████| 20000/20000 [43:17<00:00,  7.70it/s, loss=0.1510, lr=0.00e+00]
+16G	runs/ligne_de_base_128_rtx5080
+/dev/sdd       1007G  123G  834G  13% /
+[17:13:35] ===== fin =====

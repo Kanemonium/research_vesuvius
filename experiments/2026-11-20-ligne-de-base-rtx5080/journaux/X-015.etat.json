@@ -1,0 +1,11 @@
+{
+  "id": "X-015",
+  "debut": "2026-11-20T16:29:50+01:00",
+  "fin": "2026-11-20T17:13:35+01:00",
+  "code": 0,
+  "pid": null,
+  "pause": null,
+  "reprises": 0,
+  "pic_vram_mo": 6694,
+  "commande": "bash <windows>/Documents/Développement/research_vesuvius/experiments/2026-11-20-ligne-de-base-rtx5080/etapes.sh"
+}

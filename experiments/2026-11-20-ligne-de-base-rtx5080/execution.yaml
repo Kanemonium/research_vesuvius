@@ -1,0 +1,214 @@
+# Rendu d'exécution de cette expérience, montré dans l'onglet « Exécutions » de l'IHM.
+# Format : pilotage/README.md. Page écrite avant le lancement, complétée à la fin (2026-11-20).
+executions:
+  - id: X-015
+    titre: "La ligne de base refaite sur la RTX 5080"
+    date: 2026-11-20
+    statut: terminee
+    piste: P-420
+    taches: [T-021]
+    resume: >-
+      Exactement l'entraînement de X-002 (même réglage, même segment, même graine, 20 000
+      itérations, blocs de 128), relancé sur la nouvelle machine. Seuls changent la carte, la
+      mémoire vive et le dossier de sortie. 43 min 45 s au lieu de 1 h 53 min 51 s, sans erreur :
+      2,6 fois plus vite.
+
+    bilan:
+      - question: "Le type de résultat"
+        valeur: "Trois mesures, et un modèle"
+        detail: >-
+          La durée, le pic de mémoire vidéo et la courbe de perte, à mettre en face de X-002
+          (1 h 53 min 51 s, 4 959 Mo, perte moyenne de 0,514 à 0,393). Et un point de sauvegarde
+          `ckpt_020000.pth`, qui pourra servir à son tour de référence.
+        fiches: [K-15, K-13]
+      - question: "La représentativité"
+        valeur: "La machine, pas le modèle"
+        detail: >-
+          Le modèle aura les mêmes limites que celui de X-002 : un seul segment, aucune zone de
+          validation. La mesure dit ce que vaut la nouvelle carte sur notre recette, pas ce que
+          vaut le modèle.
+        fiches: [K-16]
+      - question: "Le niveau d'optimisation"
+        valeur: "Aucun : la recette de 8 Go, telle quelle"
+        detail: >-
+          Les blocs de 128, le lot de 2 et le chargeur unique avaient été choisis pour tenir dans
+          8 Go. Ils sont gardés exprès, pour que la comparaison ne porte que sur la machine. Ce
+          que la RTX 5080 permettrait de plus (blocs de 256, lots plus gros) est un autre essai.
+        fiches: [K-12]
+
+    code:
+      - titre: "Le réglage : celui de X-002, une ligne changée"
+        fichier: experiments/2026-11-20-ligne-de-base-rtx5080/ligne-de-base-128-rtx5080.json
+        langage: json
+        notes:
+          - lignes: 2
+            genre: parametrage
+            titre: "Un nouveau dossier de sortie"
+            texte: >-
+              Le seul changement. Le dossier de X-002 contient encore son point de sauvegarde
+              `ckpt_020000.pth`, le modèle de la carte X-003 : y écrire l'aurait écrasé.
+          - lignes: 11
+            genre: optimisation
+            titre: "Des blocs de 128, gardés"
+            texte: >-
+              Choisis en X-001 pour une carte de 8 Go. Les garder ici, c'est comparer deux
+              machines sur la même recette.
+            fiches: [K-12]
+          - lignes: 19
+            genre: parametrage
+            titre: "Un seul processus de chargement, gardé"
+            texte: >-
+              Choisi pour les 6,8 Go de mémoire vive de l'ancienne machine. Avec 22 Go, il
+              pourrait freiner la nouvelle carte : si la carte attend les données, la comparaison
+              le montrera par une vitesse plus basse que prévu.
+          - lignes: [27, 33]
+            genre: donnees
+            titre: "Le segment retéléchargé"
+            texte: >-
+              Le même segment que X-002, retéléchargé le 2026-11-20 : 87 Go, tous les fichiers
+              attendus présents (`controler-segment.sh`).
+
+      - titre: "Les deux étapes"
+        fichier: experiments/2026-11-20-ligne-de-base-rtx5080/etapes.sh
+        langage: bash
+        notes:
+          - lignes: [11, 15]
+            genre: mesure
+            titre: "Noter la machine et le code dans le journal"
+            texte: >-
+              La carte, le nombre de cœurs, la mémoire, le commit de villa et la version de
+              PyTorch sont écrits en tête du journal : le résultat restera lisible même si la
+              machine change encore.
+          - lignes: 17
+            genre: parametrage
+            titre: "Un garde-fou"
+            texte: "Si le dossier de sortie redevenait celui de X-002, rien ne serait lancé."
+          - lignes: [20, 28]
+            genre: parametrage
+            titre: "Reprendre plutôt que recommencer"
+            texte: >-
+              S'il existe un point de sauvegarde, l'entraînement repart de là. On perd au plus
+              les 1 000 itérations faites depuis le dernier.
+            fiches: [K-15]
+
+    sorties:
+      - genre: mesures
+        titre: "Face à X-002"
+        lignes:
+          - ["Itérations", "20 000", "sans interruption ni erreur, comme X-002"]
+          - ["Durée", "43 min 45 s", "contre 1 h 53 min 51 s ; dont 43 min 17 s d'entraînement"]
+          - ["Vitesse moyenne", "7,70 itérations / s", "contre 2,93 : 2,6 fois plus vite"]
+          - ["Pic de mémoire vidéo", "6 694 Mo", "sur 16 303 ; X-002 : 4 959 sur 8 192"]
+          - ["Blocs d'entraînement", "8 098", "les mêmes que X-002, dans le même ordre"]
+          - ["Pas sautés", "1", "au pas 0, débordement en 16 bits, comme X-002"]
+          - ["Points de sauvegarde", "20 × 816 Mo", "16 Go ; 834 Go restent libres"]
+      - genre: fichiers
+        titre: "Ce qui a été écrit"
+        lieu: "~/vesuvius/villa/vesuvius/runs/ligne_de_base_128_rtx5080, dans Ubuntu, hors du dépôt"
+        elements:
+          - nom: "ckpt_001000.pth … ckpt_020000.pth"
+            taille: "20 × 816 Mo"
+            role: "Les points de sauvegarde (K-15). Le dernier est le modèle de référence de la nouvelle machine ; le tri des dix-neuf autres est à décider par Kanemonium, comme pour X-002."
+          - nom: "flat_ink_patches_…json"
+            taille: "6 Mo"
+            role: "La liste des 8 098 blocs. Comparée à celle de X-002 : mêmes blocs, même ordre. Seule l'empreinte des étiquettes diffère, sans doute parce que les fichiers ont été retéléchargés (non vérifié)."
+          - nom: "gradient_health.json"
+            taille: "221 octets"
+            role: "Le relevé du garde-fou : 200 pas contrôlés, un débordement au pas 0, comme en X-002."
+          - nom: "journaux/X-015.log"
+            taille: "12 Ko"
+            role: "Le journal condensé, versionné avec cette page."
+      - genre: courbe
+        titre: "La perte d'entraînement, X-015"
+        x: "itération"
+        y: "perte moyenne des valeurs affichées sur les 1 000 itérations précédentes"
+        xmin: 0
+        xmax: 20000
+        ymin: 0.30
+        ymax: 0.55
+        points:
+          - [1000, 0.5056]
+          - [2000, 0.4958]
+          - [3000, 0.4908]
+          - [4000, 0.4872]
+          - [5000, 0.4995]
+          - [6000, 0.4824]
+          - [7000, 0.4879]
+          - [8000, 0.4790]
+          - [9000, 0.4943]
+          - [10000, 0.4886]
+          - [11000, 0.4864]
+          - [12000, 0.4591]
+          - [13000, 0.4574]
+          - [14000, 0.4429]
+          - [15000, 0.4238]
+          - [16000, 0.4072]
+          - [17000, 0.3709]
+          - [18000, 0.3602]
+          - [19000, 0.3371]
+          - [20000, 0.3437]
+        note: >-
+          Même méthode appliquée aux deux journaux : la moyenne des valeurs que la barre de
+          progression affiche (environ 920 par tranche ici, 985 pour X-002). Elle redonne pour
+          X-002 0,507 au début et 0,389 à la fin, proche des 0,514 et 0,393 de sa page. Les deux
+          courbes se suivent jusqu'à 11 000 itérations ; ensuite X-015 descend plus tôt et finit à
+          0,344 au lieu de 0,389.
+      - genre: courbe
+        titre: "La perte d'entraînement, X-002 (même méthode)"
+        x: "itération"
+        y: "perte moyenne des valeurs affichées sur les 1 000 itérations précédentes"
+        xmin: 0
+        xmax: 20000
+        ymin: 0.30
+        ymax: 0.55
+        points:
+          - [1000, 0.5070]
+          - [2000, 0.4973]
+          - [3000, 0.4925]
+          - [4000, 0.4824]
+          - [5000, 0.4880]
+          - [6000, 0.4747]
+          - [7000, 0.4877]
+          - [8000, 0.4760]
+          - [9000, 0.5028]
+          - [10000, 0.4857]
+          - [11000, 0.4838]
+          - [12000, 0.4666]
+          - [13000, 0.4784]
+          - [14000, 0.4737]
+          - [15000, 0.4684]
+          - [16000, 0.4609]
+          - [17000, 0.4344]
+          - [18000, 0.4103]
+          - [19000, 0.3959]
+          - [20000, 0.3894]
+        note: >-
+          Recalculée le 2026-11-20 à partir de `runs/ligne-de-base-128.log`, pour comparer à
+          méthode égale. Mêmes blocs, même ordre, même graine : l'écart après 11 000 itérations
+          vient donc du calcul lui-même. Cause probable, non vérifiée : la carte ne choisit pas
+          les mêmes façons de calculer les convolutions, et les arrondis sur 16 bits s'écartent
+          peu à peu.
+
+    limites: |
+      - **Une perte plus basse ne dit pas que le modèle est meilleur.** Elle est calculée sur les données d'entraînement, et il n'y a pas de zone de validation ici. Pour le savoir, il faudrait noter ce modèle avec le harnais de X-009 (non fait).
+      - L'écart de perte entre X-002 et X-015, à réglage, blocs et graine identiques, montre que deux exécutions ne sont pas reproductibles au chiffre près. Une seule exécution de chaque côté : l'ampleur de ce bruit est inconnue.
+      - Le pic de mémoire vidéo compte tout ce qui occupe la carte, affichage de Windows compris : environ 1,66 Go avant le lancement sur la nouvelle machine (relevé le 2026-11-20 au matin, pas à l'instant du lancement), environ 1,35 Go sur l'ancienne. La part de l'entraînement seul n'est pas mesurée.
+      - Le commit de villa n'est pas le même qu'en X-002 (`0bddf27` au lieu de `2d3fb38`). Le code d'encre est identique fichier pour fichier ; le fichier des dépendances (`uv.lock`) diffère, mais PyTorch reste en 2.12.1 (CUDA 13.0).
+      - La recette de 8 Go est gardée telle quelle : la vitesse mesurée n'est pas celle que la carte atteindrait avec un réglage fait pour elle.
+
+    credits:
+      - github: ScrollPrize
+        nom: "ScrollPrize/villa"
+        lien: https://github.com/ScrollPrize/villa/tree/0bddf2757ea1e97572e86d06d448d8e4a7e207b3
+        licence: MIT
+        quoi: >-
+          Tout le code d'entraînement qui tourne ici : le paquet `vesuvius` de villa, au commit
+          `0bddf27`. Nous n'avons écrit que le réglage et les scripts de lancement.
+        personnes:            # lignes de training/train.py par personne, relevées au commit 2d3fb38 pour X-002 ; le code d'encre est identique au commit 0bddf27
+          - { github: erdpx, nom: "elian rafael", part: "1 122 lignes de train.py, et toute la fonction de perte (losses.py)" }
+          - { github: giorgioangel, nom: "Giorgio Angelotti", part: "176 lignes de train.py" }
+          - { github: AndreasHad04, nom: "Andreas Hadjinicolaou", part: "19 lignes de train.py" }
+      - github: ScrollPrize
+        nom: "Vesuvius Challenge, tutoriel d'encre"
+        lien: https://github.com/ScrollPrize/villa/tree/0bddf2757ea1e97572e86d06d448d8e4a7e207b3/scrollprize.org
+        quoi: "La recette suivie et le segment étiqueté `w00_20231016151002`, publiés par l'équipe du défi : https://scrollprize.org/tutorial5"

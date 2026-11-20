@@ -94,3 +94,23 @@ avancees:
     sources:
       - { titre: "villa, demande de fusion 2521", lien: "https://github.com/ScrollPrize/villa/pull/2521" }
       - { titre: "villa, demande de fusion 2525", lien: "https://github.com/ScrollPrize/villa/pull/2525" }
+  - id: A-409
+    branche: installer
+    date: "2026-11-19"
+    titre: "Nouvelle machine : RTX 5080, 16 Go"
+    statut: acquis
+    resume: "Le projet a migré sur un nouveau PC ; Ubuntu, villa et PyTorch y tournent et la carte calcule."
+    fonctionnel: "Deux fois plus de mémoire vidéo qu'avant. Les mesures X-001 à X-014 valent pour l'ancienne machine et sont à refaire avant comparaison. Le segment du tutoriel n'a pas suivi : il faut le retélécharger (A-403)."
+    technique: "Vérifié le 2026-11-20 : RTX 5080 16 303 Mo, pilote 617.42 ; WSL 2, Ubuntu 24.04.5, 16 cœurs, 22 Go ; PyTorch 2.12.1 (CUDA 13.0, sm_120), calcul d'essai réussi. Villa au commit `0bddf27` (2026-11-18)."
+    pistes: [P-410]
+  - id: A-410
+    branche: entrainer
+    date: "2026-11-20"
+    titre: "La ligne de base en 44 minutes"
+    statut: acquis
+    resume: "Le même entraînement que X-002, sur la nouvelle carte : 43 min 45 s au lieu de 1 h 53."
+    fonctionnel: "Un entraînement complet tient désormais dans une heure. C'est le nouveau point de comparaison pour les essais suivants. La qualité du modèle n'est pas mesurée."
+    technique: "Exécution X-015 : 7,70 itérations par seconde au lieu de 2,93, pic de mémoire vidéo de 6 694 Mo sur 16 303, avec la recette de 8 Go gardée telle quelle (blocs de 128, lot de 2)."
+    pistes: [P-420]
+    executions: [X-015]
+    fiches: [K-12, K-15]

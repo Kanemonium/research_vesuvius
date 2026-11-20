@@ -138,6 +138,7 @@ un formulaire de prix, télécharger plus de quelques Go : toujours avec l'accor
 - IHM (Hephaist'OS) : `npm run ihm` → http://127.0.0.1:4173. Serveur Node sans compilation (`ihm/server.mjs`),
   page statique (`ihm/public/`), design système décrit dans `docs/design-system.md`.
 - Le jeton GitHub est dans `.env` (ignoré par git) et ne sort jamais du serveur local.
-- Machine : Windows 11, RTX 3080 Laptop (8 Go de mémoire vidéo), WSL 2 présent. Le code de
-  recherche tournera sous Ubuntu/WSL2 avec `uv`.
+- Machine (depuis le 2026-11-19) : Windows 11, RTX 5080 (16 Go de mémoire vidéo), 16 cœurs,
+  22 Go de mémoire pour WSL 2 (`.wslconfig`). Le code de recherche tourne sous Ubuntu 24.04/WSL2
+  avec `uv`. Les exécutions X-001 à X-014 ont été mesurées sur l'ancienne machine (RTX 3080 Laptop, 8 Go).
 - Architecture et CI : `docs/architecture.md`.
